@@ -19,3 +19,51 @@
 .text-width {
     width: 90%;
 }
+
+
+#view {
+	padding-left: 5% ;
+	padding-right: 5% ;
+	margin-top: 2%;
+}
+
+.viewhead {
+	text-align: center;
+	padding-bottom: 5% ;
+}
+
+.infoText {
+	padding-top: 35%;
+	text-align: center;
+	font-size: 11px;
+	color: #9B9BAB;
+}
+
+.innerCont{
+	padding-left: 8%;
+	padding-right: 8%;
+}
+
+.loginContainer {
+	padding-bottom: 10px;
+	
+}
+
+.bottomCont {
+	padding-top: 30%;
+}
+
+.pageIndicatorCont {
+	text-align: center;
+	padding-top: 5%;
+}
+
+.ion-ios-circle-outline{
+	padding-right: 2%;
+}
+
+.ion-ios-circle-filled{
+	padding-right: 2%;
+}
+
+
