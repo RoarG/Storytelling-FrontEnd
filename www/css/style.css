@@ -1,0 +1,21 @@
+/* Empty. Add your own CSS if you like */
+
+
+.hor-padding {
+	padding-left: 75px;
+	padding-right: 75px;
+}
+
+.hor-padding2 {
+	padding-left: 65px;
+	padding-right: 65px;
+}
+
+.wrapping-list .item-content, .wrapping-list .item {
+    overflow: initial;
+    white-space: initial;
+}
+
+.text-width {
+    width: 90%;
+}
