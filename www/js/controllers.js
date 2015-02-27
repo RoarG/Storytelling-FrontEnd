@@ -65,4 +65,50 @@ angular.module('starter.controllers', [])
 
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
-});
+})
+
+.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ionicPopover, Stories) {
+    $scope.mediaType = "text";
+    $scope.story = Stories.all()[0];
+
+    $scope.showImages = function(index) {
+        $scope.activeSlide = index;
+        $scope.showModal('templates/image-popover.html');
+    };
+
+    $scope.showModal = function(templateUrl) {
+        $ionicModal.fromTemplateUrl(templateUrl, {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.modal = modal;
+            $scope.modal.show();
+        });
+    };
+
+    // Close the modal
+    $scope.closeModal = function() {
+        $scope.modal.hide();
+        $scope.modal.remove()
+    };
+
+    $ionicPopover.fromTemplateUrl('templates/bookmarks-dropdown.html', {
+        scope: $scope
+    }).then(function(popover) {
+        $scope.popover = popover;
+    });
+
+
+})
+
+    .controller('BookmarkCtrl', function($scope) {
+        $scope.collectionList = [
+            {text: "Les senere", checked: false},
+            {text: "Favoritter", checked: false}
+        ];
+
+        $scope.addItem = function() {
+            $scope.collectionList.push({text: $scope.newItemName, checked: true});
+            $scope.newItemName = null;
+        }
+    });

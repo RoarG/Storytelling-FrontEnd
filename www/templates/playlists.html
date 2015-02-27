@@ -1,7 +1,7 @@
 <ion-view view-title="Playlists">
   <ion-content>
     <ion-list class="item-text-wrap" can-swipe="true">
-      <ion-item class="item-remove-animate item-thumbnail-left item-icon-right" ng-repeat="playlist in playlists" on-swipe-left="remove(playlist)" type="item-text-wrap" href="#/app/playlists/{{playlist.id}}">
+      <ion-item class="item-remove-animate item-thumbnail-left item-icon-right" ng-repeat="playlist in playlists" on-swipe-left="remove(playlist)" type="item-text-wrap" href="#/app/story">
         <img ng-src="{{playlist.thumbnail}}">
 		<h2>{{playlist.title}}</h2>
 		<p>{{playlist.description}}</p>

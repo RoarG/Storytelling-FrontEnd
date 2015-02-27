@@ -1,0 +1,50 @@
+<ion-view view-title="Story">
+    <ion-nav-buttons side="right">
+        <button class="button button-icon ion-bookmark" ng-click="popover.show($event)"></button>
+    </ion-nav-buttons>
+    <ion-content>
+        <div id="story-header-container">
+            <img ng-src={{story.imageList[0]}} alt="" id="story-header-image" />
+        </div>
+        <div class="story-wrapper">
+            <h1>{{story.title}}</h1>
+            <span class="published">{{story.published}}</span>
+            <span class="author">{{story.author}}</span>
+            <p>{{story.introduction}}</p>
+        </div>
+        <div class="button-bar">
+            <a class="button" ng-class="{'active': mediaType === 'text'}" ng-click="mediaType = 'text'">Tekst</a>
+            <a class="button" ng-class="{'active': mediaType === 'images'}" ng-click="mediaType = 'images'">Bilder</a>
+            <a class="button" ng-class="{'active': mediaType === 'video'}" ng-click="mediaType = 'video'">Video</a>
+            <a class="button" ng-class="{'active': mediaType === 'audio'}" ng-click="mediaType = 'audio'">Lydklipp</a>
+        </div>
+        <div class="story-wrapper">
+            <div ng-if="mediaType === 'text'">
+                <p>{{story.text}}</p>
+            </div>
+            <div ng-if="mediaType === 'images'">
+                <div class="story-image-container" ng-repeat="image in story.imageList">
+                    <img ng-src={{image}} ng-click="showImages($index)" alt="" class="image-list-thumb"/>
+                </div>
+            </div>
+            <div ng-if="mediaType === 'video'">
+                <iframe frameborder="0" allowfullscreen="" src="http://player.vimeo.com/video/95671493">
+                </iframe>
+                {{story.videoList}}
+            </div>
+            <div  ng-if="mediaType === 'audio'">
+                <audio controls preload="auto">
+                    <source src="https://mm.dimu.org/multimedia/012Fxbrw.mp3?mmid=012Fxbrw&a=none" />
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+
+            <div class="clear-float"></div>
+
+            <p>Likte du denne historien?</p>
+
+            <h2>Eksterne ressurser</h2>
+            <p><a href="{{story.url}}">Les historien på Digitalt Fortalt</a></p>
+        </div>
+    </ion-content>
+</ion-view>

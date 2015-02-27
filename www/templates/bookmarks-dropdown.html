@@ -1,0 +1,16 @@
+<ion-popover-view ng-controller="BookmarkCtrl">
+    <div class="list">
+        <ion-checkbox ng-repeat="item in collectionList"
+                      ng-model="item.checked"
+                      ng-checked="item.checked">
+            {{ item.text }}
+        </ion-checkbox>
+        <form class="item" ng-submit="addItem()">
+            <label class="item item-input item-floating-label">
+                <i class="icon ion-plus placeholder-icon"></i>
+                <input type="text" ng-model="newItemName" placeholder="Legg til ny liste">
+            </label>
+            <button class="button button-block button-calm" type="submit">Legg til</button>
+        </form>
+    </div>
+</ion-popover-view>
