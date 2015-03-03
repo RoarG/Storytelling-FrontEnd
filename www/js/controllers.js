@@ -111,6 +111,17 @@ angular.module('starter.controllers', [])
 
 })
 
+.controller("RatingCtrl", function($scope) {
+        $scope.rating = 0;
+        $scope.rateFunction = function(rating) {
+            $scope.rating = rating;
+            console.log("Rated story: " + rating);
+        };
+        $scope.notInterested = function() {
+            console.log("Not interested");
+        }
+      })
+
     .controller('BookmarkCtrl', function($scope) {
         $scope.collectionList = [
             {text: "Les senere", checked: false},

@@ -116,15 +116,22 @@ p {
 }
 
 .story-wrapper h1 {
-    margin-bottom: 0.5%;
+    margin-bottom: 0;
+    float: left;
+    font-size: 1.6em;
+}
+
+.story-wrapper .story-categories {
+    float: right;
+    font-size: 2em;
 }
 
 .author, .published {
     color: #777;
-    font-size: 0.9em;
+    font-size: 0.8em;
 }
 .published {
-    margin-right: 4%;
+    margin-right: 2%;
 }
 
 .story-image-container {
@@ -140,6 +147,8 @@ p {
 
 iframe {
     width: 100%;
+    width: 47%;
+    margin-right: 2%;
 }
 
 
@@ -177,4 +186,24 @@ iframe {
 .slider {
     width: 100%;
     height: 100%;
+}
+
+/* 
+    Star rating 
+*/
+.rating {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+.rating .star {
+    color: #a9a9a9;
+    font-size: 2.5em;
+    padding: 0.1%;
+}
+.rating .filled {
+    color: #fd0;
+}
+.rating button {
+    margin: 0 auto;
 }
