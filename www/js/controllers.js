@@ -33,8 +33,9 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
+.controller('ListViewCtrl', function($scope) {
+  //some test data for the listview
+  $scope.storyPreviews = [
     { id: 1,
     title: 'Nidarosdomen',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
@@ -66,10 +67,10 @@ angular.module('starter.controllers', [])
 	categories:['http://icons.iconseeker.com/png/16/function/circle-green.png', 'http://booki.flossmanuals.net/learning-with-etoys-ge/geoboards-and-puzzling-polygons/static/Polygon%20vertex%20atCursor.png', 'http://www.imaginemediastudio.com/images/circle_red.png']
 	},
   ];
-  
-  $scope.remove = function(playlist) {
-	var index = $scope.playlists.indexOf(playlist)
-	$scope.playlists.splice(index, 1);
+  //remove a story from the listview
+  $scope.remove = function(story) {
+	var index = $scope.storyPreviews.indexOf(story)
+	$scope.storyPreviews.splice(index, 1);
   }
 })
 
