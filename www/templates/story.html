@@ -1,29 +1,29 @@
-<ion-view view-title="Story">
-    <ion-nav-buttons side="right">
-        <button class="button button-icon ion-bookmark" ng-click="popover.show($event)"></button>
+<ion-view view-title="Story" ng-controller="StoryCtrl">
+    <ion-nav-buttons side="right"> 
+        <button class="button button-icon ion-android-bookmark" ng-click="popover.show($event)"></button>
     </ion-nav-buttons>
     <ion-content>
         <div id="story-header-container">
             <img ng-src={{story.imageList[0]}} alt="" id="story-header-image" />
         </div>
         <div class="story-wrapper">
-            <h1>{{story.title}}</h1>
+            <h2>{{story.title}}</h2>
             <div class="story-categories">
-                <i class="icon ion-leaf"></i>
-                <i class="icon ion-leaf"></i>
+                <div ng-repeat="category in story.categoryList" class="category-circle">
+                    <i class="icon ion-leaf"></i>
+                </div>
             </div>
             <div class="clear-float"></div>
             <span class="published">{{story.published}}</span>
             <span class="author">{{story.author}}</span>
-            <p>{{story.introduction}}</p>
         </div>
         <div class="button-bar">
-            <a class="button" ng-class="{'active': mediaType === 'text'}" ng-click="mediaType = 'text'">Tekst</a>
-            <a class="button" ng-class="{'active': mediaType === 'images'}" ng-click="mediaType = 'images'">Bilder</a>
-            <a class="button" ng-class="{'active': mediaType === 'video'}" ng-click="mediaType = 'video'">Video</a>
-            <a class="button" ng-class="{'active': mediaType === 'audio'}" ng-click="mediaType = 'audio'">Lydklipp</a>
+            <a class="button button-light" ng-class="{'active': mediaType === 'text'}" ng-click="mediaType = 'text'">Tekst</a>
+            <a class="button button-light" ng-class="{'active': mediaType === 'images'}" ng-click="mediaType = 'images'">Bilder</a>
+            <a class="button button-light" ng-class="{'active': mediaType === 'video'}" ng-click="mediaType = 'video'">Video</a>
+            <a class="button button-light" ng-class="{'active': mediaType === 'audio'}" ng-click="mediaType = 'audio'">Lydklipp</a>
         </div>
-        <div class="story-wrapper">
+            <div class="story-wrapper">
             <div ng-if="mediaType === 'text'">
                 <p>{{story.text}}</p>
             </div>
@@ -37,22 +37,23 @@
                 </iframe>
             </div>
             <div  ng-if="mediaType === 'audio'">
+                <p>Navn på audiofil</p>
                 <audio ng-repeat="audioUrl in story.audioList" controls preload="auto">
                     <source ng-src="{{audioUrl}}" />
                     Your browser does not support the audio element.
                 </audio>
             </div>
+        </div>
 
-            <div class="clear-float"></div>
-
+            <div class="story-footer clear-float">
             <div class="rating" ng-controller="RatingCtrl">
                 <p>Likte du denne historien?</p>
                 <i class="icon ion-android-star star" ng-class="{filled: i <= rating}" ng-repeat="i in [1,2,3,4,5]" ng-click="rateFunction(i)"></i>
-                <button class="button button-block" ng-click="notInterested()">Not interested</button>
+                <button class="button button-block button-light" ng-click="notInterested()">Ikke interessert</button>
             </div>
-            <h2>Eksterne ressurser</h2>
-            <h2>Emneord</h2>
-            <h2>Nøkkelord</h2>
+            <h3>Eksterne ressurser</h3>
+            <h3>Emneord</h3>
+            <h3>Nøkkelord</h3>
             <p><a href="{{story.url}}">Les historien på Digitalt Fortalt</a></p>
         </div>
     </ion-content>

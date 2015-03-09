@@ -78,9 +78,12 @@ angular.module('starter.controllers', [])
 })
 
 .controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ionicPopover, Stories) {
-    $scope.mediaType = "text";
+    $scope.mediaType = "text"; //Type of media currently displayed
+
+    // Get story data. 
     $scope.story = Stories.all()[0];
 
+    // Display selected image in modal. 
     $scope.showImages = function(index) {
         $scope.activeSlide = index;
         $scope.showModal('templates/image-popover.html');
@@ -99,37 +102,62 @@ angular.module('starter.controllers', [])
     // Close the modal
     $scope.closeModal = function() {
         $scope.modal.hide();
-        $scope.modal.remove()
+        $scope.modal.remove();
     };
 
+    // Set up bookmark dropdown
     $ionicPopover.fromTemplateUrl('templates/bookmarks-dropdown.html', {
         scope: $scope
     }).then(function(popover) {
         $scope.popover = popover;
     });
 
+    // Clean up bookmark popover. 
+    $scope.$on('$destroy', function() {
+        $scope.popover.remove();
+    });
+
+    
+
 
 })
 
 .controller("RatingCtrl", function($scope) {
         $scope.rating = 0;
+        // Rate story
         $scope.rateFunction = function(rating) {
             $scope.rating = rating;
             console.log("Rated story: " + rating);
         };
         $scope.notInterested = function() {
             console.log("Not interested");
-        }
+            $scope.rating=0;
+        };
       })
 
-    .controller('BookmarkCtrl', function($scope) {
+    .controller('BookmarkCtrl', function($scope, $rootScope) {
+
+        // The collections a user has, and whether this story is in it.
         $scope.collectionList = [
             {text: "Les senere", checked: false},
             {text: "Favoritter", checked: false}
         ];
 
+        // Display text field to enter name of new collection
+        $scope.newItem = function() {
+          $scope.displayTextField = true;
+        };
+
+        // Add text entered as a new collection and add the story to it. 
         $scope.addItem = function() {
             $scope.collectionList.push({text: $scope.newItemName, checked: true});
             $scope.newItemName = null;
-        }
+            $scope.displayTextField = false;
+        };
+
+        // Hides text field when popover is hidden. 
+        $scope.$on('popover.hidden', function() {
+            $scope.displayTextField = false;
+       });
+
     });
