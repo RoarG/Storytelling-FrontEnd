@@ -34,8 +34,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       url: "/story",
       views: {
           'menuContent': {
-              templateUrl: "templates/story.html",
-              controller: 'StoryCtrl'
+              templateUrl: "templates/story.html"
           }
       }
   })

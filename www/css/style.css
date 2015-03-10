@@ -6,6 +6,10 @@ h2 {
     font-size: 1.4em;
 }
 
+h3 {
+    font-size: 1.2em;
+}
+
 p {
     margin: 3% 0;
 }
@@ -108,6 +112,10 @@ p {
     padding-left: 40px;
 }
 
+ion-popover-view .list .button {
+    margin-top: 0;
+}
+
 
 #story-header-image {
     width: 100%;
@@ -120,19 +128,42 @@ p {
     height: 180px;
 }
 
-.story-wrapper {
-    margin: 4%;
-}
-
-.story-wrapper h1 {
+.story-wrapper h2 {
     margin-bottom: 0;
     float: left;
-    font-size: 1.6em;
 }
 
-.story-wrapper .story-categories {
+.story-wrapper {
+    margin: 2% 5%;
+}
+
+.button-bar > .button {
+    min-height: 25px;
+    line-height: 2.2em;
+    font-size: 1em;
+    border-color: #1495A7;
+    color: #1495A7;
+}
+
+.button-bar > .button.active {
+    background-color: #1495A7;
+    color: #FFF;
+}
+
+.story-categories {
+    position: absolute;
+    right: 5%;
+    top: 180px;
+    width: 25%;
+}
+.category-circle {
+    font-size: 1.5em;
+    background-color: #DDD;
+    margin-left: 3%;
+    margin-top: 4%;
+    padding: 5px;
+    border-radius: 50%;
     float: right;
-    font-size: 2em;
 }
 
 .author, .published {
@@ -146,8 +177,10 @@ p {
 .story-image-container {
 
     width: 33%;
+    height: 85px;
     float: left;
     overflow: hidden;
+    margin-bottom: 5%;
 }
 
 .clear-float {
@@ -155,9 +188,22 @@ p {
 }
 
 iframe {
-    width: 100%;
     width: 47%;
     margin-right: 2%;
+}
+
+.story-footer {
+    padding: 2% 4%;
+    background-color: #1495A7;
+    color: white;
+}
+
+.story-footer h3 {
+    color: white;
+}
+
+.story-footer a {
+    color: #0CF;
 }
 
 
@@ -165,8 +211,9 @@ iframe {
    Image slider from http://devdactic.com/images-videos-fullscreen-ionic/
 */
 .image-list-thumb {
-    padding: 2px 2px 2px 2px;
+    padding: 2px;
     width: 100%;
+    height: auto;
 }
 
 .image-modal {
@@ -202,17 +249,21 @@ iframe {
 */
 .rating {
     width: 50%;
-    margin: 0 auto;
+    margin: 5% auto;
     text-align: center;
 }
 .rating .star {
-    color: #a9a9a9;
+    color: #FFF;
     font-size: 2.5em;
-    padding: 0.1%;
+    padding: 0.5%;
 }
 .rating .filled {
     color: #fd0;
 }
 .rating button {
     margin: 0 auto;
+    width: 150px;
+    min-height: 20px;
+    line-height: 1.8em;
+    font-size: 1em;
 }

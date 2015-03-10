@@ -5,10 +5,11 @@
                       ng-checked="item.checked">
             {{ item.text }}
         </ion-checkbox>
-        <form class="item" ng-submit="addItem()">
+        <div class="item button button-block button-calm" ng-click="newItem()" ng-hide="displayTextField">Ny historieliste</div>
+        <form class="item" ng-submit="addItem()" ng-show="displayTextField">
             <label class="item item-input item-floating-label">
                 <i class="icon ion-plus placeholder-icon"></i>
-                <input type="text" ng-model="newItemName" placeholder="Legg til ny liste">
+                <input type="text" ng-model="newItemName" placeholder="Listenavn"> 
             </label>
             <button class="button button-block button-calm" type="submit">Legg til</button>
         </form>
