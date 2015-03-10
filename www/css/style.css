@@ -37,6 +37,14 @@ p {
 	padding-right: 75px;
 }
 
+/*
+	Settings view
+*/
+
+.settings-right-adjust {
+	float: right;
+}
+
 
 
 #view {
