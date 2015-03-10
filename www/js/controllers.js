@@ -31,6 +31,31 @@ angular.module('starter.controllers', [])
       $scope.closeLogin();
     }, 1000);
   };
+
+  // Preferences
+  $scope.catIcons = ["ion-star", "ion-bookmark","ion-star", "ion-bookmark","ion-star", "ion-bookmark","ion-star", "ion-bookmark", "ion-star"];
+  $scope.chosenPreferences = [false, false, false, false, false, false, false, false, false];
+  $scope.preferences = function() {
+    $ionicModal.fromTemplateUrl('templates/preferences.html', {
+      scope: $scope
+    }).then(function(modal) {
+      $scope.modal = modal;
+      modal.show();
+    });
+    //$scope.modal.show();
+  }
+    $scope.submitPreferences = function() {
+      console.log("Submit preferences: ");
+      for (var i in $scope.chosenPreferences) {
+        console.log(i + ": " + $scope.chosenPreferences[i]);
+      }
+      $scope.modal.hide();
+      $ionicModal.fromTemplateUrl('templates/login.html', {
+        scope: $scope
+      }).then(function(modal) {
+        $scope.modal = modal;
+      });
+    };
 })
 
 .controller('PlaylistsCtrl', function($scope) {

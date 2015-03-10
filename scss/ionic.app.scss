@@ -24,6 +24,21 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 $font-stack:    "Helvetica Neue", sans-serif;
 $primary-color: #1495A7;
 
+
+/*
+	Media queries
+ */
+$mq-small:   20em;
+$mq-medium:  30em;
+$mq-large:   40em;
+
+@mixin mq($size) {
+  @if      $size == small  { @media only screen and (min-width: $mq-small) { @content; } }
+  @else if $size == medium { @media only screen and (min-width: $mq-medium) { @content; } }
+  @else if $size == large  { @media only screen and (min-width: $mq-large) { @content; } }
+}
+
+
 body {
   font: 100% $font-stack;
 }
@@ -142,11 +157,19 @@ ion-popover-view .list .button {
     width: 100%;
     margin-top: -20%;
 
+    @include mq(medium) {
+    margin-top: -25%;
+    }
+
 }
 
 #story-header-container {
     overflow: hidden;
     height: 180px;
+
+	@include mq(medium) {
+		height: 220px;
+	}
 }
 
 .story-wrapper h2 {
@@ -180,11 +203,13 @@ ion-popover-view .list .button {
 .category-circle {
     font-size: 1.5em;
     background-color: #DDD;
-    margin-left: 3%;
-    margin-top: 5%;
     padding: 2px 7px;
     border-radius: 50%;
-    float: right;
+}
+.story-categories .category-circle {
+	float: right;
+	margin-top: 5%;
+	margin-left: 3%;
 }
 
 .author, .published {
@@ -288,3 +313,43 @@ iframe {
     line-height: 1.8em;
     font-size: 1em;
 }
+
+
+/*
+	Preferences
+ */
+.preferences h2, .preferences p {
+	text-align: center;
+}
+
+.preferences .category {
+	float: left;
+	text-align: center;
+	margin: 4%;
+    width: 25%;
+    height: 0;
+    padding-bottom: 24%;
+    position: relative;
+}
+
+.preferences .category-circle {
+	font-size: 3em;
+	width: 80%;
+	height: 0;
+	padding-bottom: 80%;
+}
+
+/* Center text horizontally and vertically in circle */
+.preferences .category-circle i {
+	margin: 0;
+   position: absolute;
+   top: 50%;
+   left: 50%;   
+   margin-right: 50%;  
+   -webkit-transform: translate(-50%, -50%);              
+   transform: translate(-50%, -50%);
+}
+
+
+
+
