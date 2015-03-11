@@ -110,12 +110,7 @@ angular.module('backend.services', ['ngSanitize'])
 		* story doesn't have pictures*/
 		getMultipleStories: function(idArray) {
 			req.data = { type: "getStories" };
-			return $http(req).success(function(data){
-				console.log(data);
-
-			}).error(function(data, headers){
-				console.log(data, headers);
-			});
+			return $http(req);
 		},
 
 		/** Adds user rating to a story */
