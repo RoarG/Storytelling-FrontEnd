@@ -60,16 +60,77 @@ p {
 }
 
 /*
-	List view
+    Login view
+*/
+
+
+
+#view {
+    padding-left: 5% ;
+    padding-right: 5% ;
+    margin-top: 2%;
+}
+
+.viewhead {
+    text-align: center;
+    padding-bottom: 5% ;
+}
+
+.infoText {
+    padding-top: 35%;
+    text-align: center;
+    font-size: 11px;
+    color: #9B9BAB;
+}
+
+.innerContLogin{
+    padding-left: 8%;
+    padding-right: 8%;
+}
+
+.loginContainer {
+    padding-bottom: 2%;
+    padding-right: 4%;
+    padding-left: 4%;
+    
+}
+
+.bottomContLogin {
+    padding-top: 10%;
+}
+
+.skipContLogin {
+    text-align: center;
+}
+
+#skipLogin {
+    text-align: center;
+}
+
+.pageIndicatorContLogin {
+    text-align: center;
+    padding-top: 5%;
+}
+
+.ion-ios-circle-outline{
+    padding-right: 2%;
+}
+
+.ion-ios-circle-filled{
+    padding-right: 2%;
+}
+
+/*
+    List view
 */
 
 .hor-padding {
-	padding-left: 75px;
-	padding-right: 75px;
+    padding-left: 75px;
+    padding-right: 75px;
 }
 
 .top-padding {
-	padding-top: 3%;
+    padding-top: 3%;
 }
 
 .wrapping-list .item-content, .wrapping-list .item {
@@ -78,59 +139,16 @@ p {
 }
 
 .full-size {
-	height: 100%;
-	width: 100%;
+    height: 100%;
+    width: 100%;
 }
 
 .cat-display {
-	display:inline;
-	list-style-type:none;
+    display:inline;
+    list-style-type:none;
 }
 
-#view {
-	padding-left: 5% ;
-	padding-right: 5% ;
-	margin-top: 2%;
-}
 
-.viewhead {
-	text-align: center;
-	padding-bottom: 5% ;
-}
-
-.infoText {
-	padding-top: 35%;
-	text-align: center;
-	font-size: 11px;
-	color: #9B9BAB;
-}
-
-.innerCont{
-	padding-left: 8%;
-	padding-right: 8%;
-}
-
-.loginContainer {
-	padding-bottom: 10px;
-	
-}
-
-.bottomCont {
-	padding-top: 30%;
-}
-
-.pageIndicatorCont {
-	text-align: center;
-	padding-top: 5%;
-}
-
-.ion-ios-circle-outline{
-	padding-right: 2%;
-}
-
-.ion-ios-circle-filled{
-	padding-right: 2%;
-}
 
 
 /*
