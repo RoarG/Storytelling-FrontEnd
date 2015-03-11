@@ -7034,7 +7034,53 @@ p {
   margin: 3% 0; }
 
 /*
-	List view
+    Login view
+*/
+#view {
+  padding-left: 5%;
+  padding-right: 5%;
+  margin-top: 2%; }
+
+.viewhead {
+  text-align: center;
+  padding-bottom: 5%; }
+
+.infoText {
+  padding-top: 35%;
+  text-align: center;
+  font-size: 11px;
+  color: #9B9BAB; }
+
+.innerContLogin {
+  padding-left: 8%;
+  padding-right: 8%; }
+
+.loginContainer {
+  padding-bottom: 2%;
+  padding-right: 4%;
+  padding-left: 4%; }
+
+.bottomContLogin {
+  padding-top: 10%; }
+
+.skipContLogin {
+  text-align: center; }
+
+#skipLogin {
+  text-align: center; }
+
+.pageIndicatorContLogin {
+  text-align: center;
+  padding-top: 5%; }
+
+.ion-ios-circle-outline {
+  padding-right: 2%; }
+
+.ion-ios-circle-filled {
+  padding-right: 2%; }
+
+/*
+    List view
 */
 .list-top-padding {
   padding-top: 3%; }
@@ -7061,41 +7107,6 @@ p {
 */
 .settings-right-adjust {
   float: right; }
-
-#view {
-  padding-left: 5%;
-  padding-right: 5%;
-  margin-top: 2%; }
-
-.viewhead {
-  text-align: center;
-  padding-bottom: 5%; }
-
-.infoText {
-  padding-top: 35%;
-  text-align: center;
-  font-size: 11px;
-  color: #9B9BAB; }
-
-.innerCont {
-  padding-left: 8%;
-  padding-right: 8%; }
-
-.loginContainer {
-  padding-bottom: 10px; }
-
-.bottomCont {
-  padding-top: 30%; }
-
-.pageIndicatorCont {
-  text-align: center;
-  padding-top: 5%; }
-
-.ion-ios-circle-outline {
-  padding-right: 2%; }
-
-.ion-ios-circle-filled {
-  padding-right: 2%; }
 
 /*
     Story view
