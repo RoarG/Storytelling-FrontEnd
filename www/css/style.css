@@ -15,41 +15,13 @@ p {
 }
 
 /*
-	List view
+    Login view
+
 */
 
-.list-top-padding {
-	padding-top: 3%;
+#skipLogin {
+    text-align: center;
 }
-
-.list-full-size {
-	height: 100%;
-	width: 100%;
-}
-
-.list-cat-display {
-	display:inline;
-	list-style-type:none;
-}
-
-.list-text-width {  /*only necessary if thumbnail is to the right of the text*/
-	width: 90%;
-}
-
-.list-hor-padding { /* unused */
-	padding-left: 75px;
-	padding-right: 75px;
-}
-
-/*
-	Settings view
-*/
-
-.settings-right-adjust {
-	float: right;
-}
-
-
 
 #view {
 	padding-left: 5% ;
@@ -69,17 +41,19 @@ p {
 	color: #9B9BAB;
 }
 
-.innerCont{
+.innerContLogin{
 	padding-left: 8%;
 	padding-right: 8%;
 }
 
 .loginContainer {
-	padding-bottom: 10px;
+	padding-bottom: 2%;
+    padding-right: 4%;
+    padding-left: 4%;
 	
 }
 
-.bottomCont {
+.bottomContLogin {
 	padding-top: 30%;
 }
 
@@ -95,6 +69,44 @@ p {
 .ion-ios-circle-filled{
 	padding-right: 2%;
 }
+
+/*
+    List view
+*/
+
+.list-top-padding {
+    padding-top: 3%;
+}
+
+.list-full-size {
+    height: 100%;
+    width: 100%;
+}
+
+.list-cat-display {
+    display:inline;
+    list-style-type:none;
+}
+
+.list-text-width {  /*only necessary if thumbnail is to the right of the text*/
+    width: 90%;
+}
+
+.list-hor-padding { /* unused */
+    padding-left: 75px;
+    padding-right: 75px;
+}
+
+/*
+    Settings view
+*/
+
+.settings-right-adjust {
+    float: right;
+}
+
+
+
 
 
 /*

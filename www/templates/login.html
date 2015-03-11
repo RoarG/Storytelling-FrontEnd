@@ -14,11 +14,11 @@
         </label> -->
         <div class="list list-inset" id="view">
 
-          <h2 class="viewhead">Bruker</h2>
+          <h1 class="viewhead">Innlogging</h1>
 
           <div class="loginContainer">
               <div class="infoText">Logg inn med eksisterende eller ny e-post addresse</div>
-              <div class="innerCont">
+              <div class="innerContLogin">
                 <label class="item item-input">
                   <input type="text" placeholder="E-Post">
                 </label>
@@ -30,24 +30,25 @@
                 <button class="button button-block button-calm" type="submit">Logg inn</button>
               </div>
           </div>
+    </form>
 
-          <div class="bottoCont">
+<!--     <form ng-submit="closeLogin()"> -->
+          <div class="bottoContLogin">
             <div class="skipContainer">
-              <div class="infoText">Ved å hoppe over innlogingen vil personlifisering KUN virke på denne enheten</div>
-               <div class="innerCont">
-                <button class="button button-block button-light" type="submit">Hopp over</button>
+              <div class="infoText">Ved å hoppe over innlogingen vil preferansene dine KUN være koblet til denne enheten</div>
+               <div class="innerContLogin">
+                <a href="" ng-click="closeLogin()" id="skipLogin">Hopp over dette steget</a>
               </div>
             </div>
       
         <!-- Place the step x of y circle here -->
-              <div class="pageIndicatorCont">
+              <div class="pageIndicatorContLogin">
                 <i class="ion-ios-circle-filled"></i>
-                <i class="ion-ios-circle-outline"></i>
                 <i class="ion-ios-circle-outline"></i>
                 <i class="ion-ios-circle-outline"></i>
               </div>
           </div>
-        </div>
-    </form>
+    <!-- </form> -->
+        <!-- </div> -->
   </ion-content>
 </ion-modal-view>

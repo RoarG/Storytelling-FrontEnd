@@ -14,7 +14,10 @@ angular.module('starter.controllers', [])
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
     $scope.modal.hide();
+    console.log("Closing" + $scope.logingData);
   };
+
+
 
   // Open the login modal
   $scope.login = function() {
