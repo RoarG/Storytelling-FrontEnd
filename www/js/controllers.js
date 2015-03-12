@@ -35,6 +35,12 @@ angular.module('starter.controllers', [])
     }, 1000);
   };
 
+  //Profile
+
+  $scope.next = function() {
+    $state.go("app.preferences")
+  };
+
   // Preferences
   function Category(name, icon, isSelected) {
     this.name = name;
