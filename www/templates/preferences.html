@@ -1,10 +1,12 @@
-<ion-modal-view>
-	<ion-header-bar>
-	</ion-header-bar>
-	<ion-content class="preferences">
+<ion-view view-title="Preferences">
+	<ion-content hide-nav-bar="true">
+	<div class="list list-inset" id="view">
+	<!-- <ion-content class="preferences"> -->
+		
 		<div class="content-wrapper">
-		<h2>Hva er du interessert i?</h2>
-		<p>Velg de kategoriene du ønsker å lese historier fra</p>
+			<h1 class="viewhead">Kategorier</h1>
+			
+			<p class="infoText">Velg de kategoriene du ønsker å lese historier fra</p>
 
 			<div  class="categories">
 				<div class="category" ng-repeat="i in [0,1,2,3,4,5,6,7,8]">
@@ -13,11 +15,21 @@
 			</div>
 			<div class="clear-float"></div>
 			</div>
-		
-		<div class="row">
-			<div class="col button button-calm">Tilbake</div>
-			<div class="col button button-calm" ng-click="submitPreferences()">Neste</div>
+		</div>
+
+		<div class="navIndicator">
+		   	<div class="button-cont">
+          		<button class="button button-light" id="nav-button1" ng-click="goProfile()">Forrige</button>
+	            <button class="button button-calm" id="nav-button2" ng-click="submitPreferences()">Neste</button>
+       		</div>
+         
+
+         	<div class="pageIndicatorContLogin">
+                <i class="ion-ios-circle-filled"></i>
+                <i class="ion-ios-circle-filled"></i>
+                <i class="ion-ios-circle-filled"></i>
+            </div>
 		</div>
 	</div>
-	</ion-content>
-</ion-modal view>
+
+</ion-view>

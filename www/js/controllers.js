@@ -35,11 +35,25 @@ angular.module('starter.controllers', [])
     }, 1000);
   };
 
-  //Profile
+  //Next and previous view - input is view to navigate to
 
-  $scope.next = function() {
+  $scope.goLogin = function() {
+    $state.go("app.login")
+    console.log("vi " + vi)
+  };
+
+  $scope.goPref = function() {
     $state.go("app.preferences")
   };
+
+  $scope.goProfile = function() {
+      $state.go("app.profile")
+  };
+
+
+
+  //Profile
+
 
   // Preferences
   function Category(name, icon, isSelected) {

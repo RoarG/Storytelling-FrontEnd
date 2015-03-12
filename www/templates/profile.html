@@ -1,13 +1,13 @@
 <ion-view view-title="Profile">
   <ion-content hide-nav-bar="true">
-    <form ng-submit="next()">
+
       
         
         <div class="list list-inset" id="view">
 
           <h1 class="viewhead">Profil</h1>
 
-          <div class="loginContainer">
+          <div class="topContProfile">
               <div class="infoText">Velg aldersgruppe og kjønn for at vi skal kunne gi deg bedre anbefallinger</div>
               
               <h2 id="profile-h2">Alder</h2>
@@ -22,28 +22,21 @@
       
           </div>
 
-            <div class="loginContainer">
-             
+            <div class="bottomContProfile">
               
               <h2 id="profile-h2">Kjønn</h2>
               <div class="button-bar">              <!-- Uses the sam setup as in story.html ref. copy here -->
                 <a class="button button-light" ng-class="{'active': sex === 1}" ng-click="sex = 1">Mann</a>
                 <a class="button button-light" ng-class="{'active': sex === 2}" ng-click="sex = 2">Kvinne</a>
-                   
               </div>
 
-
-          <div class="bottoContLogin">
-            <div class="button-cont">
-             
-
-               <button class="button button-light" id="nav-button1" type="submit">Forrige</button>
-
-               <button class="button button-calm" id="nav-button2" type="submit">Neste</button>
-             
-               
             </div>
-          </div>
+
+          <div class="navIndicator">
+            <div class="button-cont">
+               <button class="button button-light" id="nav-button1" ng-click="goLogin()">Forrige</button>
+               <button class="button button-calm" id="nav-button2" ng-click="goPref()">Neste</button>
+            </div>
       
         <!-- Place the step x of y circle here -->
               <div class="pageIndicatorContLogin">
@@ -51,8 +44,8 @@
                 <i class="ion-ios-circle-filled"></i>
                 <i class="ion-ios-circle-outline"></i>
               </div>
-          </div>
-    </form>
+              
+          </div>  
 
 
   </ion-content>

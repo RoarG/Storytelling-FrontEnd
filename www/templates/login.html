@@ -2,7 +2,7 @@
 
  
   <ion-content hide-nav-bar="true">
-    <form ng-submit="doLogin()">
+ 
       
         <!-- <label class="item item-input">
           <span class="input-label">E-Post</span>
@@ -27,12 +27,11 @@
                 <!-- <label class="item"> -->
 <!-- href="#/app/profile" -->
 
-                <button class="button button-block button-calm" type="submit">Logg inn</button>
+                <button class="button button-block button-calm" ng-click="doLogin()">Logg inn</button>
               </div>
           </div>
-    </form>
-
-<!--     <form ng-submit="closeLogin()"> -->
+    
+    
           <div class="bottomContLogin">
             <div class="skipContLogin">
               <div class="infoText">Ved å hoppe over innlogingen vil preferansene dine KUN være koblet til denne enheten</div>
@@ -48,7 +47,6 @@
                 <i class="ion-ios-circle-outline"></i>
               </div>
           </div>
-    <!-- </form> -->
-        <!-- </div> -->
+  
   </ion-content>
 </ion-view>

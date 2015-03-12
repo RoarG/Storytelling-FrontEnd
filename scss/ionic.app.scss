@@ -43,7 +43,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 .infoText {
-    padding-top: 35%;
+    padding-top: 5%;
     text-align: center;
     font-size: 11px;
     color: #9B9BAB;
@@ -58,11 +58,11 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     padding-bottom: 2%;
     padding-right: 4%;
     padding-left: 4%;
-    
+    padding-top: 35%;
 }
 
 .bottomContLogin {
-    padding-top: 20%;
+    padding-top: 36%;
 }
 
 .skipContLogin {
@@ -75,7 +75,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 .pageIndicatorContLogin {
     text-align: center;
-    padding-top: 10%;
+    padding-top: 15%;
 }
 
 .ion-ios-circle-outline{
@@ -91,7 +91,19 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 */
 
 .button-cont {
-    margin-top: 25%;
+    margin-top: 0%;
+}
+
+.topContProfile {
+    padding-bottom: 2%;
+    padding-right: 4%;
+    padding-left: 4%;
+    padding-top: 10%;
+}
+
+.bottomContProfile {
+    padding-top: 15%;
+    padding-bottom: 19%;
 }
 
 #profile-h2 {
@@ -107,6 +119,10 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     width: 8em;
     margin-left: 2%;
     float: right;
+}
+
+.navIndicator {
+    padding-top: 15%;
 }
 
 /*
@@ -332,15 +348,12 @@ iframe {
 /*
 	Preferences
  */
-.preferences h2, .preferences p {
-	text-align: center;
-}
 
-.preferences .categories {
+.categories {
 	margin: 10% 0;
 }
 
-.preferences .category {
+.category {
 	float: left;
 	text-align: center;
 	margin: 4%;
@@ -350,19 +363,19 @@ iframe {
     position: relative;
 }
 
-.preferences .category-circle {
+.category-circle {
 	font-size: 3em;
 	width: 80%;
 	height: 0;
 	padding-bottom: 80%;
 }
 
-.preferences .categories .button {
+.categories .button {
 	border: none;
 }
 
 /* Center text horizontally and vertically in circle */
-.preferences .category-circle i {
+.category-circle i {
 	margin: 0;
    position: absolute;
    top: 50%;
