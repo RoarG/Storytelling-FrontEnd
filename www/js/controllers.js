@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $state, $ionicModal, $timeout) {
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -18,15 +18,15 @@ angular.module('starter.controllers', [])
   };
 
 
-
   // Open the login modal
   $scope.login = function() {
     $scope.modal.show();
   };
 
-  // Perform the login action when the user submits the login form
+  // Perform the login action when the user submits the login form and sets the next view
   $scope.doLogin = function() {
     console.log('Doing login', $scope.loginData);
+    $state.go("app.profile")
 
     // Simulate a login delay. Remove this and replace with your login
     // code if using a login system

@@ -1,8 +1,5 @@
-<ion-modal-view>
-  <ion-header-bar>
-  
-  </ion-header-bar>
-  <ion-content>
+<ion-view view-title="Profile">
+  <ion-content hide-nav-bar="true">
     <form ng-submit="doLogin()">
       
         
@@ -13,13 +10,14 @@
           <div class="loginContainer">
               <div class="infoText">Velg aldersgruppe og kjønn for at vi skal kunne gi deg bedre anbefallinger</div>
               
-              <h2>Alder</h2>
-              <div class="button-bar"></div>
+              <h2 id="profile-h2">Alder</h2>
+              <div class="button-bar">
               <!-- Uses the sam setup as in story.html ref. copy here -->
                 <a class="button button-light" ng-class="{'active': ageGrp === 1}" ng-click="ageGrp = 1">Under 20</a>
                 <a class="button button-light" ng-class="{'active': ageGrp === 2}" ng-click="ageGrp = 2">21 - 45</a>
                 <a class="button button-light" ng-class="{'active': ageGrp === 3}" ng-click="ageGrp = 3">46 - 65</a>
                 <a class="button button-light" ng-class="{'active': ageGrp === 4}" ng-click="ageGrp = 4">Over 66</a>
+              </div>
 
       
           </div>
@@ -27,26 +25,25 @@
             <div class="loginContainer">
              
               
-              <h2>Kjønn</h2>
-              <div class="button-bar"></div>
-              <!-- Uses the sam setup as in story.html ref. copy here -->
-                <a class="button button-light" ng-class="{'active': sex === 1}" ng-click="sex = 1">Under 20</a>
-                <a class="button button-light" ng-class="{'active': sex === 2}" ng-click="sex = 2">21 - 45</a>
+              <h2 id="profile-h2">Kjønn</h2>
+              <div class="button-bar">              <!-- Uses the sam setup as in story.html ref. copy here -->
+                <a class="button button-light" ng-class="{'active': sex === 1}" ng-click="sex = 1">Mann</a>
+                <a class="button button-light" ng-class="{'active': sex === 2}" ng-click="sex = 2">Kvinne</a>
                    
-            </div>
+              </div>
 
 
           <div class="bottoContLogin">
-            <div class="skipContainer">
+            <div class="button-cont">
              
 
-               <button class="button button-block button-light" type="submit">Forrige</button>
+               <button class="button button-light" id="nav-button1" type="submit">Forrige</button>
 
-               <button class="button button-block button-calm" type="submit">Neste</button>
+               <button class="button button-calm" id="nav-button2" type="submit">Neste</button>
              
                
-              </div>
             </div>
+          </div>
       
         <!-- Place the step x of y circle here -->
               <div class="pageIndicatorContLogin">
@@ -59,4 +56,5 @@
 
 
   </ion-content>
-</ion-modal-view>
+
+</ion-view>

@@ -7058,7 +7058,7 @@ p {
   padding-left: 4%; }
 
 .bottomContLogin {
-  padding-top: 10%; }
+  padding-top: 20%; }
 
 .skipContLogin {
   text-align: center; }
@@ -7068,7 +7068,7 @@ p {
 
 .pageIndicatorContLogin {
   text-align: center;
-  padding-top: 5%; }
+  padding-top: 10%; }
 
 .ion-ios-circle-outline {
   padding-right: 2%; }
@@ -7077,26 +7077,51 @@ p {
   padding-right: 2%; }
 
 /*
+    Profil
+*/
+.button-cont {
+  margin-top: 25%; }
+
+#profile-h2 {
+  text-align: center; }
+
+#nav-button1 {
+  width: 8em;
+  margin-right: 2%; }
+
+#nav-button2 {
+  width: 8em;
+  margin-left: 2%;
+  float: right; }
+
+/*
     List view
 */
-.hor-padding {
-  padding-left: 75px;
-  padding-right: 75px; }
-
-.top-padding {
+.list-top-padding {
   padding-top: 3%; }
 
-.wrapping-list .item-content, .wrapping-list .item {
-  overflow: initial;
-  white-space: initial; }
-
-.full-size {
+.list-full-size {
   height: 100%;
   width: 100%; }
 
-.cat-display {
+.list-cat-display {
   display: inline;
   list-style-type: none; }
+
+.list-text-width {
+  /*only necessary if thumbnail is to the right of the text*/
+  width: 90%; }
+
+.list-hor-padding {
+  /* unused */
+  padding-left: 75px;
+  padding-right: 75px; }
+
+/*
+	Settings view
+*/
+.settings-right-adjust {
+  float: right; }
 
 /*
     Story view

@@ -31,7 +31,6 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 */
 
 
-
 #view {
     padding-left: 5% ;
     padding-right: 5% ;
@@ -63,7 +62,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 .bottomContLogin {
-    padding-top: 10%;
+    padding-top: 20%;
 }
 
 .skipContLogin {
@@ -76,7 +75,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 .pageIndicatorContLogin {
     text-align: center;
-    padding-top: 5%;
+    padding-top: 10%;
 }
 
 .ion-ios-circle-outline{
@@ -88,31 +87,61 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 /*
+    Profil
+*/
+
+.button-cont {
+    margin-top: 25%;
+}
+
+#profile-h2 {
+    text-align: center;
+}
+
+#nav-button1 {
+    width: 8em;
+    margin-right: 2%;
+}
+
+#nav-button2 {
+    width: 8em;
+    margin-left: 2%;
+    float: right;
+}
+
+/*
     List view
 */
 
-.hor-padding {
-    padding-left: 75px;
-    padding-right: 75px;
+.list-top-padding {
+	padding-top: 3%;
 }
 
-.top-padding {
-    padding-top: 3%;
+.list-full-size {
+	height: 100%;
+	width: 100%;
 }
 
-.wrapping-list .item-content, .wrapping-list .item {
-    overflow: initial;
-    white-space: initial;
+.list-cat-display {
+	display:inline;
+	list-style-type:none;
 }
 
-.full-size {
-    height: 100%;
-    width: 100%;
+.list-text-width {  /*only necessary if thumbnail is to the right of the text*/
+	width: 90%;
 }
 
-.cat-display {
-    display:inline;
-    list-style-type:none;
+.list-hor-padding { /* unused */
+	padding-left: 75px;
+	padding-right: 75px;
+}
+
+/*
+	Settings view
+*/
+
+.settings-right-adjust {
+	float: right;
 }
 
 
