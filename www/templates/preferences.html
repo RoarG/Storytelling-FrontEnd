@@ -8,9 +8,10 @@
 
 			<div  class="categories">
 				<div class="category" ng-repeat="i in [0,1,2,3,4,5,6,7,8]">
-				<div class="category-circle button" ng-click="chosenPreferences[i] = !chosenPreferences[i]" ng-class="{'button-calm': chosenPreferences[i]}"><i class="icon" ng-class="catIcons[i]"></i></div>
-				<small>Tekst</small>
+				<div class="category-circle button" ng-click="categories[i].isSelected = !categories[i].isSelected" ng-class="{'button-calm': categories[i].isSelected}"><i class="icon" ng-class="categories[i].icon"></i></div>
+				<small>{{categories[i].name}}</small>
 			</div>
+			<div class="clear-float"></div>
 			</div>
 		
 		<div class="row">

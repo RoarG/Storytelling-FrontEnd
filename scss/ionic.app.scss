@@ -15,49 +15,16 @@ $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
 
+@import "variables";
+
+
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
-$font-stack:    "Helvetica Neue", sans-serif;
-$primary-color: #1495A7;
-
-
-/*
-	Media queries
- */
-$mq-small:   20em;
-$mq-medium:  30em;
-$mq-large:   40em;
-
-@mixin mq($size) {
-  @if      $size == small  { @media only screen and (min-width: $mq-small) { @content; } }
-  @else if $size == medium { @media only screen and (min-width: $mq-medium) { @content; } }
-  @else if $size == large  { @media only screen and (min-width: $mq-large) { @content; } }
-}
-
-
-body {
-  font: 100% $font-stack;
-}
-
-
-h1 {
-    font-size: 1.8em;
-}
-h2 {
-    font-size: 1.4em;
-}
-
-h3 {
-    font-size: 1.2em;
-}
-
-p {
-    margin: 3% 0;
-}
+@import "standard";
 
 /*
     Login view
@@ -340,6 +307,10 @@ iframe {
 	text-align: center;
 }
 
+.preferences .categories {
+	margin: 10% 0;
+}
+
 .preferences .category {
 	float: left;
 	text-align: center;
@@ -357,6 +328,10 @@ iframe {
 	padding-bottom: 80%;
 }
 
+.preferences .categories .button {
+	border: none;
+}
+
 /* Center text horizontally and vertically in circle */
 .preferences .category-circle i {
 	margin: 0;
@@ -366,6 +341,11 @@ iframe {
    margin-right: 50%;  
    -webkit-transform: translate(-50%, -50%);              
    transform: translate(-50%, -50%);
+}
+
+.content-wrapper {
+	width: 90%;
+	margin: 0 auto;
 }
 
 
