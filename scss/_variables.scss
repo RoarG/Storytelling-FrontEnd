@@ -1,0 +1,22 @@
+// Colors
+$font-color: #000;
+$small-text-color: #777;
+$link-color: blue;
+$primary-color: #1495A7;
+$contrast-color: #000;
+$background-color: #fff;
+
+// Override ionic
+$calm: $primary-color;
+
+
+// Media queries
+$mq-small:   20em;
+$mq-medium:  30em;
+$mq-large:   40em;
+
+@mixin mq($size) {
+  @if      $size == small  { @media only screen and (min-width: $mq-small) { @content; } }
+  @else if $size == medium { @media only screen and (min-width: $mq-medium) { @content; } }
+  @else if $size == large  { @media only screen and (min-width: $mq-large) { @content; } }
+}
