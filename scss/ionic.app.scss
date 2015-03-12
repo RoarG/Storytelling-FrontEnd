@@ -34,7 +34,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 #view {
     padding-left: 5% ;
     padding-right: 5% ;
-    margin-top: 2%;
+    margin-top: 12%;
 }
 
 .viewhead {
@@ -122,7 +122,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 .navIndicator {
-    padding-top: 15%;
+    padding-top: 10%;
 }
 
 /*
@@ -166,18 +166,16 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 /*
     Story view
 */
-
+// Bookmarks popover
 .item-floating-label .placeholder-icon {
     padding-right: 18px;
     position: absolute;
     bottom: 9px;
     left: 17px;
 }
-
 .item-floating-label {
     padding-left: 40px;
 }
-
 ion-popover-view .list .button {
     margin-top: 0;
 }
@@ -242,10 +240,6 @@ ion-popover-view .list .button {
 	margin-left: 3%;
 }
 
-.author, .published {
-    color: #777;
-    font-size: 0.8em;
-}
 .published {
     margin-right: 2%;
 }
@@ -272,16 +266,15 @@ iframe {
     padding: 2% 4%;
     background-color: $primary-color;
     color: white;
+
+	h3 {
+	    color: white;
+	}
+
+	a {
+	    color: #0CF;
+	} 
 }
-
-.story-footer h3 {
-    color: white;
-}
-
-.story-footer a {
-    color: #0CF;
-} 
-
 
 /*
    Image slider from http://devdactic.com/images-videos-fullscreen-ionic/
@@ -327,21 +320,22 @@ iframe {
     width: 50%;
     margin: 5% auto;
     text-align: center;
-}
-.rating .star {
-    color: #FFF;
-    font-size: 2.5em;
-    padding: 0.5%;
-}
-.rating .filled {
-    color: #fd0;
-}
-.rating button {
-    margin: 0 auto;
-    width: 150px;
-    min-height: 20px;
-    line-height: 1.8em;
-    font-size: 1em;
+
+	.star {
+	    color: #FFF;
+	    font-size: 2.5em;
+	    padding: 0.5%;
+	}
+	.filled {
+	    color: #fd0;
+	}
+	button {
+	    margin: 0 auto;
+	    width: 150px;
+	    min-height: 20px;
+	    line-height: 1.8em;
+	    font-size: 1em;
+	}
 }
 
 
@@ -351,43 +345,40 @@ iframe {
 
 .categories {
 	margin: 10% 0;
-}
+	
 
-.category {
-	float: left;
-	text-align: center;
-	margin: 4%;
-    width: 25%;
-    height: 0;
-    padding-bottom: 24%;
-    position: relative;
-}
+	.category {
+		float: left;
+		text-align: center;
+		margin: 4%;
+	    width: 25%;
+	    height: 0;
+	    padding-bottom: 24%;
+	    position: relative;
+	}
 
-.category-circle {
-	font-size: 3em;
-	width: 80%;
-	height: 0;
-	padding-bottom: 80%;
-}
+	.category-circle {
+		font-size: 3em;
+		width: 80%;
+		height: 0;
+		padding-bottom: 80%;
+	}
 
-.categories .button {
-	border: none;
-}
+	.button {
+		border: none;
+	}
 
-/* Center text horizontally and vertically in circle */
-.category-circle i {
-	margin: 0;
-   position: absolute;
-   top: 50%;
-   left: 50%;   
-   margin-right: 50%;  
-   -webkit-transform: translate(-50%, -50%);              
-   transform: translate(-50%, -50%);
-}
+	/* Center text horizontally and vertically in circle */
+	.category-circle i {
+		margin: 0;
+	   position: absolute;
+	   top: 50%;
+	   left: 50%;   
+	   margin-right: 50%;  
+	   -webkit-transform: translate(-50%, -50%);              
+	   transform: translate(-50%, -50%);
+	}
 
-.content-wrapper {
-	width: 90%;
-	margin: 0 auto;
 }
 
 

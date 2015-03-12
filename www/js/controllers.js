@@ -26,7 +26,7 @@ angular.module('starter.controllers', [])
   // Perform the login action when the user submits the login form and sets the next view
   $scope.doLogin = function() {
     console.log('Doing login', $scope.loginData);
-    $state.go("app.profile")
+    $state.go("profile");
 
     // Simulate a login delay. Remove this and replace with your login
     // code if using a login system
@@ -38,16 +38,16 @@ angular.module('starter.controllers', [])
   //Next and previous view - input is view to navigate to
 
   $scope.goLogin = function() {
-    $state.go("app.login")
-    console.log("vi " + vi)
+    $state.go("login");
+    console.log("vi " + vi);
   };
 
   $scope.goPref = function() {
-    $state.go("app.preferences")
+    $state.go("preferences");
   };
 
   $scope.goProfile = function() {
-      $state.go("app.profile")
+      $state.go("profile");
   };
 
 
@@ -60,30 +60,18 @@ angular.module('starter.controllers', [])
     this.name = name;
     this.icon = icon;
     this.isSelected = isSelected;
-  }
+  };
   $scope.categories = [];
   for(i=0; i<9; i++) {
       $scope.categories.push(new Category("Navn", "ion-star", false));
   };
 
-  $scope.preferences = function() {
-    $ionicModal.fromTemplateUrl('templates/preferences.html', {
-      scope: $scope
-    }).then(function(modal) {
-      $scope.modal = modal;
-      modal.show();
-    });
-    //$scope.modal.show();
+  $scope.submitPreferences = function() {
+    console.log("Submitting preferences");
+    $state.go("app.listView");
   };
-    $scope.submitPreferences = function() {
-      console.log("Submit preferences: ");
-      $scope.modal.hide();
-      $ionicModal.fromTemplateUrl('templates/login.html', {
-        scope: $scope
-      }).then(function(modal) {
-        $scope.modal = modal;
-      });
-    };
+
+  
 })
 
 .controller('ListViewCtrl', function($scope) {

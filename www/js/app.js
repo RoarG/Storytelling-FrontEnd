@@ -39,6 +39,26 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
   })
 
+  .state('login', {
+    url: "/login",
+    templateUrl: "templates/login.html",
+    controller: 'AppCtrl'
+  })
+
+  .state('profile', {
+    url: "/profile",
+    templateUrl: "templates/profile.html",
+    controller: 'AppCtrl'
+  })
+
+  .state('preferences', {
+    url: "/preferences",
+    templateUrl: "templates/preferences.html",
+    controller: 'AppCtrl'
+  })
+
+
+/*
   .state('app.login', {
     url: "/login",
     views: {
@@ -48,6 +68,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
+
+
 
   .state('app.profile', {
   url: "/profile",
@@ -68,25 +90,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   }
 })
-
-
-  .state('app.search', {
-    url: "/search",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/search.html"
-      }
-    }
-  })
-
-  .state('app.browse', {
-    url: "/browse",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/browse.html"
-      }
-    }
-  })
+*/
   
   .state('app.settings', {
 	url: "/settings",
@@ -116,6 +120,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   });
+
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/login');
+  $urlRouterProvider.otherwise('/login');
 });
