@@ -68,31 +68,31 @@ angular.module('starter.controllers', [])
     title: 'Nidarosdomen',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
     thumbnail: 'https://media.snl.no/system/images/8077/standard_nidarosdomen__e2_80_93_1_4.jpg',
-	categories: ['http://icons.iconseeker.com/png/16/function/circle-green.png', 'http://booki.flossmanuals.net/learning-with-etoys-ge/geoboards-and-puzzling-polygons/static/Polygon%20vertex%20atCursor.png', 'http://www.imaginemediastudio.com/images/circle_red.png']
+	categories: ['kat1']
 	},
     { id: 1,
     title: 'Holmenkollen',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     thumbnail: 'http://img2.custompublish.com/getfile.php/2131868.92.bcqacdpwfu/holmenkollen_f_ntb_meldetjeneste_skiforeningen.jpg?return=www.langrenn.com',
-	categories: ['http://icons.iconseeker.com/png/16/function/circle-green.png', 'http://booki.flossmanuals.net/learning-with-etoys-ge/geoboards-and-puzzling-polygons/static/Polygon%20vertex%20atCursor.png', 'http://www.imaginemediastudio.com/images/circle_red.png']
+	categories: ['kat1']
 	},
     { id: 2,
     title: 'Galdhøpiggen',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     thumbnail: 'http://peakbook.org/gfx/images/1/5c/jans_hpiggen.jpg/jans_hpiggen-1.jpg',
-	categories: ['http://icons.iconseeker.com/png/16/function/circle-green.png', 'http://booki.flossmanuals.net/learning-with-etoys-ge/geoboards-and-puzzling-polygons/static/Polygon%20vertex%20atCursor.png', 'http://www.imaginemediastudio.com/images/circle_red.png']
+	categories: ['kat1']
 	},
     { id: 3,
     title: 'Oldemors dukkehus',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     thumbnail: 'http://media31.dimu.no/media/image/H-DF/DF.3204/7443?width=600&height=380',
-	categories:['http://icons.iconseeker.com/png/16/function/circle-green.png', 'http://booki.flossmanuals.net/learning-with-etoys-ge/geoboards-and-puzzling-polygons/static/Polygon%20vertex%20atCursor.png', 'http://www.imaginemediastudio.com/images/circle_red.png']
+	categories:['kat1']
 	},
     {  id: 4,
     title: '17. mai på Songe',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     thumbnail: 'http://media31.dimu.no/media/image/H-DF/DF.2776/6481?width=600&height=380',
-	categories:['http://icons.iconseeker.com/png/16/function/circle-green.png', 'http://booki.flossmanuals.net/learning-with-etoys-ge/geoboards-and-puzzling-polygons/static/Polygon%20vertex%20atCursor.png', 'http://www.imaginemediastudio.com/images/circle_red.png']
+	categories:['kat1']
 	},
   ];
   //remove a story from the listview
