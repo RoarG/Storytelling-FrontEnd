@@ -32,7 +32,7 @@ angular.module('backend.services', ['ngSanitize'])
 
 		//Tror ikke denne trenger å hentes her??
 		this.subcategoryIDs = storyData.subCategoryList;
-		this.subjectList = storyData.subjectList;
+		this.categoryList = storyData.subjectList;
 		this.url = $sce.trustAsUrl("http://www.digitaltfortalt.no/things/thing/H-DF/"+this.storyId);
 
 		this.updateMedia();
