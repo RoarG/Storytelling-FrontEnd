@@ -30,6 +30,9 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     Login view
 */
 
+.header-padding {
+    padding-top: 5%;
+}
 
 #view {
     padding-left: 5% ;
@@ -45,7 +48,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 .infoText {
     padding-top: 5%;
     text-align: center;
-    font-size: 11px;
+    font-size: 1em;
     color: #9B9BAB;
 }
 
@@ -58,7 +61,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     padding-bottom: 2%;
     padding-right: 4%;
     padding-left: 4%;
-    padding-top: 35%;
+    padding-top: 25%;
 }
 
 .bottomContLogin {

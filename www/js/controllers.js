@@ -2,6 +2,11 @@ angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $state, $ionicModal, $timeout) {
   // Form data for the login modal
+/*  $scope.Platform.ready(function() {
+    //hide the status bar using the StatusBar plugin
+    StatusBar.hide();
+  });*/
+
   $scope.loginData = {};
 
   // Create the login modal that we will use later
