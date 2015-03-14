@@ -141,6 +141,62 @@ angular.module('backend.services', ['ngSanitize'])
 			req.data = {type: "getUser",
 				'email': mail};
 			return $http(req);
+		},
+		/*Get all lists for a user*/
+		getAllLists: function (userId){
+			req.data = {
+				type: "getAllLists",
+				userId: userId
+			};
+			return $http(req);
+		},
+		/*Add new tag and connects it to user*/
+		addNewTag: function(tagName, userId, storyId){
+			req.data = {
+				type: "addNewTag",
+				userId: userId,
+				tagName: tagName,
+				storyId: storyId
+			};
+			$http(req);
+		},
+		/*Connects an existing tag, user and story*/
+		tagStory: function (tagName, userId, storyId){
+			req.data = {
+				type: "tagStory",
+				userId: userId,
+				storyId: storyId,
+				tagName: tagName
+			};
+			$http(req);
+		},
+		/*Remove tag from specific story/remove from list*/
+		removeTagStory: function (tagName, userId, storyId){
+			req.data = {
+				type: "removeTagStory",
+				userId: userId,
+				storyId: storyId,
+				tagName: tagName
+			};
+			$http(req);
+		},
+		/*Remove tag altogether from user, that is, remove the whole list*/
+		removeTag: function (userId, tagName){
+			req.data = {
+				type: "removeTag",
+				userId: userId,
+				tagName: tagName
+			};
+			$http(req);
+		},
+		/*Get all stories that a user has connected to tagName*/
+		getStoryList: function (tagName, userId){
+			req.data = {
+				type: "getList",
+				userId: userId,
+				tagName: tagName
+			};
+			return $http(req);
 		}
 	}
 });

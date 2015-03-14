@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $state, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $state, $ionicModal, $timeout, Requests) {
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -71,7 +71,10 @@ angular.module('starter.controllers', [])
     $state.go("app.listView");
   };
 
-  
+  //Need the userId to make this work
+  /*Requests.getAllLists($scope.user.userId).then(function(response){
+	$scope.collectionList = response.data;
+  });*/
 })
 
 .controller('ListViewCtrl', function($scope, Requests, $state, $rootScope) {
@@ -205,8 +208,9 @@ angular.module('starter.controllers', [])
         };
       })
 
-    .controller('BookmarkCtrl', function($scope, $rootScope) {
+    .controller('BookmarkCtrl', function($scope, $rootScope, Requests) {
 
+		// May use the collectionList in AppCtrl instead
         // The collections a user has, and whether this story is in it.
         $scope.collectionList = [
             {text: "Les senere", checked: false},
@@ -221,6 +225,8 @@ angular.module('starter.controllers', [])
         // Add text entered as a new collection and add the story to it. 
         $scope.addItem = function() {
             $scope.collectionList.push({text: $scope.newItemName, checked: true});
+			//Need the userId for this to work
+			//Requests.addNewTag($scope.newItemName, $scope.user.userId, $scope.story.storyId);
             $scope.newItemName = null;
             $scope.displayTextField = false;
         };
