@@ -4,7 +4,7 @@ body {
 
 
 h1 {
-    font-size: 2em;
+    font-size: 1.8em;
 }
 h2 {
     font-size: 1.6em;
@@ -16,4 +16,9 @@ h3 {
 
 p {
     margin: 3% 0;
+}
+
+.small-text {
+	color: $small-text-color;
+	font-size: 0.8em;
 }

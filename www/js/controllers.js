@@ -31,7 +31,7 @@ angular.module('starter.controllers', [])
   // Perform the login action when the user submits the login form and sets the next view
   $scope.doLogin = function() {
     console.log('Doing login', $scope.loginData);
-    $state.go("app.profile")
+    $state.go("profile");
 
     // Simulate a login delay. Remove this and replace with your login
     // code if using a login system
@@ -43,16 +43,16 @@ angular.module('starter.controllers', [])
   //Next and previous view - input is view to navigate to
 
   $scope.goLogin = function() {
-    $state.go("app.login")
-    console.log("vi " + vi)
+    $state.go("login");
+    console.log("vi " + vi);
   };
 
   $scope.goPref = function() {
-    $state.go("app.preferences")
+    $state.go("preferences");
   };
 
   $scope.goProfile = function() {
-      $state.go("app.profile")
+      $state.go("profile");
   };
 
 
@@ -65,33 +65,30 @@ angular.module('starter.controllers', [])
     this.name = name;
     this.icon = icon;
     this.isSelected = isSelected;
-  }
+  };
   $scope.categories = [];
   for(i=0; i<9; i++) {
       $scope.categories.push(new Category("Navn", "ion-star", false));
   };
 
-  $scope.preferences = function() {
-    $ionicModal.fromTemplateUrl('templates/preferences.html', {
-      scope: $scope
-    }).then(function(modal) {
-      $scope.modal = modal;
-      modal.show();
-    });
-    //$scope.modal.show();
+  $scope.submitPreferences = function() {
+    console.log("Submitting preferences");
+    $state.go("app.listView");
   };
-    $scope.submitPreferences = function() {
-      console.log("Submit preferences: ");
-      $scope.modal.hide();
-      $ionicModal.fromTemplateUrl('templates/login.html', {
-        scope: $scope
-      }).then(function(modal) {
-        $scope.modal = modal;
-      });
-    };
+
+  
 })
 
-.controller('ListViewCtrl', function($scope) {
+.controller('ListViewCtrl', function($scope, Requests, $state, $rootScope) {
+
+  //Controlleren må hente Requests
+  //Må ha .then() for å kunne hente fra http.post i backend.services
+  Requests.getMultipleStories().then(function(response){
+    $scope.storyPreviews =  response.data;
+
+  });
+
+  /*
   //some test data for the listview
   $scope.storyPreviews = [
     { id: 0,
@@ -124,7 +121,9 @@ angular.module('starter.controllers', [])
     thumbnail: 'http://media31.dimu.no/media/image/H-DF/DF.2776/6481?width=600&height=380',
 	categories:['kat1']
 	},
-  ];
+  ];*/
+
+
   //remove a story from the listview
   $scope.remove = function(story) {
 	var index = $scope.storyPreviews.indexOf(story)
@@ -133,6 +132,8 @@ angular.module('starter.controllers', [])
   
   $scope.open = function(story) {
 	var index = $scope.storyPreviews.indexOf(story)
+  $rootScope.storyId = story.id;
+  $state.go("app.story");
   }
 })
 
@@ -140,11 +141,20 @@ angular.module('starter.controllers', [])
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 })
 
-.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ionicPopover, Stories) {
+.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ionicPopover, Requests, Story, $rootScope) {
     $scope.mediaType = "text"; //Type of media currently displayed
 
     // Get story data. 
-    $scope.story = Stories.all()[0];
+    //$scope.story = Stories.all()[0];
+    //console.log($stateParams.id);
+    //Controlleren må hente Requests og Story
+    //Må ha .then() for å kunne hente fra http.post i backend.services
+    //Requests.getStory('DF.1098').then(function(response){
+    Requests.getStory($rootScope.storyId).then(function(response){
+      //Henter bare en spesifik historie nå, visste ikke hvordan jeg skulle hente
+      //id-er fra array
+      $scope.story = new Story(response.data);
+    });
 
     // Display selected image in modal. 
     $scope.showImages = function(index) {
@@ -185,14 +195,16 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller("RatingCtrl", function($scope) {
+.controller("RatingCtrl", function($scope, Requests) {
         $scope.rating = 0;
         // Rate story
         $scope.rateFunction = function(rating) {
             $scope.rating = rating;
+            Requests.addRating($scope.story.storyId, 34, rating);
             console.log("Rated story: " + rating);
         };
         $scope.notInterested = function() {
+            Requests.addRating($scope.story.storyId, 34, 0);
             console.log("Not interested");
             $scope.rating=0;
         };
