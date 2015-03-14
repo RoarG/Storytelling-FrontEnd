@@ -16,10 +16,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
+      StatusBar.hide();
     }
   });
 })
 
+/*  $scope.Platform.ready(function() {
+    //hide the status bar using the StatusBar plugin
+    StatusBar.hide();
+  });*/
 .config(function($stateProvider, $urlRouterProvider, $sceDelegateProvider) {
   $stateProvider
 

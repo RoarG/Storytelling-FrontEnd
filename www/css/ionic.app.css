@@ -7037,6 +7037,9 @@ p {
 /*
     Login view
 */
+.header-padding {
+  padding-top: 5%; }
+
 #view {
   padding-left: 5%;
   padding-right: 5%;
@@ -7049,7 +7052,7 @@ p {
 .infoText {
   padding-top: 5%;
   text-align: center;
-  font-size: 11px;
+  font-size: 1em;
   color: #9B9BAB; }
 
 .innerContLogin {
@@ -7060,7 +7063,7 @@ p {
   padding-bottom: 2%;
   padding-right: 4%;
   padding-left: 4%;
-  padding-top: 35%; }
+  padding-top: 25%; }
 
 .bottomContLogin {
   padding-top: 36%; }
