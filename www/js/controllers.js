@@ -2,12 +2,21 @@ angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $state, $ionicModal, $timeout, Requests) {
   // Form data for the login modal
-/*  $scope.Platform.ready(function() {
-    //hide the status bar using the StatusBar plugin
-    StatusBar.hide();
-  });*/
-
   $scope.loginData = {};
+
+
+
+$scope.login(mail) = function() {
+  
+  //Sets user according to the mail provided in login
+  Requests.getUser(mail).then(function(response){
+    //Henter bare en spesifik historie nå, visste ikke hvordan jeg skulle hente
+    //id-er fra array
+    $scope.user = new User(response.data);
+  });
+}
+
+
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -90,7 +99,6 @@ angular.module('starter.controllers', [])
     $scope.storyPreviews =  response.data;
 
   });
-
   /*
   //some test data for the listview
   $scope.storyPreviews = [
@@ -126,14 +134,12 @@ angular.module('starter.controllers', [])
 	},
   ];*/
 
-
   //remove a story from the listview
   $scope.remove = function(story) {
 	var index = $scope.storyPreviews.indexOf(story)
 	$scope.storyPreviews.splice(index, 1);
   }
   
-
   //? Hva er index til her?
   $scope.open = function(story) {
 	var index = $scope.storyPreviews.indexOf(story)
@@ -195,14 +201,13 @@ angular.module('starter.controllers', [])
     $scope.$on('$destroy', function() {
         $scope.popover.remove();
     });
-
-    
-
-
 })
 
+
 .controller("RatingCtrl", function($scope, Requests) {
+      
         $scope.rating = 0;
+      
         // Rate story
         $scope.rateFunction = function(rating) {
             $scope.rating = rating;
@@ -214,11 +219,11 @@ angular.module('starter.controllers', [])
             console.log("Not interested");
             $scope.rating=0;
         };
-      })
+})
 
-    .controller('BookmarkCtrl', function($scope, $rootScope, Requests) {
+.controller('BookmarkCtrl', function($scope, $rootScope, Requests) {
 
-		// May use the collectionList in AppCtrl instead
+	     	// May use the collectionList in AppCtrl instead
         // The collections a user has, and whether this story is in it.
         $scope.collectionList = [
             {text: "Les senere", checked: false},
@@ -232,9 +237,11 @@ angular.module('starter.controllers', [])
 
         // Add text entered as a new collection and add the story to it. 
         $scope.addItem = function() {
+
             $scope.collectionList.push({text: $scope.newItemName, checked: true});
-			  //Need the userId for this to work
-			  //Requests.addNewTag($scope.newItemName, $scope.user.userId, $scope.story.storyId);
+			     
+             //Need the userId for this to work
+			       //Requests.addNewTag($scope.newItemName, $scope.user.userId, $scope.story.storyId);
             $scope.newItemName = null;
             $scope.displayTextField = false;
         };
@@ -244,4 +251,4 @@ angular.module('starter.controllers', [])
             $scope.displayTextField = false;
        });
 
-    });
+});

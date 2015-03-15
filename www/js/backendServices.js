@@ -42,6 +42,7 @@ angular.module('backend.services', ['ngSanitize'])
 	//BARE HENTE ANTALL BILDER?
 	/** Adds the imageurl to imageList */
 	Story.prototype.updateMedia = function(){
+		
 		//BLIR LITT RART, HELE BILDET VISES IKKE PÅ STORYVIEW. BØR EKSPERIMENTERES MED HEIGHTxWIDHT?
 		if(this.imageList != null)
 			for(var i = 0; i < this.imageList.length; i++){
@@ -56,7 +57,9 @@ angular.module('backend.services', ['ngSanitize'])
 
 		/** Return the constructor function */
 		return Story;
-	})
+})
+
+
 .factory('User', function (){
 	function User(userData){
 		this.userId = userData.userId;
@@ -79,6 +82,7 @@ angular.module('backend.services', ['ngSanitize'])
 	return User;
 })
 
+
 /**Handles communication with backend*/
 .factory("Requests", function ($http) {
 	var req = {
@@ -86,7 +90,6 @@ angular.module('backend.services', ['ngSanitize'])
 		url: 'http://188.113.108.37/requests/controller.php',
 		headers: {'Content-Type': 'application/json'} // 'Content-Type': application/json???
 	}
-
 
 	/* DETTE MÅ BRUKES I Controllere:
  	Requests."metode"().then(function(response){
@@ -132,16 +135,19 @@ angular.module('backend.services', ['ngSanitize'])
 			};
 			$http(req);
 		},
+		
 		addUpdateUser: function (userData){
 			req.data = {type: "addUpdateUser",
 				data: userData};
 			$http(req);
 		},
+		
 		getUser: function(mail){
 			req.data = {type: "getUser",
 				'email': mail};
 			return $http(req);
 		},
+		
 		/*Get all lists for a user*/
 		getAllLists: function (userId){
 			req.data = {
@@ -150,6 +156,7 @@ angular.module('backend.services', ['ngSanitize'])
 			};
 			return $http(req);
 		},
+		
 		/*Add new tag and connects it to user*/
 		addNewTag: function(tagName, userId, storyId){
 			req.data = {
@@ -160,6 +167,7 @@ angular.module('backend.services', ['ngSanitize'])
 			};
 			$http(req);
 		},
+		
 		/*Connects an existing tag, user and story*/
 		tagStory: function (tagName, userId, storyId){
 			req.data = {
@@ -170,6 +178,7 @@ angular.module('backend.services', ['ngSanitize'])
 			};
 			$http(req);
 		},
+		
 		/*Remove tag from specific story/remove from list*/
 		removeTagStory: function (tagName, userId, storyId){
 			req.data = {
@@ -180,6 +189,7 @@ angular.module('backend.services', ['ngSanitize'])
 			};
 			$http(req);
 		},
+		
 		/*Remove tag altogether from user, that is, remove the whole list*/
 		removeTag: function (userId, tagName){
 			req.data = {
@@ -189,6 +199,7 @@ angular.module('backend.services', ['ngSanitize'])
 			};
 			$http(req);
 		},
+		
 		/*Get all stories that a user has connected to tagName*/
 		getStoryList: function (tagName, userId){
 			req.data = {
