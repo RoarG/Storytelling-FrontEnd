@@ -5,7 +5,7 @@ angular.module('starter.controllers', [])
   $scope.loginData = {};
 
 
-
+/*
 $scope.login(mail) = function() {
   
   //Sets user according to the mail provided in login
@@ -14,7 +14,7 @@ $scope.login(mail) = function() {
     //id-er fra array
     $scope.user = new User(response.data);
   });
-}
+}*/
 
 
 
