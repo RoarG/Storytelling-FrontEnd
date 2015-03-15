@@ -133,6 +133,8 @@ angular.module('starter.controllers', [])
 	$scope.storyPreviews.splice(index, 1);
   }
   
+
+  //? Hva er index til her?
   $scope.open = function(story) {
 	var index = $scope.storyPreviews.indexOf(story)
   $rootScope.storyId = story.id;
@@ -141,6 +143,7 @@ angular.module('starter.controllers', [])
 })
 
 
+  //? Hva er denne til?
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 })
 
@@ -230,8 +233,8 @@ angular.module('starter.controllers', [])
         // Add text entered as a new collection and add the story to it. 
         $scope.addItem = function() {
             $scope.collectionList.push({text: $scope.newItemName, checked: true});
-			//Need the userId for this to work
-			//Requests.addNewTag($scope.newItemName, $scope.user.userId, $scope.story.storyId);
+			  //Need the userId for this to work
+			  //Requests.addNewTag($scope.newItemName, $scope.user.userId, $scope.story.storyId);
             $scope.newItemName = null;
             $scope.displayTextField = false;
         };
