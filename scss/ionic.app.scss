@@ -132,8 +132,10 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     List view
 */
 
-.list-top-padding {
+.list-horizontal {
 	padding-top: 3%;
+	display: inline;
+	list-style-type: none;
 }
 
 .list-full-size {
