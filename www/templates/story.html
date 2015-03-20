@@ -1,4 +1,4 @@
-<ion-view view-title="Story" ng-controller="StoryCtrl">
+<ion-view class="story" ng-controller="StoryCtrl">
     <ion-nav-buttons side="right"> 
         <button class="button button-icon ion-android-bookmark" ng-click="popover.show($event)"></button>
     </ion-nav-buttons>
@@ -16,33 +16,41 @@
             <div class="clear-float"></div>
             <span class="small-text published">{{story.published}}</span>
             <span class="small-text author"ng-repeat="author in story.author">{{author}}, </span>
+            <p>{{story.introduction}}</p>
         </div>
+        <!-- Media menubar -->
         <div class="button-bar">
-            <a class="button button-light" ng-class="{'active': mediaType === 'text'}" ng-click="mediaType = 'text'">Tekst</a>
-            <a class="button button-light" ng-class="{'active': mediaType === 'images'}" ng-click="mediaType = 'images'">Bilder</a>
-            <a class="button button-light" ng-class="{'active': mediaType === 'video'}" ng-click="mediaType = 'video'">Video</a>
-            <a class="button button-light" ng-class="{'active': mediaType === 'audio'}" ng-click="mediaType = 'audio'">Lydklipp</a>
+            <a class="button button-light" ng-class="{'active': mediaType === 'images'}" ng-show="story.imageList.length > 0" ng-click="mediaType = 'images'">Bilder</a>
+            <a class="button button-light" ng-class="{active: mediaType === 'video'}" ng-show="story.videoList[0]" ng-click="mediaType = 'video'">Video</a>
+            <a class="button button-light" ng-class="{'active': mediaType === 'audio'}" ng-show="story.audioList[0]" ng-click="mediaType = 'audio'">Lydklipp</a>
         </div>
-            <div class="story-wrapper">
-            <div ng-if="mediaType === 'text'">
-                <p ng-bind-html="story.text"></p>
-            </div>
+        <!-- Images, video or sound displayed depending on which button in the menubar is active -->
+        <div class="media-content">
             <div ng-if="mediaType === 'images'">
                 <div class="story-image-container" ng-repeat="image in story.imageList">
                     <img ng-src={{image}} ng-click="showImages($index)" alt="" class="image-list-thumb"/>
                 </div>
             </div>
             <div ng-if="mediaType === 'video'">
-                <iframe ng-repeat="videoUrl in story.videoList" frameborder="0" ng-src="{{videoUrl}}">
-                </iframe>
+                <div class="video-player" ng-repeat="videoUrl in story.videoList">
+                    <!--Youtube or vimeo video-->
+                    <iframe ng-if="!videoUrl.indexOf('.mp4')"frameborder="0" ng-src="{{getTrustedUrl(videoUrl)}}" ng-hide="true">
+                    </iframe>
+                    <!-- mp4 video -->
+                    <video id="{{'Video' + $index}}" width="200" ng-if="videoUrl.indexOf('.mp4')" ng-src="{{getTrustedUrl(videoUrl)}}" ng-hide="true"></video>
+                    <div class="button" id="play" ng-click="playVideo($index)"><i class="ion-play"></i></div>
+                </div>
             </div>
             <div  ng-if="mediaType === 'audio'">
                 <p>Navn på audiofil</p>
                 <audio ng-repeat="audioUrl in story.audioList" controls preload="auto">
-                    <source ng-src="{{audioUrl}}" />
+                    <source ng-src="{{getTrustedUrl(audioUrl)}}" />
                     Your browser does not support the audio element.
                 </audio>
             </div>
+        </div>
+        <div class="story-wrapper">
+            <p class="clear-float" ng-bind-html="story.text"></p>
         </div>
 
             <div class="story-footer clear-float">

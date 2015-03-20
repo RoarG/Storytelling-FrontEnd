@@ -1,5 +1,14 @@
 body {
   font-family: "Helvetica Neue", Roboto, "Droid Sans", sans-serif;
+  color: $font-color;
+}
+
+ion-content {
+	background-color: $background-color;
+}
+
+.popover, .list, ion-item, .item, .item-complex .item-content {
+	background-color: $background-color;
 }
 
 

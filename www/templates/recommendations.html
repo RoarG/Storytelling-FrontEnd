@@ -1,0 +1,25 @@
+<ion-view view-title="Anbefalte fortellinger">
+    <ion-nav-buttons side="right"> 
+        <button class="button button-icon ion-android-bookmark" ng-click="popover.show($event)"></button>
+    </ion-nav-buttons>
+    <ion-content>
+       <ion-slide-box show-pager="false">
+            <ion-slide ng-repeat="story in stories">
+                <div class="card">
+                    <div class="reject-story-icon"><i class="ion-close-round"></i></div>
+                    <div class="image-wrapper">
+                        <img ng-src={{story.imageList[0]}}>
+                    </div>
+                    <div class="content-wrapper">
+                        <h2>{{story.title}}</h2>
+                        <span ng-repeat="author in story.author" class="small-text">{{author + ", "}}</span>
+                        <p>{{story.introduction | limitTo: 150}}...</p>
+                        <div class="button button-calm button-block">Les mer</div>
+                    </div>
+                </div>
+            </ion-slide>
+        </ion-slide-box>
+        <div class="slide-nav slide-nav-left" ng-click="previousSlide()"><i class="ion-chevron-left"></i></div>
+        <div class="slide-nav slide-nav-right" ng-click="nextSlide()"><i class="ion-chevron-right"></i></div>
+    </ion-content>
+</ion-view>

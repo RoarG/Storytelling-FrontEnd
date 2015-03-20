@@ -149,12 +149,46 @@ $scope.login(mail) = function() {
 })
 
 
-  //? Hva er denne til?
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.controller('RecommendationCtrl', function($scope, Requests, Story, $ionicSlideBoxDelegate, $ionicPopover) {
+  var storyPreviews = [];
+  $scope.stories = [];
+
+  Requests.getMultipleStories().then(function(response){
+    $scope.storyPreviews =  response.data;
+    return Requests.getStory($scope.storyPreviews[0].id);
+  }).then(function(story){
+    $scope.stories.push(new Story(story.data));
+    return Requests.getStory($scope.storyPreviews[1].id);
+  }).then(function(story){
+    $scope.stories.push(new Story(story.data));
+    return Requests.getStory($scope.storyPreviews[2].id);
+  }).then(function(story){
+    $scope.stories.push(new Story(story.data));
+    $ionicSlideBoxDelegate.update();
+  });
+
+  $scope.nextSlide = function() {
+    $ionicSlideBoxDelegate.next();
+  };
+  $scope.previousSlide = function() {
+    $ionicSlideBoxDelegate.previous();
+  };
+
+   // Set up bookmark dropdown
+    $ionicPopover.fromTemplateUrl('templates/bookmarks-dropdown.html', {
+        scope: $scope
+    }).then(function(popover) {
+        $scope.popover = popover;
+    });
+
+    // Clean up bookmark popover. 
+    $scope.$on('$destroy', function() {
+        $scope.popover.remove();
+    });
 })
 
-.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ionicPopover, Requests, Story, $rootScope) {
-    $scope.mediaType = "text"; //Type of media currently displayed
+.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ionicPopover, Requests, Story, $rootScope, $sce) {
+    $scope.mediaType = "images"; //Type of media currently displayed
 
     // Get story data. 
     //$scope.story = Stories.all()[0];
@@ -201,6 +235,17 @@ $scope.login(mail) = function() {
     $scope.$on('$destroy', function() {
         $scope.popover.remove();
     });
+
+    // Necessary for video urls
+    $scope.getTrustedUrl = function(url) {
+      return $sce.trustAsResourceUrl(url);
+    };
+
+    // Play selected video in fullscreen
+    $scope.playVideo = function(index) {
+      var video = document.getElementById("Video" + index);
+      video.play();
+    };
 })
 
 

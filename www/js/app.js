@@ -116,6 +116,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     })
 
+    .state('app.recommendations', {
+      url: "/recommendations",
+      views: {
+        'menuContent': {
+          templateUrl: "templates/recommendations.html",
+          controller: 'RecommendationCtrl'
+        }
+      }
+    })
+
   .state('app.single', {
     url: "/playlists/:playlistId",
     views: {

@@ -49,7 +49,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     padding-top: 5%;
     text-align: center;
     font-size: 1em;
-    color: #9B9BAB;
+    color: $small-text-color;
 }
 
 .innerContLogin{
@@ -213,17 +213,23 @@ ion-popover-view .list .button {
     margin: 2% 5%;
 }
 
-.button-bar > .button {
+.story .button-bar > .button {
     min-height: 25px;
     line-height: 2.2em;
     font-size: 1em;
-    border-color: $primary-color;
-    color: $primary-color;
+    border-color: $contrast-color-dark;
+    color: white;
+    background-color: $contrast-color-dark;
 }
 
-.button-bar > .button.active {
-    background-color: $primary-color;
+.story .button-bar > .button.active {
+    background-color: $contrast-color;
     color: #FFF;
+    border-color: $contrast-color;
+}
+
+.story .button-bar > .button.disabled {
+	background-color: blue;
 }
 
 .story-categories {
@@ -261,10 +267,36 @@ ion-popover-view .list .button {
     clear: both;
 }
 
-iframe {
+.media-content {
+	background-color: $background-color-dark;
+	overflow: hidden;
+	padding: 2% 5%;
+}
+
+iframe, video {
     width: 47%;
     margin-right: 2%;
 }
+
+.video-player .button{
+	width: 47%;
+	height: 100px;
+	margin-right: 2%;
+	background-color: #333;
+	color: white;
+
+	i {
+		margin: 0;
+	   position: absolute;
+	   top: 50%;
+	   left: 50%;   
+	   margin-right: 50%;  
+	   -webkit-transform: translate(-50%, -50%);              
+	   transform: translate(-50%, -50%);
+	   font-size: 2.5em;
+	}
+}
+
 
 .story-footer {
     padding: 2% 4%;
@@ -276,7 +308,7 @@ iframe {
 	}
 
 	a {
-	    color: #0CF;
+	    color: $link-color;
 	} 
 }
 
@@ -385,6 +417,67 @@ iframe {
 
 }
 
+/*
+	Recommendations
+ */
+ion-slide .card {
+	width: 75%;
+	height: 500px;
+	margin: 12% auto;
+	position: relative;
+}
 
+.reject-story-icon {
+	position: absolute;
+	top: 2%;
+	right: 6%;
+	font-size: 1.4em;
+	color: white;
+	background-color: #444;
+	padding: 1% 2%;
+	border-radius: 50%;
+}
+
+ion-slide img {
+	min-width: 100%;
+	height: auto;
+}
+
+ion-slide .content-wrapper {
+	margin: 3% 6%;
+}
+
+.image-wrapper {
+	width: 100%;
+	overflow: hidden;
+	height: 200px;
+	margin-bottom: 5%;
+}
+
+ion-slide h2 {
+	margin-bottom: 1%;
+}
+
+ion-slide .button {
+	position: absolute;
+	width: 70%;
+	bottom: 5%;
+	left: 15%;
+}
+
+.slide-nav {
+	position: absolute;
+  	top: 45%;
+  	transform: translateY(-50%);
+  	font-size: 2em;
+}
+
+.slide-nav-left {
+	margin-left: 3%;
+}
+
+.slide-nav-right {
+  	margin-left: 93%;
+}
 
 
