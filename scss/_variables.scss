@@ -1,19 +1,26 @@
 // Colors
-$font-color: #111;
+$font-color: #583318;
 $small-text-color: #9B9BAB;
 $link-color: #8fe3ff;
 //$primary-color: #35647E;
 $primary-color: #249c9c;
 $primary-color-dark: #35647E;
-$contrast-color: #eb6963;
-$contrast-color-dark: #bf645f;
-$background-color: #f7f5e8;
-$background-color-dark: #dFdBcE;
+//$contrast-color: #eb6963;
+$contrast-color: #e97a4a;
+//$contrast-color-dark: #bf645f;
+$contrast-color-dark: #583318;
+//$background-color: #f7f5e8;
+$background-color: #FFF9EE;
+//$background-color-dark: #dFdBcE;
+$background-color-dark: #C2B2A7;
 
 
 // Override ionic
 $calm: $primary-color;
 
+
+// Fonts
+@import url(http://fonts.googleapis.com/css?family=Cabin|Lobster|Open+Sans:300italic,400,600|Merriweather:700);
 
 // Media queries
 $mq-small:   20em;

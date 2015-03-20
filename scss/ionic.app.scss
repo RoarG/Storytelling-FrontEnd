@@ -199,7 +199,7 @@ ion-popover-view .list .button {
 
 #story-header-container {
     overflow: hidden;
-    height: 180px;
+    height: 200px;
 
 	@include mq(medium) {
 		height: 220px;
@@ -208,6 +208,7 @@ ion-popover-view .list .button {
 
 .story-wrapper h2 {
     margin-bottom: 0;
+    margin-top: 3%;
     float: left;
 }
 
@@ -215,64 +216,53 @@ ion-popover-view .list .button {
     margin: 2% 5%;
 }
 
-.story .button-bar > .button {
+ .button-bar > .button {
     min-height: 25px;
     line-height: 2.2em;
     font-size: 1em;
-    border-color: $contrast-color-dark;
-    color: white;
-    background-color: $contrast-color-dark;
+    font-weight: bold;
+    border-color: $contrast-color;
+    color: $contrast-color;
+    background-color: $background-color;
+    letter-spacing: 0.1em;
 }
 
-.story .button-bar > .button.active {
+ .button-bar > .button.active {
     background-color: $contrast-color;
     color: #FFF;
     border-color: $contrast-color;
 }
 
-.story .button-bar > .button.disabled {
-	background-color: blue;
-}
-
-.story-categories {
-    position: absolute;
-    right: 5%;
-    top: 180px;
-    width: 25%;
-}
 .category-circle {
     font-size: 1.5em;
-    background-color: #DDD;
-    padding: 2px 7px;
+    background-color: $background-color-dark;
+    padding: 2px 5px;
     border-radius: 50%;
+    margin-right: 1.5%;
 }
 .story-categories .category-circle {
-	float: right;
-	margin-top: 5%;
-	margin-left: 3%;
+	float: left;
+	margin-bottom: 2.5%;
 }
 
-.published {
-    margin-right: 2%;
+.media-content {
+	overflow-x: scroll;
+	overflow-y: hidden;
+	height: 120px;
+	background-color: $background-color-dark;
+	padding: 2% 5%;
+	white-space: nowrap;
 }
 
 .story-image-container {
-
-    width: 33%;
-    height: 85px;
-    float: left;
+	display: inline-block;
+    height: 100px;
     overflow: hidden;
-    margin-bottom: 5%;
+    margin-right: 3%;
 }
 
 .clear-float {
     clear: both;
-}
-
-.media-content {
-	background-color: $background-color-dark;
-	overflow: hidden;
-	padding: 2% 5%;
 }
 
 iframe, video {
@@ -319,8 +309,9 @@ iframe, video {
 */
 .image-list-thumb {
     padding: 2px;
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 100%;
+    border-radius: 6px;
 }
 
 .image-modal {
@@ -424,9 +415,11 @@ iframe, video {
  */
 ion-slide .card {
 	width: 75%;
-	height: 500px;
+	height: 75%;
 	margin: 12% auto;
 	position: relative;
+	text-align: center;
+	border-radius: 10px;
 }
 
 .reject-story-icon {
@@ -434,8 +427,8 @@ ion-slide .card {
 	top: 2%;
 	right: 6%;
 	font-size: 1.4em;
-	color: white;
-	background-color: #444;
+	color: #FFF;
+	background-color: rgba(0,0,0,0.34);
 	padding: 1% 2%;
 	border-radius: 50%;
 }
@@ -460,18 +453,38 @@ ion-slide h2 {
 	margin-bottom: 1%;
 }
 
+ion-slide p {
+	font-size: 0.9em;
+	overflow: hidden;
+}
+
 ion-slide .button {
-	position: absolute;
-	width: 70%;
-	bottom: 5%;
-	left: 15%;
+	//position: absolute;
+	width: 50%;
+	//bottom: 5%;
+	//left: 20%;
+	margin: 0 auto;
+	border-radius: 8px;
+}
+
+.fade-box {
+	position: absolute; 
+	bottom: 0; 
+	left: 0;
+	width: 100%; 
+	margin: 0; padding: 15px 0; 
+
+	background: rgba(255,255,255,0);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,0)), color-stop(70%, rgba(255,255,255,1)), color-stop(100%, rgba(255,255,255,1)));
+	background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 70%, rgba(255,255,255,1) 100%);
 }
 
 .slide-nav {
 	position: absolute;
-  	top: 45%;
+  	top: 38%;
   	transform: translateY(-50%);
   	font-size: 2em;
+  	padding: 30px 0;
 }
 
 .slide-nav-left {

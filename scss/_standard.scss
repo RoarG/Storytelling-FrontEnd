@@ -1,5 +1,5 @@
 body {
-  font-family: "Helvetica Neue", Roboto, "Droid Sans", sans-serif;
+  font-family: "Cabin", sans-serif;
   color: $font-color;
 }
 
@@ -11,6 +11,10 @@ ion-content {
 	background-color: $background-color;
 }
 
+h1, h2, h3 {
+	font-family: 'Lobster', cursive;
+	color: $contrast-color-dark;
+}
 
 h1 {
     font-size: 1.8em;
@@ -25,9 +29,12 @@ h3 {
 
 p {
     margin: 3% 0;
+    line-height: 1.5em;
 }
 
 .small-text {
-	color: $small-text-color;
+	color: $background-color-dark;
 	font-size: 0.8em;
+	font-weight: 300;
+	font-style: italic;
 }

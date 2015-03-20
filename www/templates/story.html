@@ -8,24 +8,23 @@
         </div>
         <div class="story-wrapper">
             <h2>{{story.title}}</h2>
+            <div class="clear-float"></div>
+            <span class="small-text author">{{story.author.join(", ")}}</span>
+            <p>{{story.introduction}}</p>
             <div class="story-categories">
                 <div ng-repeat="category in story.categoryList" class="category-circle">
                     <i class="icon-art"></i>
                 </div>
             </div>
-            <div class="clear-float"></div>
-            <span class="small-text published">{{story.published}}</span>
-            <span class="small-text author"ng-repeat="author in story.author">{{author}}, </span>
-            <p>{{story.introduction}}</p>
         </div>
         <!-- Media menubar -->
         <div class="button-bar">
-            <a class="button button-light" ng-class="{'active': mediaType === 'images'}" ng-show="story.imageList.length > 0" ng-click="mediaType = 'images'">Bilder</a>
+            <a class="button button-light" ng-class="{'active': mediaType === 'images'}" ng-show="story.imageList[0]" ng-click="mediaType = 'images'">Bilder</a>
             <a class="button button-light" ng-class="{active: mediaType === 'video'}" ng-show="story.videoList[0]" ng-click="mediaType = 'video'">Video</a>
             <a class="button button-light" ng-class="{'active': mediaType === 'audio'}" ng-show="story.audioList[0]" ng-click="mediaType = 'audio'">Lydklipp</a>
         </div>
         <!-- Images, video or sound displayed depending on which button in the menubar is active -->
-        <div class="media-content">
+        <ion-scroll class="media-content" direction="x">
             <div ng-if="mediaType === 'images'">
                 <div class="story-image-container" ng-repeat="image in story.imageList">
                     <img ng-src={{image}} ng-click="showImages($index)" alt="" class="image-list-thumb"/>
@@ -34,7 +33,7 @@
             <div ng-if="mediaType === 'video'">
                 <div class="video-player" ng-repeat="videoUrl in story.videoList">
                     <!--Youtube or vimeo video-->
-                    <iframe ng-if="!videoUrl.indexOf('.mp4')"frameborder="0" ng-src="{{getTrustedUrl(videoUrl)}}" ng-hide="true">
+                    <iframe id="{{'Video' + $index}}" ng-if="!videoUrl.indexOf('.mp4')"frameborder="0" ng-src="{{getTrustedUrl(videoUrl)}}" ng-hide="true">
                     </iframe>
                     <!-- mp4 video -->
                     <video id="{{'Video' + $index}}" width="200" ng-if="videoUrl.indexOf('.mp4')" ng-src="{{getTrustedUrl(videoUrl)}}" ng-hide="true"></video>
@@ -48,7 +47,7 @@
                     Your browser does not support the audio element.
                 </audio>
             </div>
-        </div>
+        </ion-scroll>
         <div class="story-wrapper">
             <p class="clear-float" ng-bind-html="story.text"></p>
         </div>

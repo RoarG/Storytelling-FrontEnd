@@ -92,7 +92,7 @@ $scope.login(mail) = function() {
 
   $scope.submitPreferences = function() {
     console.log("Submitting preferences");
-    $state.go("app.listView");
+    $state.go("app.recommendations");
   };
 
   //Need the userId to make this work
@@ -101,13 +101,18 @@ $scope.login(mail) = function() {
   });*/
 })
 
-.controller('ListViewCtrl', function($scope, Requests, $state, $rootScope) {
+.controller('ListViewCtrl', function($scope, Requests, $state, $rootScope, $ionicLoading) {
+  //Display loading screen
+  $ionicLoading.show({
+      template: 'loading'
+  });
+
 
   //Controlleren må hente Requests
   //Må ha .then() for å kunne hente fra http.post i backend.services
   Requests.getMultipleStories().then(function(response){
     $scope.storyPreviews =  response.data;
-
+    $ionicLoading.hide();
   });
   /*
   //some test data for the listview
@@ -146,22 +151,25 @@ $scope.login(mail) = function() {
 
   //remove a story from the listview
   $scope.remove = function(story) {
-	var index = $scope.storyPreviews.indexOf(story)
-	$scope.storyPreviews.splice(index, 1);
-  }
+	 var index = $scope.storyPreviews.indexOf(story);
+	 $scope.storyPreviews.splice(index, 1);
+  };
   
-  //? Hva er index til her?
   $scope.open = function(story) {
-	var index = $scope.storyPreviews.indexOf(story)
-  $rootScope.storyId = story.id;
-  $state.go("app.story");
-  }
+    Requests.setSelectedStory(story.id);
+    $state.go("app.story");
+  };
 })
 
 
-.controller('RecommendationCtrl', function($scope, Requests, Story, $ionicSlideBoxDelegate, $ionicPopover) {
+.controller('RecommendationCtrl', function($scope, Requests, Story, $ionicSlideBoxDelegate, $ionicPopover, $ionicLoading, $state) {
   var storyPreviews = [];
   $scope.stories = [];
+
+   //Display loading screen
+  $ionicLoading.show({
+      template: 'loading'
+    });
 
   Requests.getMultipleStories().then(function(response){
     $scope.storyPreviews =  response.data;
@@ -175,6 +183,7 @@ $scope.login(mail) = function() {
   }).then(function(story){
     $scope.stories.push(new Story(story.data));
     $ionicSlideBoxDelegate.update();
+    $ionicLoading.hide();
   });
 
   $scope.nextSlide = function() {
@@ -183,6 +192,15 @@ $scope.login(mail) = function() {
   $scope.previousSlide = function() {
     $ionicSlideBoxDelegate.previous();
   };
+
+  $scope.rejectStory = function() {
+    console.log("Reject story");
+  };
+
+  $scope.openStory = function(story) {
+    Requests.setSelectedStory(story.storyId);
+    $state.go("app.story");
+  }
 
    // Set up bookmark dropdown
     $ionicPopover.fromTemplateUrl('templates/bookmarks-dropdown.html', {
@@ -197,8 +215,12 @@ $scope.login(mail) = function() {
     });
 })
 
-.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ionicPopover, Requests, Story, $rootScope, $sce) {
-    $scope.mediaType = "images"; //Type of media currently displayed
+.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ionicPopover, Requests, Story, $rootScope, $sce, $ionicLoading) {
+
+    //Display loading screen
+    $ionicLoading.show({
+      template: 'loading'
+    })
 
     // Get story data. 
     //$scope.story = Stories.all()[0];
@@ -206,10 +228,24 @@ $scope.login(mail) = function() {
     //Controlleren må hente Requests og Story
     //Må ha .then() for å kunne hente fra http.post i backend.services
     //Requests.getStory('DF.1098').then(function(response){
-    Requests.getStory($rootScope.storyId).then(function(response){
+    Requests.getStory(Requests.getSelectedStory()).then(function(response){
       //Henter bare en spesifik historie nå, visste ikke hvordan jeg skulle hente
       //id-er fra array
       $scope.story = new Story(response.data);
+
+      //Decide what media format to display first
+      if(!$scope.story.imageList) {
+        if($scope.story.videoList[0]) {
+          $scope.mediaType = "video";
+        } else if($scope.story.audioList[0]) {
+          $scope.mediaTypes = "sound";
+        } else {
+          $scope.mediaType = "";
+        }
+      } else {
+          $scope.mediaType = "images"; 
+      }
+      $ionicLoading.hide();
     });
 
     // Display selected image in modal. 
@@ -254,6 +290,13 @@ $scope.login(mail) = function() {
     // Play selected video in fullscreen
     $scope.playVideo = function(index) {
       var video = document.getElementById("Video" + index);
+      if (video.webkitEnterFullScreen) {
+        video.webkitEnterFullScreen();
+      } else if (video.webkitRequestFullScreen) {
+        video.webkitRequestFullScreen();
+      } else if (video.requestFullscreen) {
+        video.requestFullscreen();
+      };
       video.play();
     };
 })

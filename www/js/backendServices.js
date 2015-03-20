@@ -91,6 +91,8 @@ angular.module('backend.services', ['ngSanitize'])
 		headers: {'Content-Type': 'application/json'} // 'Content-Type': application/json???
 	}
 
+	var selectedStory
+
 	/* DETTE MÅ BRUKES I Controllere:
  	Requests."metode"().then(function(response){
     		$scope."detsomskalbrukes" = new Story(response.data); eller bare response.data
@@ -208,6 +210,13 @@ angular.module('backend.services', ['ngSanitize'])
 				tagName: tagName
 			};
 			return $http(req);
+		},
+
+		setSelectedStory: function (storyId){
+			selectedStory = storyId;
+		},
+		getSelectedStory: function () {
+			return selectedStory;
 		}
 	}
 });
