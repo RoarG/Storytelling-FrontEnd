@@ -76,9 +76,19 @@ $scope.login(mail) = function() {
     this.isSelected = isSelected;
   };
   $scope.categories = [];
-  for(i=0; i<9; i++) {
+  /*for(i=0; i<9; i++) {
       $scope.categories.push(new Category("Navn", "ion-star", false));
-  };
+  };*/
+	$scope.categories.push(new Category("Kunst", "icon-art", false));
+	$scope.categories.push(new Category("Arkitektur", "icon-architecture", false));
+	$scope.categories.push(new Category("Arkeologi", "ion-star", false));
+	$scope.categories.push(new Category("Historie", "icon-history", false));
+	$scope.categories.push(new Category("Musikk", "ion-music-note", false));
+	$scope.categories.push(new Category("Natur", "icon-nature", false));
+	$scope.categories.push(new Category("Litteratur", "ion-ios-book", false));
+	$scope.categories.push(new Category("Lokal Tradisjon", "ion-earth", false));
+	$scope.categories.push(new Category("Teknologi", "icon-technology", false));
+	
 
   $scope.submitPreferences = function() {
     console.log("Submitting preferences");

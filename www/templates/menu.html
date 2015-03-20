@@ -21,18 +21,23 @@
         <ion-item nav-clear menu-close href="#/app/recommendations">
           Anbefalte fortellinger
         </ion-item>
+		
         <ion-item nav-clear menu-close ng-click="login()">
           Login
         </ion-item>
-		    <ion-item nav-clear menu-close href="#/app/settings">
+		
+		<ion-item nav-clear menu-close href="#/app/settings">
           Settings
         </ion-item>
-		    <ion-item class="item item-divider">
-		      <b>Samlinger</b>
-		    </ion-item>
+		
+		<ion-item class="item item-divider">
+		  <b>Samlinger</b>
+		</ion-item>
+		
         <ion-item nav-clear menu-close href="#/app/listView">
           listView
         </ion-item>
+		
 		<ion-item nav-clear ng-repeat="list in collectionList" menu-close href="#/app/listView">
 			{{list.text}}
 		</ion-item>

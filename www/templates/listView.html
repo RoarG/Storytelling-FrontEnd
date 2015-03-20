@@ -7,9 +7,10 @@
         <!-- add the contents of each list element-->
 		<img class="list-full-size" ng-src="{{story.thumbnail}}">
 		<h2>{{story.title}}</h2>
-		<p>{{story.description | limitTo: 100}}...</p>
+		<!-- Truncate the description to a maximum of 100 characters -->
+		<p>{{story.description | limitTo: 100}}{{story.description.length > 100 ? '...' : ''}}</p>
 		<!-- add categories as their own lists on each story -->
-		<ul class="list-horizontal" ng-repeat="category in story.categories" ng-switch on="category">
+		<ul class="list-horizontal list-cat-display" ng-repeat="category in story.categories" ng-switch on="category">
 			<li class="list-cat-display" ng-switch-when="history"><i class="icon-history"></i>
 			<li class="list-cat-display" ng-switch-when="nature and adventure"><i class="icon-nature"></i>
 			<li class="list-cat-display" ng-switch-when="science and technology"><i class="icon-technology"></i>
@@ -17,6 +18,9 @@
 			<li class="list-cat-display" ng-switch-when="architecture"><i class="icon-architecture"></i>
 			<li class="list-cat-display" ng-switch-when="local traditions and food"><i class="ion-earth"></i>
 			<li class="list-cat-display" ng-switch-when="music"><i class="ion-music-note"></i>
+			<li class="list-cat-display" ng-switch-when="archeology"><i class="ion-star"></i>
+			<li class="list-cat-display" ng-switch-when="literature"><i class="ion-ios-book"></i>
+			
 		</ul>
 		<!-- add the reject button on the side that removes a story -->
 		<ion-option-button class="button-assertive" ng-click="remove(story)">
