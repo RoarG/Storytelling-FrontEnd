@@ -15,6 +15,7 @@ angular.module('backend.services', ['ngSanitize'])
 		this.introduction = storyData.introduction;
 
 		//EXAMPLE VIDEO-URL: "http://mm01.dimu.no/multimedia/012FwwCj.mp4?mmid=012FwwCj"
+		//Returns an array of arrays consisting of 'videourl' and 'posterurl'
 		this.videoList = storyData.videoList;
 
 		// NEEDS <p ng-bind-html="story.text"></p> where <p> {{story.text}} </p> is in story.html
@@ -29,21 +30,21 @@ angular.module('backend.services', ['ngSanitize'])
 		this.institution = storyData.institution;
 
 		this.subcategoryList = storyData.subCategoryNames;
+		this.categoryList = storyData.categoryList;
+		this.url = storyData.url;  
 
-		//Tror ikke denne trenger å hentes her??
-		this.subcategoryIDs = storyData.subCategoryList;
-		this.categoryList = storyData.subjectList;
-		this.url = $sce.trustAsUrl("http://www.digitaltfortalt.no/things/thing/H-DF/"+this.storyId);
+		//These four not working now, needs userId as paramater   
+		this.rating = storyData.rating;
+		this.explanation = storyData.explanation;
+		this.falseRecommend = storyData.falseRecommend;
+		this.typeOfRecommendation = storyData.tyepOfRecommendation;
 
 		this.updateMedia();
 	}
 
-	//TRENGER VI Å HENTE UT BILDELISTE I DET HELE TATT NÅR BILDEVISNING BRUKER INDEKS OG IKKE ID?
-	//BARE HENTE ANTALL BILDER?
 	/** Adds the imageurl to imageList */
 	Story.prototype.updateMedia = function(){
 		
-		//BLIR LITT RART, HELE BILDET VISES IKKE PÅ STORYVIEW. BØR EKSPERIMENTERES MED HEIGHTxWIDHT?
 		if(this.imageList != null)
 			for(var i = 0; i < this.imageList.length; i++){
 				this.imageList[i] = $sce.trustAsResourceUrl("http://media31.dimu.no/media/image/H-DF/"+this.storyId+"/"+i+"?byIndex=true&height=400&width=400");
@@ -100,11 +101,10 @@ angular.module('backend.services', ['ngSanitize'])
 
 	return {
 		/**Retrieves single story from digitalt fortalt*/
-		getStory: function(id){
+		getStory: function(storyId, userId){
 			req.data = {
 				type: "getStory",
-				storyId: id };
-			//Burde sikkert bruke .success osv, men det så mye finere ut uten :)
+				storyId: storyId };
 			return $http(req);
 		},
 
