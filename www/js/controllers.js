@@ -1,22 +1,33 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $state, $ionicModal, $timeout, Requests) {
-  // Form data for the login modal
-  $scope.loginData = {};
-
-
-/*
-$scope.login(mail) = function() {
+.controller('AppCtrl', function($scope, Requests, User, $state, $ionicModal, $timeout, $rootScope ) {
   
-  //Sets user according to the mail provided in login
-  Requests.getUser(mail).then(function(response){
-    //Henter bare en spesifik historie nå, visste ikke hvordan jeg skulle hente
-    //id-er fra array
-    $scope.user = new User(response.data);
-  });
-}*/
+$scope.user = {}
 
+/*  Requests.getUserFromEmail().then(function(response){
 
+    $scope.doLogin = function(mail) {
+      //Checks if the mail is assisiated with a user
+      if (Requests.getUserFromEmail(mail) != null) {
+
+        //TODO: Set user assosiated with the mail
+        $scope.user =  Requests.getUserFromEmail(mail);
+
+      };
+      else {
+        $scope.user = new User(response.data);
+
+       // Make a new user and assosiat it the the mail adress
+      };
+      console.log('Doing login', $scope.loginData);
+    
+      $timeout(function() {
+      //  $scope.closeLogin();
+        $state.go("profile");
+      }, 1000);
+
+    };
+  });*/
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -37,17 +48,30 @@ $scope.login(mail) = function() {
     $scope.modal.show();
   };
 
-  // Perform the login action when the user submits the login form and sets the next view
-  $scope.doLogin = function() {
+  // Perform the login action when the user presses the log in buttong and sets the next view
+  $scope.doLogin = function(mail) {
     console.log('Doing login', $scope.loginData);
-    $state.go("profile");
+   /* $state.go("profile");*/
+      console.log("Mail :" + mail);
 
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
   };
+
+
+ /*     Requests.getMultipleStories().then(function(response){
+    $scope.storyPreviews =  response.data;
+    return Requests.getStory($scope.storyPreviews[0].id);
+  }).then(function(story){
+    $scope.stories.push(new Story(story.data));
+    return Requests.getStory($scope.storyPreviews[1].id);
+  }).then(function(story){
+    $scope.stories.push(new Story(story.data));
+    return Requests.getStory($scope.storyPreviews[2].id);
+  }).then(function(story){
+    $scope.stories.push(new Story(story.data));
+    $ionicSlideBoxDelegate.update();
+    $ionicLoading.hide();
+  });*/
+
 
   //Next and previous view - input is view to navigate to
 
