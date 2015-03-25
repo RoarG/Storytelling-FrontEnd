@@ -174,7 +174,7 @@ angular.module('backend.services', ['ngSanitize'])
 
 		/** Returns a user instance by using the user email address as input **/
 		getUserFromId: function(userId){
-			req.data = {type: "getUserFromEmail",
+			req.data = {type: "getUserFromId",
 				'userId': userId};
 			return $http(req);
 		},
