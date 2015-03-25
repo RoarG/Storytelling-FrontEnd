@@ -92,7 +92,7 @@ angular.module('backend.services', ['ngSanitize'])
 		headers: {'Content-Type': 'application/json'} // 'Content-Type': application/json???
 	}
 
-	var selectedStory
+	var selectedStory;
 
 	/* DETTE MÅ BRUKES I Controllere:
  	Requests."metode"().then(function(response){
@@ -104,7 +104,8 @@ angular.module('backend.services', ['ngSanitize'])
 		getStory: function(storyId, userId){
 			req.data = {
 				type: "getStory",
-				storyId: storyId };
+				storyId: storyId,
+				userId: userId };
 			return $http(req);
 		},
 
@@ -137,19 +138,47 @@ angular.module('backend.services', ['ngSanitize'])
 			};
 			$http(req);
 		},
-		
-		addUpdateUser: function (userData){
-			req.data = {type: "addUpdateUser",
-				data: userData};
+		/** Adss a new user to the database, takes a userinstance as input, can be partially filled (for no email set email = -1) **/
+		addUser: function (userData){
+			req.data = {type: "addUser",
+				email: userData.email,
+				age_group: userData.age_group,
+				gender: userData.gender,
+				use_of_location: userData.use_of_location,
+				category_preference: userData.category_preference
+				};
 			$http(req);
 		},
-		
-		getUser: function(mail){
-			req.data = {type: "getUser",
-				'email': mail};
+
+		/** Updates a user already in the DB, (for no email set email = -1) **/
+		updateUser: function (userData){
+			req.data = {type: "updateUser",
+				userId: userData.userId,
+				email: userData.email,
+				age_group: userData.age_group,
+				gender: userData.gender,
+				use_of_location: userData.use_of_location,
+				category_preference: userData.category_preference
+				};
+			return($http(req)); /** Returns status successful and userId upon sucess,
+			 returns status failed if email exists in DB i.e. for example {'status: "sucessfull", userId:  235'} or {'status: "failed"} **/
+		},
+
+		/** Returns a user instance by using the user email address as input **/
+		//TODO: Implement so that it needs confirmation via email
+		getUserFromEmail: function(email){
+			req.data = {type: "getUserFromEmail",
+				'email': email};
 			return $http(req);
 		},
-		
+
+		/** Returns a user instance by using the user email address as input **/
+		getUserFromId: function(userId){
+			req.data = {type: "getUserFromEmail",
+				'userId': userId};
+			return $http(req);
+		},
+
 		/*Get all lists for a user*/
 		getAllLists: function (userId){
 			req.data = {
