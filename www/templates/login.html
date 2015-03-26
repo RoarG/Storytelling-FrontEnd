@@ -18,7 +18,8 @@
               <div class="infoText">Logg inn med eksisterende eller ny e-post addresse</div>
               <div class="innerContLogin">
                 <label class="item item-input">
-                  <input type="text" placeholder="E-Post">
+
+                  <input type="text" placeholder="E-Post" ng-model="user.email"> <!-- Setter denne til model, TODO , sjekke om dette fungere før man lager en user i backend -->
                 </label>
 
                 <!--  <label class="item item-input">
@@ -28,7 +29,7 @@
                 <!-- <label class="item"> -->
 <!-- href="#/app/profile" -->
 
-                <button class="button button-block button-calm" ng-click="doLogin()">Logg inn</button>
+                <button class="button button-block button-calm" ng-click="doLogin(user.email)">Logg inn</button>
               </div>
           </div>
     
@@ -37,7 +38,7 @@
             <div class="skipContLogin">
               <div class="infoText">Ved å hoppe over innlogingen vil preferansene dine KUN være koblet til denne enheten</div>
                <div class="innerContLogin">
-                <a href="" ng-click="closeLogin()" id="skipLogin">Hopp over dette steget</a>
+                <a href="" ng-click="goProfile()" id="skipLogin">Hopp over dette steget</a>
               </div>
             </div>
       

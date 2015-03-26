@@ -136,6 +136,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   });
 
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login');
+// If already logged in, go to recommendation view, otherwise go to login. 
+  //if(window.localStorage['userId'] !== undefined && window.localStorage['userId'] !== "-1") {
+     //$urlRouterProvider.otherwise('/app/recommendations');
+  //} else {
+    $urlRouterProvider.otherwise('/login');
+  //}
+  
 });

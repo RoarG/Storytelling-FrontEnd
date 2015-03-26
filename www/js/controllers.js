@@ -1,22 +1,38 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $state, $ionicModal, $timeout, Requests) {
-  // Form data for the login modal
-  $scope.loginData = {};
-
-
-/*
-$scope.login(mail) = function() {
+.controller('AppCtrl', function($scope, Requests, User, $state, $ionicModal, $timeout, $rootScope ) {
   
-  //Sets user according to the mail provided in login
-  Requests.getUser(mail).then(function(response){
-    //Henter bare en spesifik historie nå, visste ikke hvordan jeg skulle hente
-    //id-er fra array
-    $scope.user = new User(response.data);
-  });
-}*/
+$scope.user = {}
 
 
+  $scope.doLogin = function(mail) {
+      console.log('Mail : ' + mail);
+
+      Requests.getUserFromEmail(mail).then(function(response){
+        $scope.user =  response.data;
+        window.localStorage['userId'] = $scope.user.userId;
+
+          //For debugging
+        console.log('User : ', $scope.user);
+        console.log('UserId : ', $scope.user.userId);
+        
+          //Checks if the userId is assisiated with a mail then Login ok
+        if ($scope.user.userId != null) {
+          console.log('Første IF : ' + $scope.user.userId);
+          //TODO: Set user assosiated with the mail
+          $state.go("profile");
+        }
+
+        else {
+          //TODO: Make a new user in the DB / Gi beskjed om at ny bruker ble opprettet
+        };
+      
+       $timeout(function() {
+          //TODO: Sett opp feilmelding
+          $state.go("profile");
+        }, 1000);
+    });
+}; 
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -37,17 +53,12 @@ $scope.login(mail) = function() {
     $scope.modal.show();
   };
 
-  // Perform the login action when the user submits the login form and sets the next view
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-    $state.go("profile");
+  $scope.logout = function() {
+    window.localStorage['userId'] = "-1";
+    $state.go("login");
+    console.log(window.localStorage['userId']);
+  }
 
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
-  };
 
   //Next and previous view - input is view to navigate to
 
@@ -162,9 +173,10 @@ $scope.login(mail) = function() {
 })
 
 
-.controller('RecommendationCtrl', function($scope, Requests, Story, $ionicSlideBoxDelegate, $ionicPopover, $ionicLoading, $state) {
+.controller('RecommendationCtrl', function($scope, Requests, Story, $ionicSlideBoxDelegate, $ionicModal, $ionicLoading, $state) {
   var storyPreviews = [];
   $scope.stories = [];
+  $scope.userId = window.localStorage['userId'];
 
    //Display loading screen
   $ionicLoading.show({
@@ -173,13 +185,13 @@ $scope.login(mail) = function() {
 
   Requests.getMultipleStories().then(function(response){
     $scope.storyPreviews =  response.data;
-    return Requests.getStory($scope.storyPreviews[0].id);
+    return Requests.getStory($scope.storyPreviews[0].id, $scope.userId);
   }).then(function(story){
     $scope.stories.push(new Story(story.data));
-    return Requests.getStory($scope.storyPreviews[1].id);
+    return Requests.getStory($scope.storyPreviews[1].id, $scope.userId);
   }).then(function(story){
     $scope.stories.push(new Story(story.data));
-    return Requests.getStory($scope.storyPreviews[2].id);
+    return Requests.getStory($scope.storyPreviews[2].id, $scope.userId);
   }).then(function(story){
     $scope.stories.push(new Story(story.data));
     $ionicSlideBoxDelegate.update();
@@ -200,19 +212,28 @@ $scope.login(mail) = function() {
   $scope.openStory = function(story) {
     Requests.setSelectedStory(story.storyId);
     $state.go("app.story");
-  }
+  };
 
-   // Set up bookmark dropdown
-    $ionicPopover.fromTemplateUrl('templates/bookmarks-dropdown.html', {
-        scope: $scope
-    }).then(function(popover) {
-        $scope.popover = popover;
+  $scope.showModal = function(templateUrl) {
+        $ionicModal.fromTemplateUrl(templateUrl, {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.modal = modal;
+            $scope.modal.show();
+        });
+    };
+
+    // Close the modal
+    $scope.closeModal = function() {
+        $scope.modal.hide();
+        $scope.modal.remove();
+    };
+
+    $scope.$on('$ionicView.beforeEnter', function(){
+        $ionicSlideBoxDelegate.update();
     });
 
-    // Clean up bookmark popover. 
-    $scope.$on('$destroy', function() {
-        $scope.popover.remove();
-    });
 })
 
 .controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ionicPopover, Requests, Story, $rootScope, $sce, $ionicLoading) {
@@ -220,7 +241,9 @@ $scope.login(mail) = function() {
     //Display loading screen
     $ionicLoading.show({
       template: 'loading'
-    })
+    });
+
+    $scope.userId = window.localStorage['userId'];
 
     // Get story data. 
     //$scope.story = Stories.all()[0];
@@ -228,22 +251,19 @@ $scope.login(mail) = function() {
     //Controlleren må hente Requests og Story
     //Må ha .then() for å kunne hente fra http.post i backend.services
     //Requests.getStory('DF.1098').then(function(response){
-    Requests.getStory(Requests.getSelectedStory()).then(function(response){
+    Requests.getStory(Requests.getSelectedStory(), $scope.userId).then(function(response){
       //Henter bare en spesifik historie nå, visste ikke hvordan jeg skulle hente
       //id-er fra array
+      // GetStory parameter 2(userID er $scope.user.userId)
       $scope.story = new Story(response.data);
 
       //Decide what media format to display first
-      if(!$scope.story.imageList) {
-        if($scope.story.videoList[0]) {
-          $scope.mediaType = "video";
-        } else if($scope.story.audioList[0]) {
-          $scope.mediaTypes = "sound";
-        } else {
-          $scope.mediaType = "";
-        }
+      if($scope.story.videoList) {
+        $scope.mediaType = "video";
+      } else if($scope.story.audioList) {
+        $scope.mediaTypes = "sound";
       } else {
-          $scope.mediaType = "images"; 
+        $scope.mediaType = "images";
       }
       $ionicLoading.hide();
     });
@@ -270,18 +290,6 @@ $scope.login(mail) = function() {
         $scope.modal.remove();
     };
 
-    // Set up bookmark dropdown
-    $ionicPopover.fromTemplateUrl('templates/bookmarks-dropdown.html', {
-        scope: $scope
-    }).then(function(popover) {
-        $scope.popover = popover;
-    });
-
-    // Clean up bookmark popover. 
-    $scope.$on('$destroy', function() {
-        $scope.popover.remove();
-    });
-
     // Necessary for video urls
     $scope.getTrustedUrl = function(url) {
       return $sce.trustAsResourceUrl(url);
@@ -290,36 +298,41 @@ $scope.login(mail) = function() {
     // Play selected video in fullscreen
     $scope.playVideo = function(index) {
       var video = document.getElementById("Video" + index);
-      if (video.webkitEnterFullScreen) {
-        video.webkitEnterFullScreen();
+      if (video.webkitEnterFullscreen) {
+        video.webkitEnterFullscreen();
       } else if (video.webkitRequestFullScreen) {
         video.webkitRequestFullScreen();
       } else if (video.requestFullscreen) {
         video.requestFullscreen();
-      };
+      }
       video.play();
+    };
+
+    $scope.openUrl = function(url) {
+      window.open(url, '_system');
     };
 })
 
 
 .controller("RatingCtrl", function($scope, Requests) {
-      
+        $scope.userId = window.localStorage['userId'];
         $scope.rating = 0;
       
         // Rate story
         $scope.rateFunction = function(rating) {
             $scope.rating = rating;
-            Requests.addRating($scope.story.storyId, 34, rating);
+            Requests.addRating($scope.story.storyId, $scope.userId, rating);
             console.log("Rated story: " + rating);
         };
         $scope.notInterested = function() {
-            Requests.addRating($scope.story.storyId, 34, 0);
+            Requests.addRating($scope.story.storyId, $scope.userId, 0);
             console.log("Not interested");
             $scope.rating=0;
         };
 })
 
 .controller('BookmarkCtrl', function($scope, $rootScope, Requests) {
+      $scope.userId = window.localStorage['userId'];
 
 	     	// May use the collectionList in AppCtrl instead
         // The collections a user has, and whether this story is in it.
@@ -344,9 +357,8 @@ $scope.login(mail) = function() {
             $scope.displayTextField = false;
         };
 
-        // Hides text field when popover is hidden. 
-        $scope.$on('popover.hidden', function() {
-            $scope.displayTextField = false;
-       });
+        $scope.addTag = function(tag) {
+            $scope.collectionList[tag.text] = true;
+        };
 
 });
