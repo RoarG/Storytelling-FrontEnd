@@ -4,30 +4,34 @@ angular.module('starter.controllers', [])
   
 $scope.user = {}
 
-/*  Requests.getUserFromEmail().then(function(response){
 
-    $scope.doLogin = function(mail) {
-      //Checks if the mail is assisiated with a user
-      if (Requests.getUserFromEmail(mail) != null) {
+  $scope.doLogin = function(mail) {
+      console.log('Mail : ' + mail);
 
-        //TODO: Set user assosiated with the mail
-        $scope.user =  Requests.getUserFromEmail(mail);
+      Requests.getUserFromEmail(mail).then(function(response){
+        $scope.user =  response.data;
 
-      };
-      else {
-        $scope.user = new User(response.data);
+          //For debugging
+        console.log('User : ', $scope.user);
+        console.log('UserId : ', $scope.user.userId);
+        
+          //Checks if the userId is assisiated with a mail then Login ok
+        if ($scope.user.userId != null) {
+          console.log('Første IF : ' + $scope.user.userId);
+          //TODO: Set user assosiated with the mail
+          $state.go("profile");
+        }
 
-       // Make a new user and assosiat it the the mail adress
-      };
-      console.log('Doing login', $scope.loginData);
-    
-      $timeout(function() {
-      //  $scope.closeLogin();
-        $state.go("profile");
-      }, 1000);
-
-    };
-  });*/
+        else {
+          //TODO: Make a new user in the DB / Gi beskjed om at ny bruker ble opprettet
+        };
+      
+       $timeout(function() {
+          //TODO: Sett opp feilmelding
+          $state.go("profile");
+        }, 1000);
+    });
+}; 
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -47,30 +51,6 @@ $scope.user = {}
   $scope.login = function() {
     $scope.modal.show();
   };
-
-  // Perform the login action when the user presses the log in buttong and sets the next view
-  $scope.doLogin = function(mail) {
-    console.log('Doing login', $scope.loginData);
-   /* $state.go("profile");*/
-      console.log("Mail :" + mail);
-
-  };
-
-
- /*     Requests.getMultipleStories().then(function(response){
-    $scope.storyPreviews =  response.data;
-    return Requests.getStory($scope.storyPreviews[0].id);
-  }).then(function(story){
-    $scope.stories.push(new Story(story.data));
-    return Requests.getStory($scope.storyPreviews[1].id);
-  }).then(function(story){
-    $scope.stories.push(new Story(story.data));
-    return Requests.getStory($scope.storyPreviews[2].id);
-  }).then(function(story){
-    $scope.stories.push(new Story(story.data));
-    $ionicSlideBoxDelegate.update();
-    $ionicLoading.hide();
-  });*/
 
 
   //Next and previous view - input is view to navigate to
@@ -197,13 +177,13 @@ $scope.user = {}
 
   Requests.getMultipleStories().then(function(response){
     $scope.storyPreviews =  response.data;
-    return Requests.getStory($scope.storyPreviews[0].id);
+    return Requests.getStory($scope.storyPreviews[0].id, $scope.user.userId); 
   }).then(function(story){
     $scope.stories.push(new Story(story.data));
-    return Requests.getStory($scope.storyPreviews[1].id);
+    return Requests.getStory($scope.storyPreviews[1].id, $scope.user.userId);
   }).then(function(story){
     $scope.stories.push(new Story(story.data));
-    return Requests.getStory($scope.storyPreviews[2].id);
+    return Requests.getStory($scope.storyPreviews[2].id, $scope.user.userId);
   }).then(function(story){
     $scope.stories.push(new Story(story.data));
     $ionicSlideBoxDelegate.update();
@@ -255,6 +235,7 @@ $scope.user = {}
     Requests.getStory(Requests.getSelectedStory()).then(function(response){
       //Henter bare en spesifik historie nå, visste ikke hvordan jeg skulle hente
       //id-er fra array
+      // GetStory parameter 2(userID er $scope.user.userId)
       $scope.story = new Story(response.data);
 
       //Decide what media format to display first
@@ -333,11 +314,11 @@ $scope.user = {}
         // Rate story
         $scope.rateFunction = function(rating) {
             $scope.rating = rating;
-            Requests.addRating($scope.story.storyId, 34, rating);
+            Requests.addRating($scope.story.storyId, $scope.user.userId, rating);
             console.log("Rated story: " + rating);
         };
         $scope.notInterested = function() {
-            Requests.addRating($scope.story.storyId, 34, 0);
+            Requests.addRating($scope.story.storyId, $scope.user.userId, 0);
             console.log("Not interested");
             $scope.rating=0;
         };
