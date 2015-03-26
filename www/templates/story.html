@@ -1,12 +1,13 @@
 <ion-view class="story" ng-controller="StoryCtrl">
     <ion-nav-buttons side="right"> 
-        <button class="button button-icon ion-android-bookmark" ng-click="popover.show($event)"></button>
+        <button class="button button-icon ion-android-star" ng-click="showModal('templates/rating.html')"></button>
+        <button class="button button-icon ion-android-bookmark" ng-click="showModal('templates/bookmark-modal.html')"></button>
     </ion-nav-buttons>
     <ion-content>
         <div id="story-header-container">
             <img ng-src={{story.imageList[0]}} alt="" id="story-header-image" />
         </div>
-        <div class="story-wrapper">
+        <div class="story-introduction card">
             <h2>{{story.title}}</h2>
             <div class="clear-float"></div>
             <span class="small-text author">{{story.author.join(", ")}}</span>
@@ -19,9 +20,9 @@
         </div>
         <!-- Media menubar -->
         <div class="button-bar">
-            <a class="button button-light" ng-class="{'active': mediaType === 'images'}" ng-show="story.imageList[0]" ng-click="mediaType = 'images'">Bilder</a>
             <a class="button button-light" ng-class="{active: mediaType === 'video'}" ng-show="story.videoList[0]" ng-click="mediaType = 'video'">Video</a>
             <a class="button button-light" ng-class="{'active': mediaType === 'audio'}" ng-show="story.audioList[0]" ng-click="mediaType = 'audio'">Lydklipp</a>
+            <a class="button button-light" ng-class="{'active': mediaType === 'images'}" ng-show="story.imageList[0]" ng-click="mediaType = 'images'">Bilder</a>
         </div>
         <!-- Images, video or sound displayed depending on which button in the menubar is active -->
         <ion-scroll class="media-content" direction="x">
@@ -31,13 +32,15 @@
                 </div>
             </div>
             <div ng-if="mediaType === 'video'">
-                <div class="video-player" ng-repeat="videoUrl in story.videoList">
+                <div class="video-player" ng-repeat="video in story.videoList">
                     <!--Youtube or vimeo video-->
-                    <iframe id="{{'Video' + $index}}" ng-if="!videoUrl.indexOf('.mp4')"frameborder="0" ng-src="{{getTrustedUrl(videoUrl)}}" ng-hide="true">
+                    <iframe id="{{'Video' + $index + 'b'}}" ng-if="!video['videourl'].indexOf('.mp4')"frameborder="0" ng-src="{{getTrustedUrl(video['videourl'])}}">
                     </iframe>
                     <!-- mp4 video -->
-                    <video id="{{'Video' + $index}}" width="200" ng-if="videoUrl.indexOf('.mp4')" ng-src="{{getTrustedUrl(videoUrl)}}" ng-hide="true"></video>
-                    <div class="button" id="play" ng-click="playVideo($index)"><i class="ion-play"></i></div>
+                    <video id="{{'Video' + $index}}" controls="false" poster={{video['posterurl']}} ng-if="video['videourl'].indexOf('.mp4')" ng-src="{{getTrustedUrl(video['videourl'])}}"></video>
+                    <div class="play-button" id="play" ng-click="playVideo($index)">
+                        <i class="icon ion-play"></i>
+                    </div>
                 </div>
             </div>
             <div  ng-if="mediaType === 'audio'">
@@ -48,7 +51,7 @@
                 </audio>
             </div>
         </ion-scroll>
-        <div class="story-wrapper">
+        <div class="story-wrapper card">
             <p class="clear-float" ng-bind-html="story.text"></p>
         </div>
 
@@ -58,10 +61,13 @@
                 <i class="icon ion-android-star star" ng-class="{filled: i <= rating}" ng-repeat="i in [1,2,3,4,5]" ng-click="rateFunction(i)"></i>
                 <button class="button button-block button-light" ng-click="notInterested()">Ikke interessert</button>
             </div>
-            <h3>Eksterne ressurser</h3>
-            <h3>Emneord</h3>
-            <h3>Nøkkelord</h3>
-            <p><a href="{{story.url}}">Les historien på Digitalt Fortalt</a></p>
+            <h3>Sted</h3>
+            <span>{{story.municipality}}</span>
+            <h3>Fylke</h3>
+            <span>{{story.county}}</span>
+            <h3>Institusjon</h3>
+            <span>{{story.institution}}</span>
+            <p><a href="#" ng-click="openUrl(story.url)">Les historien på Digitalt Fortalt</a></p>
         </div>
     </ion-content>
 </ion-view>

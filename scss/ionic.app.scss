@@ -188,32 +188,82 @@ ion-popover-view .list .button {
 }
 
 
+// Bookmarks modal
+.modal .bookmark-content {
+	width: 90%;
+	margin: 5% auto;
+	
+}
+
+.modal.bookmark {
+	min-height: 40%;
+	width: 75%;
+	background-color: $background-color;
+	position: absolute;
+	top: 100px;
+	left: 12.5%;
+    border-radius: 5px;
+
+    .rating-content {
+    	position: relative;
+    	top: 20%;
+    	transform: translateY(-50%);
+    }
+
+    h2 {
+    	margin: 7% 0 0 5%;
+    }
+
+}
+
+.modal.bookmark .button-clear, .rating-modal .button-clear {
+    	position: absolute;
+    	top: 3%;
+    	right: 4%;
+    }
+
+
+.story {
+	background-color: $background-color;
+}
+
 #story-header-image {
     width: 100%;
 
     @include mq(medium) {
-    margin-top: -25%;
+    
     }
 
 }
 
 #story-header-container {
     overflow: hidden;
-    height: 200px;
+    max-height: 200px;
 
 	@include mq(medium) {
-		height: 220px;
+		max-height: 220px;
 	}
 }
 
-.story-wrapper h2 {
+.story-introduction h2 {
     margin-bottom: 0;
     margin-top: 3%;
     float: left;
 }
 
+.story-introduction {
+	position: relative;
+    margin: -8% 3% 0 3%;
+    padding: 0 3%;
+    border-radius: 5px;
+}
+
 .story-wrapper {
-    margin: 2% 5%;
+	position: relative;
+    margin: -0.5% 3% 0 3%;
+    padding: 2% 3%;
+    border-radius: 5px;
+    z-index: -1;
 }
 
  .button-bar > .button {
@@ -221,16 +271,17 @@ ion-popover-view .list .button {
     line-height: 2.2em;
     font-size: 1em;
     font-weight: bold;
-    border-color: $contrast-color;
-    color: $contrast-color;
-    background-color: $background-color;
+    border-color: $primary-color;
+    color: $primary-color-dark;
+    background-color: $primary-color-light;
     letter-spacing: 0.1em;
+    position: relative;
 }
 
  .button-bar > .button.active {
-    background-color: $contrast-color;
-    color: #FFF;
-    border-color: $contrast-color;
+    background-color: $primary-color;
+    color: #fff;
+    border-color: $primary-color;
 }
 
 .category-circle {
@@ -249,9 +300,10 @@ ion-popover-view .list .button {
 	overflow-x: scroll;
 	overflow-y: hidden;
 	height: 120px;
-	background-color: $background-color-dark;
+	background-color: $primary-color;
 	padding: 2% 5%;
 	white-space: nowrap;
+	border-bottom: 1px solid $primary-color-dark;
 }
 
 .story-image-container {
@@ -265,35 +317,45 @@ ion-popover-view .list .button {
     clear: both;
 }
 
-iframe, video {
-    width: 47%;
-    margin-right: 2%;
+.video-player {
+	display: inline-block;
+	height: 100px;
+	overflow: hidden;
+	margin-right: 3%;
 }
 
-.video-player .button{
-	width: 47%;
-	height: 100px;
-	margin-right: 2%;
-	background-color: #333;
-	color: white;
+.video-player video {
+	height: 100%;
+	width: auto;
+}
+
+.video-player .play-button {
+	height: 100%;
+	width: auto;
+	margin-top: -105px;
 
 	i {
-		margin: 0;
-	   position: absolute;
-	   top: 50%;
-	   left: 50%;   
-	   margin-right: 50%;  
-	   -webkit-transform: translate(-50%, -50%);              
-	   transform: translate(-50%, -50%);
-	   font-size: 2.5em;
+		color: white;
+		font-size: 2em;
+		position: relative;
+		top: 35px;
+		left: 60px;
+		
 	}
+}
+
+video::-webkit-media-controls {
+    display:none !important;
 }
 
 
 .story-footer {
-    padding: 2% 4%;
+    padding: 10% 4%;
     background-color: $primary-color;
     color: white;
+    position: relative;
+    margin-top: -10%;
+    z-index: -2;
 
 	h3 {
 	    color: white;
@@ -345,10 +407,48 @@ iframe, video {
 /* 
     Star rating 
 */
+
+// Styling for the modal
+.rating-modal {
+	min-height: 30%;
+	height: 30%;
+	width: 75%;
+	background-color: $background-color;
+	position: absolute;
+	top: 20%;
+	left: 12.5%;
+    border-radius: 5px;
+    text-align: center;
+
+    .rating-content {
+    	position: relative;
+    	top: 25%;
+    }
+
+    .star {
+    	color: $background-color-dark;
+    	font-size: 2em;
+    }
+
+   button {
+   		width: 150px;
+   		margin: 0 auto;
+   		font-size: 1em;
+   		min-height: 20px;
+   		line-height: 1.8em;
+   }
+
+   .filled {
+   color: #fd0;
+   }
+}
+
+// Styling for rating below story. 
 .rating {
     width: 50%;
     margin: 5% auto;
     text-align: center;
+    color: white;
 
 	.star {
 	    color: #FFF;
@@ -413,6 +513,10 @@ iframe, video {
 /*
 	Recommendations
  */
+.recommendations {
+	background-color: $background-color;
+}
+
 ion-slide .card {
 	width: 75%;
 	height: 75%;
@@ -424,7 +528,7 @@ ion-slide .card {
 
 .reject-story-icon {
 	position: absolute;
-	top: 2%;
+	top: 3%;
 	right: 6%;
 	font-size: 1.4em;
 	color: #FFF;
