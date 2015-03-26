@@ -3,48 +3,66 @@ angular.module('starter.controllers', [])
 .controller('AppCtrl', function($scope, Requests, User, $state, $ionicModal, $timeout, $rootScope ) {
 
 
-$scope.user = {}
-$scope.respondUser = {}
+
+$scope.responseData = {}
+$scope.tempMail ;
 
 
   $scope.doLogin = function(email) {
       console.log('Mail : ' + email);
-      $scope.user.email = email;
-      console.log('User.mail : ', $scope.user.email);
-
-
-      Requests.getUserFromEmail(mail).then(function(response){
-        $scope.user =  response.data;
-        window.localStorage['userId'] = $scope.user.userId;
-
+      $scope.tempMail = email;
+      
+      //request backend for the user with Email // 
+      Requests.getUserFromEmail(email).then(function(response){
+        $scope.responseData =  response.data;
+        console.log('User : ', $scope.responseData.userModel);
 
           //For debugging
-        console.log('REspondUser : ', $scope.respondUser);
-        console.log('REspondUserId : ', $scope.respondUser.userId);
+        console.log('Respons : ', $scope.responseData);
+        console.log('responseData Model : ', $scope.responseData.userModel);
         
-          //Checks if the userId is assisiated with a email then Login ok
-        if ($scope.respondUser.userId != null) {
-          console.log('Første IF : ' + $scope.user.userId);
-          $scope.user =  $scope.respondUser;
+          //Checks if the userId is assisiated with a email then Login ok and sets scope.user to the model from backend
+        if ($scope.responseData.status != "failed") {
+          console.log('Første IF : ' + $scope.responseData.userModel.userId);
+          $scope.user =  $scope.responseData.userModel
 
-          //TODO: Set user assosiated with the email
+            //Sets the localStorage userId 
+          window.localStorage['userId'] = $scope.user.userId;
+        
+            //TODO: Set user assosiated with the email ??
           $state.go("profile");
         }
 
+          //If the e-mail is not recorded in the database make a new user 
         else {
+
+          $scope.user = new User($scope.tempMail);
           console.log('User.mail : ', $scope.user.email);
-          $scope.tempMail = $scope.user.email
+
           //TODO: Make a new user in the DB / Gi beskjed om at ny bruker ble opprettet
-          $scope.user = $scope.respondUser;
-          $scope.user.email = $scope.tempMail;
-          Requests.updateUser($scope.user);
-          /*.then(function(response){*/
-          /*$scope.response =  response.data;*/
-          console.log('Else user : ', $scope.user);
-          /*});*/
+
           
+          $scope.user.email = $scope.tempMail
+          Requests.addUser($scope.user).then(function(response){
+            $scope.responseData =  response.data;
+            console.log('New user: ', $scope.responseData.status);
+
+            if ($scope.responseData.status != "failed") {
+              Requests.getUserFromEmail($scope.tempMail).then(function(response){
+                $scope.responseData =  response.data;
+                console.log('User : ', $scope.responseData.userModel);
+                  //Sets the recived model as the user
+                $scope.user =  $scope.responseData.userModel;
+                console.log('New userId : ', $scope.user.userId);
+                  //Sets the localStorage userId 
+                window.localStorage['userId'] = $scope.user.userId;
+
+                $state.go("profile");
+              });
+            };
+          });
         };
-      /*
+       /*
        $timeout(function() {
           //TODO: Sett opp feilmelding
           $state.go("profile");
