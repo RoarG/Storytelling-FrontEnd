@@ -138,7 +138,7 @@ angular.module('backend.services', ['ngSanitize'])
 			};
 			$http(req);
 		},
-		/** Adss a new user to the database, takes a userinstance as input, can be partially filled (for no email set email = -1) **/
+		/** Adds a new user to the database, takes a userinstance as input, can be partially filled (for no email set email = -1) **/
 		addUser: function (userData){
 			req.data = {type: "addUser",
 				email: userData.email,
@@ -147,7 +147,7 @@ angular.module('backend.services', ['ngSanitize'])
 				use_of_location: userData.use_of_location,
 				category_preference: userData.category_preference
 				};
-			$http(req);
+			return $http(req);
 		},
 
 		/** Updates a user already in the DB, (for no email set email = -1) **/

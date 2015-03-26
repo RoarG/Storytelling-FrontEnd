@@ -1,36 +1,52 @@
 angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, Requests, User, $state, $ionicModal, $timeout, $rootScope ) {
-  
+
+
 $scope.user = {}
+$scope.respondUser = {}
 
 
-  $scope.doLogin = function(mail) {
-      console.log('Mail : ' + mail);
+  $scope.doLogin = function(email) {
+      console.log('Mail : ' + email);
+      $scope.user.email = email;
+      console.log('User.mail : ', $scope.user.email);
 
-      Requests.getUserFromEmail(mail).then(function(response){
-        $scope.user =  response.data;
+      Requests.getUserFromEmail(email).then(function(response){
+        $scope.respondUser = response.data;
 
           //For debugging
-        console.log('User : ', $scope.user);
-        console.log('UserId : ', $scope.user.userId);
+        console.log('REspondUser : ', $scope.respondUser);
+        console.log('REspondUserId : ', $scope.respondUser.userId);
         
-          //Checks if the userId is assisiated with a mail then Login ok
-        if ($scope.user.userId != null) {
+          //Checks if the userId is assisiated with a email then Login ok
+        if ($scope.respondUser.userId != null) {
           console.log('Første IF : ' + $scope.user.userId);
-          //TODO: Set user assosiated with the mail
+          $scope.user =  $scope.respondUser;
+
+          //TODO: Set user assosiated with the email
           $state.go("profile");
         }
 
         else {
+          console.log('User.mail : ', $scope.user.email);
+          $scope.tempMail = $scope.user.email
           //TODO: Make a new user in the DB / Gi beskjed om at ny bruker ble opprettet
+          $scope.user = $scope.respondUser;
+          $scope.user.email = $scope.tempMail;
+          Requests.updateUser($scope.user);
+          /*.then(function(response){*/
+          /*$scope.response =  response.data;*/
+          console.log('Else user : ', $scope.user);
+          /*});*/
+          
         };
-      
+      /*
        $timeout(function() {
           //TODO: Sett opp feilmelding
           $state.go("profile");
-        }, 1000);
-    });
+        }, 1000);*/
+      });
 }; 
 
   // Create the login modal that we will use later
