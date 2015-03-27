@@ -180,12 +180,16 @@ $scope.tempMail ;
   });*/
 })
 
-.controller('ListViewCtrl', function($scope, Requests, $state, $rootScope, $ionicLoading) {
+.controller('ListViewCtrl', function($scope, Requests, $state, $rootScope, $ionicLoading, categoryPicker) {
   //Display loading screen
   $ionicLoading.show({
       template: 'loading'
   });
 
+  //Call the categoryPicker service
+  $scope.chooseCategories = function(categories) {
+     categoryPicker(categories);
+  };
 
   //Controlleren må hente Requests
   //Må ha .then() for å kunne hente fra http.post i backend.services
