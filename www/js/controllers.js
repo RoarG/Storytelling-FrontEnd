@@ -160,18 +160,18 @@ $scope.tempMail ;
   };*/
 	$scope.categories.push(new Category("Kunst", "icon-art", false));
 	$scope.categories.push(new Category("Arkitektur", "icon-architecture", false));
-	$scope.categories.push(new Category("Arkeologi", "ion-star", false));
+	$scope.categories.push(new Category("Arkeologi", "icon-archeology", false));
 	$scope.categories.push(new Category("Historie", "icon-history", false));
 	$scope.categories.push(new Category("Musikk", "ion-music-note", false));
 	$scope.categories.push(new Category("Natur", "icon-nature", false));
 	$scope.categories.push(new Category("Litteratur", "ion-ios-book", false));
-	$scope.categories.push(new Category("Lokal Tradisjon", "ion-earth", false));
+	$scope.categories.push(new Category("Tradisjon & mat", "icon-tradition", false));
 	$scope.categories.push(new Category("Teknologi", "icon-technology", false));
 	
 
   $scope.submitPreferences = function() {
     console.log("Submitting preferences");
-    $state.go("app.recommendations");
+    $state.go("app.listView");
   };
 
   //Need the userId to make this work
@@ -180,12 +180,16 @@ $scope.tempMail ;
   });*/
 })
 
-.controller('ListViewCtrl', function($scope, Requests, $state, $rootScope, $ionicLoading) {
+.controller('ListViewCtrl', function($scope, Requests, $state, $rootScope, $ionicLoading, categoryPicker) {
   //Display loading screen
   $ionicLoading.show({
       template: 'loading'
   });
 
+  //Call the categoryPicker service
+  $scope.chooseCategories = function(categories) {
+     categoryPicker(categories);
+  };
 
   //Controlleren må hente Requests
   //Må ha .then() for å kunne hente fra http.post i backend.services

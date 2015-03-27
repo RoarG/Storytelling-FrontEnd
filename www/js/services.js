@@ -1,6 +1,6 @@
-angular.module('starter.services', [])
+var services = angular.module('starter.services', [])
 
-    .factory("Stories", function($sce) {
+    services.factory("Stories", function($sce) {
         var stories = [{
             storyId: 0,
             title: "Tittel på historie",
@@ -34,4 +34,45 @@ angular.module('starter.services', [])
                 return null;
             }
         }
-    });
+    }
+	);
+	
+	// This service accepts a list of categories and returns a list of the corresponding category icons
+	services.factory("categoryPicker", [function(categories) {
+		return function(categories){
+			var items = categories;
+			for (i = 0; i < items.length; i++) {
+				switch (items[i]) {
+					case "history":
+						items[i] = "icon-history";
+						break;
+					case "nature and adventure":
+						items[i] = "icon-nature";
+						break;
+					case "science and technology":
+						items[i] = "icon-technology";
+						break;
+					case "art and design":
+						items[i] = "icon-art";
+						break;
+					case "architecture":
+						items[i] = "icon-architecture";
+						break;
+					case "local traditions and food":
+						items[i] = "icon-tradition";
+						break;
+					case "music":
+						items[i] = "ion-music-note";
+						break;
+					case "archeology":
+						items[i] = "icon-archeology";
+						break;
+					case "literature":
+						items[i] = "ion-ios-book";
+						break;
+				}
+			}
+			console.log(items);
+			return items;
+		}
+	}]);

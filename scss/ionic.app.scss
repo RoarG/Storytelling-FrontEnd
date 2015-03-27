@@ -169,6 +169,10 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	float: left;
 }
 
+.settings-height {
+	height: 25px;
+}
+
 
 /*
     Story view
@@ -515,6 +519,19 @@ video::-webkit-media-controls {
  */
 .recommendations {
 	background-color: $background-color;
+}
+
+.recom-category-circle {
+    font-size: 1.0em;
+    background-color: $background-color-dark;
+    padding: 2px 5px;
+    border-radius: 50%;
+	margin-left: 1.5%;
+}
+.recom-story-categories .recom-category-circle {
+	float: left;
+	margin-bottom: 2.5%;
+	margin-top: -2.5%;
 }
 
 ion-slide .card {

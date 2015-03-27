@@ -7,23 +7,24 @@
 		<b>Profil</b>
 	  </ion-item>
 	  
-	  <ion-item>
-		<div class="settings-left-adjust">Email </div>
+	  <ion-item ng-click="goProfile()">
+		<div class="settings-left-adjust">Kjønn / Aldersgruppe</div>
+		<i class="icon ion-chevron-right settings-right-adjust"></i>
 	  </ion-item>
 	  
 	  <ion-item>
-		<div class="settings-left-adjust">Aldersgruppe </div>
+		<div class="settings-left-adjust">Email</div>
+		<label class="item item-input settings-right-adjust settings-height">
+            <input type="text" placeholder="E-Post">
+        </label>
 	  </ion-item>
 	  
-	  <ion-item>
-		<div class="settings-left-adjust">Kjønn </div>
-	  </ion-item>
-	  
-	  <ion-item>
+	  <ion-item ng-click="goPref()">
 		<div class="settings-left-adjust">Preferanser </div>
 		<i class="icon ion-chevron-right settings-right-adjust"></i>
 	  </ion-item>
 	  
+	  <!--
 	  <ion-item class="item item-divider">
 		<b>Tillatelser</b>
 	  </ion-item>
@@ -37,6 +38,7 @@
 			</div>
 		</label>
 	  </ion-item>
+	  -->
 	  
 	  <ion-item class="item item-divider">
 		<b>Informasjon</b>
@@ -44,12 +46,10 @@
 	  
 	  <ion-item>
 		<div class="settings-left-adjust">Om appen </div>
-		<i class="icon ion-chevron-right settings-right-adjust"></i>
 	  </ion-item>
 	  
 	  <ion-item>
 		<div class="settings-left-adjust">Hjelp </div>
-		<i class="icon ion-chevron-right settings-right-adjust"></i>
 	  </ion-item>
 	</ion-list>
 
