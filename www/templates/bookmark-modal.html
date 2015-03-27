@@ -1,0 +1,21 @@
+<div class="modal bookmark" ng-controller="BookmarkCtrl">
+    		<h2>Legg til i samling</h2>
+    		<div class="button button-clear button-calm" ng-click="closeModal()">Ferdig</div>
+    		<div class="bookmark-content">
+        	<div class="list">
+        <ion-checkbox class="checkbox-calm" ng-repeat="item in collectionList"
+                      ng-model="item.checked"
+                      ng-checked="item.checked">
+            {{ item.text }}
+        </ion-checkbox>
+        <div class="item button button-block button-calm" ng-click="newItem()" ng-hide="displayTextField">Ny samling</div>
+        <form class="item" ng-submit="addItem()" ng-show="displayTextField">
+            <label class="item item-input item-floating-label">
+                <i class="icon ion-plus placeholder-icon"></i>
+                <input type="text" ng-model="newItemName" placeholder="Listenavn"> 
+            </label>
+            <button class="button button-block button-calm" type="submit">Legg til</button>
+        </form>
+    </div>
+      </div>
+</div>

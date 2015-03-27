@@ -138,7 +138,7 @@ angular.module('backend.services', ['ngSanitize'])
 			};
 			$http(req);
 		},
-		/** Adss a new user to the database, takes a userinstance as input, can be partially filled (for no email set email = -1) **/
+		/** Adds a new user to the database, takes a userinstance as input, can be partially filled (for no email set email = -1) **/
 		addUser: function (userData){
 			req.data = {type: "addUser",
 				email: userData.email,
@@ -147,7 +147,9 @@ angular.module('backend.services', ['ngSanitize'])
 				use_of_location: userData.use_of_location,
 				category_preference: userData.category_preference
 				};
-			$http(req);
+
+			return $http(req); /** Returns status successfull and userId upon success,
+			 returns status failed if email exists in DB i.e. for example {'status: "sucessfull", userId:  235'} or {'status: "failed"} **/
 		},
 
 		/** Updates a user already in the DB, (for no email set email = -1) **/
@@ -160,7 +162,7 @@ angular.module('backend.services', ['ngSanitize'])
 				use_of_location: userData.use_of_location,
 				category_preference: userData.category_preference
 				};
-			return($http(req)); /** Returns status successful and userId upon sucess,
+			return $http(req); /** Returns status successfull and userId upon success,
 			 returns status failed if email exists in DB i.e. for example {'status: "sucessfull", userId:  235'} or {'status: "failed"} **/
 		},
 
@@ -169,14 +171,19 @@ angular.module('backend.services', ['ngSanitize'])
 		getUserFromEmail: function(email){
 			req.data = {type: "getUserFromEmail",
 				'email': email};
-			return $http(req);
+			return $http(req); /** returns status successfull and userModel upon success, 
+			e.g {"status":"successfull","userModel":{"userId":"1","email":"1@1.com","age_group":"0","gender":"0","user_of_location":"0","category_preference":["art and design","architecture"]}}
+			and status failed upon no user found **/
+
 		},
 
 		/** Returns a user instance by using the user email address as input **/
 		getUserFromId: function(userId){
-			req.data = {type: "getUserFromEmail",
+			req.data = {type: "getUserFromId",
 				'userId': userId};
-			return $http(req);
+			return $http(req); /** returns status successfull and userModel upon success, 
+			e.g {"status":"successfull","userModel":{"userId":"1","email":"1@1.com","age_group":"0","gender":"0","user_of_location":"0","category_preference":["art and design","architecture"]}}
+			and status failed upon no user found **/
 		},
 
 		/*Get all lists for a user*/
