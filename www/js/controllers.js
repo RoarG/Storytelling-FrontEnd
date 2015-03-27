@@ -3,7 +3,6 @@ angular.module('starter.controllers', [])
 .controller('AppCtrl', function($scope, Requests, User, $state, $ionicModal, $timeout, $rootScope ) {
 
 
-
 $scope.responseData = {}
 $scope.tempMail ;
 
@@ -36,12 +35,12 @@ $scope.tempMail ;
           //If the e-mail is not recorded in the database make a new user 
         else {
 
+            //Makes a new User object to send to backened
           $scope.user = new User($scope.tempMail);
-          console.log('User.mail : ', $scope.user.email);
-
-          //TODO: Make a new user in the DB / Gi beskjed om at ny bruker ble opprettet
-
+         
+          //TODO: / Gi beskjed om at ny bruker ble opprettet
           
+            //Setting the provided mail(parameter) as email attribut on user
           $scope.user.email = $scope.tempMail
           Requests.addUser($scope.user).then(function(response){
             $scope.responseData =  response.data;
@@ -56,7 +55,7 @@ $scope.tempMail ;
                 console.log('New userId : ', $scope.user.userId);
                   //Sets the localStorage userId 
                 window.localStorage['userId'] = $scope.user.userId;
-
+                  //Go to the next view 
                 $state.go("profile");
               });
             };
@@ -68,20 +67,53 @@ $scope.tempMail ;
           $state.go("profile");
         }, 1000);*/
       });
-}; 
+  }; 
 
-  // Create the login modal that we will use later
+    // Triggered in the login view to skip it
+  $scope.closeLogin = function() {
+
+     //Makes a new User object to send to backened Sets mail as -1 when no mail is provided
+    $scope.user = new User(-1);
+    
+    console.log("Skip login, user:" + $scope.user);
+    
+    Requests.addUser($scope.user).then(function(response){
+      $scope.responseData =  response.data;
+      console.log('New user: ', $scope.responseData.status);
+      $scope.user.userId = $scope.responseData.userId;
+      console.log('New user: ', $scope.responseData);
+      console.log('New user: ', $scope.user.userId);
+
+      if ($scope.responseData.status != "failed") {
+        Requests.getUserFromId($scope.user.userId).then(function(response){
+          $scope.responseData =  response.data;
+          console.log('User : ', $scope.responseData.userModel);
+            //Sets the recived model as the user
+          $scope.user =  $scope.responseData.userModel;
+          console.log('New userId : ', $scope.user.userId);
+            //Sets the localStorage userId 
+          window.localStorage['userId'] = $scope.user.userId;
+            
+            //setting mail as -1 and pushing to backend
+            $scope.user.email = "-1";
+          console.log('UpdateUser: ', $scope.user);
+          Requests.updateUser($scope.user).then(function(response){
+            console.log('Update User: ', $scope.responseData.status);  
+          });
+        });
+      };
+      //TODO: Gi beskjed om at det er opprettet en ny brukker / evt spør om det er ønsket til brukeren
+    $state.go("profile");
+    });
+  };
+  
+    // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.modal = modal;
   });
 
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-    console.log("Closing" + $scope.logingData);
-  };
 
 
   // Open the login modal
