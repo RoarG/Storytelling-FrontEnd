@@ -82,7 +82,7 @@ $scope.tempMail ;
       console.log('New user: ', $scope.responseData.status);
       $scope.user.userId = $scope.responseData.userId;
       console.log('New user: ', $scope.responseData);
-      console.log('New user: ', $scope.user.userId);
+      console.log('New userId: ', $scope.user.userId);
 
       if ($scope.responseData.status != "failed") {
         Requests.getUserFromId($scope.user.userId).then(function(response){
@@ -115,12 +115,12 @@ $scope.tempMail ;
   });
 
 
-
+/*
   // Open the login modal
   $scope.login = function() {
     $scope.modal.show();
   };
-
+*/
   $scope.logout = function() {
     window.localStorage['userId'] = "-1";
     $state.go("login");
