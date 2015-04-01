@@ -171,7 +171,7 @@ $scope.tempMail ;
 
   $scope.submitPreferences = function() {
     console.log("Submitting preferences");
-    $state.go("app.listView");
+    $state.go("app.recommendations");
   };
 
   //Need the userId to make this work
@@ -277,8 +277,10 @@ $scope.tempMail ;
     $ionicSlideBoxDelegate.previous();
   };
 
-  $scope.rejectStory = function() {
+  $scope.rejectStory = function(index) {
+    //$scope.stories.splice(index, 1);
     console.log("Reject story");
+    
   };
 
   $scope.openStory = function(story) {
@@ -396,11 +398,6 @@ $scope.tempMail ;
             Requests.addRating($scope.story.storyId, $scope.userId, rating);
             console.log("Rated story: " + rating);
         };
-        $scope.notInterested = function() {
-            Requests.addRating($scope.story.storyId, $scope.userId, 0);
-            console.log("Not interested");
-            $scope.rating=0;
-        };
 })
 
 .controller('BookmarkCtrl', function($scope, $rootScope, Requests) {
@@ -408,10 +405,10 @@ $scope.tempMail ;
 
 	     	// May use the collectionList in AppCtrl instead
         // The collections a user has, and whether this story is in it.
-        $scope.collectionList = [
-            {text: "Les senere", checked: false},
-            {text: "Favoritter", checked: false}
-        ];
+        Requests.getAllLists($scope.userId).then(function(response) {
+          $scope.collectionList = response.data;
+          console.log($scope.collectionList);
+        });
 
         // Display text field to enter name of new collection
         $scope.newItem = function() {
@@ -424,13 +421,14 @@ $scope.tempMail ;
             $scope.collectionList.push({text: $scope.newItemName, checked: true});
 			     
              //Need the userId for this to work
-			       //Requests.addNewTag($scope.newItemName, $scope.user.userId, $scope.story.storyId);
+			       Requests.addNewTag($scope.newItemName, $scope.userId, Requests.getSelectedStory());
             $scope.newItemName = null;
             $scope.displayTextField = false;
         };
 
         $scope.addTag = function(tag) {
             $scope.collectionList[tag.text] = true;
+            Requests.tagStory(tag.text, $scope.userId, Requests.getSelectedStory);
         };
 
 });

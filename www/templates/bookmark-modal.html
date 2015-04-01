@@ -5,7 +5,8 @@
         	<div class="list">
         <ion-checkbox class="checkbox-calm" ng-repeat="item in collectionList"
                       ng-model="item.checked"
-                      ng-checked="item.checked">
+                      ng-checked="item.checked"
+                      ng-click="addTag(item)">
             {{ item.text }}
         </ion-checkbox>
         <div class="item button button-block button-calm" ng-click="newItem()" ng-hide="displayTextField">Ny samling</div>

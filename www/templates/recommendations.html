@@ -3,29 +3,28 @@
         <button class="button button-icon ion-android-bookmark" ng-click="showModal('templates/bookmark-modal.html')"></button>
     </ion-nav-buttons>
     <ion-content scroll="false">
-       <ion-slide-box show-pager="false">
+       <ion-slide-box active-slide="activeSlide" show-pager="false">
             <ion-slide ng-repeat="story in stories">
-                <div class="card" ng-click="openStory(story)">
+                <div class="card">
                     <div class="reject-story-icon" ng-click="rejectStory()"><i class="ion-close-round"></i></div>
-                    <div class="image-wrapper">
+                    <div class="image-wrapper" ng-click="openStory(story)">
                         <img ng-src={{story.imageList[0]}}>
                     </div>
-					
-					<div class="recom-story-categories">
-						<ul ng-repeat="category in story.categoryList" class="recom-category-circle" ng-switch on="category">
-							<li class="list-cat-display" ng-switch-when="history"><i class="icon-history"></i>
-							<li class="list-cat-display" ng-switch-when="nature and adventure"><i class="icon-nature"></i>
-							<li class="list-cat-display" ng-switch-when="science and technology"><i class="icon-technology"></i>
-							<li class="list-cat-display" ng-switch-when="art and design"><i class="icon-art"></i>
-							<li class="list-cat-display" ng-switch-when="architecture"><i class="icon-architecture"></i>
-							<li class="list-cat-display" ng-switch-when="local traditions and food"><i class="icon-tradition"></i>
-							<li class="list-cat-display" ng-switch-when="music"><i class="ion-music-note"></i>
-							<li class="list-cat-display" ng-switch-when="archeology"><i class="icon-archeology"></i>
-							<li class="list-cat-display" ng-switch-when="literature"><i class="ion-ios-book"></i>
-						</ul>
-					</div> <br>
 
-                    <div class="content-wrapper">
+                    <div class="content-wrapper" ng-click="openStory(story)">
+                        <div class="recom-story-categories">
+                            <ul ng-repeat="category in story.categoryList" class="recom-category-circle" ng-switch on="category">
+                                <li class="list-cat-display" ng-switch-when="history"><i class="icon-history"></i>
+                                <li class="list-cat-display" ng-switch-when="nature and adventure"><i class="icon-nature"></i>
+                                <li class="list-cat-display" ng-switch-when="science and technology"><i class="icon-technology"></i>
+                                <li class="list-cat-display" ng-switch-when="art and design"><i class="icon-art"></i>
+                                <li class="list-cat-display" ng-switch-when="architecture"><i class="icon-architecture"></i>
+                                <li class="list-cat-display" ng-switch-when="local traditions and food"><i class="icon-tradition"></i>
+                                <li class="list-cat-display" ng-switch-when="music"><i class="ion-music-note"></i>
+                                <li class="list-cat-display" ng-switch-when="archeology"><i class="icon-archeology"></i>
+                                <li class="list-cat-display" ng-switch-when="literature"><i class="ion-ios-book"></i>
+                            </ul>
+                        </div>
                         <h2>{{story.title}}</h2>
                         <span class="small-text">{{story.author.join(", ")}}</span>
                         <!--<p>{{story.introduction | limitTo: 150}}{{story.introduction.length > 150 ? '...' : ''}}</p>-->

@@ -431,7 +431,8 @@ video::-webkit-media-controls {
 
     .star {
     	color: $background-color-dark;
-    	font-size: 2em;
+    	font-size: 2.5em;
+    	padding: 0.5%;
     }
 
    button {
@@ -522,6 +523,7 @@ video::-webkit-media-controls {
 }
 
 .recom-category-circle {
+	display: inline-block;
     font-size: 1.0em;
     background-color: $background-color-dark;
     padding: 2px 5px;
@@ -529,7 +531,6 @@ video::-webkit-media-controls {
 	margin-left: 1.5%;
 }
 .recom-story-categories .recom-category-circle {
-	float: left;
 	margin-bottom: 2.5%;
 	margin-top: -2.5%;
 }
@@ -572,6 +573,7 @@ ion-slide .content-wrapper {
 
 ion-slide h2 {
 	margin-bottom: 1%;
+	margin-top: 1%;
 }
 
 ion-slide p {
