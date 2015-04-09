@@ -39,6 +39,9 @@ angular.module('backend.services', ['ngSanitize'])
 		this.falseRecommend = storyData.falseRecommend;
 		this.typeOfRecommendation = storyData.tyepOfRecommendation;
 
+		//Returns array of usertags
+		this.userTags = storyData.userTags;
+
 		this.updateMedia();
 	}
 
