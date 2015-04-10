@@ -7043,7 +7043,7 @@ p {
   line-height: 1.5em; }
 
 .small-text {
-  color: #C2B2A7;
+  color: #583318;
   font-size: 0.8em;
   font-weight: 300;
   font-style: italic; }
@@ -7162,6 +7162,9 @@ p {
 
 .settings-left-adjust {
   float: left; }
+
+.settings-height {
+  height: 25px; }
 
 /*
     Story view
@@ -7366,7 +7369,8 @@ video::-webkit-media-controls {
     top: 25%; }
   .rating-modal .star {
     color: #C2B2A7;
-    font-size: 2em; }
+    font-size: 2.5em;
+    padding: 0.5%; }
   .rating-modal button {
     width: 150px;
     margin: 0 auto;
@@ -7430,6 +7434,18 @@ video::-webkit-media-controls {
 .recommendations {
   background-color: #FFF9EE; }
 
+.recom-category-circle {
+  display: inline-block;
+  font-size: 1em;
+  background-color: #C2B2A7;
+  padding: 2px 5px;
+  border-radius: 50%;
+  margin-left: 1.5%; }
+
+.recom-story-categories .recom-category-circle {
+  margin-bottom: 2.5%;
+  margin-top: -2.5%; }
+
 ion-slide .card {
   width: 75%;
   height: 75%;
@@ -7462,7 +7478,8 @@ ion-slide .content-wrapper {
   margin-bottom: 5%; }
 
 ion-slide h2 {
-  margin-bottom: 1%; }
+  margin-bottom: 1%;
+  margin-top: 1%; }
 
 ion-slide p {
   font-size: 0.9em;

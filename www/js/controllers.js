@@ -98,7 +98,8 @@ $scope.tempMail ;
             $scope.user.email = "-1";
           console.log('UpdateUser: ', $scope.user);
           Requests.updateUser($scope.user).then(function(response){
-            console.log('Update User: ', $scope.responseData.status);  
+            console.log('Update User: ', $scope.responseData.status);
+            console.log('Update User data: ', $scope.responseData);
           });
         });
       };
