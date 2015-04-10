@@ -67,10 +67,13 @@ angular.module('backend.services', ['ngSanitize'])
 .factory('User', function (){
 	function User(userData){
 		this.userId = userData.userId;
-		this.email = userData.email;
+		if(userData.email == null || userData.email == undefined)
+			this.email = -1;
+		else
+			this.email = userData.email;
 		this.age_group = userData.age_group;
 		this.gender = userData.gender;
-		this.use_of_location = userData.use_of_location;
+		this.use_of_location = userData.user_of_location;
 		this.category_preference = userData.category_preference;
 	};
 	User.prototype.getUser = function() {
@@ -96,11 +99,6 @@ angular.module('backend.services', ['ngSanitize'])
 	}
 
 	var selectedStory;
-
-	/* DETTE MÅ BRUKES I Controllere:
- 	Requests."metode"().then(function(response){
-    		$scope."detsomskalbrukes" = new Story(response.data); eller bare response.data
-    	}); TUNGVINT MÅTE?? :/*/
 
 	return {
 		/**Retrieves single story from digitalt fortalt*/
@@ -142,20 +140,17 @@ angular.module('backend.services', ['ngSanitize'])
 			$http(req);
 		},
 		/** Adds a new user to the database, takes a userinstance as input, can be partially filled (for no email set email = -1) **/
-		addUser: function (userData){
+		addUser: function (userEmail){
 			req.data = {type: "addUser",
-				email: userData.email,
-				age_group: userData.age_group,
-				gender: userData.gender,
-				use_of_location: userData.use_of_location,
-				category_preference: userData.category_preference
-				};
+				email: userEmail};
 
 			return $http(req); /** Returns status successfull and userId upon success,
 			 returns status failed if email exists in DB i.e. for example {'status: "sucessfull", userId:  235'} or {'status: "failed"} **/
 		},
 
-		/** Updates a user already in the DB, (for no email set email = -1) **/
+		/** Updates a user already in the DB, (for no email set email = -1). 
+		userData should be User object. Create new user by using: 
+		user = new User($scope.user) or new User(response.data.userModel), then call updateUser(user)*/
 		updateUser: function (userData){
 			req.data = {type: "updateUser",
 				userId: userData.userId,
