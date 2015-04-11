@@ -42,7 +42,7 @@ $scope.tempMail ;
           
             //Setting the provided mail(parameter) as email attribut on user
           $scope.user.email = $scope.tempMail
-          Requests.addUser($scope.user).then(function(response){
+          Requests.addUser(email).then(function(response){
             $scope.responseData =  response.data;
             console.log('New user: ', $scope.responseData.status);
 
@@ -77,7 +77,7 @@ $scope.tempMail ;
     
     console.log("Skip login, user:" + $scope.user);
     
-    Requests.addUser($scope.user).then(function(response){
+    Requests.addUser(-1).then(function(response){
       $scope.responseData =  response.data;
       console.log('New user: ', $scope.responseData.status);
       $scope.user.userId = $scope.responseData.userId;
@@ -97,7 +97,7 @@ $scope.tempMail ;
             //setting mail as -1 and pushing to backend
             $scope.user.email = "-1";
           console.log('UpdateUser: ', $scope.user);
-          Requests.updateUser($scope.user).then(function(response){
+          Requests.updateUser(new User($scope.user)).then(function(response){
             console.log('Update User: ', $scope.responseData.status);
             console.log('Update User data: ', $scope.responseData);
           });
