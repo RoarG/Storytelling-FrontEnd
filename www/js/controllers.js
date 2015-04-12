@@ -8,18 +8,20 @@ $scope.tempMail ;
 
 
   $scope.doLogin = function(email) {
+
+      //TODO: Mail verifisring
+
       console.log('Mail : ' + email);
       $scope.tempMail = email;
       
       //request backend for the user with Email // 
       Requests.getUserFromEmail(email).then(function(response){
         $scope.responseData =  response.data;
-        console.log('User : ', $scope.responseData.userModel);
 
           //For debugging
-        console.log('Respons : ', $scope.responseData);
-        console.log('responseData Model : ', $scope.responseData.userModel);
-        
+        console.log('Respons, Eksistere bruken : ', $scope.responseData);
+        console.log('User : ', $scope.responseData.userModel);
+  
           //Checks if the userId is assisiated with a email then Login ok and sets scope.user to the model from backend
         if ($scope.responseData.status != "failed") {
           console.log('Første IF : ' + $scope.responseData.userModel.userId);
@@ -36,36 +38,35 @@ $scope.tempMail ;
         else {
 
             //Makes a new User object to send to backened
-          $scope.user = new User($scope.tempMail);
-         
-          //TODO: / Gi beskjed om at ny bruker ble opprettet
-          
+            $scope.user = new User($scope.tempMail);
+            //TODO: / Gi beskjed om at ny bruker ble opprettet
+           
             //Setting the provided mail(parameter) as email attribut on user
           $scope.user.email = $scope.tempMail
           Requests.addUser(email).then(function(response){
             $scope.responseData =  response.data;
-            console.log('New user: ', $scope.responseData.status);
+            console.log('Responsdata etter addUser :', $scope.responseData);
+            console.log('New user id: ', $scope.responseData.userId);
+        
+              //Sets the localStorage userId 
+            window.localStorage['userId'] = $scope.responseData.userId;
+            
+              //Go to the next view 
+            $state.go("profile");
 
-            if ($scope.responseData.status != "failed") {
-              Requests.getUserFromEmail($scope.tempMail).then(function(response){
+              //If the addUser failed for some reason
+            if ($scope.responseData.status != "sucessfull") {
+             /* Requests.getUserFromEmail($scope.tempMail).then(function(response){
                 $scope.responseData =  response.data;
                 console.log('User : ', $scope.responseData.userModel);
                   //Sets the recived model as the user
                 $scope.user =  $scope.responseData.userModel;
-                console.log('New userId : ', $scope.user.userId);
-                  //Sets the localStorage userId 
-                window.localStorage['userId'] = $scope.user.userId;
-                  //Go to the next view 
-                $state.go("profile");
-              });
+
+              });*/
+              console.log('Failed to add new user!');
             };
           });
         };
-       /*
-       $timeout(function() {
-          //TODO: Sett opp feilmelding
-          $state.go("profile");
-        }, 1000);*/
       });
   }; 
 
@@ -74,16 +75,26 @@ $scope.tempMail ;
 
      //Makes a new User object to send to backened Sets mail as -1 when no mail is provided
     $scope.user = new User(-1);
+<<<<<<< HEAD
     
     console.log("Skip login, user:" + $scope.user);
     
     Requests.addUser(-1).then(function(response){
+=======
+          
+    Requests.addUser(-1).then(function(response){
+      
+>>>>>>> Spring cleaning
       $scope.responseData =  response.data;
       console.log('New user: ', $scope.responseData.status);
+        //Sets the localStorage userId 
       $scope.user.userId = $scope.responseData.userId;
+      window.localStorage['userId'] = $scope.user.userId;
+        //debug
       console.log('New user: ', $scope.responseData);
       console.log('New userId: ', $scope.user.userId);
 
+<<<<<<< HEAD
       if ($scope.responseData.status != "failed") {
         Requests.getUserFromId($scope.user.userId).then(function(response){
           $scope.responseData =  response.data;
@@ -102,9 +113,14 @@ $scope.tempMail ;
             console.log('Update User data: ', $scope.responseData);
           });
         });
+=======
+        //If the addUser failed for some reason
+      if ($scope.responseData.status != "sucessfull") {
+        console.log('Failed to add new user!');
+>>>>>>> Spring cleaning
       };
-      //TODO: Gi beskjed om at det er opprettet en ny brukker / evt spør om det er ønsket til brukeren
-    $state.go("profile");
+        //TODO: Gi beskjed om at det er opprettet en ny brukker / evt spør om det er ønsket til brukeren
+      $state.go("profile");
     });
   };
   
