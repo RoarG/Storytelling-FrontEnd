@@ -1,5 +1,5 @@
 <ion-view view-title="listView">
-  <ion-content>
+  <ion-content overflow-scroll="true">
     <!-- make a list to hold stories-->
     <ion-list class="item-text-wrap" can-swipe="true">
 	  <!-- fill the list with all the stories fetched by the controller-->
@@ -24,7 +24,7 @@
 		</ul>
 		<!-- add the reject button on the side that removes a story -->
 		<ion-option-button class="button-assertive" ng-click="remove(story)">
-			Reject
+			Fjern
         </ion-option-button>
       </ion-item>
     </ion-list>
