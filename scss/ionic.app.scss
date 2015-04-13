@@ -98,10 +98,11 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 .topContProfile {
-    padding-bottom: 2%;
-    padding-right: 4%;
-    padding-left: 4%;
-    padding-top: 10%;
+    //padding-bottom: 2%;
+    //padding-right: 4%;
+    //padding-left: 4%;
+    //padding-top: 10%;
+    width: 100%;
 }
 
 .bottomContProfile {
@@ -126,6 +127,15 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 .navIndicator {
     padding-top: 10%;
+}
+
+.topContProfile .button-bar > .button, .bottomContProfile .button-bar > .button {
+	font-size: 0.9em;
+	padding: 0;
+	line-height: 3em;
+	background-color: $background-color-dark;
+	color: $font-color;
+	border-color: $font-color;
 }
 
 /*
@@ -278,6 +288,11 @@ ion-popover-view .list .button {
     background-color: $primary-color;
     color: #fff;
     border-color: $primary-color;
+}
+
+.story .button-bar > .button {
+	font-size: 1em;
+	letter-spacing: 0.1em;
 }
 
 .category-circle {
@@ -596,18 +611,22 @@ ion-slide .button {
 
 .slide-nav {
 	position: absolute;
-  	top: 38%;
-  	transform: translateY(-50%);
+  	top: 40%;
+  	transform: translateY(-40%);
   	font-size: 2em;
-  	padding: 30px 0;
+  	padding: 50px 10px;
 }
 
 .slide-nav-left {
-	margin-left: 3%;
+	margin-left: 2%;
 }
 
 .slide-nav-right {
-  	margin-left: 93%;
+  	margin-left: 90%;
 }
 
+/* Loading */
+.ion-loading-a {
+	font-size: 2.5em;
+}
 

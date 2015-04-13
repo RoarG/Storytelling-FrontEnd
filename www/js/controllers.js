@@ -261,10 +261,11 @@ $scope.saveProfil = function() {
 
 
 
-.controller('ListViewCtrl', function($scope, Requests, $state, $rootScope, $ionicLoading, categoryPicker) {
+.controller('ListViewCtrl', function($scope, Requests, Story, $state, $rootScope, $ionicLoading, categoryPicker) {
   //Display loading screen
   $ionicLoading.show({
-      template: 'loading'
+      template: '<h2>Laster inn...</h2><div class="icon ion-loading-a"></div>',
+            noBackdrop: false
   });
 
   //Call the categoryPicker service
@@ -320,16 +321,36 @@ $scope.saveProfil = function() {
   };
   
   $scope.open = function(story) {
-    Requests.setSelectedStory(story.id);
-    $state.go("app.story");
+    $ionicLoading.show({
+      template: '<h2>Laster inn</h2><div class="icon ion-loading-a"></div>',
+      noBackdrop: false
+    });
+    // Get story data.
+    //Må ha .then() for å kunne hente fra http.post i backend.services
+    Requests.getStory(story.id, window.localStorage['userId']).then(function (response) {
+      Requests.setSelectedStory(new Story(response.data));
+      $state.go("app.story");
+      $ionicLoading.hide();
+    });
   };
 })
 
 
-.controller('RecommendationCtrl', function($scope, Requests, Story, $ionicSlideBoxDelegate, $ionicModal, $ionicLoading, $state) {
+.controller('RecommendationCtrl', function($scope, Requests, Story, $ionicSlideBoxDelegate, $ionicModal, $ionicLoading, $state, $ionicSideMenuDelegate, $timeout, $ionicHistory) {
   var storyPreviews = [];
   $scope.stories = [];
   $scope.userId = window.localStorage['userId'];
+
+  $scope.$on('$ionicView.enter', function() {
+    $ionicHistory.clearHistory();
+    $ionicSideMenuDelegate.canDragContent(false);
+  });
+
+   //Display loading screen
+  $ionicLoading.show({
+      template: '<h2>Laster inn</h2><div class="icon ion-loading-a"></div>',
+      noBackdrop: false
+    });
 
    //Display loading screen
   $ionicLoading.show({
@@ -347,6 +368,7 @@ $scope.saveProfil = function() {
     return Requests.getStory($scope.storyPreviews[2].id, $scope.userId);
   }).then(function(story){
     $scope.stories.push(new Story(story.data));
+    Requests.setSelectedStory($scope.stories[0]);
     $ionicSlideBoxDelegate.update();
     $ionicLoading.hide();
   });
@@ -359,13 +381,35 @@ $scope.saveProfil = function() {
   };
 
   $scope.rejectStory = function(index) {
-    //$scope.stories.splice(index, 1);
-    console.log("Reject story");
-    
+    // If it is the last slide, go back to previous slide. Otherwise, next slide. 
+    if(index == $scope.stories.length-1) {
+      $ionicSlideBoxDelegate.previous();
+    } else {
+      $ionicSlideBoxDelegate.next();
+    }
+    // Wait 500 seconds so it slides to another slide before deleting current slide. 
+    $timeout(function() {
+      if(index < $scope.stories.length-1) {
+        $ionicSlideBoxDelegate.previous();
+      }
+      $scope.stories.splice(index, 1);
+      // Necessary to update slides:
+      $ionicSlideBoxDelegate._instances[0].kill();
+      $ionicSlideBoxDelegate.update();
+    }, 500);
   };
 
+/*
+  Runs when going to next/previous slide (and when a slide is changed?)
+  Set the story in current slide as the current story. 
+ */
+  $scope.slideChanged = function () {
+      $ionicSlideBoxDelegate.update();
+      Requests.setSelectedStory($scope.stories[$ionicSlideBoxDelegate.currentIndex()]);
+    };
+
   $scope.openStory = function(story) {
-    Requests.setSelectedStory(story.storyId);
+    //Requests.setSelectedStory(story.storyId);
     $state.go("app.story");
   };
 
@@ -393,24 +437,7 @@ $scope.saveProfil = function() {
 
 .controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ionicPopover, Requests, Story, $rootScope, $sce, $ionicLoading) {
 
-    //Display loading screen
-    $ionicLoading.show({
-      template: 'loading'
-    });
-
-    $scope.userId = window.localStorage['userId'];
-
-    // Get story data. 
-    //$scope.story = Stories.all()[0];
-    //console.log($stateParams.id);
-    //Controlleren må hente Requests og Story
-    //Må ha .then() for å kunne hente fra http.post i backend.services
-    //Requests.getStory('DF.1098').then(function(response){
-    Requests.getStory(Requests.getSelectedStory(), $scope.userId).then(function(response){
-      //Henter bare en spesifik historie nå, visste ikke hvordan jeg skulle hente
-      //id-er fra array
-      // GetStory parameter 2(userID er $scope.user.userId)
-      $scope.story = new Story(response.data);
+    $scope.story = Requests.getSelectedStory();
 
       //Decide what media format to display first
       if($scope.story.videoList) {
@@ -420,8 +447,6 @@ $scope.saveProfil = function() {
       } else {
         $scope.mediaType = "images";
       }
-      $ionicLoading.hide();
-    });
 
     // Display selected image in modal. 
     $scope.showImages = function(index) {
@@ -471,11 +496,11 @@ $scope.saveProfil = function() {
 
 .controller("RatingCtrl", function($scope, Requests, User) {
         $scope.userId = window.localStorage['userId'];
-        $scope.rating = 0;
+        $scope.story = Requests.getSelectedStory();
       
         // Rate story
         $scope.rateFunction = function(rating) {
-            $scope.rating = rating;
+            $scope.story.rating = rating;
             Requests.addRating($scope.story.storyId, $scope.userId, rating);
             console.log("Rated story: " + rating);
         };
@@ -493,12 +518,22 @@ $scope.saveProfil = function() {
 
 .controller('BookmarkCtrl', function($scope, $rootScope, Requests) {
       $scope.userId = window.localStorage['userId'];
+      $scope.story = Requests.getSelectedStory();
 
 	     	// May use the collectionList in AppCtrl instead
         // The collections a user has, and whether this story is in it.
         Requests.getAllLists($scope.userId).then(function(response) {
           $scope.collectionList = response.data;
-          console.log($scope.collectionList);
+          for(var i = 0; i < $scope.collectionList.length; i++){
+            for(var j = 0; j < $scope.story.userTags.length; j++){
+              if($scope.collectionList[i]["text"].valueOf() == $scope.story.userTags[j].valueOf()) {
+                $scope.collectionList[i]["checked"] = true;
+              }
+            }
+            if($scope.collectionList[i]["checked"].valueOf() === "".valueOf()) {
+              $scope.collectionList[i]["checked"] = false;
+            }
+          }
         });
 
         // Display text field to enter name of new collection
@@ -508,18 +543,28 @@ $scope.saveProfil = function() {
 
         // Add text entered as a new collection and add the story to it. 
         $scope.addItem = function() {
-
-            $scope.collectionList.push({text: $scope.newItemName, checked: true});
-			     
-             //Need the userId for this to work
-			       Requests.addNewTag($scope.newItemName, $scope.userId, Requests.getSelectedStory());
-            $scope.newItemName = null;
+            if($scope.newItemName) {
+              $scope.collectionList.push({text: $scope.newItemName, checked: true});
+           
+              //Need the userId for this to work
+              Requests.addNewTag($scope.newItemName, $scope.userId, $scope.story.storyId);
+              $scope.newItemName = null;
+            }
             $scope.displayTextField = false;
         };
 
         $scope.addTag = function(tag) {
-            $scope.collectionList[tag.text] = true;
-            Requests.tagStory(tag.text, $scope.userId, Requests.getSelectedStory);
+            if(!tag.checked) {
+              Requests.removeTagStory(tag.text, $scope.userId, $scope.story.storyId);
+              for(var i = 0; i < $scope.story.userTags.length; i++) {
+                if($scope.story.userTags[i].valueOf() == tag.text.valueOf()) {
+                  $scope.story.userTags.splice(i, 1);
+                }
+              }
+            } else {
+              Requests.tagStory(tag.text, $scope.userId, $scope.story.storyId);
+              $scope.story.userTags.push(tag["text"]);
+          }
         };
 
 });
