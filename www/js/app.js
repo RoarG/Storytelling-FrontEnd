@@ -97,14 +97,35 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 })
 */
   
-  .state('app.settings', {
-	url: "/settings",
-	views: {
-		'menuContent': {
-			templateUrl: "templates/settings.html"
-		}
-	}
-  })
+    .state('app.settings', {
+    	url: "/settings",
+    	views: {
+    		'menuContent': {
+    			templateUrl: "templates/settings.html",
+          controller: 'SettingsCtrl'
+    		}
+    	}
+    })
+
+    .state('app.editProfile', {
+      url: "/editProfile",
+      views: {
+        'menuContent': {
+          templateUrl: "templates/editProfile.html",
+          controller: 'AppCtrl'
+        }
+      }
+    })
+
+    .state('app.editPreferences', {
+      url: "/editPreferences",
+      views: {
+        'menuContent': {
+          templateUrl: "templates/editPreferences.html",
+          controller: 'AppCtrl'
+        }
+      }
+    })
   
     .state('app.listView', {
       url: "/listView",
@@ -126,15 +147,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     })
 
-  .state('app.single', {
-    url: "/playlists/:playlistId",
+    .state('app.about', {
+    url: "/about",
     views: {
       'menuContent': {
-        templateUrl: "templates/playlist.html",
-        controller: 'PlaylistCtrl'
+        templateUrl: "templates/about.html"
       }
     }
-  });
+    });
 
 // If already logged in, go to recommendation view, otherwise go to login. 
   //if(window.localStorage['userId'] !== undefined && window.localStorage['userId'] !== "-1") {

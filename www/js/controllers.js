@@ -175,8 +175,10 @@ $scope.tempMail ;
   };
 
   //Need the userId to make this work
-  /*Requests.getAllLists($scope.user.userId).then(function(response){
+  /*$scope.userId = window.localStorage['userId'];
+  Requests.getAllLists($scope.userId).then(function(response){
 	$scope.collectionList = response.data;
+  console.log($scope.collectionList);
   });*/
 })
 
@@ -388,7 +390,7 @@ $scope.tempMail ;
 })
 
 
-.controller("RatingCtrl", function($scope, Requests) {
+.controller("RatingCtrl", function($scope, Requests, User) {
         $scope.userId = window.localStorage['userId'];
         $scope.rating = 0;
       
@@ -398,6 +400,16 @@ $scope.tempMail ;
             Requests.addRating($scope.story.storyId, $scope.userId, rating);
             console.log("Rated story: " + rating);
         };
+})
+
+.controller('SettingsCtrl', function($scope, Requests) {
+        //get the user data from ID
+        $scope.userId = window.localStorage['userId'];
+        Requests.getUserFromId($scope.userId).then(function(response) {
+          $scope.user = response.data;
+          $scope.email = $scope.user.userModel.email;
+          console.log($scope.user);
+        });
 })
 
 .controller('BookmarkCtrl', function($scope, $rootScope, Requests) {
