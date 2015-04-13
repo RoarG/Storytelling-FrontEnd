@@ -2,32 +2,39 @@ angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, Requests, User, $state, $ionicModal, $timeout, $rootScope ) {
 
-
 $scope.responseData = {}
-$scope.tempMail ;
-
+$scope.tempMail = null;
+$scope.user = {};
 
   $scope.doLogin = function(email) {
+
+      //TODO: Mail verifisring
+
       console.log('Mail : ' + email);
       $scope.tempMail = email;
       
       //request backend for the user with Email // 
       Requests.getUserFromEmail(email).then(function(response){
         $scope.responseData =  response.data;
-        console.log('User : ', $scope.responseData.userModel);
+        window.localStorage['responseData'] =  response.data; 
 
           //For debugging
-        console.log('Respons : ', $scope.responseData);
-        console.log('responseData Model : ', $scope.responseData.userModel);
-        
+        console.log('Respons, Eksistere bruken : ', $scope.responseData);
+        console.log('User : ', $scope.responseData.userModel);
+          //SJEKK OM JEG FÅR SATT DENNE!!!! tol objetet
+        console.log('Respons, Eksistere bruken  2: ', $scope.responseData);
           //Checks if the userId is assisiated with a email then Login ok and sets scope.user to the model from backend
         if ($scope.responseData.status != "failed") {
-          console.log('Første IF : ' + $scope.responseData.userModel.userId);
-          $scope.user =  $scope.responseData.userModel
+          $scope.user = new User(response.data.userModel);
+          console.log('User id : ' + $scope.responseData.userModel.userId);
+          /*$scope.user =  $scope.responseData.userModel*/
 
             //Sets the localStorage userId 
           window.localStorage['userId'] = $scope.user.userId;
-        
+         
+          window.localStorage['userModel'] = $scope.responseData.userModel;
+          
+          console.log('User model : ' + $scope.responseData);
             //TODO: Set user assosiated with the email ??
           $state.go("profile");
         }
@@ -36,36 +43,35 @@ $scope.tempMail ;
         else {
 
             //Makes a new User object to send to backened
-          $scope.user = new User($scope.tempMail);
-         
-          //TODO: / Gi beskjed om at ny bruker ble opprettet
-          
+            /*$scope.user = new User($scope.tempMail);*/
+            //TODO: / Gi beskjed om at ny bruker ble opprettet
+           
             //Setting the provided mail(parameter) as email attribut on user
           $scope.user.email = $scope.tempMail
-          Requests.addUser($scope.user).then(function(response){
+          Requests.addUser(email).then(function(response){
             $scope.responseData =  response.data;
-            console.log('New user: ', $scope.responseData.status);
+            console.log('Responsdata etter addUser :', $scope.responseData);
+            console.log('New user id: ', $scope.responseData.userId);
+        
+              //Sets the localStorage userId 
+            window.localStorage['userId'] = $scope.responseData.userId;
+            
+              //Go to the next view 
+            $state.go("profile");
 
-            if ($scope.responseData.status != "failed") {
-              Requests.getUserFromEmail($scope.tempMail).then(function(response){
+              //If the addUser failed for some reason
+            if ($scope.responseData.status != "sucessfull") {
+             /* Requests.getUserFromEmail($scope.tempMail).then(function(response){
                 $scope.responseData =  response.data;
                 console.log('User : ', $scope.responseData.userModel);
                   //Sets the recived model as the user
                 $scope.user =  $scope.responseData.userModel;
-                console.log('New userId : ', $scope.user.userId);
-                  //Sets the localStorage userId 
-                window.localStorage['userId'] = $scope.user.userId;
-                  //Go to the next view 
-                $state.go("profile");
-              });
+
+              });*/
+              console.log('Failed to add new user!');
             };
           });
         };
-       /*
-       $timeout(function() {
-          //TODO: Sett opp feilmelding
-          $state.go("profile");
-        }, 1000);*/
       });
   }; 
 
@@ -73,39 +79,41 @@ $scope.tempMail ;
   $scope.closeLogin = function() {
 
      //Makes a new User object to send to backened Sets mail as -1 when no mail is provided
-    $scope.user = new User(-1);
-    
-    console.log("Skip login, user:" + $scope.user);
-    
-    Requests.addUser($scope.user).then(function(response){
+    /*user = new User($scope.user);*/
+          
+    Requests.addUser(-1).then(function(response){
+ 
+
       $scope.responseData =  response.data;
       console.log('New user: ', $scope.responseData.status);
+        //Sets the localStorage userId 
       $scope.user.userId = $scope.responseData.userId;
+      window.localStorage['userId'] = $scope.user.userId;
+
+  Requests.updateUser(new User($scope.user)).then(function(response1){
+            console.log('Update User!: ', response1.data.status);
+            console.log('Update User !data: ', response1.data);
+           });              
+
+
+        //debug
       console.log('New user: ', $scope.responseData);
       console.log('New userId: ', $scope.user.userId);
 
-      if ($scope.responseData.status != "failed") {
-        Requests.getUserFromId($scope.user.userId).then(function(response){
-          $scope.responseData =  response.data;
-          console.log('User : ', $scope.responseData.userModel);
-            //Sets the recived model as the user
-          $scope.user =  $scope.responseData.userModel;
-          console.log('New userId : ', $scope.user.userId);
-            //Sets the localStorage userId 
-          window.localStorage['userId'] = $scope.user.userId;
-            
-            //setting mail as -1 and pushing to backend
-            $scope.user.email = "-1";
-          console.log('UpdateUser: ', $scope.user);
-          Requests.updateUser($scope.user).then(function(response){
-            console.log('Update User: ', $scope.responseData.status);  
-          });
-        });
+        //If the addUser failed for some reason
+      if ($scope.responseData.status != "sucessfull") {
+        console.log('Failed to add new user!');
       };
-      //TODO: Gi beskjed om at det er opprettet en ny brukker / evt spør om det er ønsket til brukeren
-    $state.go("profile");
+        //TODO: Gi beskjed om at det er opprettet en ny brukker / evt spør om det er ønsket til brukeren
+      $state.go("profile");
     });
   };
+
+
+  ////////////////////////
+  //Slett denne seksjonen?
+  ////////////////////////
+  
   
     // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -113,7 +121,6 @@ $scope.tempMail ;
   }).then(function(modal) {
     $scope.modal = modal;
   });
-
 
 /*
   // Open the login modal
@@ -127,28 +134,51 @@ $scope.tempMail ;
     console.log(window.localStorage['userId']);
   }
 
-
-  //Next and previous view - input is view to navigate to
-
-  $scope.goLogin = function() {
-    $state.go("login");
-    console.log("vi " + vi);
-  };
-
-  $scope.goPref = function() {
-    $state.go("preferences");
-  };
-
-  $scope.goProfile = function() {
-      $state.go("profile");
-  };
-
-
-
+  ////////////////////////
   //Profile
+  ////////////////////////
+
+$scope.ageGrp = null;
+$scope.gender = '';
+
+$scope.setAgeGrp = function(ageGrp) {
+    $scope.ageGrp = ageGrp;
+    console.log('AgeGrp : ' + $scope.ageGrp);
+};
+
+$scope.setGender = function(gender) {
+    $scope.gender = gender;
+    console.log('Gender : ' + $scope.gender);
+};
 
 
-  // Preferences
+$scope.saveProfil = function() {
+      console.log("ageGrp" + $scope.ageGrp);
+      console.log('Gender : ' + $scope.gender);
+
+      Requests.getUserFromId(window.localStorage['userId']).then(function(response){
+        console.log("response status(getUserFromId) : " + response.data.status);
+        
+        user = new User(response.data.userModel);
+        user.age_group = $scope.ageGrp;
+        user.gender = $scope.gender;
+        
+        Requests.updateUser(user).then(function(response){
+          console.log("response status(updateUser) : " + response.data.status);  
+          //TODO: If failed=?
+        });
+
+      });
+
+      $state.go("preferences");
+};
+
+
+  ////////////////////////
+  //Preferences
+  ////////////////////////
+
+
   function Category(name, icon, isSelected) {
     this.name = name;
     this.icon = icon;
@@ -158,29 +188,78 @@ $scope.tempMail ;
   /*for(i=0; i<9; i++) {
       $scope.categories.push(new Category("Navn", "ion-star", false));
   };*/
-	$scope.categories.push(new Category("Kunst", "icon-art", false));
-	$scope.categories.push(new Category("Arkitektur", "icon-architecture", false));
-	$scope.categories.push(new Category("Arkeologi", "icon-archeology", false));
-	$scope.categories.push(new Category("Historie", "icon-history", false));
-	$scope.categories.push(new Category("Musikk", "ion-music-note", false));
-	$scope.categories.push(new Category("Natur", "icon-nature", false));
-	$scope.categories.push(new Category("Litteratur", "ion-ios-book", false));
-	$scope.categories.push(new Category("Tradisjon & mat", "icon-tradition", false));
-	$scope.categories.push(new Category("Teknologi", "icon-technology", false));
-	
+  $scope.categories.push(new Category("Kunst", "icon-art", false));
+  $scope.categories.push(new Category("Arkitektur", "icon-architecture", false));
+  $scope.categories.push(new Category("Arkeologi", "icon-archeology", false));
+  $scope.categories.push(new Category("Historie", "icon-history", false));
+  $scope.categories.push(new Category("Musikk", "ion-music-note", false));
+  $scope.categories.push(new Category("Natur", "icon-nature", false));
+  $scope.categories.push(new Category("Litteratur", "ion-ios-book", false));
+  $scope.categories.push(new Category("Tradisjon & mat", "icon-tradition", false));
+  $scope.categories.push(new Category("Teknologi", "icon-technology", false));
+  
+  $scope.selectedCat = [];
 
-  $scope.submitPreferences = function() {
-    console.log("Submitting preferences");
-    $state.go("app.recommendations");
+  $scope.selectedCategory = function(category) {
+      addToArray = true;
+      for (var i = 0; i < $scope.selectedCat.length; i++) {
+        if($scope.selectedCat[i] == category) {
+          addToArray = false;
+        }
+      }
+      if (addToArray) {
+        console.log("selected category: "+ category);
+        $scope.selectedCat.push(category);
+        console.log("selected category: "+ $scope.selectedCat);
+      }
+      else {
+        console.log("selected category: "+ category);
+        index = $scope.selectedCat.indexOf(category);
+        $scope.selectedCat.splice(index, 1);
+        console.log("selected category: "+ $scope.selectedCat);
+      } 
+    };
+
+  $scope.savePreferences = function() {
+    console.log("Saving Preferences");
+    
+        Requests.getUserFromId(window.localStorage['userId']).then(function(response){
+          user = new User(response.data.userModel);
+          console.log("response status(getUserFromId) : " + response.data.status);
+
+          user.category_preference = $scope.selectedCat;
+          console.log("user: " + user);
+             
+          Requests.updateUser(user).then(function(response){
+            console.log("response status(updateUser) : " + response.data.status);  
+          });
+
+        });
+
+        $state.go("app.recommendations");
+  };
+
+
+  //Next and previous view - input is view to navigate to
+
+  $scope.goLogin = function() {
+    $state.go("login");
+    console.log("vi " + vi);
+  };
+
+
+  $scope.goProfile = function() {
+      $state.go("profile");
   };
 
   //Need the userId to make this work
-  /*$scope.userId = window.localStorage['userId'];
-  Requests.getAllLists($scope.userId).then(function(response){
-	$scope.collectionList = response.data;
+  /*Requests.getAllLists($scope.user.userId).then(function(response){
+  $scope.collectionList = response.data;
   console.log($scope.collectionList);
   });*/
 })
+
+
 
 .controller('ListViewCtrl', function($scope, Requests, $state, $rootScope, $ionicLoading, categoryPicker) {
   //Display loading screen
