@@ -188,14 +188,15 @@ $scope.saveProfil = function() {
   /*for(i=0; i<9; i++) {
       $scope.categories.push(new Category("Navn", "ion-star", false));
   };*/
+  $scope.categories.push(null);
   $scope.categories.push(new Category("Kunst", "icon-art", false));
   $scope.categories.push(new Category("Arkitektur", "icon-architecture", false));
   $scope.categories.push(new Category("Arkeologi", "icon-archeology", false));
   $scope.categories.push(new Category("Historie", "icon-history", false));
-  $scope.categories.push(new Category("Musikk", "ion-music-note", false));
+  $scope.categories.push(new Category("Tradisjon & mat", "icon-tradition", false));
   $scope.categories.push(new Category("Natur", "icon-nature", false));
   $scope.categories.push(new Category("Litteratur", "ion-ios-book", false));
-  $scope.categories.push(new Category("Tradisjon & mat", "icon-tradition", false));
+  $scope.categories.push(new Category("Musikk", "ion-music-note", false));
   $scope.categories.push(new Category("Teknologi", "icon-technology", false));
   
   $scope.selectedCat = [];
@@ -226,8 +227,9 @@ $scope.saveProfil = function() {
         Requests.getUserFromId(window.localStorage['userId']).then(function(response){
           user = new User(response.data.userModel);
           console.log("response status(getUserFromId) : " + response.data.status);
-
+         
           user.category_preference = $scope.selectedCat;
+          console.log("$scope.selectedCat) : " + user.category_preference);
           console.log("user: " + user);
              
           Requests.updateUser(user).then(function(response){
