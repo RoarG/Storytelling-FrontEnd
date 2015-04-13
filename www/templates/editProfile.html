@@ -1,0 +1,43 @@
+<ion-view view-title="Profil">
+
+  <ion-content>
+
+        <div class="list list-inset" id="view">
+
+          <div class="header-padding"></div>
+          <h1 class="viewhead">Profil</h1>
+
+          <div class="topContProfile">
+              <div class="infoText">Velg aldersgruppe og kjønn for at vi skal kunne gi deg bedre anbefallinger</div>
+              
+              <h2 id="profile-h2">Alder</h2>
+              <div class="button-bar">
+              <!-- Uses the sam setup as in story.html ref. copy here -->
+                <a class="button button-light" ng-class="{'active': ageGrp === 1}" ng-click="ageGrp = 1">Under 20</a>
+                <a class="button button-light" ng-class="{'active': ageGrp === 2}" ng-click="ageGrp = 2">21 - 45</a>
+                <a class="button button-light" ng-class="{'active': ageGrp === 3}" ng-click="ageGrp = 3">46 - 65</a>
+                <a class="button button-light" ng-class="{'active': ageGrp === 4}" ng-click="ageGrp = 4">Over 66</a>
+              </div>
+
+      
+          </div>
+
+            <div class="bottomContProfile">
+              
+              <h2 id="profile-h2">Kjønn</h2>
+              <div class="button-bar">              <!-- Uses the sam setup as in story.html ref. copy here -->
+                <a class="button button-light" ng-class="{'active': sex === 1}" ng-click="sex = 1">Mann</a>
+                <a class="button button-light" ng-class="{'active': sex === 2}" ng-click="sex = 2">Kvinne</a>
+              </div>
+            </div>
+            <div class="skipContLogin">
+              <button class="button button-calm settings-button-width">Lagre</button>
+            </div> 
+          </div>
+
+
+
+
+  </ion-content>
+
+</ion-view>

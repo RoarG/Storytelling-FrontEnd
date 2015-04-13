@@ -3,10 +3,10 @@
         <button class="button button-icon ion-android-bookmark" ng-click="showModal('templates/bookmark-modal.html')"></button>
     </ion-nav-buttons>
     <ion-content scroll="false">
-       <ion-slide-box active-slide="activeSlide" show-pager="false">
+       <ion-slide-box active-slide="activeSlide" show-pager="false" on-slide-changed="slideChanged()">
             <ion-slide ng-repeat="story in stories">
                 <div class="card">
-                    <div class="reject-story-icon" ng-click="rejectStory()"><i class="ion-close-round"></i></div>
+                    <div class="reject-story-icon" ng-click="rejectStory($index)"><i class="ion-close-round"></i></div>
                     <div class="image-wrapper" ng-click="openStory(story)">
                         <img ng-src={{story.imageList[0]}}>
                     </div>
@@ -38,6 +38,5 @@
                 <div class="slide-nav slide-nav-right" ng-click="nextSlide()" ng-hide="$index === stories.length-1"><i class="ion-chevron-right"></i></div>
             </ion-slide>
         </ion-slide-box>
-        
     </ion-content>
 </ion-view>
