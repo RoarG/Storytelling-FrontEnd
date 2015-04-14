@@ -24,13 +24,22 @@
                                 <li class="list-cat-display" ng-switch-when="archeology"><i class="icon-archeology"></i>
                                 <li class="list-cat-display" ng-switch-when="literature"><i class="ion-ios-book"></i>
                             </ul>
+                            <ul class="recom-category-circle media-icons">
+                                <li ng-if="story.videoList.length > 0"><i class="ion-social-youtube"></i></li>
+                            </ul>
+                            <ul class="recom-category-circle media-icons">
+                                <li ng-if="story.audioList.length > 0"><i class="ion-volume-medium"></i></li>
+                            </ul>
+                            <ul class="recom-category-circle media-icons">
+                                <li ng-if="story.imageList"><i class="ion-image"></i></li>
+                            </ul>
                         </div>
                         <h2>{{story.title}}</h2>
                         <span class="small-text">{{story.author.join(", ")}}</span>
                         <!--<p>{{story.introduction | limitTo: 150}}{{story.introduction.length > 150 ? '...' : ''}}</p>-->
                         <p>{{story.introduction}}</p>
                         <div class="fade-box">
-                            <div class="button button-calm button-block" ng-click="openStory(story)">Les mer</div>
+                            <!--<div class="button button-calm button-block" ng-click="openStory(story)">Les mer</div>-->
                         </div>
                     </div>
                 </div>

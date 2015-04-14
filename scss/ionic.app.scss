@@ -533,17 +533,28 @@ video::-webkit-media-controls {
 	background-color: $background-color;
 }
 
-.recom-category-circle {
-	display: inline-block;
-    font-size: 1.0em;
+.recom-story-categories {
+	text-align: center;
+	margin-top: 15px;
+}
+
+.recom-category-circle{
+    font-size: 1.2em;
     background-color: $background-color-dark;
-    padding: 2px 5px;
+    //padding: 3px 5px;
+    width: 27px;
+    line-height: 27px;
     border-radius: 50%;
 	margin-left: 1.5%;
+	float: left;
 }
 .recom-story-categories .recom-category-circle {
 	margin-bottom: 2.5%;
 	margin-top: -2.5%;
+}
+
+.media-icons {
+	float: right;
 }
 
 ion-slide .card {
@@ -585,6 +596,7 @@ ion-slide .content-wrapper {
 ion-slide h2 {
 	margin-bottom: 1%;
 	margin-top: 1%;
+	clear: both;
 }
 
 ion-slide p {
@@ -606,11 +618,17 @@ ion-slide .button {
 	bottom: 0; 
 	left: 0;
 	width: 100%; 
-	margin: 0; padding: 15px 0; 
+	height: 100px;
+	margin: 0;
 
 	background: rgba(255,255,255,0);
-	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,0)), color-stop(70%, rgba(255,255,255,1)), color-stop(100%, rgba(255,255,255,1)));
-	background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 70%, rgba(255,255,255,1) 100%);
+	background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 75%, rgba(255,255,255,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,0)), color-stop(75%, rgba(255,255,255,1)), color-stop(100%, rgba(255,255,255,1)));
+	background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 75%, rgba(255,255,255,1) 100%);
+	background: -o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 75%, rgba(255,255,255,1) 100%);
+	background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 75%, rgba(255,255,255,1) 100%);
+	background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 75%, rgba(255,255,255,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff', GradientType=0 );
 }
 
 .slide-nav {

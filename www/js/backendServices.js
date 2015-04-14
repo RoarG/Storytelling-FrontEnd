@@ -99,6 +99,7 @@ angular.module('backend.services', ['ngSanitize'])
 	}
 
 	var selectedStory;
+	var selectedTag;
 
 	return {
 		/**Retrieves single story from digitalt fortalt*/
@@ -251,6 +252,12 @@ angular.module('backend.services', ['ngSanitize'])
 		},
 		getSelectedStory: function () {
 			return selectedStory;
+		},
+		setSelectedTag: function (tagName) {
+			selectedTag = tagName;
+		},
+		getSelectedTag: function () {
+			return selectedTag;
 		}
 	}
 });

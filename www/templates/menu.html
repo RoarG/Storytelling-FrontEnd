@@ -5,7 +5,7 @@
       </ion-nav-back-button>
 
       <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        <button ng-click="updateMenu()" class="button button-icon button-clear ion-navicon" menu-toggle="left">
         </button>
       </ion-nav-buttons>
     </ion-nav-bar>
@@ -21,10 +21,6 @@
         <ion-item nav-clear menu-close href="#/app/recommendations">
           Anbefalte fortellinger
         </ion-item>
-		
-        <ion-item nav-clear menu-close ng-click="login()">
-          Login
-        </ion-item>
 
         <ion-item nav-clear menu-close ng-click="logout()">
           Logg ut
@@ -35,16 +31,16 @@
         </ion-item>
 		
 		<ion-item class="item item-divider">
-		  <b>Samlinger</b>
+		  <b>Bokmerker</b>
 		</ion-item>
 		
-        <ion-item nav-clear menu-close href="#/app/listView">
-          listView
-        </ion-item>
-		
-		<ion-item nav-clear ng-repeat="list in collectionList" menu-close href="#/app/listView">
-			{{list.text}}
-		</ion-item>
+    <ion-item class="bookmark-list item-button-right" nav-clear ng-repeat="list in collectionList" menu-close>
+      <a class="item-content" ng-click="viewList(list.text)"> {{list.text}}</a>
+      <button class="button button-clear" ng-click="deleteList(list)">
+        <i class="icon ion-close"></i>
+      </button>
+   </ion-item>
+
       </ion-list>
     </ion-content>
   </ion-side-menu>

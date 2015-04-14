@@ -254,11 +254,35 @@ $scope.saveProfil = function() {
       $state.go("profile");
   };
 
-  //Need the userId to make this work
-  /*Requests.getAllLists($scope.user.userId).then(function(response){
-  $scope.collectionList = response.data;
-  console.log($scope.collectionList);
-  });*/
+  ///////////////////////
+  //Menu
+  ////////////////////////
+  
+  $scope.viewList = function(listName) {
+    Requests.setSelectedTag(listName);
+    $state.go("app.listView");
+  };
+
+  $scope.deleteList = function(list) {
+    var response = confirm("Er du sikker på at du vil slette denne listen?", "Slett liste", ["OK", "Avbryt"]);
+    if(response === true) {
+      var index = $scope.collectionList.indexOf(list);
+      $scope.collectionList.splice(index, 1);
+      Requests.removeTag(window.localStorage['userId'], list.text);
+    }
+  };
+
+  
+
+$scope.updateMenu = function() {
+  Requests.getAllLists(window.localStorage['userId']).then(function(response){
+    $scope.collectionList = response.data;
+    console.log($scope.collectionList);
+  });
+};
+
+$scope.updateMenu();
+
 })
 
 
@@ -267,7 +291,7 @@ $scope.saveProfil = function() {
   //Display loading screen
   $ionicLoading.show({
       template: '<h2>Laster inn...</h2><div class="icon ion-loading-a"></div>',
-            noBackdrop: false
+      noBackdrop: false
   });
 
   //Call the categoryPicker service
@@ -275,51 +299,17 @@ $scope.saveProfil = function() {
      categoryPicker(categories);
   };
 
-  //Controlleren må hente Requests
-  //Må ha .then() for å kunne hente fra http.post i backend.services
-  Requests.getMultipleStories().then(function(response){
+ // Retrieve stories associated with selected tag
+ Requests.getStoryList(Requests.getSelectedTag(), window.localStorage['userId']).then(function(response) {
     $scope.storyPreviews =  response.data;
     $ionicLoading.hide();
-  });
-  /*
-  //some test data for the listview
-  $scope.storyPreviews = [
-    { id: 0,
-    title: 'Nidarosdomen',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
-    thumbnail: 'https://media.snl.no/system/images/8077/standard_nidarosdomen__e2_80_93_1_4.jpg',
-	categories: ['kat1']
-	},
-    { id: 1,
-    title: 'Holmenkollen',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    thumbnail: 'http://img2.custompublish.com/getfile.php/2131868.92.bcqacdpwfu/holmenkollen_f_ntb_meldetjeneste_skiforeningen.jpg?return=www.langrenn.com',
-	categories: ['kat1']
-	},
-    { id: 2,
-    title: 'Galdhøpiggen',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    thumbnail: 'http://peakbook.org/gfx/images/1/5c/jans_hpiggen.jpg/jans_hpiggen-1.jpg',
-	categories: ['kat1']
-	},
-    { id: 3,
-    title: 'Oldemors dukkehus',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    thumbnail: 'http://media31.dimu.no/media/image/H-DF/DF.3204/7443?width=600&height=380',
-	categories:['kat1']
-	},
-    {  id: 4,
-    title: '17. mai på Songe',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    thumbnail: 'http://media31.dimu.no/media/image/H-DF/DF.2776/6481?width=600&height=380',
-	categories:['kat1']
-	},
-  ];*/
+});
 
   //remove a story from the listview
   $scope.remove = function(story) {
 	 var index = $scope.storyPreviews.indexOf(story);
 	 $scope.storyPreviews.splice(index, 1);
+   Requests.removeTagStory(Requests.getSelectedTag(), window.localStorage['userId'], story.id);
   };
   
   $scope.open = function(story) {
@@ -352,11 +342,6 @@ $scope.saveProfil = function() {
   $ionicLoading.show({
       template: '<h2>Laster inn</h2><div class="icon ion-loading-a"></div>',
       noBackdrop: false
-    });
-
-   //Display loading screen
-  $ionicLoading.show({
-      template: 'loading'
     });
 
   Requests.getMultipleStories().then(function(response){
@@ -550,6 +535,7 @@ $scope.saveProfil = function() {
            
               //Need the userId for this to work
               Requests.addNewTag($scope.newItemName, $scope.userId, $scope.story.storyId);
+              $scope.story.userTags.push($scope.newItemName);
               $scope.newItemName = null;
             }
             $scope.displayTextField = false;
