@@ -247,6 +247,27 @@ angular.module('backend.services', ['ngSanitize'])
 			return $http(req);
 		},
 
+		/*Get all tags connected to a story for a user*/
+		getStoryTags: function (userId, storyId){
+			req.data = {
+				type: "getStoryTags",
+				userId: userId,
+				storyId: storyId
+			};
+			$http(req);
+
+		},
+
+		/*Set rejected story state in database*/
+		rejectStory: function(userId, storyId){
+			req.data = {
+				type: "rejectStory",
+				userId: userId,
+				storyId: storyId
+			};
+			$http(req);
+		},
+
 		setSelectedStory: function (storyId){
 			selectedStory = storyId;
 		},
