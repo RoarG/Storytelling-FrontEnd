@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, Requests, User, $state, $ionicModal, $timeout, $rootScope, $ionicPlatform, $cordovaDialogs) {
+.controller('AppCtrl', function($scope, Requests, User, $state, $ionicModal, $timeout, $ionicLoading,$rootScope, $ionicPlatform, $cordovaDialogs) {
 
 $scope.responseData = {}
 $scope.tempMail = null;
@@ -231,14 +231,18 @@ $scope.saveProfil = function() {
           user.category_preference = $scope.selectedCat;
           console.log("$scope.selectedCat) : " + user.category_preference);
           console.log("user: " + user);
-             
+            
+	    $ionicLoading.show({
+			template: '<h2>Vennligst vent mens vi finner historier vi tror du vil like</h2><div class="icon ion-loading-a"></div>',
+			noBackdrop: false
+		});
+			
           Requests.updateUser(user).then(function(response){
-            console.log("response status(updateUser) : " + response.data.status);  
+            console.log("response status(updateUser) : " + response.data.userId);
+			$state.go("app.recommendations");			
           });
 
         });
-
-        $state.go("app.recommendations");
   };
 
 
@@ -352,8 +356,9 @@ $scope.tag = Requests.getSelectedTag();
       noBackdrop: false
     });
 
-  Requests.getMultipleStories().then(function(response) {
+  Requests.getMultipleStories($scope.userId).then(function(response) {
     $scope.storyPreviews =  response.data;
+	console.log("Første id (sjekk at den stemmer med første item i lista overnfor): "+$scope.storyPreviews[0].id);
     return Requests.getStory($scope.storyPreviews[0].id, $scope.userId);
   }).then(function(story){
     $scope.stories.push(new Story(story.data));

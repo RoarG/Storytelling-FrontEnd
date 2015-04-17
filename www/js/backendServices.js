@@ -116,8 +116,9 @@ angular.module('backend.services', ['ngSanitize'])
 
 		/**Retrieves multiple stories from the database, now returns 500 error when
 		* story doesn't have pictures*/
-		getMultipleStories: function(idArray) {
-			req.data = { type: "getStories" };
+		getMultipleStories: function(userId) {
+			req.data = { type: "getStories",
+						userId: userId};
 			return $http(req);
 		},
 
