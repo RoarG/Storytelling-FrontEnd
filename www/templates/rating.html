@@ -3,6 +3,7 @@
     		<div class="rating-content">
         	<h2>Likte du denne historien?</h2>
         	<i class="icon ion-android-star star" ng-class="{filled: i <= story.rating}" ng-repeat="i in [1,2,3,4,5]" ng-click="rateFunction(i)"></i>
-        	<button class="button button-block button-light" ng-click="rateFunction(0)">Ikke interessert</button>
+        	<button class="button button-block button-light" ng-class="{active: story.rating === 0}"ng-click="rateFunction(0)">Ikke interessert</button>
+        	<p class="calm" ng-show="ratingSaved"><i class="ion-checkmark"></i> Lagret</p>
       </div>
 </div>

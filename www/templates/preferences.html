@@ -7,7 +7,7 @@
 		<div class="content-wrapper">
 
 			<div class="header-padding"></div>
-			<h1 class="viewhead">Kategorier</h1>
+			<h1 class="viewhead">Interesser</h1>
 			
 			<p class="infoText">Velg de kategoriene du ønsker å lese historier fra</p>
 
@@ -15,7 +15,7 @@
 				<div class="category" ng-repeat="i in [1,2,3,4,5,6,7,8,9]">
 				<div class="category-circle button" 
 					ng-click="categories[i].isSelected = !categories[i].isSelected;selectedCategory(i)" 
-					ng-class="{'button-calm': categories[i].isSelected}">
+					ng-class="{'category-circle-selected': categories[i].isSelected}">
 					<i class="icon" ng-class="categories[i].icon"></i>
 				</div>
 				<small>{{categories[i].name}}</small>

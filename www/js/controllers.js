@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, Requests, User, $state, $ionicModal, $timeout, $rootScope ) {
+.controller('AppCtrl', function($scope, Requests, User, $state, $ionicModal, $timeout, $rootScope, $ionicPlatform, $cordovaDialogs) {
 
 $scope.responseData = {}
 $scope.tempMail = null;
@@ -197,7 +197,7 @@ $scope.saveProfil = function() {
   $scope.categories.push(new Category("Natur", "icon-nature", false));
   $scope.categories.push(new Category("Litteratur", "ion-ios-book", false));
   $scope.categories.push(new Category("Musikk", "ion-music-note", false));
-  $scope.categories.push(new Category("Teknologi", "icon-technology", false));
+  $scope.categories.push(new Category("Teknologi", "ion-gear-b", false));
   
   $scope.selectedCat = [];
 
@@ -264,12 +264,15 @@ $scope.saveProfil = function() {
   };
 
   $scope.deleteList = function(list) {
-    var response = confirm("Er du sikker på at du vil slette denne listen?", "Slett liste", ["OK", "Avbryt"]);
-    if(response === true) {
-      var index = $scope.collectionList.indexOf(list);
-      $scope.collectionList.splice(index, 1);
-      Requests.removeTag(window.localStorage['userId'], list.text);
-    }
+    $ionicPlatform.ready(function() {
+      $cordovaDialogs.confirm('Vil du slette listen "' + list.text + '"?' , 'Slett liste', ['OK','Avbryt']).then(function(response) {
+          if(response === 1) {
+          var index = $scope.collectionList.indexOf(list);
+          $scope.collectionList.splice(index, 1);
+          Requests.removeTag(window.localStorage['userId'], list.text);
+        }
+      });
+    });
   };
 
   
@@ -299,10 +302,13 @@ $scope.updateMenu();
      categoryPicker(categories);
   };
 
+$scope.tag = Requests.getSelectedTag();
  // Retrieve stories associated with selected tag
- Requests.getStoryList(Requests.getSelectedTag(), window.localStorage['userId']).then(function(response) {
-    $scope.storyPreviews =  response.data;
+ Requests.getStoryList($scope.tag, window.localStorage['userId']).success(function(data, status) {
+    $scope.storyPreviews =  data;
     $ionicLoading.hide();
+  }).error(function(data, status) {
+    console.log(status);
 });
 
   //remove a story from the listview
@@ -319,11 +325,13 @@ $scope.updateMenu();
     });
     // Get story data.
     //Må ha .then() for å kunne hente fra http.post i backend.services
-    Requests.getStory(story.id, window.localStorage['userId']).then(function (response) {
-      Requests.setSelectedStory(new Story(response.data));
+    Requests.getStory(story.id, window.localStorage['userId']).success(function (data, status) {
+      Requests.setSelectedStory(new Story(data));
       $state.go("app.story");
       $ionicLoading.hide();
-    });
+    }).error(function(data, status) {
+        console.log(status)
+    })
   };
 })
 
@@ -338,13 +346,13 @@ $scope.updateMenu();
     $ionicSideMenuDelegate.canDragContent(false);
   });
 
-   //Display loading screen
+  //Display loading screen
   $ionicLoading.show({
       template: '<h2>Laster inn</h2><div class="icon ion-loading-a"></div>',
       noBackdrop: false
     });
 
-  Requests.getMultipleStories().then(function(response){
+  Requests.getMultipleStories().then(function(response) {
     $scope.storyPreviews =  response.data;
     return Requests.getStory($scope.storyPreviews[0].id, $scope.userId);
   }).then(function(story){
@@ -359,6 +367,8 @@ $scope.updateMenu();
     $ionicSlideBoxDelegate.update();
     $ionicLoading.hide();
   });
+
+
 
   $scope.nextSlide = function() {
     $ionicSlideBoxDelegate.next();
@@ -464,16 +474,27 @@ $scope.updateMenu();
 
     // Play selected video in fullscreen
     $scope.playVideo = function(index) {
-      var video = document.getElementById("Video" + index);
-      if (video.webkitEnterFullscreen) {
-        video.webkitEnterFullscreen();
-      } else if (video.webkitRequestFullScreen) {
-        video.webkitRequestFullScreen();
-      } else if (video.requestFullscreen) {
-        video.requestFullscreen();
+      $scope.fullscreen = false;
+      $scope.video = document.getElementById("Video" + index);
+      if ($scope.video.webkitEnterFullscreen) {
+        $scope.video.webkitEnterFullscreen();
+      } else if ($scope.video.webkitRequestFullScreen) {
+        $scope.video.webkitRequestFullScreen();
+      } else if ($scope.video.requestFullscreen) {
+        $scope.video.requestFullscreen();
       }
-      video.play();
+      $scope.video.play();
     };
+
+    document.addEventListener('webkitfullscreenchange', function(e) {
+      if ($scope.fullscreen) {
+        $scope.video.pause();
+       console.log("Exit fullscreen");
+      } else {
+         $scope.fullscreen = true;
+         console.log("Enter fullscreen");
+      }
+    });
 
     $scope.openUrl = function(url) {
       window.open(url, '_system');
@@ -484,12 +505,14 @@ $scope.updateMenu();
 .controller("RatingCtrl", function($scope, Requests, User) {
         $scope.userId = window.localStorage['userId'];
         $scope.story = Requests.getSelectedStory();
+        $scope.ratingSaved = false;
       
         // Rate story
         $scope.rateFunction = function(rating) {
             $scope.story.rating = rating;
             Requests.addRating($scope.story.storyId, $scope.userId, rating);
             console.log("Rated story: " + rating);
+            $scope.ratingSaved = true;
         };
 })
 
@@ -509,8 +532,8 @@ $scope.updateMenu();
 
 	     	// May use the collectionList in AppCtrl instead
         // The collections a user has, and whether this story is in it.
-        Requests.getAllLists($scope.userId).then(function(response) {
-          $scope.collectionList = response.data;
+        Requests.getAllLists($scope.userId).success(function(data, status) {
+          $scope.collectionList = data;
           for(var i = 0; i < $scope.collectionList.length; i++){
             for(var j = 0; j < $scope.story.userTags.length; j++){
               if($scope.collectionList[i]["text"].valueOf() == $scope.story.userTags[j].valueOf()) {
@@ -521,7 +544,9 @@ $scope.updateMenu();
               $scope.collectionList[i]["checked"] = false;
             }
           }
-        });
+        }).error(function(data, status) {
+          console.log(status);
+        })
 
         // Display text field to enter name of new collection
         $scope.newItem = function() {

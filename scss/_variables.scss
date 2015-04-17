@@ -1,6 +1,6 @@
 // Colors
 $font-color: #583318;
-$small-text-color: #9B9BAB;
+$small-text-color: desaturate(lighten($font-color, 35%), 30%);
 $link-color: #8fe3ff;
 //$primary-color: #35647E;
 $primary-color: #249c9c;
@@ -16,6 +16,7 @@ $background-color: #FFF9EE;
 //$background-color-dark: #dFdBcE;
 $background-color-dark: #C2B2A7;
 
+$category-colors: #F8BBD0 #E1BEE7 #C5CAE9 #B3E5FC #B2DFDB #DCEDC8 #FFF9C4 #FFE0B2 #FFCCBC;
 
 // Override ionic
 $calm: $primary-color;
