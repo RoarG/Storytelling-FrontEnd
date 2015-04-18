@@ -151,6 +151,27 @@ $scope.setGender = function(gender) {
     console.log('Gender : ' + $scope.gender);
 };
 
+$scope.loadProfile = function() {
+    Requests.getUserFromId(window.localStorage['userId']).then(function(response){
+    console.log("response status(getUserFromId) : " + response.data.status);
+    $scope.user = response.data;
+    gender = parseInt($scope.user.userModel.gender);
+    age_group = parseInt($scope.user.userModel.age_group);
+    $scope.setGender(gender);
+    $scope.setAgeGrp(age_group);
+
+  });
+
+};
+
+//TODO have to parse category names back into numbers ?
+$scope.loadPreferences = function() {
+    Requests.getUserFromId(window.localStorage['userId']).then(function(response){
+    console.log("response status(getUserFromId) : " + response.data.status);
+    $scope.user = response.data;
+    category_preference = $scope.user.userModel.category_preference;
+  });
+};
 
 $scope.saveProfil = function() {
       console.log("ageGrp" + $scope.ageGrp);
@@ -169,8 +190,6 @@ $scope.saveProfil = function() {
         });
 
       });
-
-      $state.go("preferences");
 };
 
 
@@ -237,8 +256,6 @@ $scope.saveProfil = function() {
           });
 
         });
-
-        $state.go("app.recommendations");
   };
 
 
@@ -249,10 +266,18 @@ $scope.saveProfil = function() {
     console.log("vi " + vi);
   };
 
-
   $scope.goProfile = function() {
       $state.go("profile");
   };
+
+  $scope.goPreferences = function() {
+      $state.go("preferences");
+  };
+
+  $scope.goRecommendations = function() {
+      $state.go("app.recommendations");
+  };
+
 
   //Need the userId to make this work
   /*Requests.getAllLists($scope.user.userId).then(function(response){
@@ -508,14 +533,39 @@ $scope.saveProfil = function() {
         };
 })
 
-.controller('SettingsCtrl', function($scope, Requests) {
-        //get the user data from ID
-        $scope.userId = window.localStorage['userId'];
-        Requests.getUserFromId($scope.userId).then(function(response) {
+.controller('SettingsCtrl', function($scope, Requests, User) {
+        //retrieve the user email when opening the settings view
+        Requests.getUserFromId(window.localStorage['userId']).then(function(response) {
           $scope.user = response.data;
           $scope.email = $scope.user.userModel.email;
-          console.log($scope.user);
         });
+
+        //test function which retrieves all user information
+        $scope.retrieveUser = function() {
+          $scope.userId = window.localStorage['userId'];
+          Requests.getUserFromId($scope.userId).then(function(response) {
+          $scope.user = response.data;
+          console.log($scope.user);
+          });
+        };
+
+        //updates the user's email
+        $scope.saveEmail = function(email) {
+          Requests.getUserFromId(window.localStorage['userId']).then(function(response){
+            console.log("response status(getUserFromId) : " + response.data.status);
+            
+            user = new User(response.data.userModel);
+            user.email = email;
+            $scope.email = email;
+            
+            Requests.updateUser(user).then(function(response){
+              console.log("response status(updateUser) : " + response.data.status);  
+              //TODO: If failed= notify user that email is already in use
+            });
+
+          });
+
+        };
 })
 
 .controller('BookmarkCtrl', function($scope, $rootScope, Requests) {
