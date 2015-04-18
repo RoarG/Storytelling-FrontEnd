@@ -25,7 +25,7 @@ $scope.user = {};
         console.log('Respons, Eksistere bruken  2: ', $scope.responseData);
           //Checks if the userId is assisiated with a email then Login ok and sets scope.user to the model from backend
         if ($scope.responseData.status != "failed") {
-          $scope.user = new User(response.data.userModel);
+          $scope.user = new User(window.localStorage['userId'], response.data.userModel);
           console.log('User id : ' + $scope.responseData.userModel.userId);
           /*$scope.user =  $scope.responseData.userModel*/
 
@@ -90,7 +90,7 @@ $scope.user = {};
       $scope.user.userId = $scope.responseData.userId;
       window.localStorage['userId'] = $scope.user.userId;
 
-  Requests.updateUser(new User($scope.user)).then(function(response1){
+  Requests.updateUser(new User(window.localStorage['userId'])).then(function(response1){
             console.log('Update User!: ', response1.data.status);
             console.log('Update User !data: ', response1.data);
            });              
@@ -171,9 +171,9 @@ $scope.saveProfil = function() {
       Requests.getUserFromId(window.localStorage['userId']).then(function(response){
         console.log("response status(getUserFromId) : " + response.data.status);
         
-        user = new User(response.data.userModel);
-        user.age_group = $scope.ageGrp;
-        user.gender = $scope.gender;
+        user = new User(window.localStorage['userId'], response.data.userModel);
+        user.setAgeGroup($scope.ageGrp);
+        user.setGender($scope.gender);
         
         Requests.updateUser(user).then(function(response){
           console.log("response status(updateUser) : " + response.data.status);  
@@ -192,9 +192,9 @@ $scope.updateProfil = function() {
       Requests.getUserFromId(window.localStorage['userId']).then(function(response){
         console.log("response status(getUserFromId) : " + response.data.status);
         
-        user = new User(response.data.userModel);
-        user.age_group = $scope.ageGrp;
-        user.gender = $scope.gender;
+        user = new User(window.localStorage['userId'], response.data.userModel);
+        user.setAgeGroup($scope.ageGrp);
+        user.setGender($scope.gender);
         
         Requests.updateUser(user).then(function(response){
           console.log("response status(updateUser) : " + response.data.status);  
@@ -266,10 +266,10 @@ $scope.updateProfil = function() {
     console.log("Saving Preferences");
     
         Requests.getUserFromId(window.localStorage['userId']).then(function(response){
-          user = new User(response.data.userModel);
+          user = new User(window.localStorage['userId'], response.data.userModel);
           console.log("response status(getUserFromId) : " + response.data.status);
          
-          user.category_preference = $scope.selectedCat;
+          user.setCategoryPreference($scope.selectedCat);
           console.log("$scope.selectedCat) : " + user.category_preference);
           console.log("user: " + user);
             
@@ -290,10 +290,10 @@ $scope.updateProfil = function() {
     console.log("Saving Preferences");
     
         Requests.getUserFromId(window.localStorage['userId']).then(function(response){
-          user = new User(response.data.userModel);
+          user = new User(window.localStorage['userId'], response.data.userModel);
           console.log("response status(getUserFromId) : " + response.data.status);
          
-          user.category_preference = $scope.selectedCat;
+          user.setCategoryPreference($scope.selectedCat);
           console.log("$scope.selectedCat) : " + user.category_preference);
           console.log("user: " + user);
       
@@ -608,8 +608,8 @@ $scope.tag = Requests.getSelectedTag();
           Requests.getUserFromId(window.localStorage['userId']).then(function(response){
             console.log("response status(getUserFromId) : " + response.data.status);
             
-            user = new User(response.data.userModel);
-            user.email = email;
+            user = new User(window.localStorage['userId'], response.data.userModel);
+            user.setEmail(email);
             $scope.email = email;
             
             Requests.updateUser(user).then(function(response){
