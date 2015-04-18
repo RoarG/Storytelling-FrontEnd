@@ -99,6 +99,7 @@ angular.module('backend.services', ['ngSanitize'])
 	}
 
 	var selectedStory;
+	var selectedTag;
 
 	return {
 		/**Retrieves single story from digitalt fortalt*/
@@ -115,8 +116,9 @@ angular.module('backend.services', ['ngSanitize'])
 
 		/**Retrieves multiple stories from the database, now returns 500 error when
 		* story doesn't have pictures*/
-		getMultipleStories: function(idArray) {
-			req.data = { type: "getStories" };
+		getMultipleStories: function(userId) {
+			req.data = { type: "getStories",
+						userId: userId};
 			return $http(req);
 		},
 
@@ -246,11 +248,38 @@ angular.module('backend.services', ['ngSanitize'])
 			return $http(req);
 		},
 
+		/*Get all tags connected to a story for a user*/
+		getStoryTags: function (userId, storyId){
+			req.data = {
+				type: "getStoryTags",
+				userId: userId,
+				storyId: storyId
+			};
+			$http(req);
+
+		},
+
+		/*Set rejected story state in database*/
+		rejectStory: function(userId, storyId){
+			req.data = {
+				type: "rejectStory",
+				userId: userId,
+				storyId: storyId
+			};
+			$http(req);
+		},
+
 		setSelectedStory: function (storyId){
 			selectedStory = storyId;
 		},
 		getSelectedStory: function () {
 			return selectedStory;
+		},
+		setSelectedTag: function (tagName) {
+			selectedTag = tagName;
+		},
+		getSelectedTag: function () {
+			return selectedTag;
 		}
 	}
 });

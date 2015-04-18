@@ -4,9 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'backend.services'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'backend.services', 'ngCordova'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $cordovaDialogs, $cordovaNetwork, $rootScope) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -17,6 +17,26 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
       StatusBar.hide();
+    }
+
+    if (window.Connection) {
+      if ($cordovaNetwork.isOffline()) {
+        $cordovaDialogs.alert("Ingen nettilgang", "Enheten din er ikke tilkoblet Internett");
+      }
+      if ($cordovaNetwork.isOnline()) {
+        $cordovaDialogs.alert("Nett!", "Hurra!");
+      }
+
+      // listen for Online event
+      $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
+        var onlineState = networkState;
+      });
+
+      // listen for Offline event
+      $rootScope.$on('$cordovaNetwork:offline', function(event, networkState){
+        var offlineState = networkState;
+        $cordovaDialogs.alert("Ingen nettilgang", "Enheten din er ikke tilkoblet Internett");
+      });
     }
   });
 })

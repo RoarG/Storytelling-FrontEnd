@@ -26,6 +26,10 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 @import "standard";
 
+.button-calm {
+	border: none;
+}
+
 /*
     Login view
 */
@@ -46,7 +50,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 .infoText {
-    padding-top: 5%;
+    margin-bottom: 3%;
     text-align: center;
     font-size: 1em;
     color: $small-text-color;
@@ -135,8 +139,21 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	line-height: 3em;
 	background-color: $background-color-dark;
 	color: $font-color;
-	border-color: $font-color;
+	border-color: $small-text-color;
 }
+
+/*
+	Menu
+ */
+.bookmark-list {
+	padding: 0;
+	margin: 0;
+}
+
+.bookmark-list div {
+	padding: 18px 15px;
+}
+
 
 /*
     List view
@@ -206,7 +223,7 @@ ion-popover-view .list .button {
 }
 
 .modal.bookmark {
-	min-height: 40%;
+	min-height: 0;
 	width: 75%;
 	background-color: $background-color;
 	position: absolute;
@@ -222,6 +239,14 @@ ion-popover-view .list .button {
 
     h2 {
     	margin: 7% 0 0 5%;
+    }
+
+    form button {
+    	float: right;
+    	margin-top: 12px;
+    	min-height: 20px;
+    	line-height: 2.2em;
+    	font-family: Cabin, sans-serif;
     }
 
 }
@@ -299,13 +324,53 @@ ion-popover-view .list .button {
 	letter-spacing: 0.1em;
 }
 
-.category-circle {
+.category-circle li {
     font-size: 1.5em;
     background-color: $background-color-dark;
     padding: 2px 5px;
-    border-radius: 50%;
-    margin-right: 1.5%;
+    border-radius: 10%;
+    margin-right: 4px;
 }
+
+.category-circle {
+	.cat-1 {
+		background-color: nth($category-colors, 1);
+		color: desaturate(darken(nth($category-colors, 1), 55%), 55%);
+	}
+	.cat-2 {
+		background-color: nth($category-colors, 2);
+		color: desaturate(darken(nth($category-colors, 2), 55%), 55%);
+	}
+	.cat-3 {
+		background-color: nth($category-colors, 3);
+		color: desaturate(darken(nth($category-colors, 3), 55%), 55%);
+	}
+	.cat-4 {
+		background-color: nth($category-colors, 4);
+		color: desaturate(darken(nth($category-colors, 4), 55%), 55%);
+	}
+	.cat-5 {
+		background-color: nth($category-colors, 5);
+		color: desaturate(darken(nth($category-colors, 5), 55%), 55%);
+	}
+	.cat-6 {
+		background-color: nth($category-colors, 6);
+		color: desaturate(darken(nth($category-colors, 6), 55%), 55%);
+	}
+	.cat-7 {
+		background-color: nth($category-colors, 7);
+		color: desaturate(darken(nth($category-colors, 7), 55%), 55%);
+	}
+	.cat-8 {
+		background-color: nth($category-colors, 8);
+		color: desaturate(darken(nth($category-colors, 8), 55%), 55%);
+	}
+	.cat-9 {
+		background-color: nth($category-colors, 9);
+		color: desaturate(darken(nth($category-colors, 9), 55%), 55%);
+	}
+}
+
 .story-categories .category-circle {
 	float: left;
 	margin-bottom: 2.5%;
@@ -446,12 +511,20 @@ video::-webkit-media-controls {
     	padding: 0.5%;
     }
 
-   button {
-   		width: 150px;
+   button.button-light {
+   		width: 120px;
    		margin: 0 auto;
-   		font-size: 1em;
+   		font-size: 0.9em;
    		min-height: 20px;
    		line-height: 1.8em;
+   		background-color: $background-color-dark;
+   		border: none;
+   		margin-top: 4px;
+   }
+
+   button.button-light.active {
+   	background-color: $primary-color;
+   	color: white;
    }
 
    .filled {
@@ -467,19 +540,25 @@ video::-webkit-media-controls {
     color: white;
 
 	.star {
-	    color: #FFF;
+	    color: rgba(255,255,255,0.7);
 	    font-size: 2.5em;
 	    padding: 0.5%;
 	}
 	.filled {
 	    color: #fd0;
 	}
-	button {
-	    margin: 0 auto;
-	    width: 150px;
+	.button.button-light {
+	    margin: 4px auto;
+	    width: 120px;
 	    min-height: 20px;
 	    line-height: 1.8em;
-	    font-size: 1em;
+	    font-size: 0.9em;
+	    background-color: rgba(255,255,255,0.7);
+	    color: $primary-color;
+	    border: none;
+	}
+	.button.button-light.active {
+		background-color: white;
 	}
 }
 
@@ -501,6 +580,116 @@ video::-webkit-media-controls {
 	    padding-bottom: 24%;
 	    position: relative;
 	}
+
+	.category:nth-of-type(1) {
+		.category-circle {
+			background-color: desaturate(lighten(nth($category-colors, 1), 10%), 10%);
+			color: desaturate(darken(nth($category-colors, 1), 20%), 40%);
+			border: 1.5px solid lighten(nth($category-colors, 1), 8%);
+		}
+		.category-circle-selected {
+				background-color: nth($category-colors, 1);
+				color: desaturate(darken(nth($category-colors, 1), 55%), 55%);
+				border-color: nth($category-colors, 1);
+			}
+	}
+	.category:nth-of-type(2) {
+		.category-circle {
+			background-color: desaturate(lighten(nth($category-colors, 2), 10%), 10%);
+			color: desaturate(darken(nth($category-colors, 2), 20%), 40%);
+			border: 1.5px solid lighten(nth($category-colors, 2), 8%);
+		}
+		.category-circle-selected {
+				background-color: nth($category-colors, 2);
+				color: desaturate(darken(nth($category-colors, 2), 55%), 55%);
+				border-color: nth($category-colors, 2);
+			}
+	}
+	.category:nth-of-type(3) {
+		.category-circle {
+			background-color: desaturate(lighten(nth($category-colors, 3), 10%), 10%);
+			color: desaturate(darken(nth($category-colors, 3), 20%), 40%);
+			border: 1.5px solid lighten(nth($category-colors, 3), 8%);
+		}
+		.category-circle-selected {
+				background-color: nth($category-colors, 3);
+				color: desaturate(darken(nth($category-colors, 3), 55%), 55%);
+				border-color: nth($category-colors, 3);
+			}
+	}
+	.category:nth-of-type(4) {
+		.category-circle {
+			background-color: desaturate(lighten(nth($category-colors, 4), 10%), 10%);
+			color: desaturate(darken(nth($category-colors, 4), 20%), 40%);
+			border: 1.5px solid lighten(nth($category-colors, 4), 8%);
+		}
+		.category-circle-selected {
+				background-color: nth($category-colors, 4);
+				color: desaturate(darken(nth($category-colors, 4), 55%), 55%);
+				border-color: nth($category-colors, 4);
+			}
+	}
+	.category:nth-of-type(5) {
+		.category-circle {
+			background-color: desaturate(lighten(nth($category-colors, 5), 10%), 10%);
+			color: desaturate(darken(nth($category-colors, 5), 20%), 40%);
+			border: 1.5px solid lighten(nth($category-colors, 5), 8%);
+		}
+		.category-circle-selected {
+				background-color: nth($category-colors, 5);
+				color: desaturate(darken(nth($category-colors, 5), 55%), 55%);
+				border-color: nth($category-colors, 5);
+			}
+	}
+	.category:nth-of-type(6) {
+		.category-circle {
+			background-color: desaturate(lighten(nth($category-colors, 6), 10%), 10%);
+			color: desaturate(darken(nth($category-colors, 6), 20%), 40%);
+			border: 1.5px solid lighten(nth($category-colors, 6), 8%);
+		}
+		.category-circle-selected {
+				background-color: nth($category-colors, 6);
+				color: desaturate(darken(nth($category-colors, 6), 55%), 55%);
+				border-color: nth($category-colors, 6);
+			}
+	}
+	.category:nth-of-type(7) {
+		.category-circle {
+			background-color: desaturate(lighten(nth($category-colors, 7), 8%), 10%);
+			color: desaturate(darken(nth($category-colors, 7), 20%), 40%);
+			border: 1.5px solid lighten(nth($category-colors, 7), 8%);
+		}
+		.category-circle-selected {
+				background-color: darken(nth($category-colors, 7), 4%);
+				color: desaturate(darken(nth($category-colors, 7), 57%), 55%);
+				border-color: nth($category-colors, 7);
+			}
+	}
+	.category:nth-of-type(8) {
+		.category-circle {
+			background-color: desaturate(lighten(nth($category-colors, 8), 10%), 10%);
+			color: desaturate(darken(nth($category-colors, 8), 20%), 40%);
+			border: 1.5px solid lighten(nth($category-colors, 8), 8%);
+		}
+		.category-circle-selected {
+				background-color: nth($category-colors, 8);
+				color: desaturate(darken(nth($category-colors, 8), 58%), 55%);
+				border-color: nth($category-colors, 8);
+			}
+	}
+	.category:nth-of-type(9) {
+		.category-circle {
+			background-color: desaturate(lighten(nth($category-colors, 9), 10%), 10%);
+			color: desaturate(darken(nth($category-colors, 9), 20%), 40%);
+			border: 1.5px solid lighten(nth($category-colors, 9), 8%);
+		}
+		.category-circle-selected {
+				background-color: nth($category-colors, 9);
+				color: desaturate(darken(nth($category-colors, 9), 55%), 55%);
+				border-color: nth($category-colors, 9);
+			}
+	}
+
 
 	.category-circle {
 		font-size: 3em;
@@ -533,17 +722,72 @@ video::-webkit-media-controls {
 	background-color: $background-color;
 }
 
-.recom-category-circle {
-	display: inline-block;
-    font-size: 1.0em;
-    background-color: $background-color-dark;
-    padding: 2px 5px;
-    border-radius: 50%;
-	margin-left: 1.5%;
+.recom-story-categories {
+	position: absolute;
+	bottom: 15px;
+	left: 7.5%;
+	width: 85%;
 }
-.recom-story-categories .recom-category-circle {
-	margin-bottom: 2.5%;
-	margin-top: -2.5%;
+
+
+.recom-category-circle {
+
+	.cat-1 {
+		background-color: nth($category-colors, 1);
+		color: desaturate(darken(nth($category-colors, 1), 45%), 55%);
+	}
+	.cat-2 {
+		background-color: nth($category-colors, 2);
+		color: desaturate(darken(nth($category-colors, 2), 45%), 55%);
+	}
+	.cat-3 {
+		background-color: nth($category-colors, 3);
+		color: desaturate(darken(nth($category-colors, 3), 45%), 55%);
+	}
+	.cat-4 {
+		background-color: nth($category-colors, 4);
+		color: desaturate(darken(nth($category-colors, 4), 45%), 55%);
+	}
+	.cat-5 {
+		background-color: nth($category-colors, 5);
+		color: desaturate(darken(nth($category-colors, 5), 45%), 55%);
+	}
+	.cat-6 {
+		background-color: nth($category-colors, 6);
+		color: desaturate(darken(nth($category-colors, 6), 45%), 55%);
+	}
+	.cat-7 {
+		background-color: nth($category-colors, 7);
+		color: desaturate(darken(nth($category-colors, 7), 50%), 55%);
+	}
+	.cat-8 {
+		background-color: nth($category-colors, 8);
+		color: desaturate(darken(nth($category-colors, 8), 45%), 55%);
+	}
+	.cat-9 {
+		background-color: nth($category-colors, 9);
+		color: desaturate(darken(nth($category-colors, 9), 45%), 55%);
+	}
+}
+
+.recom-category-circle.media-icons {
+	background-color: $background-color-dark;
+}
+
+
+
+.recom-category-circle li {
+    font-size: 1.2em;
+    width: 27px;
+    line-height: 27px;
+    border-radius: 10%;
+	margin-right: 1.5%;
+	float: left;
+}
+
+
+.media-icons {
+	float: right;
 }
 
 ion-slide .card {
@@ -584,7 +828,8 @@ ion-slide .content-wrapper {
 
 ion-slide h2 {
 	margin-bottom: 1%;
-	margin-top: 1%;
+	margin-top: 3%;
+	clear: both;
 }
 
 ion-slide p {
@@ -603,14 +848,20 @@ ion-slide .button {
 
 .fade-box {
 	position: absolute; 
-	bottom: 0; 
+	bottom: 3%; 
 	left: 0;
 	width: 100%; 
-	margin: 0; padding: 15px 0; 
+	height: 100px;
+	margin: 0;
 
 	background: rgba(255,255,255,0);
-	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,0)), color-stop(70%, rgba(255,255,255,1)), color-stop(100%, rgba(255,255,255,1)));
-	background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 70%, rgba(255,255,255,1) 100%);
+	background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 75%, rgba(255,255,255,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,0)), color-stop(75%, rgba(255,255,255,1)), color-stop(100%, rgba(255,255,255,1)));
+	background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 75%, rgba(255,255,255,1) 100%);
+	background: -o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 75%, rgba(255,255,255,1) 100%);
+	background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 75%, rgba(255,255,255,1) 100%);
+	background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 75%, rgba(255,255,255,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff', GradientType=0 );
 }
 
 .slide-nav {

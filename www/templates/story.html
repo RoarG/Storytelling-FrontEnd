@@ -1,7 +1,7 @@
-<ion-view class="story" ng-controller="StoryCtrl">
+<ion-view view-title="" class="story" ng-controller="StoryCtrl">
     <ion-nav-buttons side="right"> 
         <button class="button button-icon ion-android-star" ng-click="showModal('templates/rating.html')"></button>
-        <button class="button button-icon ion-android-bookmark" ng-click="showModal('templates/bookmark-modal.html')"></button>
+        <button class="button button-icon ion-ios-bookmarks" ng-click="showModal('templates/bookmark-modal.html')"></button>
     </ion-nav-buttons>
     <ion-content class="story">
         <div id="story-header-container">
@@ -14,15 +14,15 @@
             <p>{{story.introduction}}</p>
             <div class="story-categories">
                 <div ng-repeat="category in story.categoryList" class="category-circle" ng-switch on="category">
-					<li class="list-cat-display" ng-switch-when="history"><i class="icon-history"></i>
-					<li class="list-cat-display" ng-switch-when="nature and adventure"><i class="icon-nature"></i>
-					<li class="list-cat-display" ng-switch-when="science and technology"><i class="icon-technology"></i>
-					<li class="list-cat-display" ng-switch-when="art and design"><i class="icon-art"></i>
-					<li class="list-cat-display" ng-switch-when="architecture"><i class="icon-architecture"></i>
-					<li class="list-cat-display" ng-switch-when="local traditions and food"><i class="icon-tradition"></i>
-					<li class="list-cat-display" ng-switch-when="music"><i class="ion-music-note"></i>
-					<li class="list-cat-display" ng-switch-when="archeology"><i class="icon-archeology"></i>
-					<li class="list-cat-display" ng-switch-when="literature"><i class="ion-ios-book"></i>
+					<li class="list-cat-display cat-1" ng-switch-when="history"><i class="icon-history"></i>
+					<li class="list-cat-display cat-2" ng-switch-when="nature and adventure"><i class="icon-nature"></i>
+					<li class="list-cat-display cat-3" ng-switch-when="science and technology"><i class="ion-gear-b"></i>
+					<li class="list-cat-display cat-4" ng-switch-when="art and design"><i class="icon-art"></i>
+					<li class="list-cat-display cat-5" ng-switch-when="architecture"><i class="icon-architecture"></i>
+					<li class="list-cat-display cat-6" ng-switch-when="local traditions and food"><i class="icon-tradition"></i>
+					<li class="list-cat-display cat-7" ng-switch-when="music"><i class="ion-music-note"></i>
+					<li class="list-cat-display cat-8" ng-switch-when="archeology"><i class="icon-archeology"></i>
+					<li class="list-cat-display cat-9" ng-switch-when="literature"><i class="ion-ios-book"></i>
                 </div>
             </div>
         </div>
@@ -67,13 +67,14 @@
             <div class="rating" ng-controller="RatingCtrl">
                 <p>Likte du denne historien?</p>
                 <i class="icon ion-android-star star" ng-class="{filled: i <= story.rating}" ng-repeat="i in [1,2,3,4,5]" ng-click="rateFunction(i)"></i>
-                <button class="button button-block button-light" ng-click="rateFunction(0)">Ikke interessert</button>
+                <button class="button button-block button-light" ng-click="rateFunction(0)" ng-class="{active: story.rating === 0}">Ikke interessert</button>
+                <p ng-show="ratingSaved"><i class="ion-checkmark"></i> Lagret</p>
             </div>
-            <h3>Sted</h3>
+            <h3 ng-if="story.municipality">Sted</h3>
             <span>{{story.municipality}}</span>
-            <h3>Fylke</h3>
+            <h3 ng-if="story.county">Fylke</h3>
             <span>{{story.county}}</span>
-            <h3>Institusjon</h3>
+            <h3 ng-if="story.institution">Institusjon</h3>
             <span>{{story.institution}}</span>
             <p><a href="#" ng-click="openUrl(story.url)">Les historien på Digitalt Fortalt</a></p>
         </div>

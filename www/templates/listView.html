@@ -1,9 +1,9 @@
-<ion-view view-title="listView">
+<ion-view view-title="{{tag}}">
   <ion-content overflow-scroll="true">
     <!-- make a list to hold stories-->
     <ion-list class="item-text-wrap" can-swipe="true">
 	  <!-- fill the list with all the stories fetched by the controller-->
-      <ion-item class="item-remove-animate item-thumbnail-left item-icon-right" ng-repeat="story in storyPreviews" on-swipe-left="remove(story)" type="item-text-wrap" ng-click="open(story)">
+      <ion-item class="item-remove-animate item-thumbnail-left item-icon-right card" ng-repeat="story in storyPreviews" on-swipe-left="remove(story)" type="item-text-wrap" ng-click="open(story)">
         <!-- add the contents of each list element-->
 		<img class="list-full-size" ng-src="{{story.thumbnail}}">
 		<h2>{{story.title}}</h2>
