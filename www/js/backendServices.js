@@ -65,16 +65,28 @@ angular.module('backend.services', ['ngSanitize'])
 
 
 .factory('User', function (){
-	function User(userData){
-		this.userId = userData.userId;
-		if(userData.email == null || userData.email == undefined)
+
+	/*if no userdata is retrieved from the database, use new User(userId). Else see
+	Requests.updateUser*/
+	function User(userId, userData){
+		this.userId = userId;
+
+		if(userData != null && userData != undefined){
+			if(userData.email == null || userData.email == undefined)
+				this.email = -1;
+			else
+				this.email = userData.email;
+			this.age_group = userData.age_group;
+			this.gender = userData.gender;
+			this.use_of_location = userData.use_of_location;
+			this.category_preference = userData.category_preference;
+		} else {
 			this.email = -1;
-		else
-			this.email = userData.email;
-		this.age_group = userData.age_group;
-		this.gender = userData.gender;
-		this.use_of_location = userData.user_of_location;
-		this.category_preference = userData.category_preference;
+			this.age_group = null;
+			this.gender = null;
+			this.use_of_location = null;
+			this.category_preference = null;
+		}
 	};
 	User.prototype.getUser = function() {
 		var userData;
@@ -85,6 +97,13 @@ angular.module('backend.services', ['ngSanitize'])
 		userData.use_of_location = this.use_of_location;
 		userData.category_preference = this.category_preference;
 		return userData;
+	};
+	User.prototype.setEmail = function(email){ this.email = email; };
+	User.prototype.setAgeGroup = function(age_group){ this.age_group = age_group; };
+	User.prototype.setGender = function(gender){ this.gender = gender; };
+	User.prototype.setUseOfLocation = function(use_of_location){ this.use_of_location = use_of_location; };
+	User.prototype.setCategoryPreference = function(category_preference){
+		this.category_preference = category_preference;
 	};
 	return User;
 })
@@ -152,7 +171,7 @@ angular.module('backend.services', ['ngSanitize'])
 
 		/** Updates a user already in the DB, (for no email set email = -1). 
 		userData should be User object. Create new user by using: 
-		user = new User($scope.user) or new User(response.data.userModel), then call updateUser(user)*/
+		user = new User(userId, $scope.user) or new User(userId, response.data.userModel), then call updateUser(user)*/
 		updateUser: function (userData){
 			req.data = {type: "updateUser",
 				userId: userData.userId,
@@ -255,7 +274,7 @@ angular.module('backend.services', ['ngSanitize'])
 				userId: userId,
 				storyId: storyId
 			};
-			$http(req);
+			return $http(req);
 
 		},
 
