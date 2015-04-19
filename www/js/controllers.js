@@ -25,7 +25,8 @@ $scope.user = {};
         console.log('Respons, Eksistere bruken  2: ', $scope.responseData);
           //Checks if the userId is assisiated with a email then Login ok and sets scope.user to the model from backend
         if ($scope.responseData.status != "failed") {
-          $scope.user = new User(window.localStorage['userId'], response.data.userModel);
+          $scope.user = new User(response.data.userModel.userId, response.data.userModel);
+          console.log($scope.user);
           console.log('User id : ' + $scope.responseData.userModel.userId);
           /*$scope.user =  $scope.responseData.userModel*/
 
