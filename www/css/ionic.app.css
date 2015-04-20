@@ -7052,7 +7052,7 @@ p {
     Login view
 */
 .header-padding {
-  padding-top: 5%; }
+  padding-top: 0%; }
 
 #view {
   padding-left: 5%;
@@ -7105,10 +7105,7 @@ p {
   margin-top: 0%; }
 
 .topContProfile {
-  padding-bottom: 2%;
-  padding-right: 4%;
-  padding-left: 4%;
-  padding-top: 10%; }
+  width: 100%; }
 
 .bottomContProfile {
   padding-top: 15%;
@@ -7128,6 +7125,14 @@ p {
 
 .navIndicator {
   padding-top: 10%; }
+
+.topContProfile .button-bar > .button, .bottomContProfile .button-bar > .button {
+  font-size: 0.9em;
+  padding: 0;
+  line-height: 3em;
+  background-color: #C2B2A7;
+  color: #583318;
+  border-color: #583318; }
 
 /*
     List view
@@ -7156,6 +7161,9 @@ p {
 
 .settings-height {
   height: 25px; }
+
+.settings-button-width {
+  width: 50%; }
 
 /*
     Story view
@@ -7243,6 +7251,10 @@ ion-popover-view .list .button {
   background-color: #249c9c;
   color: #fff;
   border-color: #249c9c; }
+
+.story .button-bar > .button {
+  font-size: 1em;
+  letter-spacing: 0.1em; }
 
 .category-circle {
   font-size: 1.5em;
@@ -7393,10 +7405,10 @@ video::-webkit-media-controls {
 	Preferences
  */
 .categories {
-  margin: 10% 0;
+  margin: 5% 0;
   /* Center text horizontally and vertically in circle */ }
   .categories .category {
-    float: left;
+    float: right;
     text-align: center;
     margin: 4%;
     width: 25%;
@@ -7494,13 +7506,17 @@ ion-slide .button {
 
 .slide-nav {
   position: absolute;
-  top: 38%;
-  transform: translateY(-50%);
+  top: 40%;
+  transform: translateY(-40%);
   font-size: 2em;
-  padding: 30px 0; }
+  padding: 50px 10px; }
 
 .slide-nav-left {
-  margin-left: 3%; }
+  margin-left: 2%; }
 
 .slide-nav-right {
-  margin-left: 93%; }
+  margin-left: 90%; }
+
+/* Loading */
+.ion-loading-a {
+  font-size: 2.5em; }

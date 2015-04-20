@@ -13,35 +13,32 @@
 
         <div class="header-padding"></div>
           <h1 class="viewhead">Innlogging</h1>
-
-          <div class="loginContainer">
-              <div class="infoText">Logg inn med eksisterende eller ny e-post addresse</div>
-              <div class="innerContLogin">
-                <label class="item item-input">
-                  <input type="text" placeholder="E-Post" ng-model="user.email"> 
-                </label>
-                <button class="button button-block button-calm" ng-click="doLogin(user.email)">Logg inn</button>
-              </div>
-          </div>
-    
-
-          <div class="bottomContLogin">
-            <div class="skipContLogin">
-              <div class="infoText">Ved å hoppe over innlogingen vil preferansene dine KUN være koblet til denne enheten</div>
-               <div class="innerContLogin">
-
-                <!-- TODO: Set opp bruker med tom e-post adresse -->
-                <a href="" ng-click="closeLogin()" id="skipLogin">Hopp over dette steget</a>
+            <div class="mainCont">
+              <div class="loginContainer">
+                  <div class="infoText">Logg inn med eksisterende eller ny e-post addresse</div>
+                    <div class="innerContLogin">
+                      <label class="item item-input">
+                        <input type="text" placeholder="E-Post" ng-model="user.email"> 
+                      </label>
+                      <button class="button button-block button-calm" ng-click="doLogin(user.email)">Logg inn</button>
+                    </div>
               </div>
             </div>
+
+
+          <div class="navIndicator">
+            <div class="button-cont">
+              <div class="infoText">Ved å hoppe over innlogingen vil preferansene dine KUN være koblet til denne enheten</div>
+            <a href="" ng-click="closeLogin()" id="skipLogin">Hopp over dette steget</a>
+            </div>
       
-        <!-- Place the step x of y circle here -->
+            <!-- Place the step x of y circle here -->
               <div class="pageIndicatorContLogin">
                 <i class="ion-ios-circle-filled"></i>
-                <i class="ion-ios-circle-outline"></i>
+                <i class="ion-ios-circle-filled"></i>
                 <i class="ion-ios-circle-outline"></i>
               </div>
-          </div>
+          </div>  
   
   </ion-content>
 </ion-view>
