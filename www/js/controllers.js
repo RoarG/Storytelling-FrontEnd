@@ -140,7 +140,7 @@ $scope.user = {};
   ////////////////////////
 
 $scope.ageGrp = null;
-$scope.gender = '';
+$scope.gender = null;
 
 $scope.setAgeGrp = function(ageGrp) {
     $scope.ageGrp = ageGrp;
