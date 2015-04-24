@@ -5,11 +5,30 @@ body {
 
 
 
-/*
-.popover, .list, ion-item, .item, .item-complex .item-content {
+
+ion-content, .view, .popover, .list, .item-divider {
 	background-color: $background-color;
 }
-*/
+
+.item {
+	background-color: white;
+	border-color: desaturate(darken($background-color, 10%), 10%);
+}
+
+.card {
+	margin: 8px 10px;
+	border: none;
+}
+
+input::-webkit-input-placeholder {
+	color: desaturate(darken($background-color, 25%), 40%);
+}
+
+input[type="text"] {
+	font-family: "Cabin", sans-serif;
+	color: $font-color;
+}
+
 
 h1, h2, h3 {
 	font-family: 'Lobster', cursive;
@@ -33,7 +52,7 @@ p {
 }
 
 .small-text {
-	color: $contrast-color-dark;
+	color: $small-text-color;
 	font-size: 0.8em;
 	font-weight: 300;
 	font-style: italic;

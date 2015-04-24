@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, Requests, User, $state, $ionicModal, $timeout, $rootScope ) {
+.controller('AppCtrl', function($scope, Requests, User, $state, $ionicModal, $timeout, $ionicLoading,$rootScope, $ionicPlatform, $cordovaDialogs) {
 
 $scope.responseData = {}
 $scope.tempMail = null;
@@ -25,7 +25,8 @@ $scope.user = {};
         console.log('Respons, Eksistere bruken  2: ', $scope.responseData);
           //Checks if the userId is assisiated with a email then Login ok and sets scope.user to the model from backend
         if ($scope.responseData.status != "failed") {
-          $scope.user = new User(response.data.userModel);
+          $scope.user = new User(response.data.userModel.userId, response.data.userModel);
+          console.log($scope.user);
           console.log('User id : ' + $scope.responseData.userModel.userId);
           /*$scope.user =  $scope.responseData.userModel*/
 
@@ -90,7 +91,7 @@ $scope.user = {};
       $scope.user.userId = $scope.responseData.userId;
       window.localStorage['userId'] = $scope.user.userId;
 
-  Requests.updateUser(new User($scope.user)).then(function(response1){
+  Requests.updateUser(new User(window.localStorage['userId'])).then(function(response1){
             console.log('Update User!: ', response1.data.status);
             console.log('Update User !data: ', response1.data);
            });              
@@ -139,7 +140,7 @@ $scope.user = {};
   ////////////////////////
 
 $scope.ageGrp = null;
-$scope.gender = '';
+$scope.gender = null;
 
 $scope.setAgeGrp = function(ageGrp) {
     $scope.ageGrp = ageGrp;
@@ -151,6 +152,18 @@ $scope.setGender = function(gender) {
     console.log('Gender : ' + $scope.gender);
 };
 
+$scope.loadProfile = function() {
+    Requests.getUserFromId(window.localStorage['userId']).then(function(response){
+    console.log("response status(getUserFromId) : " + response.data.status);
+    $scope.user = response.data;
+    gender = parseInt($scope.user.userModel.gender);
+    age_group = parseInt($scope.user.userModel.age_group);
+    $scope.setGender(gender);
+    $scope.setAgeGrp(age_group);
+
+  });
+
+};
 
 $scope.saveProfil = function() {
       console.log("ageGrp" + $scope.ageGrp);
@@ -159,9 +172,9 @@ $scope.saveProfil = function() {
       Requests.getUserFromId(window.localStorage['userId']).then(function(response){
         console.log("response status(getUserFromId) : " + response.data.status);
         
-        user = new User(response.data.userModel);
-        user.age_group = $scope.ageGrp;
-        user.gender = $scope.gender;
+        user = new User(window.localStorage['userId'], response.data.userModel);
+        user.setAgeGroup($scope.ageGrp);
+        user.setGender($scope.gender);
         
         Requests.updateUser(user).then(function(response){
           console.log("response status(updateUser) : " + response.data.status);  
@@ -169,8 +182,27 @@ $scope.saveProfil = function() {
         });
 
       });
-
       $state.go("preferences");
+
+};
+
+$scope.updateProfil = function() {
+      console.log("ageGrp" + $scope.ageGrp);
+      console.log('Gender : ' + $scope.gender);
+
+      Requests.getUserFromId(window.localStorage['userId']).then(function(response){
+        console.log("response status(getUserFromId) : " + response.data.status);
+        
+        user = new User(window.localStorage['userId'], response.data.userModel);
+        user.setAgeGroup($scope.ageGrp);
+        user.setGender($scope.gender);
+        
+        Requests.updateUser(user).then(function(response){
+          console.log("response status(updateUser) : " + response.data.status);  
+        });
+
+      });
+
 };
 
 
@@ -197,7 +229,7 @@ $scope.saveProfil = function() {
   $scope.categories.push(new Category("Natur", "icon-nature", false));
   $scope.categories.push(new Category("Litteratur", "ion-ios-book", false));
   $scope.categories.push(new Category("Musikk", "ion-music-note", false));
-  $scope.categories.push(new Category("Teknologi", "icon-technology", false));
+  $scope.categories.push(new Category("Teknologi", "ion-gear-b", false));
   
   $scope.selectedCat = [];
 
@@ -221,24 +253,56 @@ $scope.saveProfil = function() {
       } 
     };
 
+  //TODO have to parse category names back into numbers ?
+  $scope.loadPreferences = function() {
+      Requests.getUserFromId(window.localStorage['userId']).then(function(response){
+      console.log("response status(getUserFromId) : " + response.data.status);
+      $scope.user = response.data;
+      category_preference = $scope.user.userModel.category_preference;
+    });
+  };
+
+
   $scope.savePreferences = function() {
     console.log("Saving Preferences");
     
         Requests.getUserFromId(window.localStorage['userId']).then(function(response){
-          user = new User(response.data.userModel);
+          user = new User(window.localStorage['userId'], response.data.userModel);
           console.log("response status(getUserFromId) : " + response.data.status);
          
-          user.category_preference = $scope.selectedCat;
+          user.setCategoryPreference($scope.selectedCat);
           console.log("$scope.selectedCat) : " + user.category_preference);
           console.log("user: " + user);
-             
+            
+	    $ionicLoading.show({
+			template: '<h2>Vennligst vent mens vi finner historier vi tror du vil like</h2><div class="icon ion-loading-a"></div>',
+			noBackdrop: false
+		});
+			
           Requests.updateUser(user).then(function(response){
-            console.log("response status(updateUser) : " + response.data.status);  
+            console.log("response status(updateUser) : " + response.data.userId);
+			$state.go("app.recommendations");			
           });
 
         });
+  };
 
-        $state.go("app.recommendations");
+  $scope.updatePreferences = function() {
+    console.log("Saving Preferences");
+    
+        Requests.getUserFromId(window.localStorage['userId']).then(function(response){
+          user = new User(window.localStorage['userId'], response.data.userModel);
+          console.log("response status(getUserFromId) : " + response.data.status);
+         
+          user.setCategoryPreference($scope.selectedCat);
+          console.log("$scope.selectedCat) : " + user.category_preference);
+          console.log("user: " + user);
+      
+          Requests.updateUser(user).then(function(response){
+            console.log("response status(updateUser) : " + response.data.userId);   
+          });
+
+        });
   };
 
 
@@ -249,16 +313,50 @@ $scope.saveProfil = function() {
     console.log("vi " + vi);
   };
 
-
   $scope.goProfile = function() {
       $state.go("profile");
   };
 
-  //Need the userId to make this work
-  /*Requests.getAllLists($scope.user.userId).then(function(response){
-  $scope.collectionList = response.data;
-  console.log($scope.collectionList);
-  });*/
+  $scope.goPreferences = function() {
+      $state.go("preferences");
+  };
+
+  $scope.goRecommendations = function() {
+      $state.go("app.recommendations");
+  };
+
+  ///////////////////////
+  //Menu
+  ////////////////////////
+  
+  $scope.viewList = function(listName) {
+    Requests.setSelectedTag(listName);
+    $state.go("app.listView");
+  };
+
+  $scope.deleteList = function(list) {
+    $ionicPlatform.ready(function() {
+      $cordovaDialogs.confirm('Vil du slette listen "' + list.text + '"?' , 'Slett liste', ['OK','Avbryt']).then(function(response) {
+          if(response === 1) {
+          var index = $scope.collectionList.indexOf(list);
+          $scope.collectionList.splice(index, 1);
+          Requests.removeTag(window.localStorage['userId'], list.text);
+        }
+      });
+    });
+  };
+
+  
+
+$scope.updateMenu = function() {
+  Requests.getAllLists(window.localStorage['userId']).then(function(response){
+    $scope.collectionList = response.data;
+    console.log($scope.collectionList);
+  });
+};
+
+$scope.updateMenu();
+
 })
 
 
@@ -267,7 +365,7 @@ $scope.saveProfil = function() {
   //Display loading screen
   $ionicLoading.show({
       template: '<h2>Laster inn...</h2><div class="icon ion-loading-a"></div>',
-            noBackdrop: false
+      noBackdrop: false
   });
 
   //Call the categoryPicker service
@@ -275,51 +373,20 @@ $scope.saveProfil = function() {
      categoryPicker(categories);
   };
 
-  //Controlleren må hente Requests
-  //Må ha .then() for å kunne hente fra http.post i backend.services
-  Requests.getMultipleStories().then(function(response){
-    $scope.storyPreviews =  response.data;
+$scope.tag = Requests.getSelectedTag();
+ // Retrieve stories associated with selected tag
+ Requests.getStoryList($scope.tag, window.localStorage['userId']).success(function(data, status) {
+    $scope.storyPreviews =  data;
     $ionicLoading.hide();
-  });
-  /*
-  //some test data for the listview
-  $scope.storyPreviews = [
-    { id: 0,
-    title: 'Nidarosdomen',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
-    thumbnail: 'https://media.snl.no/system/images/8077/standard_nidarosdomen__e2_80_93_1_4.jpg',
-	categories: ['kat1']
-	},
-    { id: 1,
-    title: 'Holmenkollen',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    thumbnail: 'http://img2.custompublish.com/getfile.php/2131868.92.bcqacdpwfu/holmenkollen_f_ntb_meldetjeneste_skiforeningen.jpg?return=www.langrenn.com',
-	categories: ['kat1']
-	},
-    { id: 2,
-    title: 'Galdhøpiggen',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    thumbnail: 'http://peakbook.org/gfx/images/1/5c/jans_hpiggen.jpg/jans_hpiggen-1.jpg',
-	categories: ['kat1']
-	},
-    { id: 3,
-    title: 'Oldemors dukkehus',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    thumbnail: 'http://media31.dimu.no/media/image/H-DF/DF.3204/7443?width=600&height=380',
-	categories:['kat1']
-	},
-    {  id: 4,
-    title: '17. mai på Songe',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    thumbnail: 'http://media31.dimu.no/media/image/H-DF/DF.2776/6481?width=600&height=380',
-	categories:['kat1']
-	},
-  ];*/
+  }).error(function(data, status) {
+    console.log(status);
+});
 
   //remove a story from the listview
   $scope.remove = function(story) {
 	 var index = $scope.storyPreviews.indexOf(story);
 	 $scope.storyPreviews.splice(index, 1);
+   Requests.removeTagStory(Requests.getSelectedTag(), window.localStorage['userId'], story.id);
   };
   
   $scope.open = function(story) {
@@ -329,11 +396,13 @@ $scope.saveProfil = function() {
     });
     // Get story data.
     //Må ha .then() for å kunne hente fra http.post i backend.services
-    Requests.getStory(story.id, window.localStorage['userId']).then(function (response) {
-      Requests.setSelectedStory(new Story(response.data));
+    Requests.getStory(story.id, window.localStorage['userId']).success(function (data, status) {
+      Requests.setSelectedStory(new Story(data));
       $state.go("app.story");
       $ionicLoading.hide();
-    });
+    }).error(function(data, status) {
+        console.log(status)
+    })
   };
 })
 
@@ -348,19 +417,15 @@ $scope.saveProfil = function() {
     $ionicSideMenuDelegate.canDragContent(false);
   });
 
-   //Display loading screen
+  //Display loading screen
   $ionicLoading.show({
       template: '<h2>Laster inn</h2><div class="icon ion-loading-a"></div>',
       noBackdrop: false
     });
 
-   //Display loading screen
-  $ionicLoading.show({
-      template: 'loading'
-    });
-
-  Requests.getMultipleStories().then(function(response){
+  Requests.getMultipleStories($scope.userId).then(function(response) {
     $scope.storyPreviews =  response.data;
+	console.log("Første id (sjekk at den stemmer med første item i lista overnfor): "+$scope.storyPreviews[0].id);
     return Requests.getStory($scope.storyPreviews[0].id, $scope.userId);
   }).then(function(story){
     $scope.stories.push(new Story(story.data));
@@ -374,6 +439,8 @@ $scope.saveProfil = function() {
     $ionicSlideBoxDelegate.update();
     $ionicLoading.hide();
   });
+
+
 
   $scope.nextSlide = function() {
     $ionicSlideBoxDelegate.next();
@@ -479,16 +546,27 @@ $scope.saveProfil = function() {
 
     // Play selected video in fullscreen
     $scope.playVideo = function(index) {
-      var video = document.getElementById("Video" + index);
-      if (video.webkitEnterFullscreen) {
-        video.webkitEnterFullscreen();
-      } else if (video.webkitRequestFullScreen) {
-        video.webkitRequestFullScreen();
-      } else if (video.requestFullscreen) {
-        video.requestFullscreen();
+      $scope.fullscreen = false;
+      $scope.video = document.getElementById("Video" + index);
+      if ($scope.video.webkitEnterFullscreen) {
+        $scope.video.webkitEnterFullscreen();
+      } else if ($scope.video.webkitRequestFullScreen) {
+        $scope.video.webkitRequestFullScreen();
+      } else if ($scope.video.requestFullscreen) {
+        $scope.video.requestFullscreen();
       }
-      video.play();
+      $scope.video.play();
     };
+
+    document.addEventListener('webkitfullscreenchange', function(e) {
+      if ($scope.fullscreen) {
+        $scope.video.pause();
+       console.log("Exit fullscreen");
+      } else {
+         $scope.fullscreen = true;
+         console.log("Enter fullscreen");
+      }
+    });
 
     $scope.openUrl = function(url) {
       window.open(url, '_system');
@@ -499,23 +577,50 @@ $scope.saveProfil = function() {
 .controller("RatingCtrl", function($scope, Requests, User) {
         $scope.userId = window.localStorage['userId'];
         $scope.story = Requests.getSelectedStory();
+        $scope.ratingSaved = false;
       
         // Rate story
         $scope.rateFunction = function(rating) {
             $scope.story.rating = rating;
             Requests.addRating($scope.story.storyId, $scope.userId, rating);
             console.log("Rated story: " + rating);
+            $scope.ratingSaved = true;
         };
 })
 
-.controller('SettingsCtrl', function($scope, Requests) {
-        //get the user data from ID
-        $scope.userId = window.localStorage['userId'];
-        Requests.getUserFromId($scope.userId).then(function(response) {
+.controller('SettingsCtrl', function($scope, Requests, User) {
+        //retrieve the user email when opening the settings view
+        Requests.getUserFromId(window.localStorage['userId']).then(function(response) {
           $scope.user = response.data;
           $scope.email = $scope.user.userModel.email;
-          console.log($scope.user);
         });
+
+        //test function which retrieves all user information
+        $scope.retrieveUser = function() {
+          $scope.userId = window.localStorage['userId'];
+          Requests.getUserFromId($scope.userId).then(function(response) {
+          $scope.user = response.data;
+          console.log($scope.user);
+          });
+        };
+
+        //updates the user's email
+        $scope.saveEmail = function(email) {
+          Requests.getUserFromId(window.localStorage['userId']).then(function(response){
+            console.log("response status(getUserFromId) : " + response.data.status);
+            
+            user = new User(window.localStorage['userId'], response.data.userModel);
+            user.setEmail(email);
+            $scope.email = email;
+            
+            Requests.updateUser(user).then(function(response){
+              console.log("response status(updateUser) : " + response.data.status);  
+              //TODO: If failed= notify user that email is already in use
+            });
+
+          });
+
+        };
 })
 
 .controller('BookmarkCtrl', function($scope, $rootScope, Requests) {
@@ -524,8 +629,8 @@ $scope.saveProfil = function() {
 
 	     	// May use the collectionList in AppCtrl instead
         // The collections a user has, and whether this story is in it.
-        Requests.getAllLists($scope.userId).then(function(response) {
-          $scope.collectionList = response.data;
+        Requests.getAllLists($scope.userId).success(function(data, status) {
+          $scope.collectionList = data;
           for(var i = 0; i < $scope.collectionList.length; i++){
             for(var j = 0; j < $scope.story.userTags.length; j++){
               if($scope.collectionList[i]["text"].valueOf() == $scope.story.userTags[j].valueOf()) {
@@ -536,7 +641,9 @@ $scope.saveProfil = function() {
               $scope.collectionList[i]["checked"] = false;
             }
           }
-        });
+        }).error(function(data, status) {
+          console.log(status);
+        })
 
         // Display text field to enter name of new collection
         $scope.newItem = function() {
@@ -550,6 +657,7 @@ $scope.saveProfil = function() {
            
               //Need the userId for this to work
               Requests.addNewTag($scope.newItemName, $scope.userId, $scope.story.storyId);
+              $scope.story.userTags.push($scope.newItemName);
               $scope.newItemName = null;
             }
             $scope.displayTextField = false;
