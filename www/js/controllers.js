@@ -409,6 +409,9 @@ $scope.tag = Requests.getSelectedTag();
 
 .controller('RecommendationCtrl', function($scope, Requests, Story, $ionicSlideBoxDelegate, $ionicModal, $ionicLoading, $state, $ionicSideMenuDelegate, $timeout, $ionicHistory) {
   var storyPreviews = [];
+  /*Used to know which of the stories in this list of recommendations that have been recommended
+  Used to avoid storing a story as recommended multiple times for one list of recommendations*/
+  var recommendArray = [];
   $scope.stories = [];
   $scope.userId = window.localStorage['userId'];
 
@@ -423,9 +426,11 @@ $scope.tag = Requests.getSelectedTag();
       noBackdrop: false
     });
 
-  Requests.getMultipleStories($scope.userId).then(function(response) {
+  Requests.getRecommendedStories($scope.userId).then(function(response) {
     $scope.storyPreviews =  response.data;
-	console.log("Første id (sjekk at den stemmer med første item i lista overnfor): "+$scope.storyPreviews[0].id);
+	/*Set the first story as recommended*/
+	Requests.recommendedStory($scope.userId, $scope.storyPreviews[0].id);
+	recommendArray.push($scope.storyPreviews[0].id);
     return Requests.getStory($scope.storyPreviews[0].id, $scope.userId);
   }).then(function(story){
     $scope.stories.push(new Story(story.data));
@@ -473,6 +478,12 @@ $scope.tag = Requests.getSelectedTag();
   Set the story in current slide as the current story. 
  */
   $scope.slideChanged = function () {
+	  //TODO: Record swiped_past for the slide we came from?
+	  /*Only want to set a story as recommended one time for each list of recommendations*/
+	  if(recommendArray.indexOf($scope.stories[$ionicSlideBoxDelegate.currentIndex()].storyId) == -1){
+		Requests.recommendedStory($scope.userId, $scope.stories[$ionicSlideBoxDelegate.currentIndex()].storyId);
+		recommendArray.push($scope.stories[$ionicSlideBoxDelegate.currentIndex()].storyId);
+	  }
       $ionicSlideBoxDelegate.update();
       Requests.setSelectedStory($scope.stories[$ionicSlideBoxDelegate.currentIndex()]);
     };

@@ -130,12 +130,8 @@ angular.module('backend.services', ['ngSanitize'])
 			return $http(req);
 		},
 
-		//PRØVER Å HENTE DE 20 FØRSTE HISTORIENE FRA DATABASEN NÅ OG LEGGE TIL I LISTE
-		//BRUKER GETALLSTORIES METODE I DBHELPER
-
-		/**Retrieves multiple stories from the database, now returns 500 error when
-		* story doesn't have pictures*/
-		getMultipleStories: function(userId) {
+		/**Retrieves recommended stories from the database*/
+		getRecommendedStories: function(userId) {
 			req.data = { type: "getStories",
 						userId: userId};
 			return $http(req);
@@ -282,6 +278,16 @@ angular.module('backend.services', ['ngSanitize'])
 		rejectStory: function(userId, storyId){
 			req.data = {
 				type: "rejectStory",
+				userId: userId,
+				storyId: storyId
+			};
+			$http(req);
+		},
+		
+		/*Set story as recommended (happens when user sees story for the first time in the recommendation-view)*/
+		recommendedStory: function(userId, storyId){
+			req.data = {
+				type: "recommendedStory",
 				userId: userId,
 				storyId: storyId
 			};
