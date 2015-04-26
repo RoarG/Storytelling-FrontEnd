@@ -7065,14 +7065,16 @@ p {
   border: none; }
 
 /*
-	Onboarding
+/////////////////////////
+// 		Onboarding
+/////////////////////////
 */
+/*OnboardImages*/
 .onboardCont {
   width: 100%;
   height: 300px;
   min-height: 200px;
-  position: relative;
-  outline: 1px dotted red; }
+  position: relative; }
 
 .onboardOne {
   height: 100%;
@@ -7095,8 +7097,32 @@ p {
   background-size: cover;
   background-position: center; }
 
+/*containers*/
+.topCont {
+  display: block;
+  height: 50%;
+  padding-top: 8%; }
+
+.bottomCont {
+  display: block;
+  height: 50%;
+  text-align: center;
+  padding-top: 5%; }
+
+.bottomCont2 {
+  position: fixed;
+  bottom: 8%;
+  width: 100%; }
+
+.button-cont {
+  width: 60%;
+  bottom: 8%;
+  display: inline-block; }
+
+/*Text*/
 .onboardHead {
-  text-decoration: underline; }
+  text-decoration: underline;
+  text-align: center; }
 
 .imgCont {
   padding: 5%; }
@@ -7104,6 +7130,44 @@ p {
 .onboardImg {
   height: auto;
   width: auto; }
+
+.onboardInfoText {
+  height: 10%; }
+
+.onboardInfoText {
+  padding-top: 5%; }
+
+/*
+//////////////////////
+///		Common Intro
+//////////////////////
+*/
+#nav-button1 {
+  width: 8em;
+  margin-right: 2%; }
+
+#nav-button2 {
+  width: 8em;
+  margin-left: 2%;
+  float: right; }
+
+.navIndicator {
+  position: absolute;
+  padding-top: 10%;
+  padding-bottom: 5%;
+  bottom: 0%;
+  width: 80%; }
+
+.skipContLogin {
+  text-align: center; }
+
+#skipCont {
+  padding-top: 5%;
+  width: 100%;
+  text-align: center; }
+
+#skipLogin {
+  display: inline-block; }
 
 /*
     Login view
@@ -7124,7 +7188,7 @@ p {
   margin-bottom: 3%;
   text-align: center;
   font-size: 1em;
-  color: #af8b73; }
+  color: #583318; }
 
 .innerContLogin {
   padding-left: 8%;
@@ -7139,12 +7203,6 @@ p {
 .bottomContLogin {
   padding-top: 36%; }
 
-.skipContLogin {
-  text-align: center; }
-
-#skipLogin {
-  text-align: center; }
-
 .pageIndicatorContLogin {
   text-align: center;
   padding-top: 15%; }
@@ -7158,9 +7216,6 @@ p {
 /*
     Profil
 */
-.button-cont {
-  margin-top: 0%; }
-
 .topContProfile {
   width: 100%; }
 
@@ -7170,18 +7225,6 @@ p {
 
 #profile-h2 {
   text-align: center; }
-
-#nav-button1 {
-  width: 8em;
-  margin-right: 2%; }
-
-#nav-button2 {
-  width: 8em;
-  margin-left: 2%;
-  float: right; }
-
-.navIndicator {
-  padding-top: 10%; }
 
 .topContProfile .button-bar > .button, .bottomContProfile .button-bar > .button {
   font-size: 0.9em;

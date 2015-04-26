@@ -1,45 +1,46 @@
 <ion-view view-title="Onboarding">
   
-  <ion-content has-header="false" hide-nav-bar="true" padding="true" has-tabs="false">
+  <ion-content has-header="false" hide-nav-bar="true" padding="true" has-tabs="false" scroll="false">
  
-    <div class="list list-inset" id="view">
-
-      <div class="header-padding"></div>
-            
-        <div class="mainCont">
-                  
-            <!-- ImageContainer -->
+           <!-- TopContainer -->
+        <div class="topCont">
           <div class="onboardCont">
+            <!-- ImageContainer -->
             <div class="onboardTree"></div>
           </div>
 
           <!-- TextContainer -->
+        <div class="bottomCont">
           <div class="onboradText">
             <h1 class="onboardHead">Finn Historier</h1>
-            <div class="onboradInfoText">
-              <div class="infoText">Les, lytt og se på historier fra nettstedet Digital Fortalt. Gi tilbakemelding slik at forslagene vil bli mer tilpasset akkurat deg!</div>
+            <div class="onboardInfoText">
+              <p class="infoText">Les, lytt og se på historier fra nettstedet Digital Fortalt. Gi tilbakemelding slik at forslagene vil bli mer tilpasset akkurat deg!</p>
             </div>
           </div>
-
-        </div>
         
-        <div class="navIndicator">
+
+         <!-- BottomContainer -->
+        <div class="bottomCont2">
           <div class="button-cont">
-            
+                
             <!-- Button -->
             <button class="button button-block button-calm" ng-click="goLogin()">Start</button>
 
               <!-- TODO: Skal bare legge inn her for å hoppe over login? Demo mode= -->
-            <!-- Skip -->
-            <a href="" ng-click="goLogin()" id="skipLogin">Gå til innlogging</a>
-      
+            <div id="skipCont">
+              <!-- Skip -->
+              <a href="" ng-click="goLogin()" id="skipLogin">Gå til innlogging</a>
+            </div>
+          </div>  
+        </div>
             <!-- Place the step x of y circle here -->
-              <div class="pageIndicatorContLogin">
+              <!-- <div class="pageIndicatorContLogin">
                 <i class="ion-ios-circle-filled"></i>
                 <i class="ion-ios-circle-outline"></i>
                 <i class="ion-ios-circle-outline"></i>
-              </div>
-          </div>  
+              </div> -->
         </div>
+
   </ion-content>
+  
 </ion-view>

@@ -31,16 +31,19 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 /*
-	Onboarding
+/////////////////////////
+// 		Onboarding
+/////////////////////////
 */
+	/*OnboardImages*/
 
 .onboardCont{
     width: 100%;
     height: 300px;
     min-height: 200px;
     position: relative;
-    outline:1px dotted red;
 }
+
 
 .onboardOne{
     height: 100%;
@@ -66,10 +69,43 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     background-position: center;
 }
 
+	/*containers*/
 
+.topCont {
+	display: block;
+	height: 50%;
+	padding-top: 8%;
+}
+
+.bottomCont{
+	display: block;
+	height: 50%;
+	text-align: center;
+	padding-top: 5%;
+}
+
+.bottomCont2 {
+	position: fixed;
+	bottom: 8%;
+	width: 100%;
+}
+
+.button-cont {
+	width: 60%;
+    bottom: 8%;
+    display: inline-block;
+}
+
+
+	/*Text*/
+
+.onboardText {
+
+}
 
 .onboardHead {
 	text-decoration: underline;
+	text-align: center;
 }
 
 .imgCont {
@@ -81,6 +117,57 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	width: auto;
 }
 
+.onboardInfoText{
+	height: 10%;
+}
+
+
+.onboardInfoText {
+	padding-top: 5%;
+}
+
+
+
+/*
+//////////////////////
+///		Common Intro
+//////////////////////
+*/
+
+#nav-button1 {
+    width: 8em;
+    margin-right: 2%;
+}
+
+#nav-button2 {
+    width: 8em;
+    margin-left: 2%;
+    float: right;
+}
+
+
+.navIndicator {
+	position: absolute;
+    padding-top: 10%;
+    padding-bottom: 5%;
+    bottom: 0%;
+    width: 80%;
+}
+
+
+.skipContLogin {
+    text-align: center;
+}
+
+#skipCont{
+	padding-top: 5%;
+	width: 100%;
+	text-align: center;
+}
+
+#skipLogin {
+	display: inline-block;
+}
 
 /*
     Login view
@@ -105,7 +192,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     margin-bottom: 3%;
     text-align: center;
     font-size: 1em;
-    color: $small-text-color;
+    color: $font-color;
 }
 
 .innerContLogin{
@@ -124,13 +211,6 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     padding-top: 36%;
 }
 
-.skipContLogin {
-    text-align: center;
-}
-
-#skipLogin {
-    text-align: center;
-}
 
 .pageIndicatorContLogin {
     text-align: center;
@@ -149,9 +229,6 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     Profil
 */
 
-.button-cont {
-    margin-top: 0%;
-}
 
 .topContProfile {
     //padding-bottom: 2%;
@@ -170,20 +247,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     text-align: center;
 }
 
-#nav-button1 {
-    width: 8em;
-    margin-right: 2%;
-}
 
-#nav-button2 {
-    width: 8em;
-    margin-left: 2%;
-    float: right;
-}
-
-.navIndicator {
-    padding-top: 10%;
-}
 
 .topContProfile .button-bar > .button, .bottomContProfile .button-bar > .button {
 	font-size: 0.9em;

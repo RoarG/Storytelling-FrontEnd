@@ -1,47 +1,47 @@
 <ion-view view-title="Onboarding">
 
-  <ion-content has-header="false" hide-nav-bar="true" padding="true" has-tabs="false">
+  <ion-content has-header="false" hide-nav-bar="true" padding="true" has-tabs="false" scroll="false">
  
-    <div class="list list-inset" id="view">
-
-      <div class="header-padding"></div>
-      
-        <div class="mainCont">
-            
-          <!-- ImageContainer -->
+    
+          <!-- TopContainer -->
+        <div class="topCont">
           <div class="onboardCont">
+              <!-- ImageContainer -->
             <div class="onboardOne"></div>
           </div>
-
-          <!-- TextContainer -->
-          <div class="onboradText">
-            <h1 class="onboardHead">Hvem er du?</h1>
-            <div class="onboradInfoText">
-              <div class="infoText">Opprett bruker, Velg Kategorier du ønsker</div>
-            </div>
-          </div>
-
         </div>
 
-        <div class="navIndicator">
-          <div class="button-cont">
-            
-            <!-- Button -->
-            <button class="button button-block button-calm" ng-click="goOnboardTwo()">Neste</button>
-
-            <!-- Skip -->
-            <a href="" ng-click="goLogin()" id="skipLogin">Gå til innlogging</a>
-
+          <!-- TextContainer -->
+       <div class="bottomCont">
+          <div class="onboardText">
+              <h1 class="onboardHead">Hvem er du?</h1>
+              <div class="onboardInfoText">
+                <p class="infoText">Opprett bruker og velg kategorier du ønsker å les om</p>
+              </div>
           </div>
-      
+
+          <!-- BottomContainer -->
+          <div class="bottomCont2">
+            <div class="button-cont">
+            
+              <!-- Button -->
+              <button class="button button-block button-calm" ng-click="goOnboardTwo()">Neste</button>
+
+              <div id="skipCont">
+                <!-- Skip -->
+                <a href="" ng-click="goLogin()" id="skipLogin">Gå til innlogging</a>
+              </div>
+            </div>
+          </div>
             <!-- Place the step x of y circle here -->
-              <div class="pageIndicatorContLogin">
+            <!--   <div class="pageIndicatorContLogin">
                 <i class="ion-ios-circle-filled"></i>
                 <i class="ion-ios-circle-outline"></i>
                 <i class="ion-ios-circle-outline"></i>
-              </div>
+              </div> -->
         </div>  
+      <!-- </div> -->
   
   </ion-content>
-  
+
 </ion-view>
