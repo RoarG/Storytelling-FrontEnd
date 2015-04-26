@@ -70,6 +70,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     controller: 'AppCtrl'
   })
 
+  .state('onboarding', {
+    url: "/Onboarding",
+    templateUrl: "templates/onboardingOne.html",
+    controller: 'AppCtrl'
+  })
+
   .state('profile', {
     url: "/profile",
     templateUrl: "templates/profile.html",
@@ -180,7 +186,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   //if(window.localStorage['userId'] !== undefined && window.localStorage['userId'] !== "-1") {
      //$urlRouterProvider.otherwise('/app/recommendations');
   //} else {
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/Onboarding');
   //}
   
 });
