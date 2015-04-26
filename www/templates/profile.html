@@ -1,53 +1,55 @@
 <ion-view view-title="Profile">
 
-  <ion-content has-header="false" hide-nav-bar="true" padding="true" has-tabs="false">
+  <ion-content has-header="false" hide-nav-bar="true" padding="true" has-tabs="false" scroll="false">
 
-        <div class="list list-inset" id="view">
-
-          <div class="header-padding"></div>
+       
+        <div class="header-padding"></div>
+        <div class="topCont">
+          
           <h1 class="viewhead">Profil</h1>
-
-          <div class="mainCont">
-          <div class="topContProfile">
-              <div class="infoText">Velg aldersgruppe og kjønn for at vi skal kunne gi deg bedre anbefallinger</div>
-              
-              <h2 id="profile-h2">Alder</h2>
-              <div class="button-bar">
-              <!-- Uses the sam setup as in story.html ref. copy here -->
-                <a class="button button-light" ng-class="{'active': ageGrp === 1}" ng-click="ageGrp = 1;setAgeGrp(1)">Under 20</a>
-                <a class="button button-light" ng-class="{'active': ageGrp === 2}" ng-click="ageGrp = 2;setAgeGrp(2)">20 - 45</a>
-                <a class="button button-light" ng-class="{'active': ageGrp === 3}" ng-click="ageGrp = 3;setAgeGrp(3)">46 - 65</a>
-                <a class="button button-light" ng-class="{'active': ageGrp === 4}" ng-click="ageGrp = 4;setAgeGrp(4)">Over 66</a>
-              </div>
-          </div>
-
-            <div class="bottomContProfile">
-              
-              <h2 id="profile-h2">Kjønn</h2>
-              <div class="button-bar">              <!-- Uses the sam setup as in story.html ref. copy here -->
-                <a class="button button-light" ng-class="{'active': gender === 0}" ng-click="gender = 0;setGender(0)">Kvinne</a>
-                <a class="button button-light" ng-class="{'active': gender === 1}" ng-click="gender = 1;setGender(1)">Mann</a>
+            <div class="mainCont">
+              <div class="topContProfile">
+                <div class="infoText">Velg aldersgruppe og kjønn for at vi skal kunne gi deg bedre anbefallinger</div>
+                
+                <h2 id="profile-h2">Alder</h2>
+                <div class="button-bar">
+                <!-- Uses the sam setup as in story.html ref. copy here -->
+                  <a class="button button-light" ng-class="{'active': ageGrp === 1}" ng-click="ageGrp = 1;setAgeGrp(1)">Under 20</a>
+                  <a class="button button-light" ng-class="{'active': ageGrp === 2}" ng-click="ageGrp = 2;setAgeGrp(2)">20 - 45</a>
+                  <a class="button button-light" ng-class="{'active': ageGrp === 3}" ng-click="ageGrp = 3;setAgeGrp(3)">46 - 65</a>
+                  <a class="button button-light" ng-class="{'active': ageGrp === 4}" ng-click="ageGrp = 4;setAgeGrp(4)">Over 66</a>
+                </div>
               </div>
 
-            </div>
-            </div>
-          <div class="navIndicator">
-            <div class="button-cont">
+              <div class="bottomContProfile">
+                
+                <h2 id="profile-h2">Kjønn</h2>
+                <div class="button-bar">             
+                  <a class="button button-light" ng-class="{'active': gender === 0}" ng-click="gender = 0;setGender(0)">Kvinne</a>
+                  <a class="button button-light" ng-class="{'active': gender === 1}" ng-click="gender = 1;setGender(1)">Mann</a>
+                </div>
+              </div>
+            </div>  
+        </div>
+
+        <div class="bottomCont">
+          <div class="bottomCont2">
+            <div class="buttons-cont">
                   <!-- //TODO: Clear login ? when going back -->
                <button class="button button-light" id="nav-button1" ng-click="goLogin()">Forrige</button>
                <button class="button button-calm" id="nav-button2" ng-click="saveProfil();">Neste</button>
-            </div>
-      
-        <!-- Place the step x of y circle here -->
+             </div>
+        
+          <!-- Place the step x of y circle here -->
               <div class="pageIndicatorContLogin">
                 <i class="ion-ios-circle-filled"></i>
                 <i class="ion-ios-circle-filled"></i>
                 <i class="ion-ios-circle-outline"></i>
               </div>
 
-          </div>  
-
-
+          </div>
+        </div>  
+        
   </ion-content>
 
 </ion-view>

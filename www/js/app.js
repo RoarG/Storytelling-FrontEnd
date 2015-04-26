@@ -8,12 +8,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
 .run(function($ionicPlatform, $cordovaDialogs, $cordovaNetwork, $rootScope) {
   $ionicPlatform.ready(function() {
+
+    console.log("Winsows.statrsdbar" + window.StatusBar)
+    //StatusBar.hide();
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
     if (window.StatusBar) {
+
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
       StatusBar.hide();
@@ -41,10 +45,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   });
 })
 
-/*  $scope.Platform.ready(function() {
-    //hide the status bar using the StatusBar plugin
-    StatusBar.hide();
-  });*/
+
 .config(function($stateProvider, $urlRouterProvider, $sceDelegateProvider) {
   $stateProvider
 
@@ -198,7 +199,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   //if(window.localStorage['userId'] !== undefined && window.localStorage['userId'] !== "-1") {
      //$urlRouterProvider.otherwise('/app/recommendations');
   //} else {
-    $urlRouterProvider.otherwise('/onboardOne');
+    $urlRouterProvider.otherwise('/login');
   //}
   
 });

@@ -6,8 +6,13 @@ angular.module('starter.controllers', [])
   // Onboarding
   ////////////////////////
 
-//ionicPlatform.fullScreen();
+/*$scope.hide = function () {*/
+  console.log("Windows.Statusbar" + window.StatusBar)
+/*}*/
 
+  ////////////////////////
+  // Login
+  ////////////////////////
 
 
 $scope.responseData = {}
@@ -123,26 +128,20 @@ $scope.user = {};
   //Slett denne seksjonen?
   ////////////////////////
   
-  
-    // Create the login modal that we will use later
+     // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.modal = modal;
   });
 
-/*
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
-*/
   $scope.logout = function() {
     window.localStorage['userId'] = "-1";
     $state.go("login");
     console.log(window.localStorage['userId']);
   }
 
+ /**/
   ////////////////////////
   //Profile
   ////////////////////////

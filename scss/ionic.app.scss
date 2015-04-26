@@ -35,6 +35,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // 		Onboarding
 /////////////////////////
 */
+
 	/*OnboardImages*/
 
 .onboardCont{
@@ -91,9 +92,15 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 .button-cont {
-	width: 60%;
+	width: 70%;
     bottom: 8%;
     display: inline-block;
+}
+
+.buttons-cont {
+	/*width: 70%;*/
+    bottom: 8%;
+  /*  display: inline-block;*/
 }
 
 
@@ -135,13 +142,13 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 */
 
 #nav-button1 {
-    width: 8em;
-    margin-right: 2%;
+    width: 9em;
+    margin-right: 0%;
 }
 
 #nav-button2 {
-    width: 8em;
-    margin-left: 2%;
+    width: 	9em;
+    margin-left: 0%;
     float: right;
 }
 

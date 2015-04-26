@@ -7115,9 +7115,14 @@ p {
   width: 100%; }
 
 .button-cont {
-  width: 60%;
+  width: 70%;
   bottom: 8%;
   display: inline-block; }
+
+.buttons-cont {
+  /*width: 70%;*/
+  bottom: 8%;
+  /*  display: inline-block;*/ }
 
 /*Text*/
 .onboardHead {
@@ -7143,12 +7148,12 @@ p {
 //////////////////////
 */
 #nav-button1 {
-  width: 8em;
-  margin-right: 2%; }
+  width: 9em;
+  margin-right: 0%; }
 
 #nav-button2 {
-  width: 8em;
-  margin-left: 2%;
+  width: 9em;
+  margin-left: 0%;
   float: right; }
 
 .navIndicator {
