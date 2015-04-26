@@ -7079,21 +7079,21 @@ p {
 .onboardOne {
   height: 100%;
   position: relative;
-  background: url("/img/onboardOne.png") no-repeat;
+  background: url("../img/onboardOne.png") no-repeat;
   background-size: cover;
   background-position: center; }
 
 .onboardTwo {
   height: 100%;
   position: relative;
-  background: url("/img/onboard2.png") no-repeat;
+  background: url("../img/onboard2.png") no-repeat;
   background-size: cover;
   background-position: center; }
 
 .onboardTree {
   height: 100%;
   position: relative;
-  background: url("/img/onboard3.png") no-repeat;
+  background: url("../img/onboard3.png") no-repeat;
   background-size: cover;
   background-position: center; }
 

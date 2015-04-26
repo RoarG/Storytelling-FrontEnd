@@ -2,6 +2,14 @@ angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, Requests, User, $state, $ionicModal, $timeout, $ionicLoading,$rootScope, $ionicPlatform, $cordovaDialogs) {
 
+  ////////////////////////
+  // Onboarding
+  ////////////////////////
+
+//ionicPlatform.fullScreen();
+
+
+
 $scope.responseData = {}
 $scope.tempMail = null;
 $scope.user = {};
