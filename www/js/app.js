@@ -70,9 +70,21 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     controller: 'AppCtrl'
   })
 
-  .state('onboarding', {
-    url: "/Onboarding",
+  .state('onboardOne', {
+    url: "/onboardOne",
     templateUrl: "templates/onboardingOne.html",
+    controller: 'AppCtrl'
+  })
+
+  .state('onboardTwo', {
+    url: "/onboardTwo",
+    templateUrl: "templates/onboardingTwo.html",
+    controller: 'AppCtrl'
+  })
+
+  .state('onboardTree', {
+    url: "/onboardTree",
+    templateUrl: "templates/onboardingTree.html",
     controller: 'AppCtrl'
   })
 
@@ -186,7 +198,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   //if(window.localStorage['userId'] !== undefined && window.localStorage['userId'] !== "-1") {
      //$urlRouterProvider.otherwise('/app/recommendations');
   //} else {
-    $urlRouterProvider.otherwise('/Onboarding');
+    $urlRouterProvider.otherwise('/onboardOne');
   //}
   
 });

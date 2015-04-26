@@ -1,4 +1,4 @@
-<ion-view view-title="Onboarding">
+ion-view view-title="Onboarding">
 
   
   <ion-content has-header="false" hide-nav-bar="true" padding="true" has-tabs="false">
@@ -6,19 +6,13 @@
         <div class="list list-inset" id="view">
 
         <div class="header-padding"></div>
-      
+          <h1 class="viewhead">Innlogging</h1>
             <div class="mainCont">
-
-              <div class="onboardCont">
-                <div class="onboardTree"></div>
-              </div>
-
-            <h2 class="onboardHead">La oss begynne!</h2>
-
               <div class="loginContainer">
-                  <div class="infoText">Finn en historie som du synes ser interesang ut, eller lagre historien for å lese den senere...</div>
+                  <div class="infoText">Logg inn med eksisterende eller ny e-post addresse</div>
                     <div class="innerContLogin">
                       <!-- TODO: NESTE SIDE -->
+                      <button class="button button-block button-calm" ng-click="">Neste</button>
                     </div>
               </div>
             </div>
@@ -26,17 +20,14 @@
 
           <div class="navIndicator">
             <div class="button-cont">
-                <button class="button button-block button-calm" ng-click="goLogin()">Log inn</button>
-              
-
-              <!-- TODO: Sett inn funksjon til å gå til innloging -->
-            <a href="" ng-click="goLogin()" id="skipLogin">Gå til innlogging</a>
+              <div class="infoText">Ved å hoppe over innlogingen vil preferansene dine KUN være koblet til denne enheten</div>
+            <a href="" ng-click="closeLogin()" id="skipLogin">Hopp over dette steget</a>
             </div>
       
             <!-- Place the step x of y circle here -->
               <div class="pageIndicatorContLogin">
                 <i class="ion-ios-circle-filled"></i>
-                <i class="ion-ios-circle-outline"></i>
+                <i class="ion-ios-circle-filled"></i>
                 <i class="ion-ios-circle-outline"></i>
               </div>
           </div>  

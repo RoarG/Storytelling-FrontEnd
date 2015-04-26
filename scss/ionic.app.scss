@@ -31,6 +31,58 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 /*
+	Onboarding
+*/
+
+.onboardCont{
+    width: 100%;
+    height: 300px;
+    min-height: 200px;
+    position: relative;
+    outline:1px dotted red;
+}
+
+.onboardOne{
+    height: 100%;
+    position:relative;
+    background:   url("/img/onboardOne.png")no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.onboardTwo{
+    height: 100%;
+    position:relative;
+    background:   url("/img/onboard2.png")no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.onboardTree{
+    height: 100%;
+    position:relative;
+    background:   url("/img/onboard3.png")no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+
+
+.onboardHead {
+	text-decoration: underline;
+}
+
+.imgCont {
+	padding: 5%;
+}
+
+.onboardImg {
+	height: auto;
+	width: auto;
+}
+
+
+/*
     Login view
 */
 

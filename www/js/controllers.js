@@ -321,9 +321,20 @@ $scope.updateProfil = function() {
       $state.go("preferences");
   };
 
-  $scope.goRecommendations = function() {
-      $state.go("app.recommendations");
+  $scope.goOnboardTwo = function() {
+      $state.go("onboardOne");
   };
+  
+  $scope.goOnboardTwo = function() {
+      $state.go("onboardTwo");
+  };
+
+  $scope.goOnboardTree = function() {
+      $state.go("onboardTree");
+  };
+
+
+
 
   ///////////////////////
   //Menu
