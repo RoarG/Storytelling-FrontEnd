@@ -1,37 +1,39 @@
 <ion-view view-title="Onboarding">
 
-  
   <ion-content has-header="false" hide-nav-bar="true" padding="true" has-tabs="false">
  
-        <div class="list list-inset" id="view">
+    <div class="list list-inset" id="view">
 
-        <div class="header-padding"></div>
+      <div class="header-padding"></div>
       
         <div class="mainCont">
-            <div class="onboardCont">
-              <div class="onboardTwo"></div>
-            </div>
+            
+            <!-- ImageContainer -->
+          <div class="onboardCont">
+            <div class="onboardTwo"></div>
+          </div>
 
-            <h2 class="onboardHead">Finn Historier</h2>
-
-              <div class="loginContainer">
-                  <div class="infoText">Les, lytt og se på historier fra nettstedet Digital Fortalt. Gi tilbakemelding slik at forslagene vil bli mer tilpasset akkurat deg!</div>
-                    <div class="innerContLogin">
-                      <!-- TODO: NESTE SIDE -->
-                    </div>
-              </div>
+          <!-- TextContainer -->
+          <div class="onboradText">
+            <h1 class="onboardHead">Finn Historier</h1>
+            <div class="onboradInfoText">
+              <div class="infoText">Les, lytt og se på historier fra nettstedet Digital Fortalt. Gi tilbakemelding slik at forslagene vil bli mer tilpasset akkurat deg!</div>
             </div>
+          </div>
+
         </div>
+        
+        <div class="navIndicator">
+          <div class="button-cont">
+            
+            <!-- Button -->
+            <button class="button button-block button-calm" ng-click="goOnboardTree()">Neste</button>
 
-          <div class="navIndicator">
-            <div class="button-cont">
-                <button class="button button-block button-calm" ng-click="goOnboardTree()">Neste</button>
-              
-
-              <!-- TODO: Sett inn funksjon til å gå til innloging -->
+            <!-- Skip -->
             <a href="" ng-click="goLogin()" id="skipLogin">Gå til innlogging</a>
-            </div>
-      
+
+          </div>
+
             <!-- Place the step x of y circle here -->
               <div class="pageIndicatorContLogin">
                 <i class="ion-ios-circle-filled"></i>
