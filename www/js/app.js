@@ -6,8 +6,15 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'backend.services', 'ngCordova'])
 
+
 .run(function($ionicPlatform, $cordovaDialogs, $cordovaNetwork, $rootScope) {
   $ionicPlatform.ready(function() {
+
+    //Showing the SpashScreen for 5 sec.
+    setTimeout(function() {
+    $cordovaSplashscreen.hide()
+  }, 5000)
+
 
     console.log("Winsows.statrsdbar" + window.StatusBar)
     //StatusBar.hide();
@@ -199,7 +206,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   //if(window.localStorage['userId'] !== undefined && window.localStorage['userId'] !== "-1") {
      //$urlRouterProvider.otherwise('/app/recommendations');
   //} else {
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/onboardOne');
   //}
   
 });
