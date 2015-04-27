@@ -317,6 +317,7 @@ $scope.updateProfil = function() {
 
   $scope.goLogin = function() {
     $state.go("login");
+    StatusBar.show();
     console.log("vi " + vi);
   };
 
