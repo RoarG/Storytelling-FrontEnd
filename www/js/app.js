@@ -10,10 +10,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 .run(function($ionicPlatform, $cordovaDialogs, $cordovaNetwork, $rootScope) {
   $ionicPlatform.ready(function() {
 
-    //Showing the SpashScreen for 5 sec.
+  /*  ionic.Platform.isFullScreen = true;*/
+      //Showing the SpashScreen for 5 sec.
     setTimeout(function() {
-    $cordovaSplashscreen.hide()
-  }, 5000)
+      $cordovaSplashscreen.hide()
+    }, 5000)
 
 
     console.log("Winsows.statrsdbar" + window.StatusBar)
@@ -22,6 +23,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      cordova.plugins.Keyboard.disableScroll(true);
     }
     if (window.StatusBar) {
 
