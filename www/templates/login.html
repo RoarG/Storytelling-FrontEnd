@@ -12,7 +12,12 @@
                   <div class="infoText">Logg inn med eksisterende eller ny e-post addresse</div>
                     <div class="innerContLogin">
                       <label class="item item-input">
-                        <input type="text" placeholder="E-Post" ng-model="user.email"> 
+                        <input  name="email" 
+                                type="email" 
+                                placeholder="E-Post" 
+                                ng-model="user.email"
+                                pattern =
+                                ng-model-option ="{ getterSetter: true }" /> 
                       </label>
                       <button class="button button-block button-calm" ng-click="doLogin(user.email)">Logg inn</button>
                     </div>

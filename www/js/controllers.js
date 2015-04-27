@@ -23,7 +23,7 @@ $scope.user = {};
 
       //TODO: Mail verifisring
 
-      console.log('Mail : ' + email);
+      console.log('Mail : ' + $scope.user.email);
       $scope.tempMail = email;
       
       //request backend for the user with Email // 
@@ -35,7 +35,7 @@ $scope.user = {};
         console.log('Respons, Eksistere bruken : ', $scope.responseData);
         console.log('User : ', $scope.responseData.userModel);
           //SJEKK OM JEG FÅR SATT DENNE!!!! tol objetet
-        console.log('Respons, Eksistere bruken  2: ', $scope.responseData);
+        console.log('Respons, Eksistere bruker  2: ', $scope.responseData);
           //Checks if the userId is assisiated with a email then Login ok and sets scope.user to the model from backend
         if ($scope.responseData.status != "failed") {
           $scope.user = new User(response.data.userModel.userId, response.data.userModel);
@@ -47,10 +47,15 @@ $scope.user = {};
           window.localStorage['userId'] = $scope.user.userId;
          
           window.localStorage['userModel'] = $scope.responseData.userModel;
+            //Onbaoarding will not be showing next app startup
+          window.localStorage['newUser'] = true;
           
           console.log('User model : ' + $scope.responseData);
             //TODO: Set user assosiated with the email ??
-          $state.go("profile");
+          $state.go("app.recommendations");
+
+            //Sets the input as a empty string
+          $scope.user.email = '';
         }
 
           //If the e-mail is not recorded in the database make a new user 
@@ -72,6 +77,8 @@ $scope.user = {};
             
               //Go to the next view 
             $state.go("profile");
+               //Sets the input as a empty string
+            $scope.user.email = '';
 
               //If the addUser failed for some reason
             if ($scope.responseData.status != "sucessfull") {
@@ -125,6 +132,26 @@ $scope.user = {};
 
 
   ////////////////////////
+  //  Meny
+  ////////////////////////
+
+  $scope.logout = function() {
+    console.log(window.localStorage['newUser'] +"Logout " + window.localStorage['userId']);
+      //TODO: Trengs denne? 
+    window.localStorage.clear();
+    window.localStorage['userId'] = "-1";
+    window.localStorage['newUser'] = true;
+    $state.go("login");
+
+
+    console.log("email" + $scope.email);
+    console.log("login" + window.localStorage['newUser']);
+
+    //TODO: add feedback to user
+  }
+
+
+  ////////////////////////
   //Slett denne seksjonen?
   ////////////////////////
   
@@ -134,12 +161,6 @@ $scope.user = {};
   }).then(function(modal) {
     $scope.modal = modal;
   });
-
-  $scope.logout = function() {
-    window.localStorage['userId'] = "-1";
-    $state.go("login");
-    console.log(window.localStorage['userId']);
-  }
 
  /**/
   ////////////////////////
@@ -329,7 +350,7 @@ $scope.updateProfil = function() {
       $state.go("preferences");
   };
 
-  $scope.goOnboardTwo = function() {
+  $scope.goOnboardOne = function() {
       $state.go("onboardOne");
   };
   
@@ -339,6 +360,7 @@ $scope.updateProfil = function() {
 
   $scope.goOnboardTree = function() {
       $state.go("onboardTree");
+      window.localStorage['newUser'] = false;
   };
 
 

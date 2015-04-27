@@ -4,20 +4,20 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'backend.services', 'ngCordova'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'backend.services', 'ngCordova', 'ui.router'])
 
 
 .run(function($ionicPlatform, $cordovaDialogs, $cordovaNetwork, $rootScope) {
   $ionicPlatform.ready(function() {
 
+      //Initial new user
+    window.localStorage['newUser'] = false;
       //Enable fullsceen 
     StatusBar.hide();
       //Showing the SpashScreen for 5 sec.
     setTimeout(function() {
       $cordovaSplashscreen.hide()
     }, 5000)
-
-
 
     console.log("Winsows.statrsdbar" + window.StatusBar)
     //StatusBar.hide();
@@ -208,11 +208,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
     });
 
-// If already logged in, go to recommendation view, otherwise go to login. 
-  //if(window.localStorage['userId'] !== undefined && window.localStorage['userId'] !== "-1") {
-     //$urlRouterProvider.otherwise('/app/recommendations');
-  //} else {
-    $urlRouterProvider.otherwise('/onboardOne');
-  //}
+        // If app is not started befor go to onboardOne
+    // already logged in, go to recommendation view, otherwise go to login. 
+  if(!(window.localStorage['newUser'])) {
+    console.log("ONBOARD" + window.localStorage['newUser']);
+    $urlRouterProvider.otherwise('/onboardOne'); 
+  }
+  else if(window.localStorage['userId'] !== undefined && window.localStorage['userId'] !== "-1") {
+    console.log("recommendations");
+    $urlRouterProvider.otherwise('/app/recommendations');
+  } 
+  else {
+    console.log("login" + window.localStorage['newUser']);
+   $urlRouterProvider.otherwise('/login');
+  }
+
   
 });
