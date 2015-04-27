@@ -45,7 +45,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     //hide the status bar using the StatusBar plugin
     StatusBar.hide();
   });*/
-.config(function($stateProvider, $urlRouterProvider, $sceDelegateProvider) {
+.config(function($stateProvider, $urlRouterProvider, $sceDelegateProvider, $ionicConfigProvider) {
+  $ionicConfigProvider.backButton.text('Tilbake');
   $stateProvider
 
   .state('app', {

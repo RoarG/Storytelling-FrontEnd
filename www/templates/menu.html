@@ -36,7 +36,7 @@
 		
     <ion-item class="bookmark-list item-button-right" nav-clear ng-repeat="list in collectionList" menu-close>
       <div class="item-content" ng-click="viewList(list.text)"> {{list.text}}</div>
-      <button class="button button-clear" ng-click="deleteList(list)">
+      <button ng-hide="list.text.valueOf() === 'Lest' || list.text.valueOf() === 'Les senere'" class="button button-clear" ng-click="deleteList(list)">
         <i class="icon ion-close"></i>
       </button>
    </ion-item>

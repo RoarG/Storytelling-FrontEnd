@@ -3,42 +3,43 @@
         <button class="button button-icon ion-ios-bookmarks" ng-click="showModal('templates/bookmark-modal.html')"></button>
     </ion-nav-buttons>
     <ion-content scroll="false">
-       <ion-slide-box active-slide="activeSlide" show-pager="false" on-slide-changed="slideChanged()">
-            <ion-slide ng-repeat="story in stories">
+       <ion-slide-box active-slide="activeSlide" show-pager="false" on-slide-changed="slideChanged($index)">
+            <ion-slide ng-repeat="story in storyPreviews">
                 <div class="card">
                     <div class="reject-story-icon" ng-click="rejectStory($index)"><i class="ion-close-round"></i></div>
                     <div class="image-wrapper" ng-click="openStory(story)">
-                        <img ng-src={{story.imageList[0]}}>
+                        <img class="cover-image" ng-src={{story.picture}}>
+                        <div class="cover-image" ng-if="!story.picture"><i class="ion-image"></i></div>
                     </div>
 
                     <div class="content-wrapper" ng-click="openStory(story)">
                         <h2>{{story.title}}</h2>
                         <span class="small-text">{{story.author.join(", ")}}</span>
                         <!--<p>{{story.introduction | limitTo: 150}}{{story.introduction.length > 150 ? '...' : ''}}</p>-->
-                        <p>{{story.introduction}}</p>
+                        <p>{{story.description}}</p>
                         <div class="fade-box">
                             <!--<div class="button button-calm button-block" ng-click="openStory(story)">Les mer</div>-->
                         </div>
                         <div class="recom-story-categories">
-                            <ul ng-repeat="category in story.categoryList" class="recom-category-circle" ng-switch on="category">
-                                <li class="list-cat-display cat-1" ng-switch-when="history"><i class="icon-history"></i>
-                                <li class="list-cat-display cat-2" ng-switch-when="nature and adventure"><i class="icon-nature"></i>
-                                <li class="list-cat-display cat-3" ng-switch-when="science and technology"><i class="ion-gear-b"></i>
-                                <li class="list-cat-display cat-4" ng-switch-when="art and design"><i class="icon-art"></i>
-                                <li class="list-cat-display cat-5" ng-switch-when="architecture"><i class="icon-architecture"></i>
-                                <li class="list-cat-display cat-6" ng-switch-when="local traditions and food"><i class="icon-tradition"></i>
-                                <li class="list-cat-display cat-7" ng-switch-when="music"><i class="ion-music-note"></i>
-                                <li class="list-cat-display cat-8" ng-switch-when="archeology"><i class="icon-archeology"></i>
-                                <li class="list-cat-display cat-9" ng-switch-when="literature"><i class="ion-ios-book"></i>
+                            <ul ng-repeat="category in story.categories" class="recom-category-circle" ng-switch on="category">
+                                <li class="list-cat-display cat-1" ng-switch-when="1"><i class="icon-art"></i></li>
+                                <li class="list-cat-display cat-2" ng-switch-when="2"><i class="icon-architecture"></i></li>
+                                <li class="list-cat-display cat-3" ng-switch-when="3"><i class="ion-archeology"></i></li>
+                                <li class="list-cat-display cat-4" ng-switch-when="4"><i class="icon-history"></i></li>
+                                <li class="list-cat-display cat-5" ng-switch-when="5"><i class="icon-tradition"></i></li>
+                                <li class="list-cat-display cat-6" ng-switch-when="6"><i class="icon-nature"></i></li>
+                                <li class="list-cat-display cat-7" ng-switch-when="7"><i class="ion-ios-book"></i></li>
+                                <li class="list-cat-display cat-8" ng-switch-when="8"><i class="ion-music-note"></i></li>
+                                <li class="list-cat-display cat-9" ng-switch-when="9"><i class="ion-gear-b"></i></li>
                             </ul>
                             <ul class="recom-category-circle media-icons">
-                                <li ng-if="story.videoList.length > 0"><i class="ion-social-youtube"></i></li>
+                                <li ng-if="story.mediaType.indexOf('video') !== -1"><i class="ion-social-youtube"></i></li>
                             </ul>
                             <ul class="recom-category-circle media-icons">
-                                <li ng-if="story.audioList.length > 0"><i class="ion-volume-medium"></i></li>
+                                <li ng-if="story.mediaType.indexOf('audio') !== -1"><i class="ion-volume-medium"></i></li>
                             </ul>
                             <ul class="recom-category-circle media-icons">
-                                <li ng-if="story.imageList"><i class="ion-image"></i></li>
+                                <li ng-if="story.mediaType.indexOf('picture') !== -1"><i class="ion-image"></i></li>
                             </ul>
                         </div>
                     </div>
