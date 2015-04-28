@@ -458,7 +458,7 @@ $scope.tag = Requests.getSelectedTag();
 	  //TODO: Record swiped_past for the slide we came from?
 	  /*Only want to set a story as recommended one time for each list of recommendations*/
 	  if(recommendArray.indexOf($scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id) == -1){
-		  Requests.recommendedStory($scope.userId, $scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].idd);
+		  Requests.recommendedStory($scope.userId, $scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id);
 		  recommendArray.push($scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id);
 	  }
       $ionicSlideBoxDelegate.update();

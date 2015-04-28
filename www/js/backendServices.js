@@ -137,6 +137,13 @@ angular.module('backend.services', ['ngSanitize'])
 			return $http(req);
 		},
 
+		/*Creates and retrieves recommended stories that are not currently in the recommendation-view*/
+		getMoreRecommendedStories: function(userId){
+			req.data = {type: "getMoreRecommendations",
+						userId: userId};
+			return $http(req);
+		},
+		
 		/** Adds user rating to a story */
 		addRating: function(storyId, userId, rating){
 			req.data = {
