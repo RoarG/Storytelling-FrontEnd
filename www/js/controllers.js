@@ -152,6 +152,7 @@ $scope.setGender = function(gender) {
     console.log('Gender : ' + $scope.gender);
 };
 
+//loads and displays existing profile information when opening the view
 $scope.loadProfile = function() {
     Requests.getUserFromId(window.localStorage['userId']).then(function(response){
     console.log("response status(getUserFromId) : " + response.data.status);
@@ -160,11 +161,11 @@ $scope.loadProfile = function() {
     age_group = parseInt($scope.user.userModel.age_group);
     $scope.setGender(gender);
     $scope.setAgeGrp(age_group);
-
   });
 
 };
 
+//saves the profile information initially set by first-time user 
 $scope.saveProfil = function() {
       console.log("ageGrp" + $scope.ageGrp);
       console.log('Gender : ' + $scope.gender);
@@ -186,7 +187,9 @@ $scope.saveProfil = function() {
 
 };
 
+//saves the new profile information set in the settings -> preferences view
 $scope.updateProfil = function() {
+      $scope.profileSaved = false;
       console.log("ageGrp" + $scope.ageGrp);
       console.log('Gender : ' + $scope.gender);
 
@@ -202,6 +205,7 @@ $scope.updateProfil = function() {
         });
 
       });
+      $scope.profileSaved = true;
 
 };
 
@@ -217,9 +221,6 @@ $scope.updateProfil = function() {
     this.isSelected = isSelected;
   };
   $scope.categories = [];
-  /*for(i=0; i<9; i++) {
-      $scope.categories.push(new Category("Navn", "ion-star", false));
-  };*/
   $scope.categories.push(null);
   $scope.categories.push(new Category("Kunst", "icon-art", false));
   $scope.categories.push(new Category("Arkitektur", "icon-architecture", false));
@@ -253,41 +254,47 @@ $scope.updateProfil = function() {
       } 
     };
 
-  //TODO have to parse category names back into numbers ?
+  //loads and displays existing preferences when opening the view
   $scope.loadPreferences = function() {
       Requests.getUserFromId(window.localStorage['userId']).then(function(response){
       console.log("response status(getUserFromId) : " + response.data.status);
       $scope.user = response.data;
       category_preference = $scope.user.userModel.category_preference;
+      for (element in category_preference) {
+              $scope.categories[category_preference[element]].isSelected = true; 
+              $scope.selectedCat.push(category_preference[element]);
+      }
     });
   };
 
-
+  //saves the preferences initially chosen by first-time user 
   $scope.savePreferences = function() {
     console.log("Saving Preferences");
     
         Requests.getUserFromId(window.localStorage['userId']).then(function(response){
-          user = new User(window.localStorage['userId'], response.data.userModel);
-          console.log("response status(getUserFromId) : " + response.data.status);
-         
-          user.setCategoryPreference($scope.selectedCat);
-          console.log("$scope.selectedCat) : " + user.category_preference);
-          console.log("user: " + user);
-            
-	    $ionicLoading.show({
-			template: '<h2>Vennligst vent mens vi finner historier vi tror du vil like</h2><div class="icon ion-loading-a"></div>',
-			noBackdrop: false
-		});
-			
-          Requests.updateUser(user).then(function(response){
-            console.log("response status(updateUser) : " + response.data.userId);
-			$state.go("app.recommendations");			
-          });
+            user = new User(window.localStorage['userId'], response.data.userModel);
+            console.log("response status(getUserFromId) : " + response.data.status);
+           
+            user.setCategoryPreference($scope.selectedCat);
+            console.log("$scope.selectedCat) : " + user.category_preference);
+            console.log("user: " + user);
+              
+      	    $ionicLoading.show({
+        			template: '<h2>Vennligst vent mens vi finner historier vi tror du vil like</h2><div class="icon ion-loading-a"></div>',
+        			noBackdrop: false
+      		  });
+  			
+            Requests.updateUser(user).then(function(response){
+              console.log("response status(updateUser) : " + response.data.userId);
+  			      $state.go("app.recommendations");			
+            });
 
         });
   };
 
+  //saves the new preferences chosen in the settings -> preferences view 
   $scope.updatePreferences = function() {
+    $scope.preferencesSaved = false;
     console.log("Saving Preferences");
     
         Requests.getUserFromId(window.localStorage['userId']).then(function(response){
@@ -303,6 +310,7 @@ $scope.updateProfil = function() {
           });
 
         });
+    $scope.preferencesSaved = true;
   };
 
 
@@ -361,17 +369,12 @@ $scope.updateMenu();
 
 
 
-.controller('ListViewCtrl', function($scope, Requests, Story, $state, $rootScope, $ionicLoading, categoryPicker) {
+.controller('ListViewCtrl', function($scope, Requests, Story, $state, $rootScope, $ionicLoading) {
   //Display loading screen
   $ionicLoading.show({
       template: '<h2>Laster inn...</h2><div class="icon ion-loading-a"></div>',
       noBackdrop: false
   });
-
-  //Call the categoryPicker service
-  $scope.chooseCategories = function(categories) {
-     categoryPicker(categories);
-  };
 
 $scope.tag = Requests.getSelectedTag();
  // Retrieve stories associated with selected tag
@@ -606,7 +609,7 @@ $scope.tag = Requests.getSelectedTag();
         };
 })
 
-.controller('SettingsCtrl', function($scope, Requests, User) {
+.controller('SettingsCtrl', function($scope, Requests, User, $ionicLoading) {
         //retrieve the user email when opening the settings view
         Requests.getUserFromId(window.localStorage['userId']).then(function(response) {
           $scope.user = response.data;
@@ -633,6 +636,13 @@ $scope.tag = Requests.getSelectedTag();
             
             Requests.updateUser(user).then(function(response){
               console.log("response status(updateUser) : " + response.data.status);  
+              if (response.data.status == "successfull") {
+                $ionicLoading.show({
+                  template: '<h2>Din e-mail adresse har blitt oppdatert</h2>',
+                  noBackdrop: true,
+                  duration: 3000
+                });
+              }
               //TODO: If failed= notify user that email is already in use
             });
 
