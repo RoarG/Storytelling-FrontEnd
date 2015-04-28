@@ -12,17 +12,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
       //Initial new user
     window.localStorage['newUser'] = false;
-      //Enable fullsceen 
+      //Enable fullsceen for the onboarding and splashscreen
     StatusBar.hide();
       //Showing the SpashScreen for 5 sec.
     setTimeout(function() {
       $cordovaSplashscreen.hide()
     }, 5000)
-
-    console.log("Winsows.statrsdbar" + window.StatusBar)
-    //StatusBar.hide();
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
+   
+      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+      // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
 
@@ -58,7 +56,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   });
 })
 
-
 .config(function($stateProvider, $urlRouterProvider, $sceDelegateProvider) {
   $stateProvider
 
@@ -66,21 +63,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     url: "/app",
     abstract: true,
     templateUrl: "templates/menu.html",
-    controller: 'AppCtrl'
-  })
-
-  .state('app.story', {
-      url: "/story",
-      views: {
-          'menuContent': {
-              templateUrl: "templates/story.html"
-          }
-      }
-  })
-
-  .state('login', {
-    url: "/login",
-    templateUrl: "templates/login.html",
     controller: 'AppCtrl'
   })
 
@@ -102,6 +84,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     controller: 'AppCtrl'
   })
 
+  .state('login', {
+    url: "/login",
+    templateUrl: "templates/login.html",
+    controller: 'AppCtrl'
+  })
+
   .state('profile', {
     url: "/profile",
     templateUrl: "templates/profile.html",
@@ -113,102 +101,77 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     templateUrl: "templates/preferences.html",
     controller: 'AppCtrl'
   })
-
-
-/*
-  .state('app.login', {
-    url: "/login",
+  
+  .state('app.settings', {
+    url: "/settings",
     views: {
       'menuContent': {
-        templateUrl: "templates/login.html",
+        templateUrl: "templates/settings.html",
+        controller: 'SettingsCtrl'
+      }
+    }
+  })
+
+  .state('app.editProfile', {
+    url: "/editProfile",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/editProfile.html",
         controller: 'AppCtrl'
       }
     }
   })
 
-
-
-  .state('app.profile', {
-  url: "/profile",
-  views: {
-    'menuContent': {
-      templateUrl: "templates/profile.html",
-      controller: 'AppCtrl'
-    }
-  }
-})
-
-  .state('app.preferences', {
-  url: "/preferences",
-  views: {
-    'menuContent': {
-      templateUrl: "templates/preferences.html",
-      controller: 'AppCtrl'
-    }
-  }
-})
-*/
-  
-    .state('app.settings', {
-    	url: "/settings",
-    	views: {
-    		'menuContent': {
-    			templateUrl: "templates/settings.html",
-          controller: 'SettingsCtrl'
-    		}
-    	}
-    })
-
-    .state('app.editProfile', {
-      url: "/editProfile",
-      views: {
-        'menuContent': {
-          templateUrl: "templates/editProfile.html",
-          controller: 'AppCtrl'
-        }
-      }
-    })
-
-    .state('app.editPreferences', {
-      url: "/editPreferences",
-      views: {
-        'menuContent': {
-          templateUrl: "templates/editPreferences.html",
-          controller: 'AppCtrl'
-        }
-      }
-    })
-  
-    .state('app.listView', {
-      url: "/listView",
-      views: {
-        'menuContent': {
-          templateUrl: "templates/listView.html",
-          controller: 'ListViewCtrl'
-        }
-      }
-    })
-
-    .state('app.recommendations', {
-      url: "/recommendations",
-      views: {
-        'menuContent': {
-          templateUrl: "templates/recommendations.html",
-          controller: 'RecommendationCtrl'
-        }
-      }
-    })
-
-    .state('app.about', {
-    url: "/about",
+  .state('app.editPreferences', {
+    url: "/editPreferences",
     views: {
       'menuContent': {
-        templateUrl: "templates/about.html"
+        templateUrl: "templates/editPreferences.html",
+        controller: 'AppCtrl'
       }
     }
-    });
+  })
 
-        // If app is not started befor go to onboardOne
+  .state('app.listView', {
+    url: "/listView",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/listView.html",
+        controller: 'ListViewCtrl'
+      }
+    }
+  })
+
+  .state('app.recommendations', {
+    url: "/recommendations",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/recommendations.html",
+        controller: 'RecommendationCtrl'
+      }
+    }
+  })
+
+  .state('app.story', {
+      url: "/story",
+      views: {
+          'menuContent': {
+              templateUrl: "templates/story.html"
+          }
+      }
+  })
+
+  .state('app.about', {
+  url: "/about",
+  views: {
+    'menuContent': {
+      templateUrl: "templates/about.html"
+    }
+  }
+  });
+
+
+    // If app is not started before go to onboardOne
     // already logged in, go to recommendation view, otherwise go to login. 
   if(!(window.localStorage['newUser'])) {
     console.log("ONBOARD" + window.localStorage['newUser']);
