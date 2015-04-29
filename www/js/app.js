@@ -1,10 +1,17 @@
-// Ionic Starter App
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
+// First parameter is the name of the module
 // the 2nd parameter is an array of 'requires'
-// 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'backend.services', 'ngCordova', 'ui.router'])
+// 'starter.controllers' is found in controllers.js Files ending with Ctrl is found in the controlles folder
+var stories = angular.module('stories', ['ionic', 
+                                        'stories.controllers', 
+                                        'backend.services' , 
+                                        'ngCordova' , 
+                                        'ui.router' , 
+                                        'IntroCtrl' , 
+                                        'LoginCtrl' , 
+                                        'ProfilCtrl', 
+                                        'PrefCtrl'])
+
 
 
 .run(function($ionicPlatform, $cordovaDialogs, $cordovaNetwork, $rootScope) {
@@ -13,7 +20,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       //Initial new user
     window.localStorage['newUser'] = false;
       //Enable fullsceen for the onboarding and splashscreen
-    StatusBar.hide();
+    //StatusBar.hide();
       //Showing the SpashScreen for 5 sec.
     setTimeout(function() {
       $cordovaSplashscreen.hide()
@@ -69,37 +76,37 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   .state('onboardOne', {
     url: "/onboardOne",
     templateUrl: "templates/onboardingOne.html",
-    controller: 'AppCtrl'
+    controller: 'IntroCtrl'
   })
 
   .state('onboardTwo', {
     url: "/onboardTwo",
     templateUrl: "templates/onboardingTwo.html",
-    controller: 'AppCtrl'
+    controller: 'IntroCtrl'
   })
 
   .state('onboardTree', {
     url: "/onboardTree",
     templateUrl: "templates/onboardingTree.html",
-    controller: 'AppCtrl'
+    controller: 'IntroCtrl'
   })
 
   .state('login', {
     url: "/login",
     templateUrl: "templates/login.html",
-    controller: 'AppCtrl'
+    controller: 'LoginCtrl'
   })
 
   .state('profile', {
     url: "/profile",
     templateUrl: "templates/profile.html",
-    controller: 'AppCtrl'
+    controller: 'ProfilCtrl'
   })
 
   .state('preferences', {
     url: "/preferences",
     templateUrl: "templates/preferences.html",
-    controller: 'AppCtrl'
+    controller: 'PrefCtrl'
   })
   
   .state('app.settings', {
@@ -173,11 +180,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
     // If app is not started before go to onboardOne
     // already logged in, go to recommendation view, otherwise go to login. 
-  if(!(window.localStorage['newUser'])) {
+/*  if((window.localStorage['newUser'])) {
     console.log("ONBOARD" + window.localStorage['newUser']);
     $urlRouterProvider.otherwise('/onboardOne'); 
-  }
-  else if(window.localStorage['userId'] !== undefined && window.localStorage['userId'] !== "-1") {
+  }*/
+/*  else if(window.localStorage['userId'] !== undefined && window.localStorage['userId'] !== "-1") {
     console.log("recommendations");
     $urlRouterProvider.otherwise('/app/recommendations');
   } 
@@ -185,6 +192,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     console.log("login" + window.localStorage['newUser']);
    $urlRouterProvider.otherwise('/login');
   }
-
+*/
+ $urlRouterProvider.otherwise('/login');
   
 });

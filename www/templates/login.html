@@ -10,6 +10,7 @@
             <div class="mainCont">
               <div class="loginContainer">
                   <div class="infoText">Logg inn med eksisterende eller ny e-post addresse</div>
+                  <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">Enter a valid email.</p>
                     <div class="innerContLogin">
                       <label class="item item-input">
                         <input  name="email" 
