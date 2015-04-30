@@ -41,18 +41,7 @@ angular.module('backend.services', ['ngSanitize'])
 
 		//Returns array of usertags
 		this.userTags = storyData.userTags;
-
-		this.updateMedia();
 	}
-
-	/** Adds the imageurl to imageList */
-	Story.prototype.updateMedia = function(){
-		
-		if(this.imageList != null)
-			for(var i = 0; i < this.imageList.length; i++){
-				this.imageList[i] = $sce.trustAsResourceUrl("http://media31.dimu.no/media/image/H-DF/"+this.storyId+"/"+i+"?byIndex=true&height=400&width=400");
-			}
-		}
 
 		/** Public method, assigned to prototype */
 		Story.prototype.getStoryId = function () {
