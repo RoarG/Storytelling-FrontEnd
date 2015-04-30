@@ -1,5 +1,6 @@
 angular.module('backend.services', ['ngSanitize'])
-.factory("Story", function ($sce) {
+
+stories.factory("Story", function ($sce) {
 
 	 /**
 	 * Constructor, with class name
@@ -64,7 +65,7 @@ angular.module('backend.services', ['ngSanitize'])
 })
 
 
-.factory('User', function (){
+stories.factory('User', function (){
 
 	/*if no userdata is retrieved from the database, use new User(userId). Else see
 	Requests.updateUser*/
@@ -110,7 +111,7 @@ angular.module('backend.services', ['ngSanitize'])
 
 
 /**Handles communication with backend*/
-.factory("Requests", function ($http) {
+stories.factory("Requests", function ($http) {
 	var req = {
 		method: 'POST',
 		url: 'http://188.113.108.37/requests/controller.php',

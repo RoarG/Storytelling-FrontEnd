@@ -10,11 +10,18 @@ var stories = angular.module('stories', ['ionic',
                                         'IntroCtrl' , 
                                         'LoginCtrl' , 
                                         'ProfilCtrl', 
-                                        'PrefCtrl'])
+                                        'PrefCtrl'  ,
+                                        'MenuCtrl'  ,
+                                        'ListViewCtrl',
+                                        'RecomdCtrl',
+                                        'StoryCtrl', 
+                                        'BookmarkCtrl',
+                                        'SettingsCtrl',
+                                        'RatingCtrl'])
 
 
 
-.run(function($ionicPlatform, $cordovaDialogs, $cordovaNetwork, $rootScope) {
+.run(function($ionicPlatform, $cordovaDialogs, $cordovaNetwork, $rootScope, $cordovaSplashscreen) {
   $ionicPlatform.ready(function() {
 
       //Initial new user
@@ -70,7 +77,7 @@ var stories = angular.module('stories', ['ionic',
     url: "/app",
     abstract: true,
     templateUrl: "templates/menu.html",
-    controller: 'AppCtrl'
+    controller: 'MenuCtrl'
   })
 
   .state('onboardOne', {
@@ -124,7 +131,7 @@ var stories = angular.module('stories', ['ionic',
     views: {
       'menuContent': {
         templateUrl: "templates/editProfile.html",
-        controller: 'AppCtrl'
+        controller: 'ProfilCtrl'
       }
     }
   })
@@ -134,7 +141,7 @@ var stories = angular.module('stories', ['ionic',
     views: {
       'menuContent': {
         templateUrl: "templates/editPreferences.html",
-        controller: 'AppCtrl'
+        controller: 'PrefCtrl'
       }
     }
   })
@@ -154,7 +161,7 @@ var stories = angular.module('stories', ['ionic',
     views: {
       'menuContent': {
         templateUrl: "templates/recommendations.html",
-        controller: 'RecommendationCtrl'
+        controller: 'RecomdCtrl'
       }
     }
   })

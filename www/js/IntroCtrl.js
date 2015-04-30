@@ -9,7 +9,6 @@ angular.module('IntroCtrl', [])
 stories.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
 	
 
-
 	$scope.startApp = function () {
 	  $state.go('login');
 	   window.localStorage.didTutorial = 'true';
