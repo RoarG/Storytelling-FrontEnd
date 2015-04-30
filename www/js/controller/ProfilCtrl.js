@@ -26,6 +26,7 @@ stories.controller('ProfilCtrl', function($scope, Requests, User, $state) {
 		console.log('Gender : ' + $scope.gender);
 	};
 
+	//loads and displays existing profile information when opening the view
 	$scope.loadProfile = function() {
 		Requests.getUserFromId(window.localStorage['userId']).then(function(response) {
 			console.log("response status(getUserFromId) : " + response.data.status);
@@ -38,7 +39,7 @@ stories.controller('ProfilCtrl', function($scope, Requests, User, $state) {
 		});
 
 	};
-
+	//saves the profile information initially set by first-time user 
 	$scope.saveProfil = function() {
 		console.log("ageGrp" + $scope.ageGrp);
 		console.log('Gender : ' + $scope.gender);
@@ -59,8 +60,9 @@ stories.controller('ProfilCtrl', function($scope, Requests, User, $state) {
 		$state.go("preferences");
 
 	};
-
+	//saves the new profile information set in the settings -> preferences view
 	$scope.updateProfil = function() {
+		$scope.profileSaved = false;
 		console.log("ageGrp" + $scope.ageGrp);
 		console.log('Gender : ' + $scope.gender);
 
@@ -76,7 +78,7 @@ stories.controller('ProfilCtrl', function($scope, Requests, User, $state) {
 			});
 
 		});
-
+		 $scope.profileSaved = true;
 	};
 
 

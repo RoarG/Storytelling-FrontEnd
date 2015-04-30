@@ -47,16 +47,22 @@ stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLo
 		}
 	};
 
-	//TODO have to parse category names back into numbers ?
+	//loads and displays existing preferences when opening the view
 	$scope.loadPreferences = function() {
 		Requests.getUserFromId(window.localStorage['userId']).then(function(response) {
 			console.log("response status(getUserFromId) : " + response.data.status);
 			$scope.user = response.data;
 			category_preference = $scope.user.userModel.category_preference;
+			for (element in category_preference) {
+            	index = parseInt(category_preference[element]);
+             	$scope.selectedCategory(index);
+              	$scope.categories[index].isSelected = true;
+     		}
+
 		});
 	};
 
-
+	//saves the preferences initially chosen by first-time user 
 	$scope.savePreferences = function() {
 		console.log("Saving Preferences");
 
@@ -81,8 +87,9 @@ stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLo
 		});
 	};
 
-
+	//saves the new preferences chosen in the settings -> preferences view
 	$scope.updatePreferences = function() {
+		$scope.preferencesSaved = false;
 		console.log("Saving Preferences");
 
 		Requests.getUserFromId(window.localStorage['userId']).then(function(response) {
@@ -98,6 +105,7 @@ stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLo
 			});
 
 		});
+		$scope.preferencesSaved = true;
 	};
 
 })

@@ -2,6 +2,7 @@
     <ion-slide-box on-slide-changed="slideChanged(index)" show-pager="true" active-slide="activeSlide">
         <ion-slide ng-repeat="image in story.imageList">
             <img ng-src="{{image}}" class="fullscreen-image"/>
+            <p class="image-description">Beskrivelse</p>
         </ion-slide>
     </ion-slide-box>
 </div>

@@ -18,6 +18,7 @@
 		<label class="item item-input settings-right-adjust settings-height">
             <input type="text" placeholder={{email}} ng-model="user.email">
         </label>
+        <p ng-show="emailSaved"><i class="ion-checkmark"></i> Lagret</p>
 	  </ion-item>
 	  
 	  <ion-item ng-click="retrieveUser()" href="#/app/editPreferences">

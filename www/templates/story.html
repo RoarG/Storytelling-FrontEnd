@@ -5,7 +5,9 @@
     </ion-nav-buttons>
     <ion-content class="story">
         <div id="story-header-container">
-            <img ng-src={{story.imageList[0]}} alt="" id="story-header-image" />
+            <img ng-if="story.imageList" ng-src={{story.imageList[0]}} alt="" class="story-header-image" />
+            <img ng-if="!story.imageList && story.videoList[0]" class="story-header-image" ng-src={{story.videoList[0]['posterurl']}} />
+            <div ng-if="!story.imageList && !story.videoList[0]" class="story-header-image"><i class="ion-image"></i></div>
         </div>
         <div class="story-introduction card">
             <h2>{{story.title}}</h2>
@@ -14,23 +16,23 @@
             <p>{{story.introduction}}</p>
             <div class="story-categories">
                 <div ng-repeat="category in story.categoryList" class="category-circle" ng-switch on="category">
-					<li class="list-cat-display cat-1" ng-switch-when="history"><i class="icon-history"></i>
-					<li class="list-cat-display cat-2" ng-switch-when="nature and adventure"><i class="icon-nature"></i>
-					<li class="list-cat-display cat-3" ng-switch-when="science and technology"><i class="ion-gear-b"></i>
-					<li class="list-cat-display cat-4" ng-switch-when="art and design"><i class="icon-art"></i>
-					<li class="list-cat-display cat-5" ng-switch-when="architecture"><i class="icon-architecture"></i>
-					<li class="list-cat-display cat-6" ng-switch-when="local traditions and food"><i class="icon-tradition"></i>
-					<li class="list-cat-display cat-7" ng-switch-when="music"><i class="ion-music-note"></i>
-					<li class="list-cat-display cat-8" ng-switch-when="archeology"><i class="icon-archeology"></i>
-					<li class="list-cat-display cat-9" ng-switch-when="literature"><i class="ion-ios-book"></i>
+					<li class="list-cat-display cat-1" ng-switch-when="1"><i class="icon-art"></i></li>
+                    <li class="list-cat-display cat-2" ng-switch-when="2"><i class="icon-architecture"></i></li>
+                    <li class="list-cat-display cat-3" ng-switch-when="3"><i class="ion-archeology"></i></li>
+                    <li class="list-cat-display cat-4" ng-switch-when="4"><i class="icon-history"></i></li>
+                    <li class="list-cat-display cat-5" ng-switch-when="5"><i class="icon-tradition"></i></li>
+                    <li class="list-cat-display cat-6" ng-switch-when="6"><i class="icon-nature"></i></li>
+                    <li class="list-cat-display cat-7" ng-switch-when="7"><i class="ion-ios-book"></i></li>
+                    <li class="list-cat-display cat-8" ng-switch-when="8"><i class="ion-music-note"></i></li>
+                    <li class="list-cat-display cat-9" ng-switch-when="9"><i class="ion-gear-b"></i></li>
                 </div>
             </div>
         </div>
         <!-- Media menubar -->
         <div class="button-bar">
             <a class="button button-light" ng-class="{active: mediaType === 'video'}" ng-show="story.videoList[0]" ng-click="mediaType = 'video'">Video</a>
-            <a class="button button-light" ng-class="{'active': mediaType === 'audio'}" ng-show="story.audioList[0]" ng-click="mediaType = 'audio'">Lydklipp</a>
-            <a class="button button-light" ng-class="{'active': mediaType === 'images'}" ng-show="story.imageList[0]" ng-click="mediaType = 'images'">Bilder</a>
+            <a class="button button-light" ng-class="{active: mediaType === 'audio'}" ng-show="story.audioList[0]" ng-click="mediaType = 'audio'">Lydklipp</a>
+            <a class="button button-light" ng-class="{active: mediaType === 'images'}" ng-show="story.imageList[0]" ng-click="mediaType = 'images'">Bilder</a>
         </div>
         <!-- Images, video or sound displayed depending on which button in the menubar is active -->
         <ion-scroll class="media-content" direction="x">
@@ -42,21 +44,24 @@
             <div ng-if="mediaType === 'video'">
                 <div class="video-player" ng-repeat="video in story.videoList">
                     <!--Youtube or vimeo video-->
-                    <iframe id="{{'Video' + $index + 'b'}}" ng-if="!video['videourl'].indexOf('.mp4')"frameborder="0" ng-src="{{getTrustedUrl(video['videourl'])}}">
+                    <iframe id="{{'Video' + $index + 'b'}}" ng-if="video['videourl'].indexOf('.mp4') === -1"frameborder="0" ng-src="{{getTrustedUrl(video['videourl'])}}" webkitallowfullscreen mozallowfullscreen allowfullscreen webkit-playsinline="false">
                     </iframe>
                     <!-- mp4 video -->
-                    <video id="{{'Video' + $index}}" controls="false" poster={{video['posterurl']}} ng-if="video['videourl'].indexOf('.mp4')" ng-src="{{getTrustedUrl(video['videourl'])}}"></video>
-                    <div class="play-button" id="play" ng-click="playVideo($index)">
+                    <video id="{{'Video' + $index}}" controls="true" poster={{video['posterurl']}} ng-if="video['videourl'].indexOf('.mp4') !== -1" ng-src="{{getTrustedUrl(video['videourl'])}}"></video>
+                    <div class="play-button" id="play" ng-if="video['videourl'].indexOf('.mp4') !== -1" ng-click="playVideo($index)">
                         <i class="icon ion-play"></i>
                     </div>
+                    <p>{{video['description']}}</p>
                 </div>
             </div>
             <div  ng-if="mediaType === 'audio'">
-                <p>Navn på audiofil</p>
-                <audio ng-repeat="audioUrl in story.audioList" controls preload="auto">
-                    <source ng-src="{{getTrustedUrl(audioUrl)}}" />
+                <div class="audio-container" ng-repeat="audio in story.audioList">
+                <audio controls preload="auto">
+                    <source ng-src="{{getTrustedUrl(audio['audiourl'])}}" />
                     Your browser does not support the audio element.
                 </audio>
+                <p>{{audio['description']}}</p>
+                </div>
             </div>
         </ion-scroll>
         <div class="story-wrapper card">
@@ -67,7 +72,6 @@
             <div class="rating" ng-controller="RatingCtrl">
                 <p>Likte du denne historien?</p>
                 <i class="icon ion-android-star star" ng-class="{filled: i <= story.rating}" ng-repeat="i in [1,2,3,4,5]" ng-click="rateFunction(i)"></i>
-                <button class="button button-block button-light" ng-click="rateFunction(0)" ng-class="{active: story.rating === 0}">Ikke interessert</button>
                 <p ng-show="ratingSaved"><i class="ion-checkmark"></i> Lagret</p>
             </div>
             <h3 ng-if="story.municipality">Sted</h3>

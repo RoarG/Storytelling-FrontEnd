@@ -7328,8 +7328,10 @@ ion-popover-view .list .button {
 .story {
   background-color: #FFF9EE; }
 
-#story-header-image {
-  width: 100%; }
+.story-header-image {
+  width: 100%;
+  min-height: 50px;
+  background-color: #C2B2A7; }
   @media only screen and (min-width: 30em) { }
 
 #story-header-container {
@@ -7419,7 +7421,7 @@ ion-popover-view .list .button {
 .media-content {
   overflow-x: scroll;
   overflow-y: hidden;
-  height: 120px;
+  min-height: 100px;
   background-color: #249c9c;
   padding: 2% 5%;
   white-space: nowrap;
@@ -7427,7 +7429,7 @@ ion-popover-view .list .button {
 
 .story-image-container {
   display: inline-block;
-  height: 100px;
+  height: 120px;
   overflow: hidden;
   margin-right: 3%; }
 
@@ -7436,27 +7438,53 @@ ion-popover-view .list .button {
 
 .video-player {
   display: inline-block;
-  height: 100px;
   overflow: hidden;
-  margin-right: 3%; }
+  margin-right: 3%;
+  width: 160px; }
 
 .video-player video {
-  height: 100%;
-  width: auto; }
+  height: 120px;
+  width: 160px; }
+
+.video-player iframe {
+  height: 120px;
+  width: 160px; }
 
 .video-player .play-button {
-  height: 100%;
-  width: auto;
-  margin-top: -105px; }
+  height: 120px;
+  width: 160px;
+  margin-top: -120px;
+  z-index: 100; }
   .video-player .play-button i {
+    text-align: center;
+    display: block;
     color: white;
     font-size: 2em;
     position: relative;
-    top: 35px;
-    left: 60px; }
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); }
+
+.video-player p {
+  color: white;
+  margin-top: 0;
+  overflow: auto;
+  word-wrap: break-word;
+  white-space: pre-wrap; }
 
 video::-webkit-media-controls {
   display: none !important; }
+
+.audio-container {
+  margin-top: 10px; }
+
+.audio-container audio {
+  width: 100%; }
+
+.audio-container p {
+  margin-top: 2px;
+  color: white; }
 
 .story-footer {
   padding: 10% 4%;
@@ -7499,6 +7527,14 @@ video::-webkit-media-controls {
   right: 0;
   top: 0; }
 
+.image-description {
+  color: white;
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%); }
+
 .slider {
   width: 100%;
   height: 100%; }
@@ -7508,7 +7544,7 @@ video::-webkit-media-controls {
 */
 .rating-modal {
   min-height: 30%;
-  height: 30%;
+  height: 32%;
   width: 75%;
   background-color: #FFF9EE;
   position: absolute;
@@ -7518,25 +7554,16 @@ video::-webkit-media-controls {
   text-align: center; }
   .rating-modal .rating-content {
     position: relative;
-    top: 25%; }
+    top: 20%; }
   .rating-modal .star {
     color: #C2B2A7;
     font-size: 2.5em;
     padding: 0.5%; }
-  .rating-modal button.button-light {
-    width: 120px;
-    margin: 0 auto;
-    font-size: 0.9em;
-    min-height: 20px;
-    line-height: 1.8em;
-    background-color: #C2B2A7;
-    border: none;
-    margin-top: 4px; }
-  .rating-modal button.button-light.active {
-    background-color: #249c9c;
-    color: white; }
   .rating-modal .filled {
     color: #fd0; }
+  .rating-modal .button {
+    width: 80%;
+    margin: 4% auto; }
 
 .rating {
   width: 50%;
@@ -7733,11 +7760,26 @@ ion-slide .card {
   color: #FFF;
   background-color: rgba(0, 0, 0, 0.34);
   padding: 1% 2%;
-  border-radius: 50%; }
+  border-radius: 50%;
+  z-index: 100; }
 
-ion-slide img {
+ion-slide .cover-image {
   min-width: 100%;
   height: auto; }
+
+ion-slide div.cover-image {
+  position: absolute;
+  top: 0;
+  background-color: #C2B2A7;
+  height: 200px;
+  margin: 0; }
+
+ion-slide div.cover-image i {
+  color: #FFF9EE;
+  font-size: 10em;
+  margin: 0 auto;
+  line-height: 200px;
+  opacity: 0.5; }
 
 ion-slide .content-wrapper {
   margin: 3% 6%; }
@@ -7764,7 +7806,7 @@ ion-slide .button {
 
 .fade-box {
   position: absolute;
-  bottom: 3%;
+  bottom: 0;
   left: 0;
   width: 100%;
   height: 100px;

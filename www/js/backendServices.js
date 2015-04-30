@@ -42,18 +42,7 @@ stories.factory("Story", function ($sce) {
 
 		//Returns array of usertags
 		this.userTags = storyData.userTags;
-
-		this.updateMedia();
 	}
-
-	/** Adds the imageurl to imageList */
-	Story.prototype.updateMedia = function(){
-		
-		if(this.imageList != null)
-			for(var i = 0; i < this.imageList.length; i++){
-				this.imageList[i] = $sce.trustAsResourceUrl("http://media31.dimu.no/media/image/H-DF/"+this.storyId+"/"+i+"?byIndex=true&height=400&width=400");
-			}
-		}
 
 		/** Public method, assigned to prototype */
 		Story.prototype.getStoryId = function () {
@@ -131,17 +120,20 @@ stories.factory("Requests", function ($http) {
 			return $http(req);
 		},
 
-		//PRØVER Å HENTE DE 20 FØRSTE HISTORIENE FRA DATABASEN NÅ OG LEGGE TIL I LISTE
-		//BRUKER GETALLSTORIES METODE I DBHELPER
-
-		/**Retrieves multiple stories from the database, now returns 500 error when
-		* story doesn't have pictures*/
-		getMultipleStories: function(userId) {
+		/**Retrieves recommended stories from the database*/
+		getRecommendedStories: function(userId) {
 			req.data = { type: "getStories",
 						userId: userId};
 			return $http(req);
 		},
 
+		/*Creates and retrieves recommended stories that are not currently in the recommendation-view*/
+		getMoreRecommendedStories: function(userId){
+			req.data = {type: "getMoreRecommendations",
+						userId: userId};
+			return $http(req);
+		},
+		
 		/** Adds user rating to a story */
 		addRating: function(storyId, userId, rating){
 			req.data = {
@@ -283,6 +275,16 @@ stories.factory("Requests", function ($http) {
 		rejectStory: function(userId, storyId){
 			req.data = {
 				type: "rejectStory",
+				userId: userId,
+				storyId: storyId
+			};
+			$http(req);
+		},
+		
+		/*Set story as recommended (happens when user sees story for the first time in the recommendation-view)*/
+		recommendedStory: function(userId, storyId){
+			req.data = {
+				type: "recommendedStory",
 				userId: userId,
 				storyId: storyId
 			};

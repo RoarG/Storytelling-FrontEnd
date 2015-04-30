@@ -8,15 +8,17 @@ angular.module('BookmarkCtrl', [])
 stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests) {
 	
 	$scope.userId = window.localStorage['userId'];
-	$scope.story = Requests.getSelectedStory();
+	$scope.storyId = Requests.getSelectedStory();
+	Requests.getStoryTags($scope.userId, $scope.storyId).then(function(response) {
+		$scope.tags = response.data;
 
 	// May use the collectionList in AppCtrl instead
 	// The collections a user has, and whether this story is in it.
 	Requests.getAllLists($scope.userId).success(function(data, status) {
 		$scope.collectionList = data;
 		for (var i = 0; i < $scope.collectionList.length; i++) {
-			for (var j = 0; j < $scope.story.userTags.length; j++) {
-				if ($scope.collectionList[i]["text"].valueOf() == $scope.story.userTags[j].valueOf()) {
+			for (var j = 0; j < $scope.tags.length; j++) {
+				if ($scope.collectionList[i]["text"].valueOf() === $scope.tags[j]["text"].valueOf()) {
 					$scope.collectionList[i]["checked"] = true;
 				}
 			}
@@ -26,7 +28,8 @@ stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests) {
 		}
 	}).error(function(data, status) {
 		console.log(status);
-	})
+ 	});
+});
 
 	// Display text field to enter name of new collection
 	$scope.newItem = function() {
@@ -43,7 +46,7 @@ stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests) {
 
 			//Need the userId for this to work
 			Requests.addNewTag($scope.newItemName, $scope.userId, $scope.story.storyId);
-			$scope.story.userTags.push($scope.newItemName);
+			$scope.tags.push($scope.newItemName);
 			$scope.newItemName = null;
 		}
 		$scope.displayTextField = false;
@@ -53,14 +56,14 @@ stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests) {
 	$scope.addTag = function(tag) {
 		if (!tag.checked) {
 			Requests.removeTagStory(tag.text, $scope.userId, $scope.story.storyId);
-			for (var i = 0; i < $scope.story.userTags.length; i++) {
-				if ($scope.story.userTags[i].valueOf() == tag.text.valueOf()) {
-					$scope.story.userTags.splice(i, 1);
+			for (var i = 0; i < $scope.tags.length; i++) {
+				if ($scope.tags[i].valueOf() == tag.text.valueOf()) {
+					$scope.tags.splice(i, 1);
 				}
 			}
 		} else {
 			Requests.tagStory(tag.text, $scope.userId, $scope.story.storyId);
-			$scope.story.userTags.push(tag["text"]);
+			$scope.tags.push(tag["text"]);
 		}
 	};
 

@@ -5,7 +5,7 @@
 angular.module('SettingsCtrl', [])
 
 
-stories.controller('SettingsCtrl', function($scope, Requests, User) {
+stories.controller('SettingsCtrl', function($scope, Requests, User, $ionicLoading) {
 	//retrieve the user email when opening the settings view
 	Requests.getUserFromId(window.localStorage['userId']).then(function(response) {
 		$scope.user = response.data;
@@ -32,6 +32,13 @@ stories.controller('SettingsCtrl', function($scope, Requests, User) {
 
 			Requests.updateUser(user).then(function(response) {
 				console.log("response status(updateUser) : " + response.data.status);
+				if (response.data.status == "successfull") {
+					$ionicLoading.show({
+						template: '<h2>Din e-mail adresse har blitt oppdatert</h2>',
+						noBackdrop: true,
+						duration: 3000
+					});
+				}
 				//TODO: If failed= notify user that email is already in use
 			});
 

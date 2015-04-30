@@ -6,69 +6,99 @@ angular.module('StoryCtrl', [])
 
 stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ionicPopover, Requests, Story, $rootScope, $sce, $ionicLoading) {
 
-	$scope.story = Requests.getSelectedStory();
+	var storyId = Requests.getSelectedStory();
+	var userId = window.localStorage['userId'];
 
-	//Decide what media format to display first
-	if ($scope.story.videoList) {
-		$scope.mediaType = "video";
-	} else if ($scope.story.audioList) {
-		$scope.mediaTypes = "sound";
-	} else {
-		$scope.mediaType = "images";
-	}
+	// Get story data.
+	//Må ha .then() for å kunne hente fra http.post i backend.services
+	Requests.getStory(storyId, userId).success(function(data, status) {
+		$scope.story = new Story(data);
+		console.log($scope.story.imageList);
 
-	// Display selected image in modal. 
-	$scope.showImages = function(index) {
-		$scope.activeSlide = index;
-		$scope.showModal('templates/image-popover.html');
-	};
 
-	$scope.showModal = function(templateUrl) {
-		$ionicModal.fromTemplateUrl(templateUrl, {
-			scope: $scope,
-			animation: 'slide-in-up'
-		}).then(function(modal) {
-			$scope.modal = modal;
-			$scope.modal.show();
-		});
-	};
 
-	// Close the modal
-	$scope.closeModal = function() {
-		$scope.modal.hide();
-		$scope.modal.remove();
-	};
-
-	// Necessary for video urls
-	$scope.getTrustedUrl = function(url) {
-		return $sce.trustAsResourceUrl(url);
-	};
-
-	// Play selected video in fullscreen
-	$scope.playVideo = function(index) {
-		$scope.fullscreen = false;
-		$scope.video = document.getElementById("Video" + index);
-		if ($scope.video.webkitEnterFullscreen) {
-			$scope.video.webkitEnterFullscreen();
-		} else if ($scope.video.webkitRequestFullScreen) {
-			$scope.video.webkitRequestFullScreen();
-		} else if ($scope.video.requestFullscreen) {
-			$scope.video.requestFullscreen();
-		}
-		$scope.video.play();
-	};
-
-	document.addEventListener('webkitfullscreenchange', function(e) {
-		if ($scope.fullscreen) {
-			$scope.video.pause();
-			console.log("Exit fullscreen");
+		//Decide what media format to display first
+		if ($scope.story.videoList) {
+			$scope.mediaType = "video";
+			// If any of the videos are from youtube or vimeo, the url has to be changed so that it can be embedded in iframe. 
+			for (var video of $scope.story.videoList) {
+				console.log("Video: " + video['videourl']);
+				var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+				var match = video['videourl'].match(regExp);
+				if (match && match[2].length == 11) {
+					video['videourl'] = 'https://www.youtube.com/embed/' + match[2] + "?autoplay=0&showinfo=0&controls=1";
+				} else if (video['videourl'].indexOf("vimeo.com") !== -1) {
+					var r = /(videos|video|channels|\.com)\/([\d]+)/;
+					video['videourl'] = "//player.vimeo.com/video/" + video['videourl'].match(r)[2];
+					console.log("Vimeo: " + video['videourl']);
+				}
+			}
+		} else if ($scope.story.audioList) {
+			$scope.mediaType = "audio";
 		} else {
-			$scope.fullscreen = true;
-			console.log("Enter fullscreen");
-		}
+			$scope.mediaType = "images";
+		}	
+	$ionicLoading.hide();
+	}).error(function(data, status) {
+		console.log(status);
 	});
 
-	$scope.openUrl = function(url) {
-		window.open(url, '_system');
-	};
-})
+		// Display selected image in modal. 
+		$scope.showImages = function(index) {
+			$scope.activeSlide = index;
+			$scope.showModal('templates/image-popover.html');
+		};
+
+		$scope.showModal = function(templateUrl) {
+			$ionicModal.fromTemplateUrl(templateUrl, function(modal) {
+						$scope.childCtrl = modal;
+						$scope.childCtrl.story = $scope.story;
+			}, 
+			{
+				scope: $scope,
+				animation: 'slide-in-up'
+			}).then(function(modal) {
+				$scope.modal = modal;
+				$scope.modal.show();
+			});
+		};
+
+		// Close the modal
+		$scope.closeModal = function() {
+			$scope.modal.hide();
+			$scope.modal.remove();
+		};
+
+		// Necessary for video urls
+		$scope.getTrustedUrl = function(url) {
+			return $sce.trustAsResourceUrl(url);
+		};
+
+		// Play selected video in fullscreen
+		$scope.playVideo = function(index) {
+			$scope.fullscreen = false;
+			$scope.video = document.getElementById("Video" + index);
+			if ($scope.video.webkitEnterFullscreen) {
+				$scope.video.webkitEnterFullscreen();
+			} else if ($scope.video.webkitRequestFullScreen) {
+				$scope.video.webkitRequestFullScreen();
+			} else if ($scope.video.requestFullscreen) {
+				$scope.video.requestFullscreen();
+			}
+			$scope.video.play();
+		};
+
+		document.addEventListener('webkitfullscreenchange', function(e) {
+			if ($scope.fullscreen) {
+				$scope.video.pause();
+				console.log("Exit fullscreen");
+			} else {
+				$scope.fullscreen = true;
+				console.log("Enter fullscreen");
+			}
+		});
+
+		$scope.openUrl = function(url) {
+			window.open(url, '_system');
+		};
+	})

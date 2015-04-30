@@ -385,9 +385,10 @@ ion-popover-view .list .button {
 	background-color: $background-color;
 }
 
-#story-header-image {
+.story-header-image {
     width: 100%;
-
+    min-height: 50px;
+    background-color: $background-color-dark;
     @include mq(medium) {
     
     }
@@ -502,7 +503,7 @@ ion-popover-view .list .button {
 .media-content {
 	overflow-x: scroll;
 	overflow-y: hidden;
-	height: 120px;
+	min-height: 100px;
 	background-color: $primary-color;
 	padding: 2% 5%;
 	white-space: nowrap;
@@ -511,7 +512,7 @@ ion-popover-view .list .button {
 
 .story-image-container {
 	display: inline-block;
-    height: 100px;
+    height: 120px;
     overflow: hidden;
     margin-right: 3%;
 }
@@ -522,33 +523,64 @@ ion-popover-view .list .button {
 
 .video-player {
 	display: inline-block;
-	height: 100px;
 	overflow: hidden;
 	margin-right: 3%;
+	width: 160px;
 }
 
 .video-player video {
-	height: 100%;
-	width: auto;
+	height: 120px;
+	width: 160px;
+}
+
+.video-player iframe {
+	height: 120px;
+	width: 160px;
 }
 
 .video-player .play-button {
-	height: 100%;
-	width: auto;
-	margin-top: -105px;
+	height: 120px;
+	width: 160px;
+	margin-top: -120px;
+	z-index: 100;
 
 	i {
+		text-align: center;
+		display: block;
 		color: white;
 		font-size: 2em;
 		position: relative;
-		top: 35px;
-		left: 60px;
+		top: 50%;
+		left: 50%;
+		-webkit-transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);
 		
 	}
 }
 
+.video-player p {
+	color: white;
+	margin-top: 0;
+	overflow: auto;
+	word-wrap: break-word;
+	white-space:pre-wrap;
+}
+
 video::-webkit-media-controls {
     display:none !important;
+}
+
+.audio-container {
+	margin-top: 10px;
+}
+
+.audio-container audio {
+	width: 100%;
+}
+
+.audio-container p {
+	margin-top: 2px;
+	color: white;
 }
 
 
@@ -602,6 +634,15 @@ video::-webkit-media-controls {
     top: 0;
 }
 
+.image-description {
+	color: white;
+	position: fixed;
+	bottom: 30px;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+}
+
 .slider {
     width: 100%;
     height: 100%;
@@ -614,7 +655,7 @@ video::-webkit-media-controls {
 // Styling for the modal
 .rating-modal {
 	min-height: 30%;
-	height: 30%;
+	height: 32%;
 	width: 75%;
 	background-color: $background-color;
 	position: absolute;
@@ -625,7 +666,7 @@ video::-webkit-media-controls {
 
     .rating-content {
     	position: relative;
-    	top: 25%;
+    	top: 20%;
     }
 
     .star {
@@ -634,24 +675,13 @@ video::-webkit-media-controls {
     	padding: 0.5%;
     }
 
-   button.button-light {
-   		width: 120px;
-   		margin: 0 auto;
-   		font-size: 0.9em;
-   		min-height: 20px;
-   		line-height: 1.8em;
-   		background-color: $background-color-dark;
-   		border: none;
-   		margin-top: 4px;
-   }
-
-   button.button-light.active {
-   	background-color: $primary-color;
-   	color: white;
-   }
-
    .filled {
    color: #fd0;
+   }
+
+   .button {
+   	width: 80%;
+   	margin: 4% auto;
    }
 }
 
@@ -931,11 +961,28 @@ ion-slide .card {
 	background-color: rgba(0,0,0,0.34);
 	padding: 1% 2%;
 	border-radius: 50%;
+	z-index: 100;
 }
 
-ion-slide img {
+ion-slide .cover-image {
 	min-width: 100%;
 	height: auto;
+}
+
+ion-slide div.cover-image {
+	position: absolute;
+	top: 0;
+	background-color: $background-color-dark;
+	height: 200px;
+	margin: 0;
+}
+
+ion-slide div.cover-image i {
+	color: $background-color;
+	font-size: 10em;
+	margin: 0 auto;
+	line-height: 200px;
+	opacity: 0.5;
 }
 
 ion-slide .content-wrapper {
@@ -971,7 +1018,7 @@ ion-slide .button {
 
 .fade-box {
 	position: absolute; 
-	bottom: 3%; 
+	bottom: 0; 
 	left: 0;
 	width: 100%; 
 	height: 100px;
