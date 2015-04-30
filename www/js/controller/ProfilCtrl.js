@@ -78,7 +78,7 @@ stories.controller('ProfilCtrl', function($scope, Requests, User, $state) {
 			});
 
 		});
-		 $scope.profileSaved = true;
+		$scope.profileSaved = true;
 	};
 
 

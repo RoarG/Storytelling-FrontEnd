@@ -7,7 +7,6 @@ angular.module('RatingCtrl', [])
 
 stories.controller("RatingCtrl", function($scope, Requests, User) {
 	$scope.userId = window.localStorage['userId'];
-	$scope.story = Requests.getSelectedStory();
 	$scope.ratingSaved = false;
 
 	// Rate story

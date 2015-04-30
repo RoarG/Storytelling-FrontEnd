@@ -5,17 +5,13 @@
 
 angular.module('ListViewCtrl', [])
 
-stories.controller('ListViewCtrl', function($scope, Requests, Story, $state, $rootScope, $ionicLoading, categoryPicker) {
+stories.controller('ListViewCtrl', function($scope, Requests, Story, $state, $rootScope, $ionicLoading,) {
 	//Display loading screen
 	$ionicLoading.show({
 		template: '<h2>Laster inn...</h2><div class="icon ion-loading-a"></div>',
 		noBackdrop: false
 	});
 
-	//Call the categoryPicker service
-	$scope.chooseCategories = function(categories) {
-		categoryPicker(categories);
-	};
 
 	$scope.tag = Requests.getSelectedTag();
 	// Retrieve stories associated with selected tag
