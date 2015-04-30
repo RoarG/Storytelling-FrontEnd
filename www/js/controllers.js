@@ -261,8 +261,9 @@ $scope.updateProfil = function() {
       $scope.user = response.data;
       category_preference = $scope.user.userModel.category_preference;
       for (element in category_preference) {
-              $scope.categories[category_preference[element]].isSelected = true; 
-              $scope.selectedCat.push(category_preference[element]);
+              index = parseInt(category_preference[element]);
+              $scope.selectedCategory(index);
+              $scope.categories[index].isSelected = true; 
       }
     });
   };
