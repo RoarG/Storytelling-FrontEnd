@@ -45,7 +45,7 @@ stories.controller('MenuCtrl', function($scope, Requests, User, $state, $window)
 
 	//TODO: Forklar!
 	$scope.updateMenu = function() {
-		Requests.getAllLists($window.localStorage.getItem['userId']).then(function(response) {
+		Requests.getAllLists($window.localStorage.getItem('userId')).then(function(response) {
 			$scope.collectionList = response.data;
 			console.log($scope.collectionList);
 		});

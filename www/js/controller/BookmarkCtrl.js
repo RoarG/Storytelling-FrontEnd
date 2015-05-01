@@ -10,7 +10,7 @@ angular.module('BookmarkCtrl', [])
 stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests, $window) {
 
 	
-	$scope.userId = $window.localStorage.getItem['userId'];
+	$scope.userId = $window.localStorage.getItem('userId');
 	$scope.storyId = Requests.getSelectedStory();
 	
 	//TODO:  Forklar!
@@ -20,8 +20,8 @@ stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests, $windo
 	//TODO: Fix!
 	// May use the collectionList in AppCtrl instead
 	// The collections a user has, and whether this story is in it.
-	Requests.getAllLists($scope.userId).then(function(data, status) {
-		$scope.collectionList = data;
+	Requests.getAllLists($scope.userId).then(function(response) {
+		$scope.collectionList = response.data;
 		for (var i = 0; i < $scope.collectionList.length; i++) {
 			for (var j = 0; j < $scope.tags.length; j++) {
 				if ($scope.collectionList[i]["text"].valueOf() === $scope.tags[j]["text"].valueOf()) {

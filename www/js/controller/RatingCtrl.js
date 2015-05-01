@@ -14,10 +14,10 @@ stories.controller("RatingCtrl", function($scope, Requests, $window) {
 	// Rate story //TODO: Forklar!
 	$scope.rateFunction = function(rating) {
 		$scope.ratingStatus = "rating";
+		$scope.story.rating = rating;
             
         Requests.addRating(Requests.getSelectedStory(), $scope.userId, rating).then(function(response) {
           $scope.ratingStatus = "rated";
-          $scope.story.rating = rating;
         }, function(response) {
           console.log("Rating not saved");
         });
