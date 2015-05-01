@@ -64,6 +64,14 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	    $scope.user.email = '';
 	}
 
+	$scope.setLocalUser = function (userid){
+		console.log("setLocalUser called");
+		Requests.getUserFromId(userid).then(function(response){
+			$window.localStorage.setItem('userId', $scope.responseData.userId);
+			$window.localStorage.setItem('userModel', $scope.responseData.userModel) ;
+		});
+	}
+        
         //Adds a new user to the Database
 	$scope.userDontExist = function (email) {
 	    $scope.user.email = $scope.tempMail
@@ -75,22 +83,24 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	        $window.localStorage.setItem('userId', $scope.responseData.userId);
 
 	        //Go to the next view 
-	        $state.go("profile");
 	        //Sets the input as a empty string
 	        $scope.user.email = '';
 	        console.log("userDontExist called" , response.data.status );
 
-	        $ionicLoading.hide();	
-
-	   		if (response.data.status == "successfull") {
-	   			return true;
-	   		}
-	   		else
+	        //User is created on the server sider or not
+	   		if (response.data.status === "sucessfull") 
 	   		{
-	   			return false;
-	   		}    
+	   			$scope.setLocalUser(response.data.userId);
+	        	$state.go("profile");
+	   			$ionicLoading.hide();
+	   		}
+	   		else if (response.data.status === "failed")
+	   		{
+	   			$ionicLoading.hide();
+	   			$scope.failedResponse();
 
-	    })
+	   		}    
+	    });
 	}
 
 	//TODO: Forklar!
@@ -127,27 +137,10 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 
 	//TODO: Forklar!
 	$scope.doLogin = function(email) {
+	    
 	    $scope.showLoading();
-	   
 	    	//TODO: Mail verifisring
-	  	$scope.requestUser(email);
-
-	/*   	console.log("RTES", bool );
-		//console.log("result: " , result)
-	    if (bool)
-		{
-		    $scope.userExist();
-		}
-            //If the e-mail is not recorded in the database make a new user 
-	    else if (!bool)
-		{
-	       // $scope.userDontExist();
-		}
-		else 
-		{
-		    console.log("Something when wrong with login");
-		}*/
-			
+	  	$scope.requestUser(email);			
 	};
 
 	// Triggered in the login view to skip it
