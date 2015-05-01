@@ -300,7 +300,28 @@ stories.factory("Requests", function ($http) {
 			$http(req);
 		},
 
-//TODO: Forklar
+		/**Registers in database when user opens app*/
+		opensApp: function(userId){
+			req.data = {
+				type: "appUsage",
+				userId: userId,
+				usageType: "Opened"
+			};
+			return $http(req);
+		},
+
+		/**Registers in database when user closes app*/
+		closesApp: function(userId){
+			req.data = {
+				type: "appUsage",
+				userId: userId,
+				usageType: "Closed"
+			};
+			return $http(req);
+		},
+
+
+		//TODO: Forklar
 		setSelectedStory: function (storyId){
 			selectedStory = storyId;
 		},

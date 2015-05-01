@@ -78,7 +78,7 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 	      $scope.recommendArray.push($scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id);
 	    }
 	    if($ionicSlideBoxDelegate.currentIndex() === $scope.storyPreviews.length-3) {
-	      Requests.getRecommendedStories($scope.userId).success(function(data, status) {
+	      Requests.getMoreRecommendedStories($scope.userId).success(function(data, status) {
 	        $scope.storyPreviews = $scope.storyPreviews.concat(data);
 	        $timeout(function() {
 	          console.log($scope.storyPreviews);
