@@ -79,19 +79,32 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 .bottomCont{
-	display: block;
+	/*position: fixed;*/
+	/*display: block;*/
 	height: 50%;
 	text-align: center;
 	padding-top: 5%;
+	bottom: 8%;
 }
 
 .bottomCont2 {
 	position: fixed;
-	bottom: 8%;
-	width: 100%;
+	bottom: 10%;
+	/*TODO: av en rargrunn så passer dette? 90%*/
+	width: 95%;
 }
 
 .button-cont {
+	padding-top: 5%;
+	width: 100%;
+    bottom: 8%;
+    /*text-align: center;*/
+    display: inline-block;
+}
+
+	/*til login samme som button-cont profil*/
+.contCont {
+	padding-top: 5%;
 	width: 70%;
     bottom: 8%;
     display: inline-block;
@@ -99,8 +112,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 .buttons-cont {
 	/*width: 70%;*/
-    bottom: 8%;
-  /*  display: inline-block;*/
+    /*bottom: 8%;*/
+    /*display: block;*/
 }
 
 
@@ -143,13 +156,12 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 #nav-button1 {
     width: 9em;
-    margin-right: 0%;
+    margin-right: 5%;
 }
 
 #nav-button2 {
     width: 	9em;
     margin-left: 0%;
-    float: right;
 }
 
 
@@ -218,10 +230,17 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     padding-top: 36%;
 }
 
+/*.pageIndicator {
+	position: fixed;
+	width: 89%;
+}*/
 
 .pageIndicatorContLogin {
-    text-align: center;
-    padding-top: 15%;
+    /*text-align: center;*/
+   /*display: block;*/
+  /* position: fixed;*/
+   padding-top: 15%;
+   bottom: 10%;
 }
 
 .ion-ios-circle-outline{
