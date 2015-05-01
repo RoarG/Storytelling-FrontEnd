@@ -2,15 +2,17 @@
 //  Story 
 ////////////////////////
 
+//TODO: Forklar!
+
 angular.module('StoryCtrl', [])
 
 stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ionicPopover, Requests, Story, $rootScope, $sce, $ionicLoading, $window) {
 
 	$scope.storyId = Requests.getSelectedStory();
-	$scope.userId = window.localStorage['userId'];
+	$scope.userId = $window.localStorage.getItem['userId'];
 
 	// Get story data.
-	//Må ha .then() for å kunne hente fra http.post i backend.services
+	//TODO: Forklar!
 	Requests.getStory($scope.storyId, $scope.userId).then(function(response) {
 		$scope.story = new Story(response.data);
 		console.log($scope.story.imageList);
@@ -49,6 +51,7 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 			$scope.showModal('templates/image-popover.html');
 		};
 
+		//TODO: Forklar!
 		$scope.showModal = function(templateUrl) {
 			$ionicModal.fromTemplateUrl(templateUrl, function(modal) {
 						$scope.childCtrl = modal;
@@ -69,7 +72,7 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 			$scope.modal.remove();
 		};
 
-		// Necessary for video urls
+		// Necessary for video urls //TODO: Forklar! WHY?
 		$scope.getTrustedUrl = function(url) {
 			return $sce.trustAsResourceUrl(url);
 		};
@@ -88,6 +91,7 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 			$scope.video.play();
 		};
 
+		//TODO: Forklar!
 		document.addEventListener('webkitfullscreenchange', function(e) {
 			if ($scope.fullscreen) {
 				$scope.video.pause();
@@ -97,8 +101,9 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 				console.log("Enter fullscreen");
 			}
 		});
-
+		
+		//TODO: Forklar!
 		$scope.openUrl = function(url) {
-			window.open(url, '_system');
+			$window.open(url, '_system');
 		};
 	})

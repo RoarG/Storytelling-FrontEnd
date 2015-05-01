@@ -2,47 +2,50 @@
 //	Menu 
 ////////////////////////
 
+//TODO: Forklar!
 
 angular.module('MenuCtrl', [])
 
-stories.controller('MenuCtrl', function($scope, Requests, User, $state) {
+stories.controller('MenuCtrl', function($scope, Requests, User, $state, $window) {
 
-	//$state, $ionicLoading
-
+		//TODO: Forklar!
 	$scope.logout = function() {
-		console.log(window.localStorage['newUser'] + "Logout " + window.localStorage['userId']);
+		console.log($window.localStorage['newUser'] + "Logout " + $window.localStorage.getItem['userId']);
 
-		//TODO: Trengs denne? 
-		window.localStorage.clear();
-		window.localStorage['userId'] = "-1";
-		window.localStorage['newUser'] = true;
+		//TODO: Trengs denne? SJEKKE HER ROAR!!!
+		$window.localStorage.clear();
+		$window.localStorage.setItem['userId'] = "-1";
+		$window.localStorage.setItem['newUser'] = true;
 		$state.go("login");
 
 		console.log("email" + $scope.email);
-		console.log("login" + window.localStorage['newUser']);
+		console.log("login" + $window.localStorage.getItem['newUser']);
 
 		//TODO: add feedback to user
 	}
 
+	//TODO: Forklar!
 	$scope.viewList = function(listName) {
 		Requests.setSelectedTag(listName);
 		$state.go("app.listView");
 	};
 
+	//TODO: Forklar! List? bookmark?
 	$scope.deleteList = function(list) {
 		$ionicPlatform.ready(function() {
 			$cordovaDialogs.confirm('Vil du slette listen "' + list.text + '"?', 'Slett liste', ['OK', 'Avbryt']).then(function(response) {
 				if (response === 1) {
 					var index = $scope.collectionList.indexOf(list);
 					$scope.collectionList.splice(index, 1);
-					Requests.removeTag(window.localStorage['userId'], list.text);
+					Requests.removeTag($window.localStorage.getItem['userId'], list.text);
 				}
 			});
 		});
 	};
 
+	//TODO: Forklar!
 	$scope.updateMenu = function() {
-		Requests.getAllLists(window.localStorage['userId']).then(function(response) {
+		Requests.getAllLists($window.localStorage.getItem['userId']).then(function(response) {
 			$scope.collectionList = response.data;
 			console.log($scope.collectionList);
 		});

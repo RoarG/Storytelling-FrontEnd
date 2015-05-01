@@ -7364,6 +7364,9 @@ ion-popover-view .list .button {
   margin: -8% 3% 0 3%;
   padding: 0 3%;
   border-radius: 5px; }
+  .story-introduction p {
+    color: #98623e;
+    font-style: italic; }
 
 .story-wrapper {
   position: relative;
@@ -7371,6 +7374,10 @@ ion-popover-view .list .button {
   padding: 2% 3%;
   border-radius: 5px;
   z-index: -1; }
+
+.button-bar, .media-content {
+  width: 95%;
+  margin: -2px auto 0 auto; }
 
 .button-bar > .button {
   min-height: 25px;
@@ -7577,6 +7584,8 @@ video::-webkit-media-controls {
   .rating-modal .button {
     width: 80%;
     margin: 4% auto; }
+  .rating-modal .ion-loading-a {
+    font-size: 1.6em; }
 
 .rating {
   width: 50%;
@@ -7600,6 +7609,8 @@ video::-webkit-media-controls {
     border: none; }
   .rating .button.button-light.active {
     background-color: white; }
+  .rating .ion-loading-a {
+    font-size: 1.6em; }
 
 /*
 	Preferences
@@ -7710,10 +7721,7 @@ video::-webkit-media-controls {
   background-color: #FFF9EE; }
 
 .recom-story-categories {
-  position: absolute;
-  bottom: 15px;
-  left: 7.5%;
-  width: 85%; }
+  margin-top: 0; }
 
 .recom-category-circle .cat-1 {
   background-color: #F8BBD0;
@@ -7746,6 +7754,10 @@ video::-webkit-media-controls {
 .recom-category-circle.media-icons {
   background-color: #C2B2A7; }
 
+.recom-category-circle {
+  margin-top: 0;
+  margin-bottom: 10px; }
+
 .recom-category-circle li {
   font-size: 1.2em;
   width: 27px;
@@ -7776,6 +7788,18 @@ ion-slide .card {
   border-radius: 50%;
   z-index: 100; }
 
+ion-slide p.recommExplanation {
+  width: 80%;
+  text-align: center;
+  position: absolute;
+  bottom: 3%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%); }
+  ion-slide p.recommExplanation a {
+    display: inline-block;
+    padding: 5px 0; }
+
 ion-slide .cover-image {
   min-width: 100%;
   height: auto; }
@@ -7801,11 +7825,11 @@ ion-slide .content-wrapper {
   width: 100%;
   overflow: hidden;
   height: 200px;
-  margin-bottom: 5%; }
+  margin-bottom: 5px; }
 
 ion-slide h2 {
   margin-bottom: 1%;
-  margin-top: 3%;
+  margin-top: 5%;
   clear: both; }
 
 ion-slide p {
@@ -7835,8 +7859,9 @@ ion-slide .button {
 
 .slide-nav {
   position: absolute;
-  top: 40%;
-  transform: translateY(-40%);
+  top: 45%;
+  -webkit-transform: translateY(-45%);
+  transform: translateY(-45%);
   font-size: 2em;
   padding: 50px 10px; }
 

@@ -2,6 +2,7 @@
 //	Profile
 ////////////////////////
 
+//TODO: Forklar!
 
 angular.module('ProfilCtrl', [])
 
@@ -10,17 +11,20 @@ stories.controller('ProfilCtrl', function($scope, Requests, User, $state) {
 	$scope.ageGrp = null;
 	$scope.gender = null;
 
+	//TODO: Forklar!
 	$scope.goLogin = function() {
 		$state.go("login");
 		StatusBar.show();
 		console.log("vi " + vi);
 	};
 
+	//TODO: Forklar!
 	$scope.setAgeGrp = function(ageGrp) {
 		$scope.ageGrp = ageGrp;
 		console.log('AgeGrp : ' + $scope.ageGrp);
 	};
 
+	//TODO: Forklar!
 	$scope.setGender = function(gender) {
 		$scope.gender = gender;
 		console.log('Gender : ' + $scope.gender);
@@ -39,6 +43,7 @@ stories.controller('ProfilCtrl', function($scope, Requests, User, $state) {
 		});
 
 	};
+
 	//saves the profile information initially set by first-time user 
 	$scope.saveProfil = function() {
 		console.log("ageGrp" + $scope.ageGrp);
@@ -60,6 +65,7 @@ stories.controller('ProfilCtrl', function($scope, Requests, User, $state) {
 		$state.go("preferences");
 
 	};
+	
 	//saves the new profile information set in the settings -> preferences view
 	$scope.updateProfil = function() {
 		$scope.profileSaved = false;

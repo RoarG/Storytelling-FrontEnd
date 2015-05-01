@@ -2,6 +2,8 @@
 //  Settings 
 ////////////////////////
 
+//TODO: Forklar!
+
 angular.module('SettingsCtrl', [])
 
 
@@ -21,7 +23,7 @@ stories.controller('SettingsCtrl', function($scope, Requests, User, $ionicLoadin
 		});
 	};
 
-	//updates the user's email
+	//updates the user's email //TODO: Forklar!
 	$scope.saveEmail = function(email) {
 		Requests.getUserFromId(window.localStorage['userId']).then(function(response) {
 			console.log("response status(getUserFromId) : " + response.data.status);

@@ -1,5 +1,10 @@
+
+//TODO: Forklar
+
 angular.module('backend.services', ['ngSanitize'])
 
+
+//TODO: Forklar
 stories.factory("Story", function ($sce) {
 
 	 /**
@@ -54,13 +59,14 @@ stories.factory("Story", function ($sce) {
 })
 
 
+//TODO: Forklar
 stories.factory('User', function (){
 
 	/*if no userdata is retrieved from the database, use new User(userId). Else see
 	Requests.updateUser*/
 	function User(userId, userData){
 		this.userId = userId;
-
+		//TODO: Forklar
 		if(userData != null && userData != undefined){
 			if(userData.email == null || userData.email == undefined)
 				this.email = -1;
@@ -78,6 +84,7 @@ stories.factory('User', function (){
 			this.category_preference = null;
 		}
 	};
+	//TODO: Forklar
 	User.prototype.getUser = function() {
 		var userData;
 		userData.userId = this.userId;
@@ -88,6 +95,7 @@ stories.factory('User', function (){
 		userData.category_preference = this.category_preference;
 		return userData;
 	};
+	//TODO: Forklar
 	User.prototype.setEmail = function(email){ this.email = email; };
 	User.prototype.setAgeGroup = function(age_group){ this.age_group = age_group; };
 	User.prototype.setGender = function(gender){ this.gender = gender; };
@@ -144,6 +152,7 @@ stories.factory("Requests", function ($http) {
 			return $http(req);
 		},
 		
+		//TODO: Forklar
 		addTag: function(tagName, userId, storyId){
 			req.data = {
 				type: "addTag",
@@ -291,6 +300,7 @@ stories.factory("Requests", function ($http) {
 			$http(req);
 		},
 
+//TODO: Forklar
 		setSelectedStory: function (storyId){
 			selectedStory = storyId;
 		},

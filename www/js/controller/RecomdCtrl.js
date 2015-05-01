@@ -4,6 +4,8 @@
 
 angular.module('RecomdCtrl', [])
 
+//TODO: Forklar!
+
 stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBoxDelegate, $ionicModal, $ionicLoading, $state, $ionicSideMenuDelegate, $timeout, $ionicHistory, $window) {
 
 	$scope.storyPreviews = [];
@@ -17,7 +19,7 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 		$ionicSideMenuDelegate.canDragContent(false);
 	});
 
-
+	//TODO: Forklar!
 	Requests.getRecommendedStories($scope.userId).then(function(response) {
 		$scope.storyPreviews = response.data;
 		console.log($scope.storyPreviews);
@@ -32,14 +34,17 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
   	});
 
 
-
+	//TODO: Forklar!
 	$scope.nextSlide = function() {
 		$ionicSlideBoxDelegate.next();
 	};
+
+	//TODO: Forklar!
 	$scope.previousSlide = function() {
 		$ionicSlideBoxDelegate.previous();
 	};
 
+	//TODO: Forklar!
 	$scope.rejectStory = function(index) {
 		// If it is the last slide, go back to previous slide. Otherwise, next slide. 
 		if (index == $scope.storyPreviews.length - 1) {
@@ -47,7 +52,7 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 		} else {
 			$ionicSlideBoxDelegate.next();
 		}
-		// Wait 500 seconds so it slides to another slide before deleting current slide. 
+		// Wait 500 milliseconds so it slides to another slide before deleting current slide. 
 		$timeout(function() {
 			if (index < $scope.storyPreviews.length - 1) {
 				$ionicSlideBoxDelegate.previous();
@@ -63,6 +68,7 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 	  Runs when going to next/previous slide (and when a slide is changed?)
 	  Set the story in current slide as the current story. 
 	 */
+	 //TODO: Forklar! Del opp
 	$scope.slideChanged = function() {
 		Requests.setSelectedStory($scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id);
 	    //TODO: Record swiped_past for the slide we came from?
@@ -84,6 +90,7 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 	    }
     };
 
+    //TODO: Forklar!
 	$scope.openStory = function(story) {
 		$ionicLoading.show({
       		template: '<h2>Laster inn historie</h2><div class="icon ion-loading-a"></div>',
@@ -93,6 +100,7 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 		$state.go("app.story");
 	};
 
+	//TODO: Forklar!
 	$scope.openStoryLink = function(storyId) {
 	    $ionicLoading.show({
 	      template: '<h2>Laster inn historie</h2><div class="icon ion-loading-a"></div>',
@@ -102,6 +110,7 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 	    $state.go("app.story");
   	};
 
+  	//TODO: Forklar!
 	$scope.showModal = function(templateUrl) {
 		$ionicModal.fromTemplateUrl(templateUrl, {
 			scope: $scope,
@@ -118,6 +127,7 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 		$scope.modal.remove();
 	};
 
+	//TODO: Forklar!
 	$scope.$on('$ionicView.beforeEnter', function() {
 		$ionicSlideBoxDelegate.update();
 	});

@@ -2,12 +2,13 @@
 //  Preferences
 ////////////////////////
 
+//TODO: Forklar!
 
 angular.module('PrefCtrl', [])
 
-stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLoading) {
+stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLoading, $window) {
 
-
+	//TODO: Forklar!
 	function Category(name, icon, isSelected) {
 		this.name = name;
 		this.icon = icon;
@@ -28,6 +29,7 @@ stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLo
 
 	$scope.selectedCat = [];
 
+	//TODO: Forklar!
 	$scope.selectedCategory = function(category) {
 		addToArray = true;
 		for (var i = 0; i < $scope.selectedCat.length; i++) {
@@ -49,7 +51,7 @@ stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLo
 
 	//loads and displays existing preferences when opening the view
 	$scope.loadPreferences = function() {
-		Requests.getUserFromId(window.localStorage['userId']).then(function(response) {
+		Requests.getUserFromId($window.localStorage.getItem['userId']).then(function(response) {
 			console.log("response status(getUserFromId) : " + response.data.status);
 			$scope.user = response.data;
 			category_preference = $scope.user.userModel.category_preference;
@@ -62,12 +64,12 @@ stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLo
 		});
 	};
 
-	//saves the preferences initially chosen by first-time user 
+	//saves the preferences initially chosen by first-time user //TODO: Forklar! CLEAN UP ROAR
 	$scope.savePreferences = function() {
 		console.log("Saving Preferences");
 
-		Requests.getUserFromId(window.localStorage['userId']).then(function(response) {
-			user = new User(window.localStorage['userId'], response.data.userModel);
+		Requests.getUserFromId($window.localStorage.getItem['userId']).then(function(response) {
+			user = new User($window.localStorage.getItem['userId'], response.data.userModel);
 			console.log("response status(getUserFromId) : " + response.data.status);
 
 			user.setCategoryPreference($scope.selectedCat);
@@ -92,8 +94,8 @@ stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLo
 		$scope.preferencesSaved = false;
 		console.log("Saving Preferences");
 
-		Requests.getUserFromId(window.localStorage['userId']).then(function(response) {
-			user = new User(window.localStorage['userId'], response.data.userModel);
+		Requests.getUserFromId($window.localStorage.getItem['userId']).then(function(response) {
+			user = new User($window.localStorage.getItem['userId'], response.data.userModel);
 			console.log("response status(getUserFromId) : " + response.data.status);
 
 			user.setCategoryPreference($scope.selectedCat);

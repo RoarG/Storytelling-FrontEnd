@@ -2,19 +2,25 @@
 //  Bookmark 
 ////////////////////////
 
+//TODO: Forklar!
+
 angular.module('BookmarkCtrl', [])
 
 
-stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests) {
+stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests, $window) {
+
 	
-	$scope.userId = window.localStorage['userId'];
+	$scope.userId = $window.localStorage.getItem['userId'];
 	$scope.storyId = Requests.getSelectedStory();
+	
+	//TODO:  Forklar!
 	Requests.getStoryTags($scope.userId, $scope.storyId).then(function(response) {
 		$scope.tags = response.data;
 
+	//TODO: Fix!
 	// May use the collectionList in AppCtrl instead
 	// The collections a user has, and whether this story is in it.
-	Requests.getAllLists($scope.userId).success(function(data, status) {
+	Requests.getAllLists($scope.userId).then(function(data, status) {
 		$scope.collectionList = data;
 		for (var i = 0; i < $scope.collectionList.length; i++) {
 			for (var j = 0; j < $scope.tags.length; j++) {
@@ -36,7 +42,7 @@ stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests) {
 		$scope.displayTextField = true;
 	};
 
-	// Add text entered as a new collection and add the story to it. 
+	// Add text entered as a new collection/bookmark and add the story to it. 
 	$scope.addItem = function() {
 		if ($scope.newItemName) {
 			$scope.collectionList.push({
@@ -61,6 +67,7 @@ stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests) {
 					$scope.tags.splice(i, 1);
 				}
 			}
+			//TODO: Forklar.
 		} else {
 			Requests.tagStory(tag.text, $scope.userId, $scope.story.storyId);
 			$scope.tags.push(tag["text"]);

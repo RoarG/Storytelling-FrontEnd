@@ -1,11 +1,11 @@
 // First parameter is the name of the module
 // the 2nd parameter is an array of 'requires'
+//TODO: Forklar! FIX
 // 'starter.controllers' is found in controllers.js Files ending with Ctrl is found in the controlles folder
 var stories = angular.module('stories', [
 	'ionic',	
 	'backend.services',
-	'ngCordova',
-	
+	'ngCordova',	
 	'ui.router',
 	'IntroCtrl',
 	'LoginCtrl',
@@ -21,12 +21,10 @@ var stories = angular.module('stories', [
 ])
 
 
-
 .run(function($ionicPlatform, $cordovaDialogs, $cordovaNetwork, $rootScope, $cordovaSplashscreen) {
 	$ionicPlatform.ready(function() {
-
-		//Initial new user
-		window.localStorage['newUser'] = false;
+		
+		//TODO: Forklar! FIX
 		//Enable fullsceen for the onboarding and splashscreen
 		//StatusBar.hide();
 		//Showing the SpashScreen for 5 sec.
@@ -42,13 +40,15 @@ var stories = angular.module('stories', [
 			//Undersøk om denne får ønskelig resultat i IOS
 			cordova.plugins.Keyboard.disableScroll(true);
 		}
+		//TODO: Forklar!
 		if (window.StatusBar) {
-
+			//TODO: Forklar!
 			// org.apache.cordova.statusbar required
 			StatusBar.styleDefault();
 			StatusBar.hide();
 		}
 
+		//TODO: Forklar!
 		if (window.Connection) {
 			if ($cordovaNetwork.isOffline()) {
 				$cordovaDialogs.alert("Ingen nettilgang", "Enheten din er ikke tilkoblet Internett");
@@ -71,10 +71,7 @@ var stories = angular.module('stories', [
 	});
 })
 
-/*  $scope.Platform.ready(function() {
-	//hide the status bar using the StatusBar plugin
-	StatusBar.hide();
-  });*/
+//TODO: Forklar!
 .config(function($stateProvider, $urlRouterProvider, $sceDelegateProvider, $ionicConfigProvider) {
 	$ionicConfigProvider.backButton.text('Tilbake');
 	$stateProvider
@@ -192,11 +189,7 @@ var stories = angular.module('stories', [
 
 
 	// If app is not started before go to onboardOne
-	// already logged in, go to recommendation view, otherwise go to login. 
-
-	
-	
+	// already logged in, go to recommendation view, otherwise go to login. 	
 	$urlRouterProvider.otherwise('/onboardOne');
   
-
 });
