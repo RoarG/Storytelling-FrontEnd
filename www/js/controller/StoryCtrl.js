@@ -4,15 +4,15 @@
 
 angular.module('StoryCtrl', [])
 
-stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ionicPopover, Requests, Story, $rootScope, $sce, $ionicLoading) {
+stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ionicPopover, Requests, Story, $rootScope, $sce, $ionicLoading, $window) {
 
-	var storyId = Requests.getSelectedStory();
-	var userId = window.localStorage['userId'];
+	$scope.storyId = Requests.getSelectedStory();
+	$scope.userId = window.localStorage['userId'];
 
 	// Get story data.
 	//Må ha .then() for å kunne hente fra http.post i backend.services
-	Requests.getStory(storyId, userId).success(function(data, status) {
-		$scope.story = new Story(data);
+	Requests.getStory($scope.storyId, $scope.userId).then(function(response) {
+		$scope.story = new Story(response.data);
 		console.log($scope.story.imageList);
 
 
@@ -39,7 +39,7 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 			$scope.mediaType = "images";
 		}	
 	$ionicLoading.hide();
-	}).error(function(data, status) {
+	}, function(data, status) {
 		console.log(status);
 	});
 

@@ -7,7 +7,7 @@
         <div id="story-header-container">
             <img ng-if="story.imageList" ng-src={{story.imageList[0]}} alt="" class="story-header-image" />
             <img ng-if="!story.imageList && story.videoList[0]" class="story-header-image" ng-src={{story.videoList[0]['posterurl']}} />
-            <div ng-if="!story.imageList && !story.videoList[0]" class="story-header-image"><i class="ion-image"></i></div>
+            <div ng-if="!story.imageList && !story.videoList[0]" class="story-header-image"></div>
         </div>
         <div class="story-introduction card">
             <h2>{{story.title}}</h2>
@@ -64,7 +64,7 @@
                 </div>
             </div>
         </ion-scroll>
-        <div class="story-wrapper card">
+        <div ng-if="story.text" class="story-wrapper card">
             <p class="clear-float" ng-bind-html="story.text"></p>
         </div>
 
@@ -72,7 +72,9 @@
             <div class="rating" ng-controller="RatingCtrl">
                 <p>Likte du denne historien?</p>
                 <i class="icon ion-android-star star" ng-class="{filled: i <= story.rating}" ng-repeat="i in [1,2,3,4,5]" ng-click="rateFunction(i)"></i>
-                <p ng-show="ratingSaved"><i class="ion-checkmark"></i> Lagret</p>
+                <p ng-show="ratingStatus.valueOf() === 'rating'"> <i class="icon ion-loading-a"></i></p>
+                <p ng-show="ratingStatus.valueOf() === 'rated'"><i class="ion-checkmark"></i> Lagret</p>
+
             </div>
             <h3 ng-if="story.municipality">Sted</h3>
             <span>{{story.municipality}}</span>

@@ -26,7 +26,7 @@ stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests) {
 				$scope.collectionList[i]["checked"] = false;
 			}
 		}
-	}).error(function(data, status) {
+	}, function(data, status) {
 		console.log(status);
  	});
 });

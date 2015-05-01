@@ -13,13 +13,6 @@
                     </div>
 
                     <div class="content-wrapper" ng-click="openStory(story)">
-                        <h2>{{story.title}}</h2>
-                        <span class="small-text">{{story.author.join(", ")}}</span>
-                        <!--<p>{{story.introduction | limitTo: 150}}{{story.introduction.length > 150 ? '...' : ''}}</p>-->
-                        <p>{{story.description}}</p>
-                        <div class="fade-box">
-                            <!--<div class="button button-calm button-block" ng-click="openStory(story)">Les mer</div>-->
-                        </div>
                         <div class="recom-story-categories">
                             <ul ng-repeat="category in story.categories" class="recom-category-circle" ng-switch on="category">
                                 <li class="list-cat-display cat-1" ng-switch-when="1"><i class="icon-art"></i></li>
@@ -42,10 +35,20 @@
                                 <li ng-if="story.mediaType.indexOf('picture') !== -1"><i class="ion-image"></i></li>
                             </ul>
                         </div>
+                        <h2>{{story.title}}</h2>
+                        <span class="small-text">{{story.author.join(", ")}}</span>
+                        <!--<p>{{story.introduction | limitTo: 150}}{{story.introduction.length > 150 ? '...' : ''}}</p>-->
+                        <p>{{story.description}}</p>
+                        <div class="fade-box">
+                            <!--<div class="button button-calm button-block" ng-click="openStory(story)">Les mer</div>-->
+                        </div>
                     </div>
                 </div>
                 <div class="slide-nav slide-nav-left" ng-click="previousSlide()" ng-hide="$index === 0"><i class="ion-chevron-left"></i></div>
-                <div class="slide-nav slide-nav-right" ng-click="nextSlide()" ng-hide="$index === stories.length-1"><i class="ion-chevron-right"></i></div>
+                <div class="slide-nav slide-nav-right" ng-click="nextSlide()" ng-hide="$index === storyPreviews.length-1"><i class="ion-chevron-right"></i></div>
+                <p ng-if="story.explanation" class="recommExplanation">Denne historien ble anbefalt fordi du så på historiene <a href="" ng-click="openStoryLink(story.explanation[0])">{{story.explanation[0]}}</a>, <a href="" ng-click="openStoryLink(story.explanation[1])">{{story.explanation[1]}}</a> og <a href="" ng-click="openStoryLink(story.explanation[2])">{{story.explanation[2]}}</a></p>
+                <p>
+                <p ng-if="story.false_recommend === 1" class="recommExplanation">Dette er en historie utenfor dine registrerte interesser</p>
             </ion-slide>
         </ion-slide-box>
     </ion-content>

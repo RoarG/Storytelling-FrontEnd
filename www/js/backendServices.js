@@ -141,7 +141,7 @@ stories.factory("Requests", function ($http) {
 				storyId: storyId,
 				userId: userId,
 				rating: rating};
-			$http(req);
+			return $http(req);
 		},
 		
 		addTag: function(tagName, userId, storyId){

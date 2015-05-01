@@ -5,15 +5,19 @@
 angular.module('RatingCtrl', [])
 
 
-stories.controller("RatingCtrl", function($scope, Requests, User) {
-	$scope.userId = window.localStorage['userId'];
-	$scope.ratingSaved = false;
+stories.controller("RatingCtrl", function($scope, Requests, $window) {
+	$scope.userId = $window.localStorage.getItem('userId');
+	$scope.ratingSaved = "notRated";
 
 	// Rate story
 	$scope.rateFunction = function(rating) {
-		$scope.story.rating = rating;
-		Requests.addRating($scope.story.storyId, $scope.userId, rating);
-		console.log("Rated story: " + rating);
-		$scope.ratingSaved = true;
+		$scope.ratingStatus = "rating";
+            
+        Requests.addRating(Requests.getSelectedStory(), $scope.userId, rating).then(function(response) {
+          $scope.ratingStatus = "rated";
+          $scope.story.rating = rating;
+        }, function(response) {
+          console.log("Rating not saved");
+        });
 	};
 })

@@ -4,13 +4,13 @@
 
 angular.module('RecomdCtrl', [])
 
-stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBoxDelegate, $ionicModal, $ionicLoading, $state, $ionicSideMenuDelegate, $timeout, $ionicHistory) {
+stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBoxDelegate, $ionicModal, $ionicLoading, $state, $ionicSideMenuDelegate, $timeout, $ionicHistory, $window) {
 
-	var storyPreviews = [];
+	$scope.storyPreviews = [];
 	/*Used to know which of the stories in this list of recommendations that have been recommended
   	Used to avoid storing a story as recommended multiple times for one list of recommendations*/
-	var recommendArray = [];
-	$scope.userId = window.localStorage['userId'];
+	$scope.recommendArray = [];
+	$scope.userId = $window.localStorage.getItem('userId');
 
 	$scope.$on('$ionicView.enter', function() {
 		$ionicHistory.clearHistory();
@@ -20,13 +20,16 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 
 	Requests.getRecommendedStories($scope.userId).then(function(response) {
 		$scope.storyPreviews = response.data;
+		console.log($scope.storyPreviews);
 		/*Set the first story as recommended*/
 		Requests.recommendedStory($scope.userId, $scope.storyPreviews[0].id);
-		recommendArray.push($scope.storyPreviews[0].id);
+		$scope.recommendArray.push($scope.storyPreviews[0].id);
 		Requests.setSelectedStory($scope.storyPreviews[0].id);
 		$ionicSlideBoxDelegate.update();
 		$ionicLoading.hide();
-	});
+	}, function(response) {
+    		console.log(response.status);
+  	});
 
 
 
@@ -61,23 +64,43 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 	  Set the story in current slide as the current story. 
 	 */
 	$scope.slideChanged = function() {
-		//TODO: Record swiped_past for the slide we came from?
-		/*Only want to set a story as recommended one time for each list of recommendations*/
-		if (recommendArray.indexOf($scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id) == -1) {
-			Requests.recommendedStory($scope.userId, $scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id);
-			recommendArray.push($scope.stories[$ionicSlideBoxDelegate.currentIndex()].storyId);
-		}
-		$ionicSlideBoxDelegate.update();
 		Requests.setSelectedStory($scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id);
-	};
+	    //TODO: Record swiped_past for the slide we came from?
+	    /*Only want to set a story as recommended one time for each list of recommendations*/
+	    if($scope.recommendArray.indexOf($scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id) == -1){
+	      Requests.recommendedStory($scope.userId, $scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id);
+	      $scope.recommendArray.push($scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id);
+	    }
+	    if($ionicSlideBoxDelegate.currentIndex() === $scope.storyPreviews.length-3) {
+	      Requests.getRecommendedStories($scope.userId).success(function(data, status) {
+	        $scope.storyPreviews = $scope.storyPreviews.concat(data);
+	        $timeout(function() {
+	          console.log($scope.storyPreviews);
+	          $ionicSlideBoxDelegate.update();
+	        }, 100);
+	      }).error(function(data, status) {
+	          console.log(status);
+	      });
+	    }
+    };
 
 	$scope.openStory = function(story) {
 		$ionicLoading.show({
       		template: '<h2>Laster inn historie</h2><div class="icon ion-loading-a"></div>',
     		noBackdrop: false
 	    });
+	    console.log(Requests.getSelectedStory());
 		$state.go("app.story");
 	};
+
+	$scope.openStoryLink = function(storyId) {
+	    $ionicLoading.show({
+	      template: '<h2>Laster inn historie</h2><div class="icon ion-loading-a"></div>',
+	      noBackdrop: false
+	    });
+	    Requests.setSelectedStory(storyId);
+	    $state.go("app.story");
+  	};
 
 	$scope.showModal = function(templateUrl) {
 		$ionicModal.fromTemplateUrl(templateUrl, {
