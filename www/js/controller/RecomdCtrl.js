@@ -78,7 +78,7 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 	      Requests.recommendedStory($scope.userId, $scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id);
 	      $scope.recommendArray.push($scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id);
 	    }
-	    if($ionicSlideBoxDelegate.currentIndex() === $scope.storyPreviews.length-3) {
+	    if($ionicSlideBoxDelegate.currentIndex() === $scope.storyPreviews.length-4) {
 	      Requests.getMoreRecommendedStories($scope.userId).success(function(data, status) {
 	        $scope.storyPreviews = $scope.storyPreviews.concat(data);
 	        $timeout(function() {

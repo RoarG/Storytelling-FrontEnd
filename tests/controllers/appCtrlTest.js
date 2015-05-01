@@ -1,6 +1,10 @@
 xdescribe("controller: AppCtrl", function () {
 	beforeEach( function() {
-        module('starter');
+        angular.mock.module('ionic');
+        angular.mock.module('ui.router');
+        angular.mock.module('backend.services');
+        angular.mock.module('ngCordova');
+        module('stories');
     });
 
     var scope, $httpBackend, AppCtrl, Requests, User;

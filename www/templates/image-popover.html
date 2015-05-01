@@ -1,8 +1,8 @@
 <div class="modal image-modal transparent" ng-click="closeModal()">
     <ion-slide-box on-slide-changed="slideChanged(index)" show-pager="true" active-slide="activeSlide">
         <ion-slide ng-repeat="image in story.imageList">
-            <img ng-src="{{image}}" class="fullscreen-image"/>
-            <p class="image-description">Beskrivelse</p>
+            <img ng-src="{{image['imageurl']}}" class="fullscreen-image"/>
+            <p class="image-description">{{image['description']}}</p>
         </ion-slide>
     </ion-slide-box>
 </div>

@@ -1,11 +1,11 @@
 xdescribe("controller: StoryCtrl", function () {
 	beforeEach( function() {
-		angular.mock.module('ionic');
-        angular.mock.module('starter.controllers');
-        angular.mock.module('starter.services');
+        angular.mock.module('ionic');
+        angular.mock.module('ui.router');
         angular.mock.module('backend.services');
         angular.mock.module('ngCordova');
-        module('starter');
+        angular.mock.module('StoryCtrl');
+        module('stories');
     });
 
     beforeEach(module(function($provide) {

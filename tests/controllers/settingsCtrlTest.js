@@ -1,6 +1,11 @@
 xdescribe("controller: SettingsCtrl", function () {
 	beforeEach( function() {
-        module('starter');
+        angular.mock.module('ionic');
+        angular.mock.module('ui.router');
+        angular.mock.module('backend.services');
+        angular.mock.module('ngCordova');
+        angular.mock.module('SettingsCtrl');
+        module('stories');
     });
 
     var scope, $httpBackend, SettingsCtrl, Requests, User;
