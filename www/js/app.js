@@ -5,6 +5,7 @@ var stories = angular.module('stories', [
 	'ionic',	
 	'backend.services',
 	'ngCordova',
+	
 	'ui.router',
 	'IntroCtrl',
 	'LoginCtrl',
@@ -192,19 +193,10 @@ var stories = angular.module('stories', [
 
 	// If app is not started before go to onboardOne
 	// already logged in, go to recommendation view, otherwise go to login. 
-	/*  if((window.localStorage['newUser'])) {
-	  console.log("ONBOARD" + window.localStorage['newUser']);
-	  $urlRouterProvider.otherwise('/onboardOne'); 
-	}*/
-	/*  else if(window.localStorage['userId'] !== undefined && window.localStorage['userId'] !== "-1") {
-	  console.log("recommendations");
-	  $urlRouterProvider.otherwise('/app/recommendations');
-	} 
-	else {
-	  console.log("login" + window.localStorage['newUser']);
-	 $urlRouterProvider.otherwise('/login');
-	}
-  */
-	$urlRouterProvider.otherwise('/login');
+
+	
+	
+	$urlRouterProvider.otherwise('/onboardOne');
+  
 
 });

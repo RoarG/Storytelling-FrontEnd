@@ -5,18 +5,40 @@
 angular.module('LoginCtrl', [])
 
 
-stories.controller('LoginCtrl', function($scope, $state, $ionicSlideBoxDelegate, Requests) {
+stories.controller('LoginCtrl', function($scope, User, $state, $ionicSlideBoxDelegate, Requests, $ionicLoading) {
 
 
 	$scope.responseData = {}
 	$scope.tempMail = null;
 	$scope.user = {};
+	
+	$scope.validateEmail = function(email) 	{
+
+		var reg = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+		if (reg.test(email)){
+			return true; }
+		else{
+			return false;
+		}
+	} 
+
+
 
 	$scope.doLogin = function(email) {
 
 		//TODO: Mail verifisring
+/*		console.log("validate :" + $scope.validateEmail(email));
+		if ($scope.validateEmail(email) == false) {
+					$ionicLoading.show({
+						template: '<h2>Du må bruke en gyldig adresse</h2>',
+						noBackdrop: true,
+						duration: 2000
+					});
+					
+		}
+		else {*/
 
-		console.log('Mail : ' + $scope.user.email);
+		/*console.log('Mail : ' + login.email.$error.email);*/
 		$scope.tempMail = email;
 
 		//request backend for the user with Email // 
@@ -87,6 +109,7 @@ stories.controller('LoginCtrl', function($scope, $state, $ionicSlideBoxDelegate,
 				});
 			};
 		});
+		/*}*/
 	};
 
 	// Triggered in the login view to skip it
@@ -109,7 +132,6 @@ stories.controller('LoginCtrl', function($scope, $state, $ionicSlideBoxDelegate,
 				console.log('Update User !data: ', response1.data);
 			});
 
-
 			//debug
 			console.log('New user: ', $scope.responseData);
 			console.log('New userId: ', $scope.user.userId);
@@ -122,5 +144,6 @@ stories.controller('LoginCtrl', function($scope, $state, $ionicSlideBoxDelegate,
 			$state.go("profile");
 		});
 	};
+
 
 })
