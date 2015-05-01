@@ -5,7 +5,7 @@
     </ion-nav-buttons>
     <ion-content class="story">
         <div id="story-header-container">
-            <img ng-if="story.imageList" ng-src={{story.imageList[0]}} alt="" class="story-header-image" />
+            <img ng-if="story.imageList" ng-src={{story.imageList[0]["imageurl"]}} alt="" class="story-header-image" />
             <img ng-if="!story.imageList && story.videoList[0]" class="story-header-image" ng-src={{story.videoList[0]['posterurl']}} />
             <div ng-if="!story.imageList && !story.videoList[0]" class="story-header-image"></div>
         </div>
@@ -38,7 +38,7 @@
         <ion-scroll class="media-content" direction="x">
             <div ng-if="mediaType === 'images'">
                 <div class="story-image-container" ng-repeat="image in story.imageList">
-                    <img ng-src={{image}} ng-click="showImages($index)" alt="" class="image-list-thumb"/>
+                    <img ng-src={{image["imageurl"]}} ng-click="showImages($index)" alt="" class="image-list-thumb"/>
                 </div>
             </div>
             <div ng-if="mediaType === 'video'">

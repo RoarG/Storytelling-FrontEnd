@@ -51,7 +51,7 @@ stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests, $windo
 			});
 
 			//Need the userId for this to work
-			Requests.addNewTag($scope.newItemName, $scope.userId, $scope.story.storyId);
+			Requests.addNewTag($scope.newItemName, $scope.userId, $scope.storyId);
 			$scope.tags.push($scope.newItemName);
 			$scope.newItemName = null;
 		}
@@ -61,7 +61,7 @@ stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests, $windo
 	//TODO: Hva gjør den/Hvordan?
 	$scope.addTag = function(tag) {
 		if (!tag.checked) {
-			Requests.removeTagStory(tag.text, $scope.userId, $scope.story.storyId);
+			Requests.removeTagStory(tag.text, $scope.userId, $scope.storyId);
 			for (var i = 0; i < $scope.tags.length; i++) {
 				if ($scope.tags[i].valueOf() == tag.text.valueOf()) {
 					$scope.tags.splice(i, 1);
@@ -69,7 +69,7 @@ stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests, $windo
 			}
 			//TODO: Forklar.
 		} else {
-			Requests.tagStory(tag.text, $scope.userId, $scope.story.storyId);
+			Requests.tagStory(tag.text, $scope.userId, $scope.storyId);
 			$scope.tags.push(tag["text"]);
 		}
 	};
