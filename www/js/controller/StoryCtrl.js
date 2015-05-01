@@ -9,8 +9,9 @@ angular.module('StoryCtrl', [])
 stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ionicPopover, Requests, Story, $rootScope, $sce, $ionicLoading, $window) {
 
 	$scope.storyId = Requests.getSelectedStory();
-	$scope.userId = $window.localStorage.getItem['userId'];
+	$scope.userId = $window.localStorage.getItem('userId');
 
+	console.log("storyId", $scope.storyId, "userid" , $scope.userId);
 	// Get story data.
 	//TODO: Forklar!
 	Requests.getStory($scope.storyId, $scope.userId).then(function(response) {
