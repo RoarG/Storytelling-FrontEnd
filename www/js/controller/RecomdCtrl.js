@@ -13,6 +13,7 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
   	Used to avoid storing a story as recommended multiple times for one list of recommendations*/
 	$scope.recommendArray = [];
 	$scope.userId = $window.localStorage.getItem('userId');
+	console.log("user id", $window.localStorage.getItem('userId'))
 
 	$scope.$on('$ionicView.enter', function() {
 		$ionicHistory.clearHistory();

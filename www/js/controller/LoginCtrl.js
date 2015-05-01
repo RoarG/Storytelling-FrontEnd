@@ -2,7 +2,7 @@
 // Login
 ////////////////////////
 
-//TODO: Forklar!
+//Controller handeling the logic in the Login view, like setting user id, requests to the Db and validating the input. 
 
 angular.module('LoginCtrl', [])
 
@@ -30,34 +30,32 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	    Requests.getUserFromEmail(email).then(function(response) {
 	        $scope.responseData = response.data;
 	        $scope.responseData.status = response.data.status;
-	        $window.localStorage.setItem['responseData'] = response.data;
+	        $window.localStorage.setItem('responseData', response.data);
 
 	        //For debugging
 	        console.log('Response : ', response.data.status);
 	        console.log('User : ', $scope.responseData.userModel);
 	  
-	   		$ionicLoading.hide();	
 
-	   		if (response.data.status == "successfull") {
-	   			console.log("TRUE");
-	   			return true;
+	   		if (response.data.status === "successfull") {
+	   			$scope.userExist(response.data);
 	   		}
-	   		else
+	   		else if (response.data.status === "failed")
 	   		{
-	   			console.log("False");
-	   			return false;
+	   			$scope.userDontExist(email);
 	   		}    
-	    });
+	   		$ionicLoading.hide();	
+	    })
 	}
 
         //Sets the user from the response 
-	$scope.userExist = function () {
-	    $scope.user = new User(response.data.userModel.userId, response.data.userModel);
+	$scope.userExist = function (data) {
+		console.log("userExist called", data.userModel.userId);
+	    $scope.user = new User(data.userModel.userId, data.userModel);
 
 	    //Sets the localStorage.getItem userId and User model
-	    $window.localStorage.setItem['userId'] = $scope.user.userId;
-	    $window.localStorage.setItem['userModel'] = $scope.responseData.userModel;
-	    $scope.user.userId = $scope.responseData.userId;
+	    $window.localStorage.setItem('userId', data.userModel.userId) ;
+	    $window.localStorage.setItem('userModel', $scope.responseData.userModel) ;
 
 	    //TODO: Set user assosiated with the email ??
 	    $state.go("app.recommendations");
@@ -74,13 +72,24 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 
 	        //Sets the localStorage.getItem userId 
 	        $scope.user.userId = $scope.responseData.userId;
-	        $window.localStorage.setItem['userId'] = $scope.responseData.userId;
+	        $window.localStorage.setItem('userId', $scope.responseData.userId);
 
 	        //Go to the next view 
 	        $state.go("profile");
 	        //Sets the input as a empty string
 	        $scope.user.email = '';
-	        console.log("userDontExist called");
+	        console.log("userDontExist called" , response.data.status );
+
+	        $ionicLoading.hide();	
+
+	   		if (response.data.status == "successfull") {
+	   			return true;
+	   		}
+	   		else
+	   		{
+	   			return false;
+	   		}    
+
 	    })
 	}
 
@@ -120,23 +129,24 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	$scope.doLogin = function(email) {
 	    $scope.showLoading();
 	   
-	   	console.log("RTES", $scope.requestUser(email));
 	    	//TODO: Mail verifisring
-	  
-			//console.log("result: " , result)
-		    if ($scope.requestUser(email))
-			{
-			    $scope.userExist();
-			}
-	            //If the e-mail is not recorded in the database make a new user 
-		    else if (!$scope.requestUser(email))
-			{
-		        $scope.userDontExist();
-			}
-			else 
-			{
-			    console.log("Something when wrong with login");
-			}
+	  	$scope.requestUser(email);
+
+	/*   	console.log("RTES", bool );
+		//console.log("result: " , result)
+	    if (bool)
+		{
+		    $scope.userExist();
+		}
+            //If the e-mail is not recorded in the database make a new user 
+	    else if (!bool)
+		{
+	       // $scope.userDontExist();
+		}
+		else 
+		{
+		    console.log("Something when wrong with login");
+		}*/
 			
 	};
 
@@ -145,10 +155,10 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 
 		//Makes a new User object to send to backened Sets mail as -1 when no mail is provided
 	    /*user = new User($scope.user);*/
-	    $scope.userDontExist(-1);
-
+	    var bool = $scope.userDontExist(-1);
+	    console.log("bool" + bool);
 			//If the addUser failed for some reason
-	    if ($scope.responseData.status != "sucessfull") {
+	    if (!bool) {
 				console.log('Failed to add new user!');
 	    };
 
