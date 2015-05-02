@@ -7,16 +7,16 @@
 angular.module('SettingsCtrl', [])
 
 
-stories.controller('SettingsCtrl', function($scope, Requests, User, $ionicLoading) {
+stories.controller('SettingsCtrl', function($scope, Requests, User, $ionicLoading, $window) {
 	//retrieve the user email when opening the settings view
-	Requests.getUserFromId(window.localStorage['userId']).then(function(response) {
+	Requests.getUserFromId($window.localStorage.getItem('userId')).then(function(response) {
 		$scope.user = response.data;
 		$scope.email = $scope.user.userModel.email;
 	});
 
 	//test function which retrieves all user information
 	$scope.retrieveUser = function() {
-		$scope.userId = window.localStorage['userId'];
+		$scope.userId = $window.localStorage.getItem('userId');
 		Requests.getUserFromId($scope.userId).then(function(response) {
 			$scope.user = response.data;
 			console.log($scope.user);
@@ -25,10 +25,10 @@ stories.controller('SettingsCtrl', function($scope, Requests, User, $ionicLoadin
 
 	//updates the user's email //TODO: Forklar!
 	$scope.saveEmail = function(email) {
-		Requests.getUserFromId(window.localStorage['userId']).then(function(response) {
+		Requests.getUserFromId($window.localStorage.getItem('userId')).then(function(response) {
 			console.log("response status(getUserFromId) : " + response.data.status);
 
-			user = new User(window.localStorage['userId'], response.data.userModel);
+			user = new User(($window.localStorage.getItem('userId')), response.data.userModel);
 			user.setEmail(email);
 			$scope.email = email;
 
