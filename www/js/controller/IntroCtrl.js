@@ -37,7 +37,7 @@ stories.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate,
 	}	
 
 	//TODO: Forklar
-	if(window.localStorage['userId'] !== undefined && $window.localStorage.getItem('userId') !== "-1") {
+	if($window.localStorage.getItem('userId') !== undefined && $window.localStorage.getItem('userId') !== "-1") {
 		$scope.recommendedView();
 		$scope.startApp();
 	} 
