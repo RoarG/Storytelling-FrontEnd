@@ -10,6 +10,7 @@ angular.module('RecomdCtrl', [])
 stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBoxDelegate, $ionicModal, $ionicLoading, $state, $ionicSideMenuDelegate, $timeout, $ionicHistory, $window) {
 
 	$scope.storyPreviews = [];
+	$scope.currentSlideIndex = 0;
 	/*Used to know which of the stories in this list of recommendations that have been recommended
   	Used to avoid storing a story as recommended multiple times for one list of recommendations*/
 	$scope.recommendArray = [];
@@ -72,6 +73,7 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 	 */
 	 //TODO: Forklar! Del opp
 	$scope.slideChanged = function() {
+		$scope.currentSlideIndex = $ionicSlideBoxDelegate.currentIndex();
 		Requests.setSelectedStory($scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id);
 	    //TODO: Record swiped_past for the slide we came from?
 	    /*Only want to set a story as recommended one time for each list of recommendations*/
@@ -98,6 +100,7 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
       		template: '<h2>Laster inn historie</h2><div class="icon ion-loading-a"></div>',
     		noBackdrop: false
 	    });
+	    Requests.setSelectedStory(story.id);
 	    console.log(Requests.getSelectedStory());
 		$state.go("app.story");
 	};

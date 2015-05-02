@@ -37,15 +37,10 @@ stories.controller('ListViewCtrl', function($scope, Requests, Story, $state, $ro
 			template: '<h2>Laster inn</h2><div class="icon ion-loading-a"></div>',
 			noBackdrop: false
 		});
-		
-		// Get story data.
-		Requests.getStory(story.id, $window.localStorage.getItem('userId')).success(function(data, status) {
-			Requests.setSelectedStory(new Story(data));
-			$state.go("app.story");
-			$ionicLoading.hide();
-		}).error(function(data, status) {
-			console.log(status)
-		})
+
+		Requests.setSelectedStory(story.id);
+		$state.go("app.story");
+
 	};
 
 })

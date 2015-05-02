@@ -5,7 +5,7 @@
     <ion-content scroll="false">
        <ion-slide-box active-slide="activeSlide" show-pager="false" on-slide-changed="slideChanged($index)">
             <ion-slide ng-repeat="story in storyPreviews">
-                <div class="card">
+                <div class="card" ng-if="currentSlideIndex === storyPreviews.indexOf(story) || currentSlideIndex === storyPreviews.indexOf(story)-1 || currentSlideIndex === storyPreviews.indexOf(story)+1" >
                     <!--<div class="reject-story-icon" ng-click="rejectStory($index)"><i class="ion-close-round"></i></div>-->
                     <div class="image-wrapper" ng-click="openStory(story)">
                         <img class="cover-image" ng-src={{story.picture}}>
@@ -44,11 +44,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="slide-nav slide-nav-left" ng-click="previousSlide()" ng-hide="$index === 0"><i class="ion-chevron-left"></i></div>
-                <div class="slide-nav slide-nav-right" ng-click="nextSlide()" ng-hide="$index === storyPreviews.length-1"><i class="ion-chevron-right"></i></div>
+                <div class="slide-nav slide-nav-left" ng-click="previousSlide()" ng-hide="$index === 0" ng-if="currentSlideIndex === storyPreviews.indexOf(story) || currentSlideIndex === storyPreviews.indexOf(story)-1 || currentSlideIndex === storyPreviews.indexOf(story)+1"><i class="ion-chevron-left"></i></div>
+                <div class="slide-nav slide-nav-right" ng-click="nextSlide()" ng-hide="$index === storyPreviews.length-1" ng-if="currentSlideIndex === storyPreviews.indexOf(story) || currentSlideIndex === storyPreviews.indexOf(story)-1 || currentSlideIndex === storyPreviews.indexOf(story)+1"><i class="ion-chevron-right"></i></div>
+                <div ng-if="currentSlideIndex === storyPreviews.indexOf(story) || currentSlideIndex === storyPreviews.indexOf(story)-1 || currentSlideIndex === storyPreviews.indexOf(story)+1">
                 <p ng-if="story.explanation" class="recommExplanation">Denne historien ble anbefalt fordi du så på historiene <a href="" ng-click="openStoryLink(story.explanation[0])">{{story.explanation[0]}}</a>, <a href="" ng-click="openStoryLink(story.explanation[1])">{{story.explanation[1]}}</a> og <a href="" ng-click="openStoryLink(story.explanation[2])">{{story.explanation[2]}}</a></p>
                 <p>
                 <p ng-if="story.false_recommend === 1" class="recommExplanation">Dette er en historie utenfor dine registrerte interesser</p>
+                </div>
             </ion-slide>
         </ion-slide-box>
     </ion-content>
