@@ -21,7 +21,8 @@
   },
   "cordovaPlugins": [
     "org.apache.cordova.statusbar",
-    "org.apache.cordova.inappbrowser"
+    "org.apache.cordova.inappbrowser",
+    "com.ionic.keyboard"
   ],
   "cordovaPlatforms": [
     "ios"
