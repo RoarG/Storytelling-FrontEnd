@@ -2,9 +2,10 @@
 //  List
 ////////////////////////
 
+//TODO: Forklar!
+
 angular.module('RecomdCtrl', [])
 
-//TODO: Forklar!
 
 stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBoxDelegate, $ionicModal, $ionicLoading, $state, $ionicSideMenuDelegate, $timeout, $ionicHistory, $window) {
 

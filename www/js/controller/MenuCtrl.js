@@ -10,16 +10,16 @@ stories.controller('MenuCtrl', function($scope, Requests, User, $state, $window)
 
 		//TODO: Forklar!
 	$scope.logout = function() {
-		console.log($window.localStorage['newUser'] + "Logout " + $window.localStorage.getItem['userId']);
+		console.log($window.localStorage.getItem('newUser') + "Logout " + $window.localStorage.getItem('userId'));
 
 		//TODO: Trengs denne? SJEKKE HER ROAR!!!
 		$window.localStorage.clear();
-		$window.localStorage.setItem['userId'] = "-1";
-		$window.localStorage.setItem['newUser'] = true;
+		$window.localStorage.setItem('userId', "-1");
+		$window.localStorage.setItem('newUser', true);
 		$state.go("login");
 
 		console.log("email" + $scope.email);
-		console.log("login" + $window.localStorage.getItem['newUser']);
+		console.log("login" + $window.localStorage.getItem('newUser'));
 
 		//TODO: add feedback to user
 	}
@@ -37,7 +37,7 @@ stories.controller('MenuCtrl', function($scope, Requests, User, $state, $window)
 				if (response === 1) {
 					var index = $scope.collectionList.indexOf(list);
 					$scope.collectionList.splice(index, 1);
-					Requests.removeTag($window.localStorage.getItem['userId'], list.text);
+					Requests.removeTag($window.localStorage.getItem('userId'), list.text);
 				}
 			});
 		});

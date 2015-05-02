@@ -6,7 +6,7 @@
 
 angular.module('ProfilCtrl', [])
 
-stories.controller('ProfilCtrl', function($scope, Requests, User, $state) {
+stories.controller('ProfilCtrl', function($scope, Requests, User, $state, $window) {
 
 	$scope.ageGrp = null;
 	$scope.gender = null;
@@ -32,7 +32,7 @@ stories.controller('ProfilCtrl', function($scope, Requests, User, $state) {
 
 	//loads and displays existing profile information when opening the view
 	$scope.loadProfile = function() {
-		Requests.getUserFromId(window.localStorage['userId']).then(function(response) {
+		Requests.getUserFromId($window.localStorage.getItem('userId')).then(function(response) {
 			console.log("response status(getUserFromId) : " + response.data.status);
 			$scope.user = response.data;
 			gender = parseInt($scope.user.userModel.gender);
@@ -49,10 +49,10 @@ stories.controller('ProfilCtrl', function($scope, Requests, User, $state) {
 		console.log("ageGrp" + $scope.ageGrp);
 		console.log('Gender : ' + $scope.gender);
 
-		Requests.getUserFromId(window.localStorage['userId']).then(function(response) {
+		Requests.getUserFromId($window.localStorage.getItem('userId')).then(function(response) {
 			console.log("response status(getUserFromId) : " + response.data.status);
 
-			user = new User(window.localStorage['userId'], response.data.userModel);
+			user = new User($window.localStorage.getItem('userId'), response.data.userModel);
 			user.setAgeGroup($scope.ageGrp);
 			user.setGender($scope.gender);
 
@@ -72,10 +72,10 @@ stories.controller('ProfilCtrl', function($scope, Requests, User, $state) {
 		console.log("ageGrp" + $scope.ageGrp);
 		console.log('Gender : ' + $scope.gender);
 
-		Requests.getUserFromId(window.localStorage['userId']).then(function(response) {
+		Requests.getUserFromId($window.localStorage.getItem('userId')).then(function(response) {
 			console.log("response status(getUserFromId) : " + response.data.status);
 
-			user = new User(window.localStorage['userId'], response.data.userModel);
+			user = new User($window.localStorage.getItem('userId'), response.data.userModel);
 			user.setAgeGroup($scope.ageGrp);
 			user.setGender($scope.gender);
 

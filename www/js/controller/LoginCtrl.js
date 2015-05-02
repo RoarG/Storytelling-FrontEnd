@@ -129,7 +129,7 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 
 	//TODO: Forklar!
 	$scope.updateUser = function () {
-	    Requests.updateUser(new User($window.localStorage.getItem['userId'])).then(function (response1) {
+	    Requests.updateUser(new User($window.localStorage.getItem('userId'))).then(function (response1) {
 	        console.log('Update User called, Response Status: ', response1.data.status);
 	        console.log('Update User called, data: ', response1.data);
 	    });

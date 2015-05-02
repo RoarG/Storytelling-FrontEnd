@@ -51,7 +51,7 @@ stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLo
 
 	//loads and displays existing preferences when opening the view
 	$scope.loadPreferences = function() {
-		Requests.getUserFromId($window.localStorage.getItem['userId']).then(function(response) {
+		Requests.getUserFromId($window.localStorage.getItem('userId')).then(function(response) {
 			console.log("response status(getUserFromId) : " + response.data.status);
 			$scope.user = response.data;
 			category_preference = $scope.user.userModel.category_preference;
@@ -68,8 +68,8 @@ stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLo
 	$scope.savePreferences = function() {
 		console.log("Saving Preferences");
 
-		Requests.getUserFromId($window.localStorage.getItem['userId']).then(function(response) {
-			user = new User($window.localStorage.getItem['userId'], response.data.userModel);
+		Requests.getUserFromId($window.localStorage.getItem('userId')).then(function(response) {
+			user = new User($window.localStorage.getItem('userId'), response.data.userModel);
 			console.log("response status(getUserFromId) : " + response.data.status);
 
 			user.setCategoryPreference($scope.selectedCat);
@@ -94,8 +94,8 @@ stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLo
 		$scope.preferencesSaved = false;
 		console.log("Saving Preferences");
 
-		Requests.getUserFromId($window.localStorage.getItem['userId']).then(function(response) {
-			user = new User($window.localStorage.getItem['userId'], response.data.userModel);
+		Requests.getUserFromId($window.localStorage.getItem('userId')).then(function(response) {
+			user = new User($window.localStorage.getItem('userId'), response.data.userModel);
 			console.log("response status(getUserFromId) : " + response.data.status);
 
 			user.setCategoryPreference($scope.selectedCat);

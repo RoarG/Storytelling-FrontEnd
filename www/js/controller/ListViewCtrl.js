@@ -16,7 +16,7 @@ stories.controller('ListViewCtrl', function($scope, Requests, Story, $state, $ro
 
 	$scope.tag = Requests.getSelectedTag();
 	// Retrieve stories associated with selected tag
-	Requests.getStoryList($scope.tag, $window.localStorage.getItem['userId']).success(function(data, status) {
+	Requests.getStoryList($scope.tag, $window.localStorage.getItem('userId')).success(function(data, status) {
 		$scope.storyPreviews = data;
 		$ionicLoading.hide();
 	}).error(function(data, status) {
@@ -27,7 +27,7 @@ stories.controller('ListViewCtrl', function($scope, Requests, Story, $state, $ro
 	$scope.remove = function(story) {
 		var index = $scope.storyPreviews.indexOf(story);
 		$scope.storyPreviews.splice(index, 1);
-		Requests.removeTagStory(Requests.getSelectedTag(), $window.localStorage.getItem['userId'], story.id);
+		Requests.removeTagStory(Requests.getSelectedTag(), $window.localStorage.getItem('userId'), story.id);
 	};
 
 	
@@ -39,7 +39,7 @@ stories.controller('ListViewCtrl', function($scope, Requests, Story, $state, $ro
 		});
 		
 		// Get story data.
-		Requests.getStory(story.id, $window.localStorage.getItem['userId']).success(function(data, status) {
+		Requests.getStory(story.id, $window.localStorage.getItem('userId')).success(function(data, status) {
 			Requests.setSelectedStory(new Story(data));
 			$state.go("app.story");
 			$ionicLoading.hide();
