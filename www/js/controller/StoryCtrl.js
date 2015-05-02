@@ -24,7 +24,8 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 		if ($scope.story.videoList) {
 			$scope.mediaType = "video";
 			// If any of the videos are from youtube or vimeo, the url has to be changed so that it can be embedded in iframe. 
-			for (var video of $scope.story.videoList) {
+			for (var i = 0; i < $scope.story.videoList.length; i++) {
+				var video = $scope.story.videoList[i];
 				console.log("Video: " + video['videourl']);
 				var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
 				var match = video['videourl'].match(regExp);
