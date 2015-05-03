@@ -4,6 +4,7 @@
 ##Dependencies
 
 * NodeJS (https://nodejs.org/download/)
+* Gulp (https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md)
 
 ### Android Spesific 
 * Android SDK
