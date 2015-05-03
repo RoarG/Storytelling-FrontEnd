@@ -33,7 +33,7 @@
 
 ### Platform Dependencies
 
-Android (First two section is nessasary)
+Android (the first section is nessasary)
 https://cordova.apache.org/docs/en/3.3.0/guide_platforms_android_index.md.html#Android%20Platform%20Guide
 
 
