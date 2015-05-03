@@ -21,7 +21,7 @@ var stories = angular.module('stories', [
 ])
 
 
-.run(function($ionicPlatform, $cordovaDialogs, $cordovaNetwork, $rootScope, $cordovaSplashscreen, Requests) {
+.run(function($ionicPlatform, $cordovaDialogs, $cordovaNetwork, $rootScope, $cordovaSplashscreen, Requests, $window) {
 	$ionicPlatform.ready(function() {
 		
 		//TODO: Forklar! FIX
@@ -72,11 +72,11 @@ var stories = angular.module('stories', [
 
   // Tells server that the app has been opened
   $ionicPlatform.on('resume', function() {
-    Requests.opensApp(window.localstorage['userId']);
+    Requests.opensApp($window.localstorage.getItem('userId'));
   });
   // Tells server that the app has been paused
   $ionicPlatform.on('pause', function() {
-    Requests.closesApp(window.localstorage['userId']);
+    Requests.closesApp($window.localstorage.getItem('userId'));
   });
 })
 

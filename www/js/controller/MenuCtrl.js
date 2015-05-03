@@ -15,11 +15,11 @@ stories.controller('MenuCtrl', function($scope, Requests, User, $state, $window)
 		//TODO: Trengs denne? SJEKKE HER ROAR!!!
 		$window.localStorage.clear();
 		$window.localStorage.setItem('userId', "-1");
-		$window.localStorage.setItem('newUser', true);
+		//$window.localStorage.setItem('newUser', true);
 		$state.go("login");
 
 		console.log("email" + $scope.email);
-		console.log("login" + $window.localStorage.getItem('newUser'));
+		console.log("login" + $window.localStorage.getItem('userId'));
 
 		//TODO: add feedback to user
 	}

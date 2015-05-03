@@ -44,7 +44,7 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	   		{
 	   			$scope.userDontExist(email);
 	   		}    
-	   		$ionicLoading.hide();	
+	   			
 	    })
 	}
 
@@ -57,6 +57,7 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	    $window.localStorage.setItem('userId', data.userModel.userId) ;
 	    $window.localStorage.setItem('userModel', $scope.responseData.userModel) ;
 
+	    $ionicLoading.hide();
 	    //TODO: Set user assosiated with the email ??
 	    $state.go("app.recommendations");
 
