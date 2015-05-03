@@ -15,10 +15,11 @@
 	  <ion-item>
 		<div class="settings-left-adjust">Email</div>
 		<button class="button button-calm button-small settings-right-adjust" ng-click="saveEmail(user.email)">Lagre</button>
-		<label class="item item-input settings-right-adjust settings-height">
-            <input type="text" placeholder={{email}} ng-model="user.email">
-        </label>
-        <p ng-show="emailSaved"><i class="ion-checkmark"></i> Lagret</p>
+		<form name="settings">
+			<label class="item item-input settings-right-adjust settings-height">
+	            <input type="email" name="email" placeholder={{email}} ng-model="user.email">
+	        </label>
+    	</form>
 	  </ion-item>
 	  
 	  <ion-item ng-click="retrieveUser()" href="#/app/editPreferences">
@@ -50,6 +51,8 @@
 		<div class="settings-left-adjust">Om applikasjonen </div>
 		<i class="icon ion-chevron-right settings-right-adjust"></i>
 	  </ion-item>
+
+
 <!--	  
 	  <ion-item>
 		<div class="settings-left-adjust">Hjelp </div>
