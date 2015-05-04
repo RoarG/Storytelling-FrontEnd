@@ -6,7 +6,7 @@
 
 angular.module('StoryCtrl', [])
 
-stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ionicPopover, Requests, Story, $rootScope, $sce, $ionicLoading, $window) {
+stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ionicPopover, Requests, Story, $rootScope, $sce, $ionicLoading, $window, $cordovaInAppBrowser) {
 
 	$scope.storyId = Requests.getSelectedStory();
 	$scope.userId = $window.localStorage.getItem('userId');
@@ -106,21 +106,19 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 		
 		//TODO: Forklar!
 		$scope.openUrl = function(url) {
-			$window.open(url, '_system');
+			open(url, '_system');
 		};
 
 		// Open all links in native browser
 		document.onclick = function (e) {
-                e = e ||  window.event;
-                var element = e.target || e.srcElement;
- 
-                if (element.tagName == 'A') {
-                  console.log(element.href);
-                  if(element.href) {
-                    window.open(element.href, "_system", "location=no");
-                  }
-                    
-                    return false; // prevent default action and stop event propagation
-                }
-            };
+            e = e ||  window.event;
+            var element = e.target || e.srcElement;
+
+            if (element.tagName == 'A' && element.href && element.href.indexOf("#") === -1) {
+              console.log(e);
+                open(element.href, "_system", "location=no");
+                
+                return false; // prevent default action and stop event propagation
+            }
+        };
 	})

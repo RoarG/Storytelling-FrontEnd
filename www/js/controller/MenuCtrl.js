@@ -6,7 +6,7 @@
 
 angular.module('MenuCtrl', [])
 
-stories.controller('MenuCtrl', function($scope, Requests, User, $state, $window) {
+stories.controller('MenuCtrl', function($scope, Requests, User, $state, $window, $ionicPlatform, $cordovaDialogs) {
 
 		//TODO: Forklar!
 	$scope.logout = function() {

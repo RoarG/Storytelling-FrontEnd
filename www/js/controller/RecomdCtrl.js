@@ -8,7 +8,6 @@ angular.module('RecomdCtrl', [])
 
 
 stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBoxDelegate, $ionicModal, $ionicLoading, $state, $ionicSideMenuDelegate, $timeout, $ionicHistory, $window) {
-
 	$scope.storyPreviews = [];
 	$scope.currentSlideIndex = 0;
 	/*Used to know which of the stories in this list of recommendations that have been recommended

@@ -16,6 +16,7 @@ stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests, $windo
 	//TODO:  Forklar!
 	Requests.getStoryTags($scope.userId, $scope.storyId).then(function(response) {
 		$scope.tags = response.data;
+		console.log($scope.tags);
 
 	//TODO: Fix!
 	// May use the collectionList in AppCtrl instead
@@ -44,7 +45,7 @@ stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests, $windo
 
 	// Add text entered as a new collection/bookmark and add the story to it. 
 	$scope.addItem = function() {
-		if ($scope.newItemName) {
+		if ($scope.newItemName && !$scope.containsObjectWithProperty($scope.collectionList, "text", $scope.newItemName)) {
 			$scope.collectionList.push({
 				text: $scope.newItemName,
 				checked: true
@@ -53,10 +54,19 @@ stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests, $windo
 			//Need the userId for this to work
 			Requests.addNewTag($scope.newItemName, $scope.userId, $scope.storyId);
 			$scope.tags.push($scope.newItemName);
-			$scope.newItemName = null;
 		}
+		$scope.newItemName = null;
 		$scope.displayTextField = false;
 	};
+
+	$scope.containsObjectWithProperty = function(array, propertyName, property) {
+		for(var i = 0; i < array.length; i++) {
+			if(array[i][propertyName] && array[i][propertyName] === property) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	//TODO: Hva gjør den/Hvordan?
 	$scope.addTag = function(tag) {

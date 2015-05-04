@@ -293,7 +293,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 .bookmark-list div {
-	padding: 18px 15px;
+	padding: 18px 0 18px 15px;
+	width: 80%;
 }
 
 
@@ -339,24 +340,6 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 
-/*
-    Story view
-*/
-// Bookmarks popover
-.item-floating-label .placeholder-icon {
-    padding-right: 18px;
-    position: absolute;
-    bottom: 9px;
-    left: 17px;
-}
-.item-floating-label {
-    padding-left: 40px;
-}
-ion-popover-view .list .button {
-    margin-top: 0;
-}
-
-
 // Bookmarks modal
 .modal .bookmark-content {
 	width: 90%;
@@ -366,12 +349,17 @@ ion-popover-view .list .button {
 
 .modal.bookmark {
 	min-height: 0;
+	max-height: 86vh;
 	width: 75%;
 	background-color: $background-color;
 	position: absolute;
-	top: 100px;
+	top: 10vh;
 	left: 12.5%;
     border-radius: 5px;
+
+    ion-scroll {
+    	max-height: 38vh;
+    }
 
     .rating-content {
     	position: relative;
@@ -383,13 +371,30 @@ ion-popover-view .list .button {
     	margin: 7% 0 0 5%;
     }
 
+    form.item {
+    	padding-bottom: 10px;
+    	padding-top: 10px;
+    }
+
     form button {
     	float: right;
-    	margin-top: 12px;
+    	margin-top: 10px;
     	min-height: 20px;
-    	line-height: 2.2em;
+    	line-height: 2em;
     	font-family: Cabin, sans-serif;
+    	margin-bottom: 0;
     }
+
+    .item-floating-label .placeholder-icon {
+    padding-right: 18px;
+    position: absolute;
+    bottom: 9px;
+    left: 17px;
+	}
+	.item-floating-label {
+	    padding-left: 40px;
+	}
+
 
 }
 
@@ -990,7 +995,7 @@ video::-webkit-media-controls {
 ion-slide .card {
 	width: 75%;
 	height: 75%;
-	margin: 12% auto;
+	margin: 10% auto;
 	position: relative;
 	text-align: center;
 	border-radius: 10px;
@@ -1025,6 +1030,7 @@ ion-slide p.recommExplanation {
 
 ion-slide .cover-image {
 	min-width: 100%;
+	width: 100%;
 	height: auto;
 }
 
@@ -1032,7 +1038,7 @@ ion-slide div.cover-image {
 	position: absolute;
 	top: 0;
 	background-color: $background-color-dark;
-	height: 200px;
+	height: 30vh;
 	margin: 0;
 }
 
@@ -1040,7 +1046,7 @@ ion-slide div.cover-image i {
 	color: $background-color;
 	font-size: 10em;
 	margin: 0 auto;
-	line-height: 200px;
+	line-height: 30vh;
 	opacity: 0.5;
 }
 
@@ -1051,7 +1057,7 @@ ion-slide .content-wrapper {
 .image-wrapper {
 	width: 100%;
 	overflow: hidden;
-	height: 200px;
+	height: 30vh;
 	margin-bottom: 5px;
 }
 
