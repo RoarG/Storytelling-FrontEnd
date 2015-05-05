@@ -218,6 +218,6 @@ var stories = angular.module('stories', [
 
 	// If app is not started before go to onboardOne
 	// already logged in, go to recommendation view, otherwise go to login. 	
-	//$urlRouterProvider.otherwise('/onboardOne');
+	$urlRouterProvider.otherwise('/onboardOne');
   
 });
