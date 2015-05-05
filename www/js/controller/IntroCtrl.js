@@ -29,8 +29,6 @@ stories.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate,
 	//TODO: FOrklar
 	$scope.goOnboardTree = function () {
 		$state.go('onboardTree');
-		$window.localStorage.setItem('didTutorial', true);
-		console.log("ELSE $window.localStorage.getItem('didTutorial')" + $window.localStorage.getItem('didTutorial'));
 	}	
 
 	//TODO: Forklar

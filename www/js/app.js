@@ -17,7 +17,8 @@ var stories = angular.module('stories', [
 	'StoryCtrl',
 	'BookmarkCtrl',
 	'SettingsCtrl',
-	'RatingCtrl'
+	'RatingCtrl',
+	'TutorialCtrl'
 ])
 
 
@@ -110,6 +111,24 @@ var stories = angular.module('stories', [
 		controller: 'IntroCtrl'
 	})
 
+	.state('appOne', {
+		url: "/appOne",
+		templateUrl: "templates/appOne.html",
+		controller: 'TutorialCtrl'
+	})
+
+	.state('appTwo', {
+		url: "/appTwo",
+		templateUrl: "templates/appTwo.html",
+		controller: 'TutorialCtrl'
+	})
+
+	.state('appTree', {
+		url: "/appTree",
+		templateUrl: "templates/appTree.html",
+		controller: 'TutorialCtrl'
+	})
+
 	.state('login', {
 		url: "/login",
 		templateUrl: "templates/login.html",
@@ -199,6 +218,6 @@ var stories = angular.module('stories', [
 
 	// If app is not started before go to onboardOne
 	// already logged in, go to recommendation view, otherwise go to login. 	
-	$urlRouterProvider.otherwise('/onboardOne');
+	//$urlRouterProvider.otherwise('/onboardOne');
   
 });

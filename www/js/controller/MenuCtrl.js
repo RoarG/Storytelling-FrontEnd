@@ -14,6 +14,8 @@ stories.controller('MenuCtrl', function($scope, Requests, User, $state, $window,
 
 		//TODO: Trengs denne? SJEKKE HER ROAR!!!
 		$window.localStorage.clear();
+		console.log("Clear - id: " + $window.localStorage.getItem('userId'));
+		
 		$window.localStorage.setItem('userId', "-1");
 		//$window.localStorage.setItem('newUser', true);
 		$state.go("login");
@@ -43,6 +45,10 @@ stories.controller('MenuCtrl', function($scope, Requests, User, $state, $window,
 		});
 	};
 
+	$scope.goAppOne = function () {
+		console.log("TRAFF");
+		$state.go('appOne');
+	}
 	//TODO: Forklar!
 	$scope.updateMenu = function() {
 		Requests.getAllLists($window.localStorage.getItem('userId')).then(function(response) {
