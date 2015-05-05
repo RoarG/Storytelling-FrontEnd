@@ -1,8 +1,8 @@
 <div class="modal bookmark" ng-controller="BookmarkCtrl">
-    		<h2>Legg til bokmerke</h2>
-    		<div class="button button-clear button-calm" ng-click="newItem()"><i class="icon ion-plus"></i></div>
-    		<div class="bookmark-content">
-        	<div class="list">
+    <h2>Legg til bokmerke</h2>
+    <div class="button button-clear button-calm" ng-click="newItem()"><i class="icon ion-plus"></i></div>
+        <div class="list bookmark-content">
+        <ion-scroll direction="y">
         <ion-checkbox class="checkbox-calm" ng-repeat="item in collectionList"
                       ng-model="item.checked"
                       ng-checked="item.checked"
@@ -10,6 +10,7 @@
                       ng-hide="item.text.valueOf() === 'Lest'.valueOf()">
             {{ item.text }}
         </ion-checkbox>
+    </ion-scroll>
         <form class="item" ng-submit="addItem()" ng-show="displayTextField">
             <label class="item item-input item-floating-label">
                 <i class="icon ion-plus placeholder-icon"></i>
@@ -19,5 +20,4 @@
         </form>
         <div class="item button button-block button-calm" ng-click="closeModal()">Ferdig</div>
     </div>
-      </div>
 </div>

@@ -17,7 +17,8 @@ var stories = angular.module('stories', [
 	'StoryCtrl',
 	'BookmarkCtrl',
 	'SettingsCtrl',
-	'RatingCtrl'
+	'RatingCtrl',
+	'TutorialCtrl'
 ])
 
 
@@ -108,6 +109,24 @@ var stories = angular.module('stories', [
 		url: "/onboardTree",
 		templateUrl: "templates/onboardingTree.html",
 		controller: 'IntroCtrl'
+	})
+
+	.state('appOne', {
+		url: "/appOne",
+		templateUrl: "templates/appOne.html",
+		controller: 'TutorialCtrl'
+	})
+
+	.state('appTwo', {
+		url: "/appTwo",
+		templateUrl: "templates/appTwo.html",
+		controller: 'TutorialCtrl'
+	})
+
+	.state('appTree', {
+		url: "/appTree",
+		templateUrl: "templates/appTree.html",
+		controller: 'TutorialCtrl'
 	})
 
 	.state('login', {

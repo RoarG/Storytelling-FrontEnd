@@ -26,7 +26,7 @@
           Logg ut
         </ion-item>
 
-        <ion-item nav-clear menu-close href="#/app/onboardOne"> <!-- #/app/onboardOne -->
+        <ion-item nav-clear menu-close href="#/appOne"> <!-- #/app/onboardOne -->
           App 1-2-3
         </ion-item>
 		
@@ -38,8 +38,8 @@
 		  <b>Bokmerker</b>
 		</ion-item>
 		
-    <ion-item class="bookmark-list item-button-right" nav-clear ng-repeat="list in collectionList" menu-close>
-      <div class="item-content" ng-click="viewList(list.text)"> {{list.text}}</div>
+    <ion-item class="bookmark-list item-button-right" nav-clear ng-repeat="list in collectionList">
+      <div class="item-content" ng-click="viewList(list.text)" menu-close> {{list.text}}</div>
       <button ng-hide="list.text.valueOf() === 'Lest' || list.text.valueOf() === 'Les senere'" class="button button-clear" ng-click="deleteList(list)">
         <i class="icon ion-close"></i>
       </button>
