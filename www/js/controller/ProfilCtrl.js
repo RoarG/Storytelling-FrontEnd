@@ -15,7 +15,6 @@ stories.controller('ProfilCtrl', function($scope, Requests, User, $state, $windo
 	$scope.goLogin = function() {
 		$state.go("login");
 		// StatusBar.show();
-		console.log("vi " + vi);
 	};
 
 	//TODO: Forklar!

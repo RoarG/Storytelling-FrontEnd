@@ -9,10 +9,6 @@ angular.module('TutorialCtrl', [])
 
 stories.controller('TutorialCtrl', function($scope, $state, $ionicSlideBoxDelegate, $window) {
 
-	//TODO: Forklar
-	$scope.startApp = function () {
-	  $state.go('recommendedView');
-	};
 
 	//TODO: Forklar
 	$scope.recommendedView = function () {

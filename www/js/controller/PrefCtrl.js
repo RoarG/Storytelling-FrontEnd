@@ -8,6 +8,8 @@ angular.module('PrefCtrl', [])
 
 stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLoading, $window) {
 
+
+
 	//TODO: Forklar!
 	function Category(name, icon, isSelected) {
 		this.name = name;
@@ -29,6 +31,11 @@ stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLo
 
 	$scope.selectedCat = [];
 
+	
+	$scope.goProfile = function() {
+		$state.go('profile');
+	}
+	
 	//TODO: Forklar!
 	$scope.selectedCategory = function(category) {
 		addToArray = true;
