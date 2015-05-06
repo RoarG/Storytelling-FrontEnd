@@ -86,7 +86,7 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	        //Go to the next view 
 	        //Sets the input as a empty string
 	        $scope.user.email = '';
-	        console.log("userDontExist called" , response.data.status );
+	        console.log("userDontExist called" , response.data.status, "ID: ", response.data.userId );
 
 	        //User is created on the server sider or not
 	   		if (response.data.status === "sucessfull") 
@@ -149,15 +149,10 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 
 		//Makes a new User object to send to backened Sets mail as -1 when no mail is provided
 	    /*user = new User($scope.user);*/
-	    var bool = $scope.userDontExist(-1);
-	    console.log("bool" + bool);
-			//If the addUser failed for some reason
-	    if (!bool) {
-				console.log('Failed to add new user!');
-	    };
+	    $scope.userDontExist(-1);
+	    
 
 			//TODO: Gi beskjed om at det er opprettet en ny brukker / evt spør om det er ønsket til brukeren
-		$state.go("profile");
 	};
 
 })

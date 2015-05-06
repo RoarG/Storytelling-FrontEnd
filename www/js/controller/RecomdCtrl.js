@@ -23,10 +23,12 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 
 	//TODO: Forklar!
 	Requests.getRecommendedStories($scope.userId).then(function(response) {
+		console.log("user id inside", $scope.userId , "response data: " , response.data);
 		$scope.storyPreviews = response.data;
 		console.log($scope.storyPreviews);
 		/*Set the first story as recommended*/
 		Requests.recommendedStory($scope.userId, $scope.storyPreviews[0].id);
+		console.log("user id inside", $scope.userId)
 		$scope.recommendArray.push($scope.storyPreviews[0].id);
 		Requests.setSelectedStory($scope.storyPreviews[0].id);
 		$ionicSlideBoxDelegate.update();

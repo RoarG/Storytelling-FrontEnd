@@ -84,12 +84,12 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	height: 50%;
 	text-align: center;
 	padding-top: 5%;
-	bottom: 8%;
+	bottom: 5%;
 }
 
 .bottomCont2 {
 	position: fixed;
-	bottom: 10%;
+	bottom: 5%;
 	/*TODO: av en rargrunn så passer dette? 90%*/
 	width: 95%;
 }
@@ -230,17 +230,10 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     padding-top: 36%;
 }
 
-/*.pageIndicator {
-	position: fixed;
-	width: 89%;
-}*/
 
 .pageIndicatorContLogin {
-    /*text-align: center;*/
-   /*display: block;*/
-  /* position: fixed;*/
-   padding-top: 15%;
-   bottom: 10%;
+   padding-top: 10%;
+   bottom: 5%;
 }
 
 .ion-ios-circle-outline{

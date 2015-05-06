@@ -71,29 +71,54 @@ stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLo
 		});
 	};
 
+	$scope.isSelectedCat = function () {
+
+	console.log("isSelectedCat: ", $scope.selectedCat);
+	
+		if ($scope.selectedCat.length > 0 && $scope.selectedCat.length <= 9) 
+		{
+			return true
+		}
+		else 
+		{
+			return false
+		}
+	}
+
 	//saves the preferences initially chosen by first-time user //TODO: Forklar! CLEAN UP ROAR
 	$scope.savePreferences = function() {
-		console.log("Saving Preferences");
+		console.log("Saving Preferences: ", $scope.isSelectedCat());
 
-		Requests.getUserFromId($window.localStorage.getItem('userId')).then(function(response) {
-			user = new User($window.localStorage.getItem('userId'), response.data.userModel);
-			console.log("response status(getUserFromId) : " + response.data.status);
+		if($scope.isSelectedCat()) 
+		{
+			Requests.getUserFromId($window.localStorage.getItem('userId')).then(function(response) {
+				user = new User($window.localStorage.getItem('userId'), response.data.userModel);
+				console.log("response status(getUserFromId) : " + response.data.status);
 
-			user.setCategoryPreference($scope.selectedCat);
-			console.log("$scope.selectedCat) : " + user.category_preference);
-			console.log("user: " + user);
+				user.setCategoryPreference($scope.selectedCat);
+				console.log("$scope.selectedCat) : " + user.category_preference);
+				console.log("user: " + user);
 
+				$ionicLoading.show({
+					template: '<h2>Vennligst vent mens vi finner historier vi tror du vil like</h2><div class="icon ion-loading-a"></div>',
+					noBackdrop: false
+				});
+
+				Requests.updateUser(user).then(function(response) {
+					console.log("response status(updateUser) : " + response.data.userId);
+					$state.go("app.recommendations");
+				});
+
+			});
+		}
+		else 
+		{
 			$ionicLoading.show({
-				template: '<h2>Vennligst vent mens vi finner historier vi tror du vil like</h2><div class="icon ion-loading-a"></div>',
-				noBackdrop: false
-			});
-
-			Requests.updateUser(user).then(function(response) {
-				console.log("response status(updateUser) : " + response.data.userId);
-				$state.go("app.recommendations");
-			});
-
-		});
+					template: '<h2>Du må velge minst en kategori</h2>',
+					noBackdrop: false,
+					duration: 2000
+				});
+		}
 	};
 
 	//saves the new preferences chosen in the settings -> preferences view
