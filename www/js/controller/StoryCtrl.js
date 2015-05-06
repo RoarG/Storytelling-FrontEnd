@@ -6,7 +6,7 @@
 
 angular.module('StoryCtrl', [])
 
-stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ionicPopover, Requests, Story, $rootScope, $sce, $ionicLoading, $window, $cordovaInAppBrowser) {
+stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ionicPopover, Requests, Story, $rootScope, $sce, $ionicLoading, $window, $cordovaInAppBrowser, $timeout, $ionicScrollDelegate) {
 
 	$scope.storyId = Requests.getSelectedStory();
 	$scope.userId = $window.localStorage.getItem('userId');
@@ -46,6 +46,44 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 	}, function(data, status) {
 		console.log(status);
 	});
+
+
+	// Code to enable vertical scrolling when touching the media container.
+	// Allows touch event in media container to propagate to outer container.
+	// http://codepen.io/anon/pen/BoGkA
+	$timeout(function(){
+    //return false; // <--- comment this to "fix" the problem
+    var sv = $ionicScrollDelegate.$getByHandle('horizontal').getScrollView();
+    var container = sv.__container;
+    var originaltouchStart = sv.touchStart;
+    var originalmouseDown = sv.mouseDown;
+    var originaltouchMove = sv.touchMove;
+    var originalmouseMove = sv.mouseMove;
+    container.removeEventListener('touchstart', sv.touchStart);
+    container.removeEventListener('mousedown', sv.mouseDown);
+    document.removeEventListener('touchmove', sv.touchMove);
+    document.removeEventListener('mousemove', sv.mousemove);
+    sv.touchStart = function(e) {
+      e.preventDefault = function(){}
+      originaltouchStart.apply(sv, [e]);
+    }
+    sv.touchMove = function(e) {
+      e.preventDefault = function(){}
+      originaltouchMove.apply(sv, [e]);
+    }
+    sv.mouseDown = function(e) {
+      e.preventDefault = function(){}
+      originalmouseDown.apply(sv, [e]);
+    }
+    sv.mouseMove = function(e) {
+      e.preventDefault = function(){}
+      originalmouseMove.apply(sv, [e]);
+    }
+    container.addEventListener("touchstart", sv.touchStart, false);
+    container.addEventListener("mousedown", sv.mouseDown, false);
+    document.addEventListener("touchmove", sv.touchMove, false);
+    document.addEventListener("mousemove", sv.mouseMove, false);
+  });
 
 		// Display selected image in modal. 
 		$scope.showImages = function(index) {
@@ -110,7 +148,7 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 		};
 
 		// Open all links in native browser
-		document.onclick = function (e) {
+		$scope.onclickStoryContent = function (e) {
             e = e ||  window.event;
             var element = e.target || e.srcElement;
 

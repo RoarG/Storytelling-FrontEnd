@@ -2,7 +2,7 @@
     <ion-slide-box on-slide-changed="slideChanged(index)" show-pager="true" active-slide="activeSlide">
         <ion-slide ng-repeat="image in story.imageList">
             <img ng-src="{{image['imageurl']}}" class="fullscreen-image"/>
-            <p class="image-description">{{image['description']}}</p>
+            <p ng-hide="image['description'] == 'Illustrasjonsfoto'" class="image-description">{{image['description']}}</p>
         </ion-slide>
     </ion-slide-box>
 </div>

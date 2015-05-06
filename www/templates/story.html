@@ -35,7 +35,7 @@
             <a class="button button-light" ng-class="{active: mediaType === 'images'}" ng-show="story.imageList[0]" ng-click="mediaType = 'images'">Bilder</a>
         </div>
         <!-- Images, video or sound displayed depending on which button in the menubar is active -->
-        <ion-scroll class="media-content" direction="x">
+        <ion-scroll class="media-content" direction="x" delegate-handle="horizontal" zooming="false">
             <div ng-if="mediaType === 'images'">
                 <div class="story-image-container" ng-repeat="image in story.imageList">
                     <img ng-src={{image["imageurl"]}} ng-click="showImages($index)" alt="" class="image-list-thumb"/>
@@ -65,7 +65,7 @@
             </div>
         </ion-scroll>
         <div ng-if="story.text" class="story-wrapper card">
-            <p class="clear-float" ng-bind-html="story.text"></p>
+            <p class="clear-float" ng-bind-html="story.text" ng-click="onclickStoryContent($event)"></p>
         </div>
 
             <div class="story-footer clear-float">

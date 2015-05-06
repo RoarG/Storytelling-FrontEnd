@@ -9,7 +9,7 @@ angular.module('RatingCtrl', [])
 
 stories.controller("RatingCtrl", function($scope, Requests, $window) {
 	$scope.userId = $window.localStorage.getItem('userId');
-	$scope.ratingSaved = "notRated";
+	$scope.ratingStatus = "notRated";
 
 	// Rate story //TODO: Forklar!
 	$scope.rateFunction = function(rating) {
