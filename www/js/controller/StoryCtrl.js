@@ -136,9 +136,11 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 			if ($scope.fullscreen) {
 				$scope.video.pause();
 				console.log("Exit fullscreen");
+				screen.lockOrientation('portrait')
 			} else {
 				$scope.fullscreen = true;
 				console.log("Enter fullscreen");
+				screen.unlockOrientation()
 			}
 		});
 		

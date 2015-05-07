@@ -70,8 +70,8 @@ var stories = angular.module('stories', [
 			});
 		}
 
-		//screen.lockOrientation("landscape");
-		console.log('Orientation is ' + screen.orientation);
+		screen.lockOrientation("portrait");
+		
 	});
 
   // Tells server that the app has been opened
