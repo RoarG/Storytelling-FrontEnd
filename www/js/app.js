@@ -69,6 +69,9 @@ var stories = angular.module('stories', [
 				$cordovaDialogs.alert("Ingen nettilgang", "Enheten din er ikke tilkoblet Internett");
 			});
 		}
+
+		screen.lockOrientation("portrait");
+		
 	});
 
   // Tells server that the app has been opened

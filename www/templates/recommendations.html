@@ -46,10 +46,16 @@
                 </div>
                 <div class="slide-nav slide-nav-left" ng-click="previousSlide()" ng-hide="$index === 0" ng-if="currentSlideIndex === storyPreviews.indexOf(story) || currentSlideIndex === storyPreviews.indexOf(story)-1 || currentSlideIndex === storyPreviews.indexOf(story)+1"><i class="ion-chevron-left"></i></div>
                 <div class="slide-nav slide-nav-right" ng-click="nextSlide()" ng-hide="$index === storyPreviews.length-1" ng-if="currentSlideIndex === storyPreviews.indexOf(story) || currentSlideIndex === storyPreviews.indexOf(story)-1 || currentSlideIndex === storyPreviews.indexOf(story)+1"><i class="ion-chevron-right"></i></div>
-                <div ng-if="currentSlideIndex === storyPreviews.indexOf(story) || currentSlideIndex === storyPreviews.indexOf(story)-1 || currentSlideIndex === storyPreviews.indexOf(story)+1">
-                <p ng-if="story.explanation" class="recommExplanation">Denne historien ble anbefalt fordi du så på historiene <a href="" ng-click="openStoryLink(story.explanation[0])">{{story.explanation[0]}}</a>, <a href="" ng-click="openStoryLink(story.explanation[1])">{{story.explanation[1]}}</a> og <a href="" ng-click="openStoryLink(story.explanation[2])">{{story.explanation[2]}}</a></p>
-                <p>
-                <p ng-if="story.false_recommend === 1" class="recommExplanation">Dette er en historie utenfor dine registrerte interesser</p>
+
+                <!-- Explanation of why the story was recommended -->
+                <div class="recommExplanation" ng-if="currentSlideIndex === storyPreviews.indexOf(story) || currentSlideIndex === storyPreviews.indexOf(story)-1 || currentSlideIndex === storyPreviews.indexOf(story)+1">
+                    <p ng-if="story.explanation && story.explanation[0].valueOf() !== '' && story.false_recommend == 0">
+                        Denne historien ble anbefalt fordi du leste
+                        <span ng-if="story.explanation.length === 1"> historien <a href="#" ng-click="openStoryLink(story.explanation[0].substr(0,7))">{{story.explanation[0].substr(8)}}</a></span>
+                        <span ng-if="story.explanation.length >= 2"> historiene <span ng-repeat="e in story.explanation"><a href="#" ng-click="openStoryLink(e.substr(0,7))">{{e.substr(8)}}</a><span ng-if="story.explanation.indexOf(e) !== story.explanation.length-1">, </span></span>
+                    </p>
+                    <!-- False recommendation -->
+                    <p ng-if="story.false_recommend == 1">Prøv den her! Denne historien er valgt fordi den er annerledes fra hva du vanligvis leser.</p>
                 </div>
             </ion-slide>
         </ion-slide-box>
