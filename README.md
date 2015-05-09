@@ -85,6 +85,8 @@ Read more about ionic testing here: http://ionicframework.com/docs/guide/testing
 3. Signing the APK
 
   ```jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore HelloWorld-release-unsigned.apk alias_name ``` 
+  
+    Where the AKP is located i.e. StoryTelling-Frontend\platforms\android\ant-build
 
 3. Optimize the APK
 
