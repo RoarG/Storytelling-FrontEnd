@@ -155,4 +155,9 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 			//TODO: Gi beskjed om at det er opprettet en ny brukker / evt spør om det er ønsket til brukeren
 	};
 
+	$scope.clearProfil = function() {
+		$scope.ageGrp = null;
+		$scope.gender = null;
+	}
+
 })

@@ -107,6 +107,7 @@ stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLo
 				Requests.updateUser(user).then(function(response) {
 					console.log("response status(updateUser) : " + response.data.userId);
 					$state.go("app.recommendations");
+					$ionicLoading.hide();
 				});
 
 			});
