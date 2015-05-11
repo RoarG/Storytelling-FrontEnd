@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.myapp2570134" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>myapp2</name>
+<widget id="no.sintef.vettuhva" version="0.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>Vettu Hva?</name>
   <description>&#xD;
-        An Ionic Framework and Cordova project.&#xD;
+        Denne applikasjonen ble startet utviklet våren 2015, i et faglig studentprosjekt ved Norges teknisk-naturvitenskapelige universitet.&#xD;
     </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">&#xD;
-      Ionic Framework Team&#xD;
+  <author email="vettuhva@sintef.no" href="http://sintef.no/">&#xD;
+      Sintef&#xD;
     </author>
   <content src="index.html"/>
   <access origin="*"/>
