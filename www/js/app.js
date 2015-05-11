@@ -25,6 +25,9 @@ var stories = angular.module('stories', [
 .run(function($ionicPlatform, $cordovaDialogs, $cordovaNetwork, $rootScope, $cordovaSplashscreen, Requests, $window) {
 	$ionicPlatform.ready(function() {
 		
+		//Loging start up in DB
+		Requests.opensApp($window.localStorage.getItem('userId'));
+		
 		//TODO: Forklar! FIX
 		//Enable fullsceen for the onboarding and splashscreen
 		//StatusBar.hide();
@@ -76,11 +79,13 @@ var stories = angular.module('stories', [
 
   // Tells server that the app has been opened
   $ionicPlatform.on('resume', function() {
-    Requests.opensApp($window.localstorage.getItem('userId'));
+  	console.log("Resume" + $window.localStorage.getItem('userId'));
+    Requests.opensApp($window.localStorage.getItem('userId'));
   });
   // Tells server that the app has been paused
   $ionicPlatform.on('pause', function() {
-    Requests.closesApp($window.localstorage.getItem('userId'));
+  	console.log("Pause" + $window.localStorage.getItem('userId'));
+    Requests.closesApp($window.localStorage.getItem('userId'));
   });
 })
 
@@ -194,7 +199,6 @@ var stories = angular.module('stories', [
 	})
 
 	.state('app.recommendations', {
-		cache: false,
 		url: "/recommendations",
 		views: {
 			'menuContent': {

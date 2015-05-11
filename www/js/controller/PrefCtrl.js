@@ -6,7 +6,7 @@
 
 angular.module('PrefCtrl', [])
 
-stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLoading, $window) {
+stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLoading, $window, $ionicHistory) {
 
 
 
@@ -107,6 +107,7 @@ stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLo
 
 				Requests.updateUser(user).then(function(response) {
 					console.log("response status(updateUser) : " + response.data.userId);
+					$ionicHistory.clearCache()
 					$state.go("app.recommendations");
 					$ionicLoading.hide();
 				});

@@ -79,7 +79,7 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	    Requests.addUser(email).then(function(response) {
 	        $scope.responseData = response.data;
 	        console.log("email: " + email);
-	        console.log("responseData: " + email);
+	        console.log("respons: " + email);
 
 	        //Sets the localStorage.getItem userId 
 	        $scope.user.userId = $scope.responseData.userId;
