@@ -78,6 +78,8 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	    $scope.user.email = $scope.tempMail
 	    Requests.addUser(email).then(function(response) {
 	        $scope.responseData = response.data;
+	        console.log("email: " + email);
+	        console.log("responseData: " + email);
 
 	        //Sets the localStorage.getItem userId 
 	        $scope.user.userId = $scope.responseData.userId;
@@ -86,12 +88,13 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	        //Go to the next view 
 	        //Sets the input as a empty string
 	        $scope.user.email = '';
-	        console.log("userDontExist called" , response.data.status, "ID: ", response.data.userId );
+	        console.log("userDontExist called : " , response.data.status, ", ID: ", response.data.userId );
 
 	        //User is created on the server sider or not
 	   		if (response.data.status === "sucessfull") 
 	   		{
 	   			$scope.setLocalUser(response.data.userId);
+	   			$scope.clearProfil();
 	        	$state.go("profile");
 	   			$ionicLoading.hide();
 	   		}

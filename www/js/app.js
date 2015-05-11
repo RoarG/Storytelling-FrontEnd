@@ -133,18 +133,21 @@ var stories = angular.module('stories', [
 	})
 
 	.state('login', {
+		cache: false,
 		url: "/login",
 		templateUrl: "templates/login.html",
 		controller: 'LoginCtrl'
 	})
 
 	.state('profile', {
+		cache: false,
 		url: "/profile",
 		templateUrl: "templates/profile.html",
 		controller: 'ProfilCtrl'
 	})
 
 	.state('preferences', {
+		cache: false,
 		url: "/preferences",
 		templateUrl: "templates/preferences.html",
 		controller: 'PrefCtrl'
@@ -191,6 +194,7 @@ var stories = angular.module('stories', [
 	})
 
 	.state('app.recommendations', {
+		cache: false,
 		url: "/recommendations",
 		views: {
 			'menuContent': {

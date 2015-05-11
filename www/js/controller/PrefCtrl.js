@@ -94,6 +94,7 @@ stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLo
 			Requests.getUserFromId($window.localStorage.getItem('userId')).then(function(response) {
 				user = new User($window.localStorage.getItem('userId'), response.data.userModel);
 				console.log("response status(getUserFromId) : " + response.data.status);
+				console.log("$window.localStorage.getItem('userId') : " + $window.localStorage.getItem('userId'));
 
 				user.setCategoryPreference($scope.selectedCat);
 				console.log("$scope.selectedCat) : " + user.category_preference);
