@@ -7,7 +7,8 @@
 angular.module('RecomdCtrl', [])
 
 
-stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBoxDelegate, $ionicModal, $ionicLoading, $state, $ionicSideMenuDelegate, $timeout, $ionicHistory, $window) {
+stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBoxDelegate, $ionicModal, $ionicLoading, $state, $ionicSideMenuDelegate, $timeout, $ionicHistory, $window, $cordovaDialogs) {
+	
 	$scope.storyPreviews = [];
 	$scope.currentSlideIndex = 0;
 	/*Used to know which of the stories in this list of recommendations that have been recommended
@@ -21,34 +22,44 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 		$ionicSideMenuDelegate.canDragContent(false);
 	});
 
-	//TODO: Forklar!
+	// Get array of recommended stories. 
 	Requests.getRecommendedStories($scope.userId).then(function(response) {
 		console.log("user id inside", $scope.userId , "response data: " , response.data);
 		$scope.storyPreviews = response.data;
 		console.log($scope.storyPreviews);
-		/*Set the first story as recommended*/
+
+		for(var i = 0; i < $scope.storyPreviews.length; i++) {
+			$scope.storyPreviews[i].categories = $scope.storyPreviews[i].categories.slice(0,4);
+		}
+
+		//Set the first story as recommended
 		Requests.recommendedStory($scope.userId, $scope.storyPreviews[0].id);
-		console.log("user id inside", $scope.userId)
 		$scope.recommendArray.push($scope.storyPreviews[0].id);
+
+		// Set the first story as the selected one. 
 		Requests.setSelectedStory($scope.storyPreviews[0].id);
+
+		// Update slidebox
 		$ionicSlideBoxDelegate.update();
+
 		$ionicLoading.hide();
 	}, function(response) {
-    		console.log(response.status);
+		$cordovaDialogs.alert("Får ikke tak i historier");
   	});
 
 
-	//TODO: Forklar!
+	// Go to next slide in slidebox. 
 	$scope.nextSlide = function() {
 		$ionicSlideBoxDelegate.next();
 	};
 
-	//TODO: Forklar!
+	// Go to previous slide in slidebox. 
 	$scope.previousSlide = function() {
 		$ionicSlideBoxDelegate.previous();
 	};
 
-	//TODO: Forklar!
+	// Remove story from slidebox and set story as rejected. 
+	// Currently works in browser, but not on Android/iOS. 
 	$scope.rejectStory = function(index) {
 		// If it is the last slide, go back to previous slide. Otherwise, next slide. 
 		if (index == $scope.storyPreviews.length - 1) {
@@ -68,20 +79,22 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 		}, 500);
 	};
 
-	/*
-	  Runs when going to next/previous slide (and when a slide is changed?)
-	  Set the story in current slide as the current story. 
-	 */
-	 //TODO: Forklar! Del opp
+	 // Runs when going to next/previous slide
+	 // Set the story in current slide as the current story. 
 	$scope.slideChanged = function() {
 		$scope.currentSlideIndex = $ionicSlideBoxDelegate.currentIndex();
 		Requests.setSelectedStory($scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id);
+
 	    //TODO: Record swiped_past for the slide we came from?
-	    /*Only want to set a story as recommended one time for each list of recommendations*/
+	    
+	    //Only want to set a story as recommended one time for each list of recommendations
 	    if($scope.recommendArray.indexOf($scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id) == -1){
 	      Requests.recommendedStory($scope.userId, $scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id);
 	      $scope.recommendArray.push($scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id);
 	    }
+
+	    // If the user is getting to the end of the array of slides, then get more recommendations. 
+	    // Currently it get more recommendations when there are two slides left, so that the user does not have to wait for it to load. 
 	    if($ionicSlideBoxDelegate.currentIndex() === $scope.storyPreviews.length-4) {
 	      Requests.getMoreRecommendedStories($scope.userId).success(function(data, status) {
 	        $scope.storyPreviews = $scope.storyPreviews.concat(data);
@@ -91,11 +104,12 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 	        }, 100);
 	      }).error(function(data, status) {
 	          console.log(status);
+	          $cordovaDialogs.alert("Får ikke tak i flere anbefalinger");
 	      });
 	    }
     };
 
-    //TODO: Forklar!
+    // Sets the story to be selected, and goes to story view. 
 	$scope.openStory = function(story) {
 		$ionicLoading.show({
       		template: '<h2>Laster inn historie</h2><div class="icon ion-loading-a"></div>',
@@ -106,7 +120,7 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 		$state.go("app.story");
 	};
 
-	//TODO: Forklar!
+	// Opens story by storyId. 
 	$scope.openStoryLink = function(storyId) {
 	    $ionicLoading.show({
 	      template: '<h2>Laster inn historie</h2><div class="icon ion-loading-a"></div>',
@@ -116,7 +130,7 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 	    $state.go("app.story");
   	};
 
-  	//TODO: Forklar!
+  	// Displays the modal specified in templateUrl. 
 	$scope.showModal = function(templateUrl) {
 		$ionicModal.fromTemplateUrl(templateUrl, {
 			scope: $scope,
@@ -133,7 +147,7 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 		$scope.modal.remove();
 	};
 
-	//TODO: Forklar!
+	// Update slidebox when entering view. 
 	$scope.$on('$ionicView.beforeEnter', function() {
 		$ionicSlideBoxDelegate.update();
 	});

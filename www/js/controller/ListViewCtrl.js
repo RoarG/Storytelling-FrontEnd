@@ -6,7 +6,7 @@
 
 angular.module('ListViewCtrl', [])
 
-stories.controller('ListViewCtrl', function($scope, Requests, Story, $state, $rootScope, $ionicLoading, $window) {
+stories.controller('ListViewCtrl', function($scope, Requests, Story, $state, $rootScope, $ionicLoading, $window, $cordovaDialogs) {
 	//Display loading screen
 	$ionicLoading.show({
 		template: '<h2>Laster inn...</h2><div class="icon ion-loading-a"></div>',
@@ -21,6 +21,7 @@ stories.controller('ListViewCtrl', function($scope, Requests, Story, $state, $ro
 		$ionicLoading.hide();
 	}).error(function(data, status) {
 		console.log(status);
+		$cordovaDialogs.alert("Får ikke svar fra server.");
 	});
 
 	//remove a story from the listview

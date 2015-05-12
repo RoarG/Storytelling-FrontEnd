@@ -6,7 +6,7 @@
 
 angular.module('ProfilCtrl', [])
 
-stories.controller('ProfilCtrl', function($scope, Requests, User, $state, $window) {
+stories.controller('ProfilCtrl', function($scope, Requests, User, $state, $window, $cordovaDialogs) {
 
 	$scope.ageGrp = null;
 	$scope.gender = null;
@@ -39,6 +39,8 @@ stories.controller('ProfilCtrl', function($scope, Requests, User, $state, $windo
 			$scope.setGender(gender);
 			$scope.setAgeGrp(age_group);
 
+		}, function(response) {
+			$cordovaDialogs.alert("Får ikke svar fra server.");
 		});
 
 	};
@@ -57,11 +59,14 @@ stories.controller('ProfilCtrl', function($scope, Requests, User, $state, $windo
 
 			Requests.updateUser(user).then(function(response) {
 				console.log("response status(updateUser) : " + response.data.status);
-				//TODO: If failed=?
+				$state.go("preferences");
+			}, function(response) {
+				$cordovaDialogs.alert("Får ikke svar fra server.");
 			});
 
+		}, function(response) {
+			$cordovaDialogs.alert("Får ikke svar fra server.");
 		});
-		$state.go("preferences");
 
 	};
 	
@@ -80,8 +85,12 @@ stories.controller('ProfilCtrl', function($scope, Requests, User, $state, $windo
 
 			Requests.updateUser(user).then(function(response) {
 				console.log("response status(updateUser) : " + response.data.status);
+			}, function(response) {
+				$cordovaDialogs.alert("Får ikke svar fra server.");
 			});
 
+		}, function(response) {
+			$cordovaDialogs.alert("Får ikke svar fra server.");
 		});
 		$scope.profileSaved = true;
 	};

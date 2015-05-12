@@ -6,7 +6,7 @@
 
 angular.module('StoryCtrl', [])
 
-stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ionicPopover, Requests, Story, $rootScope, $sce, $ionicLoading, $window, $cordovaInAppBrowser, $timeout, $ionicScrollDelegate) {
+stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ionicPopover, Requests, Story, $rootScope, $sce, $ionicLoading, $window, $cordovaInAppBrowser, $timeout, $ionicScrollDelegate, $ionicHistory, $cordovaDialogs, $interval) {
 
 	$scope.storyId = Requests.getSelectedStory();
 	$scope.userId = $window.localStorage.getItem('userId');
@@ -16,6 +16,7 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 	//TODO: Forklar!
 	Requests.getStory($scope.storyId, $scope.userId).then(function(response) {
 		$scope.story = new Story(response.data);
+		console.log(response);
 		console.log($scope.story.imageList);
 
 
@@ -38,13 +39,35 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 				}
 			}
 		} else if ($scope.story.audioList) {
+			console.log($scope.story.audioList[0]["audiourl"])
 			$scope.mediaType = "audio";
+
+			$scope.audioFiles = {};
+			for (var i = 0; i < $scope.story.audioList.length; i++) {
+				$scope.audioFiles[$scope.story.audioList[i]["audiourl"]] = [new Media($scope.story.audioList[i]["audiourl"],
+					// success callback
+					function () { console.log("playAudio():Audio Success"); },
+					// error callback
+					function (err) { console.log("playAudio():Audio Error: " + err); }
+				), 0];
+				$scope.audioFiles[$scope.story.audioList[i]["audiourl"]][0].getCurrentPosition(function(position) {
+					console.log("Audio position: " + position);
+				})
+
+			}
+
 		} else {
 			$scope.mediaType = "images";
-		}	
+		}
+
+		
+
 	$ionicLoading.hide();
-	}, function(data, status) {
-		console.log(status);
+	}, function(response) {
+		console.log(response);
+		$ionicLoading.hide();
+		$ionicHistory.goBack();
+		$cordovaDialogs.alert("Får ikke åpnet historien");
 	});
 
 
@@ -130,6 +153,39 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 			}
 			$scope.video.play();
 		};
+
+		// Play audio
+		$scope.playAudio = function(url) {
+			$scope.isAudioPlaying = true;
+			$scope.audioFiles[url][0].play();
+
+			interval = $interval(function() {
+	     		$scope.audioFiles[url][0].getCurrentPosition(function(result) {
+	     			if(result != -1) {
+	     				$scope.audioFiles[url][1] = result;
+	     			}
+	     			if(result >= $scope.audioFiles[url][0].getDuration()-1 || result == -1) {
+	     				$scope.isAudioPlaying = false;
+	     				$scope.audioFiles[url][1] = -1;
+	     				$interval.cancel(interval);
+	     			}
+
+	     			console.log("Currently: " + result + "/" +  $scope.audioFiles[url][0].getDuration());
+	     		})
+	     		
+   			},1000);
+		};
+
+		$scope.pauseAudio = function(url) {
+			$scope.isAudioPlaying = false;
+			$scope.audioFiles[url][0].pause();
+			$interval.cancel(interval);
+		}
+
+		$scope.sliderPositionChange = function(url) {
+     		var mediaInMilli = $scope.audioFiles[url][1]*1000;
+     		$scope.audioFiles[url][0].seekTo(mediaInMilli);
+   		};
 
 		//TODO: Forklar!
 		document.addEventListener('webkitfullscreenchange', function(e) {

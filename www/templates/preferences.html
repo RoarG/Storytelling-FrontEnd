@@ -8,7 +8,7 @@
 	<p class="infoText">Velg de kategoriene du ønsker å lese historier fra</p>
 	<div  class="categories">
 		<div class="category" ng-repeat="i in [1,2,3,4,5,6,7,8,9]">
-			<div class="category-circle button"
+			<div class="category-circle"
 				ng-click="categories[i].isSelected = !categories[i].isSelected;selectedCategory(i)"
 				ng-class="{'category-circle-selected': categories[i].isSelected}">
 				<i class="icon" ng-class="categories[i].icon"></i>

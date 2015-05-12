@@ -54,6 +54,8 @@ stories.controller('MenuCtrl', function($scope, Requests, User, $state, $window,
 		Requests.getAllLists($window.localStorage.getItem('userId')).then(function(response) {
 			$scope.collectionList = response.data;
 			console.log($scope.collectionList);
+		}, function(response) {
+			$cordovaDialogs.alert("Får ikke tak i bokmerker.");
 		});
 	};
 

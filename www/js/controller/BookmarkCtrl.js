@@ -7,20 +7,19 @@
 angular.module('BookmarkCtrl', [])
 
 
-stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests, $window) {
+stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests, $window, $cordovaDialogs) {
 
 	
 	$scope.userId = $window.localStorage.getItem('userId');
 	$scope.storyId = Requests.getSelectedStory();
 	
-	//TODO:  Forklar!
+	// Gets all the bookmarks associated with the story.  
 	Requests.getStoryTags($scope.userId, $scope.storyId).then(function(response) {
 		$scope.tags = response.data;
 		console.log($scope.tags);
 
-	//TODO: Fix!
-	// May use the collectionList in AppCtrl instead
-	// The collections a user has, and whether this story is in it.
+	// Gets all the bookmark lists the user has.
+	// Then goes through them and sets "checked" to true/false depending on whether the story has that bookmark. 
 	Requests.getAllLists($scope.userId).then(function(response) {
 		$scope.collectionList = response.data;
 		for (var i = 0; i < $scope.collectionList.length; i++) {
@@ -33,17 +32,21 @@ stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests, $windo
 				$scope.collectionList[i]["checked"] = false;
 			}
 		}
-	}, function(data, status) {
-		console.log(status);
+	}, function(response) {
+		console.log(response.status);
+		$cordovaDialogs.alert("Får ikke tak i bokmerker");
  	});
+}, function(response) {
+	console.log(response.status);
+	$cordovaDialogs.alert("Får ikke tak i bokmerker");
 });
 
-	// Display text field to enter name of new collection
+	// Display text field to enter name of new bookmark list
 	$scope.newItem = function() {
 		$scope.displayTextField = true;
 	};
 
-	// Add text entered as a new collection/bookmark and add the story to it. 
+	// Add text entered as a new bookmark list and add the story to it. 
 	$scope.addItem = function() {
 		if ($scope.newItemName && !$scope.containsObjectWithProperty($scope.collectionList, "text", $scope.newItemName)) {
 			$scope.collectionList.push({
@@ -51,7 +54,6 @@ stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests, $windo
 				checked: true
 			});
 
-			//Need the userId for this to work
 			Requests.addNewTag($scope.newItemName, $scope.userId, $scope.storyId);
 			$scope.tags.push($scope.newItemName);
 		}
@@ -59,6 +61,7 @@ stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests, $windo
 		$scope.displayTextField = false;
 	};
 
+	// Checks whether an array contains an object with a property with a certain value. 
 	$scope.containsObjectWithProperty = function(array, propertyName, property) {
 		for(var i = 0; i < array.length; i++) {
 			if(array[i][propertyName] && array[i][propertyName] === property) {
@@ -68,8 +71,9 @@ stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests, $windo
 		return false;
 	}
 
-	//TODO: Hva gjør den/Hvordan?
-	$scope.addTag = function(tag) {
+	// Toggles whether a tag is associated with the story. 
+	$scope.toggleTag = function(tag) {
+		// If the story already had that tag, remove the tag. 
 		if (!tag.checked) {
 			Requests.removeTagStory(tag.text, $scope.userId, $scope.storyId);
 			for (var i = 0; i < $scope.tags.length; i++) {
@@ -77,7 +81,7 @@ stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests, $windo
 					$scope.tags.splice(i, 1);
 				}
 			}
-			//TODO: Forklar.
+		// If the story does not already have the tag, add the tag. 
 		} else {
 			Requests.tagStory(tag.text, $scope.userId, $scope.storyId);
 			$scope.tags.push(tag["text"]);

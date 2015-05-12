@@ -12,7 +12,8 @@ ion-content, .view, .popover, .list, .item-divider {
 
 .item {
 	background-color: white;
-	border-color: desaturate(darken($background-color, 10%), 10%);
+	//border-color: desaturate(darken($background-color, 10%), 10%);
+	border-color: #E9E9E9;
 }
 
 .card {

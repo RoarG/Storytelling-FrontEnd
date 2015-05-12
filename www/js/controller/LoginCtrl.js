@@ -7,7 +7,7 @@
 angular.module('LoginCtrl', [])
 
 
-stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicLoading, $window) {
+stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicLoading, $window, $cordovaDialogs) {
 
 
 	$scope.responseData = {}
@@ -45,7 +45,9 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	   			$scope.userDontExist(email);
 	   		}    
 	   			
-	    })
+	    }, function(response) {
+	    	$cordovaDialogs.alert("Får ikke svar fra server.");
+	    });
 	}
 
         //Sets the user from the response 
@@ -70,6 +72,8 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 		Requests.getUserFromId(userid).then(function(response){
 			$window.localStorage.setItem('userId', $scope.responseData.userId);
 			$window.localStorage.setItem('userModel', $scope.responseData.userModel) ;
+		}, function(response) {
+			$cordovaDialogs.alert("Får ikke svar fra server.");
 		});
 	}
         
@@ -110,6 +114,7 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	//TODO: Forklar!
 	$scope.failedResponse = function () {
 	    console.log("Failed Response");
+	    $cordovaDialogs.alert("Får ikke svar fra server.");
 	}
 
 	//TODO: Forklar!
@@ -136,6 +141,8 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	    Requests.updateUser(new User($window.localStorage.getItem('userId'))).then(function (response1) {
 	        console.log('Update User called, Response Status: ', response1.data.status);
 	        console.log('Update User called, data: ', response1.data);
+	    }, function(response) {
+	    	$cordovaDialogs.alert("Får ikke svar fra server.");
 	    });
 	}
 

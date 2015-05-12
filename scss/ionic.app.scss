@@ -280,14 +280,22 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 /*
 	Menu
  */
+.item-divider {
+	padding-top: 30px;
+	background-color: $background-color;
+	text-transform: uppercase;
+	font-size: 0.9em;
+	font-variant: small-caps;
+}
+
 .bookmark-list {
 	padding: 0;
 	margin: 0;
-}
 
-.bookmark-list div {
-	padding: 18px 0 18px 15px;
-	width: 80%;
+ 	div {
+		padding: 18px 0 18px 15px;
+		width: 80%;
+	}
 }
 
 
@@ -423,7 +431,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 .story-introduction h2 {
     margin-bottom: 0;
-    margin-top: 3%;
+    margin-top: 5%;
     float: left;
 }
 
@@ -431,11 +439,12 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	position: relative;
     margin: -8% 3% 0 3%;
     padding: 0 3%;
-    border-radius: 5px;
+    border-radius: 6px;
 
     p {
     	color: desaturate(lighten($font-color, 20%), 15%);
     	font-style: italic;
+    	margin-bottom: 5%;
     }
 }
 
@@ -476,55 +485,55 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 .category-circle li {
-    font-size: 1.5em;
+    font-size: 1.7em;
     background-color: $background-color-dark;
-    padding: 2px 5px;
+    padding: 4px 9.5px;
     border-radius: 50%;
-    margin-right: 4px;
+    margin-right: 5px;
 }
 
 .category-circle {
 	.cat-1 {
 		background-color: nth($category-colors, 1);
-		color: desaturate(darken(nth($category-colors, 1), 55%), 55%);
+		color: darken(nth($category-colors, 1), 55%);
 	}
 	.cat-2 {
 		background-color: nth($category-colors, 2);
-		color: desaturate(darken(nth($category-colors, 2), 55%), 55%);
+		color: darken(nth($category-colors, 2), 55%);
 	}
 	.cat-3 {
 		background-color: nth($category-colors, 3);
-		color: desaturate(darken(nth($category-colors, 3), 55%), 55%);
+		color: darken(nth($category-colors, 3), 55%);
 	}
 	.cat-4 {
 		background-color: nth($category-colors, 4);
-		color: desaturate(darken(nth($category-colors, 4), 55%), 55%);
+		color: darken(nth($category-colors, 4), 55%);
 	}
 	.cat-5 {
 		background-color: nth($category-colors, 5);
-		color: desaturate(darken(nth($category-colors, 5), 55%), 55%);
+		color: darken(nth($category-colors, 5), 55%);
 	}
 	.cat-6 {
 		background-color: nth($category-colors, 6);
-		color: desaturate(darken(nth($category-colors, 6), 55%), 55%);
+		color: darken(nth($category-colors, 6), 55%);
 	}
 	.cat-7 {
 		background-color: nth($category-colors, 7);
-		color: desaturate(darken(nth($category-colors, 7), 55%), 55%);
+		color: darken(nth($category-colors, 7), 55%);
 	}
 	.cat-8 {
 		background-color: nth($category-colors, 8);
-		color: desaturate(darken(nth($category-colors, 8), 55%), 55%);
+		color: darken(nth($category-colors, 8), 55%);
 	}
 	.cat-9 {
 		background-color: nth($category-colors, 9);
-		color: desaturate(darken(nth($category-colors, 9), 55%), 55%);
+		color: darken(nth($category-colors, 9), 55%);
 	}
 }
 
 .story-categories .category-circle {
 	float: left;
-	margin-bottom: 2.5%;
+	margin-bottom: 4%;
 }
 
 .media-content {
@@ -599,6 +608,25 @@ video::-webkit-media-controls {
 
 .audio-container {
 	margin-top: 10px;
+
+	i {
+		display: inline-block;
+		font-size: 2.8em;
+		color: white;
+		position: relative;
+		top: -7px;
+	}
+
+	input[type="range"]::-webkit-slider-thumb {
+		width: 20px;
+    	height: 20px;
+
+	}
+
+	input[type="range"] {
+		margin-left: 20px;
+		width: 50%;
+	}
 }
 
 .audio-container audio {
@@ -769,125 +797,137 @@ video::-webkit-media-controls {
 	    width: 25%;
 	    height: 0;
 	    padding-bottom: 24%;
-	    position: relative;
 	}
+
 
 	.category:nth-of-type(1) {
 		.category-circle {
-			background-color: desaturate(lighten(nth($category-colors, 1), 10%), 10%);
-			color: desaturate(darken(nth($category-colors, 1), 20%), 40%);
-			border: 1.5px solid lighten(nth($category-colors, 1), 8%);
+			background-color: saturate(#F2DFE7, 40%);
+			color: rgba(0,0,0,0.25);
+			border: 1.5px solid lighten(nth($category-colors, 1), 10%);
+			
 		}
 		.category-circle-selected {
 				background-color: nth($category-colors, 1);
-				color: desaturate(darken(nth($category-colors, 1), 55%), 55%);
+				color: darken(nth($category-colors, 1), 50%);
 				border-color: nth($category-colors, 1);
 			}
 	}
 	.category:nth-of-type(2) {
 		.category-circle {
-			background-color: desaturate(lighten(nth($category-colors, 2), 10%), 10%);
-			color: desaturate(darken(nth($category-colors, 2), 20%), 40%);
-			border: 1.5px solid lighten(nth($category-colors, 2), 8%);
+			background-color: saturate(#EEDFF2, 40%);
+			color: rgba(0,0,0,0.25);
+			border: 1.5px solid lighten(nth($category-colors, 2), 9%);
 		}
 		.category-circle-selected {
 				background-color: nth($category-colors, 2);
-				color: desaturate(darken(nth($category-colors, 2), 55%), 55%);
+				color: darken(nth($category-colors, 2), 50%);
 				border-color: nth($category-colors, 2);
 			}
 	}
 	.category:nth-of-type(3) {
 		.category-circle {
-			background-color: desaturate(lighten(nth($category-colors, 3), 10%), 10%);
-			color: desaturate(darken(nth($category-colors, 3), 20%), 40%);
-			border: 1.5px solid lighten(nth($category-colors, 3), 8%);
+			background-color: saturate(#E0E3F1, 40%);
+			color: rgba(0,0,0,0.25);
+			border: 1.5px solid lighten(nth($category-colors, 3), 9%);
 		}
 		.category-circle-selected {
 				background-color: nth($category-colors, 3);
-				color: desaturate(darken(nth($category-colors, 3), 55%), 55%);
+				color: darken(nth($category-colors, 3), 50%);
 				border-color: nth($category-colors, 3);
 			}
 	}
 	.category:nth-of-type(4) {
 		.category-circle {
-			background-color: desaturate(lighten(nth($category-colors, 4), 10%), 10%);
-			color: desaturate(darken(nth($category-colors, 4), 20%), 40%);
-			border: 1.5px solid lighten(nth($category-colors, 4), 8%);
+			background-color: saturate(#DFEBF2, 40%);
+			color: rgba(0,0,0,0.25);
+			border: 1.5px solid lighten(nth($category-colors, 4), 9%);
 		}
 		.category-circle-selected {
 				background-color: nth($category-colors, 4);
-				color: desaturate(darken(nth($category-colors, 4), 55%), 55%);
+				color: darken(nth($category-colors, 4), 50%);
 				border-color: nth($category-colors, 4);
 			}
 	}
 	.category:nth-of-type(5) {
 		.category-circle {
-			background-color: desaturate(lighten(nth($category-colors, 5), 10%), 10%);
-			color: desaturate(darken(nth($category-colors, 5), 20%), 40%);
-			border: 1.5px solid lighten(nth($category-colors, 5), 8%);
+			background-color: saturate(#DFF2EE, 40%);
+			color: rgba(0,0,0,0.25);
+			border: 1.5px solid lighten(nth($category-colors, 5), 9%);
 		}
 		.category-circle-selected {
 				background-color: nth($category-colors, 5);
-				color: desaturate(darken(nth($category-colors, 5), 55%), 55%);
+				color: darken(nth($category-colors, 5), 50%);
 				border-color: nth($category-colors, 5);
 			}
 	}
 	.category:nth-of-type(6) {
 		.category-circle {
-			background-color: desaturate(lighten(nth($category-colors, 6), 10%), 10%);
-			color: desaturate(darken(nth($category-colors, 6), 20%), 40%);
-			border: 1.5px solid lighten(nth($category-colors, 6), 8%);
+			background-color: saturate(#E8F2DF, 40%);
+			color: rgba(0,0,0,0.25);
+			border: 1.5px solid lighten(nth($category-colors, 6), 9%);
 		}
 		.category-circle-selected {
 				background-color: nth($category-colors, 6);
-				color: desaturate(darken(nth($category-colors, 6), 55%), 55%);
+				color: darken(nth($category-colors, 6), 50%);
 				border-color: nth($category-colors, 6);
 			}
 	}
 	.category:nth-of-type(7) {
 		.category-circle {
-			background-color: desaturate(lighten(nth($category-colors, 7), 8%), 10%);
-			color: desaturate(darken(nth($category-colors, 7), 20%), 40%);
+			background-color: saturate(#F2EEDF, 40%);
+			color: rgba(0,0,0,0.25);
 			border: 1.5px solid lighten(nth($category-colors, 7), 8%);
 		}
 		.category-circle-selected {
 				background-color: darken(nth($category-colors, 7), 4%);
-				color: desaturate(darken(nth($category-colors, 7), 57%), 55%);
+				color: darken(nth($category-colors, 7), 50%);
 				border-color: nth($category-colors, 7);
 			}
 	}
 	.category:nth-of-type(8) {
 		.category-circle {
-			background-color: desaturate(lighten(nth($category-colors, 8), 10%), 10%);
-			color: desaturate(darken(nth($category-colors, 8), 20%), 40%);
-			border: 1.5px solid lighten(nth($category-colors, 8), 8%);
+			background-color: saturate(#F2E8DF, 40%);
+			color: rgba(0,0,0,0.25);
+			border: 1.5px solid lighten(nth($category-colors, 8), 9%);
 		}
 		.category-circle-selected {
 				background-color: nth($category-colors, 8);
-				color: desaturate(darken(nth($category-colors, 8), 58%), 55%);
+				color: darken(nth($category-colors, 8), 50%);
 				border-color: nth($category-colors, 8);
 			}
 	}
 	.category:nth-of-type(9) {
 		.category-circle {
-			background-color: desaturate(lighten(nth($category-colors, 9), 10%), 10%);
-			color: desaturate(darken(nth($category-colors, 9), 20%), 40%);
-			border: 1.5px solid lighten(nth($category-colors, 9), 8%);
+			background-color: saturate(#F2E2DF, 40%);
+			color: rgba(0,0,0,0.25);
+			border: 1.5px solid lighten(nth($category-colors, 9), 9%);
 		}
 		.category-circle-selected {
 				background-color: nth($category-colors, 9);
-				color: desaturate(darken(nth($category-colors, 9), 55%), 55%);
+				color: darken(nth($category-colors, 9), 50%);
 				border-color: nth($category-colors, 9);
 			}
 	}
 
 
 	.category-circle {
-		font-size: 3em;
+		text-align: center;
 		width: 80%;
 		height: 0;
 		padding-bottom: 80%;
 		border-radius: 50%;
+		margin: 0 auto;
+
+		-webkit-transition: background-color 0.5s, color 0.5s, box-shadow 0.3s, top 0.3s; /* Safari */
+		transition: background-color 0.5s, color 0.5s, box-shadow 0.3s, top 0.3s;
+	}
+
+	.category-circle-selected {
+		position: relative;
+		top: -1px;
+		box-shadow: 0px 2px 4px rgba(0,0,0,0.35);
+		
 	}
 
 	.button {
@@ -896,13 +936,10 @@ video::-webkit-media-controls {
 
 	/* Center text horizontally and vertically in circle */
 	.category-circle i {
+		font-size: 2.2rem;
+		line-height: 4.5rem;
 		margin: 0;
-	   position: absolute;
-	   top: 50%;
-	   left: 50%;   
-	   margin-right: 50%;  
-	   -webkit-transform: translate(-50%, -50%);              
-	   transform: translate(-50%, -50%);
+	  
 	}
 
 }
@@ -923,45 +960,47 @@ video::-webkit-media-controls {
 
 	.cat-1 {
 		background-color: nth($category-colors, 1);
-		color: desaturate(darken(nth($category-colors, 1), 45%), 55%);
+		color: darken(nth($category-colors, 1), 55%);
 	}
 	.cat-2 {
 		background-color: nth($category-colors, 2);
-		color: desaturate(darken(nth($category-colors, 2), 45%), 55%);
+		color: darken(nth($category-colors, 2), 55%);
 	}
 	.cat-3 {
 		background-color: nth($category-colors, 3);
-		color: desaturate(darken(nth($category-colors, 3), 45%), 55%);
+		color: darken(nth($category-colors, 3), 55%);
 	}
 	.cat-4 {
 		background-color: nth($category-colors, 4);
-		color: desaturate(darken(nth($category-colors, 4), 45%), 55%);
+		color: darken(nth($category-colors, 4), 55%);
 	}
 	.cat-5 {
 		background-color: nth($category-colors, 5);
-		color: desaturate(darken(nth($category-colors, 5), 45%), 55%);
+		color: darken(nth($category-colors, 5), 55%);
 	}
 	.cat-6 {
 		background-color: nth($category-colors, 6);
-		color: desaturate(darken(nth($category-colors, 6), 45%), 55%);
+		color: darken(nth($category-colors, 6), 55%);
 	}
 	.cat-7 {
 		background-color: nth($category-colors, 7);
-		color: desaturate(darken(nth($category-colors, 7), 50%), 55%);
+		color: darken(nth($category-colors, 7), 55%);
 	}
 	.cat-8 {
 		background-color: nth($category-colors, 8);
-		color: desaturate(darken(nth($category-colors, 8), 45%), 55%);
+		color: darken(nth($category-colors, 8), 55%);
 	}
 	.cat-9 {
 		background-color: nth($category-colors, 9);
-		color: desaturate(darken(nth($category-colors, 9), 45%), 55%);
+		color: darken(nth($category-colors, 9), 55%);
 	}
 }
 
 .recom-category-circle.media-icons {
-	background-color: $background-color-dark;
+	background-color: lighten($background-color-dark, 10%);
 	margin-left: 5px;
+	border-radius: 15%;
+	color: $font-color;
 }
 
  .recom-category-circle{
@@ -970,9 +1009,9 @@ video::-webkit-media-controls {
 }
 
 .recom-category-circle li {
-    font-size: 1.2em;
-    width: 27px;
-    line-height: 27px;
+    font-size: 1.5em;
+    width: 32px;
+    line-height: 32px;
     border-radius: 50%;
 	margin-right: 1.5%;
 	float: left;

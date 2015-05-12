@@ -57,9 +57,9 @@ var stories = angular.module('stories', [
 			if ($cordovaNetwork.isOffline()) {
 				$cordovaDialogs.alert("Ingen nettilgang", "Enheten din er ikke tilkoblet Internett");
 			}
-			if ($cordovaNetwork.isOnline()) {
+			/*if ($cordovaNetwork.isOnline()) {
 				$cordovaDialogs.alert("Nett!", "Hurra!");
-			}
+			}*/
 
 			// listen for Online event
 			$rootScope.$on('$cordovaNetwork:online', function(event, networkState) {

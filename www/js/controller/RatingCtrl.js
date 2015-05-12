@@ -7,7 +7,7 @@
 angular.module('RatingCtrl', [])
 
 
-stories.controller("RatingCtrl", function($scope, Requests, $window) {
+stories.controller("RatingCtrl", function($scope, Requests, $window, $ionicHistory, $cordovaDialogs) {
 	$scope.userId = $window.localStorage.getItem('userId');
 	$scope.ratingStatus = "notRated";
 
@@ -20,6 +20,9 @@ stories.controller("RatingCtrl", function($scope, Requests, $window) {
           $scope.ratingStatus = "rated";
         }, function(response) {
           console.log("Rating not saved");
+          $cordovaDialogs.alert("Tilbakemeldingen din ble ikke lagret.");
+          $scope.ratingStatus = "notRated";
         });
+        $ionicHistory.clearCache();
 	};
 })

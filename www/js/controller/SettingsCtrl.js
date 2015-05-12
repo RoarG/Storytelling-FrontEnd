@@ -7,7 +7,7 @@
 angular.module('SettingsCtrl', [])
 
 
-stories.controller('SettingsCtrl', function($scope, Requests, User, $ionicLoading, $window) {
+stories.controller('SettingsCtrl', function($scope, Requests, User, $ionicLoading, $window, $cordovaDialogs) {
 	//retrieve the user email when opening the settings view
 	Requests.getUserFromId($window.localStorage.getItem('userId')).then(function(response) {
 		$scope.user = response.data;
@@ -20,6 +20,8 @@ stories.controller('SettingsCtrl', function($scope, Requests, User, $ionicLoadin
 		Requests.getUserFromId($scope.userId).then(function(response) {
 			$scope.user = response.data;
 			console.log($scope.user);
+		}, function(response) {
+			$cordovaDialogs.alert("Får ikke svar fra server.");
 		});
 	};
 

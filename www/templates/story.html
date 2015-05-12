@@ -56,11 +56,15 @@
             </div>
             <div  ng-if="mediaType === 'audio'">
                 <div class="audio-container" ng-repeat="audio in story.audioList">
-                <audio controls preload="auto">
-                    <source ng-src="{{getTrustedUrl(audio['audiourl'])}}" />
+                    <i ng-hide="isAudioPlaying" class="icon ion-play" ng-click="playAudio(audio['audiourl'])"></i>
+                    <i ng-show="isAudioPlaying" class="icon ion-pause" ng-click="pauseAudio(audio['audiourl'])"></i>
+                     <input type="range" name="podcast-position" min="0" max="{{audioFiles[audio['audiourl']][0].getDuration()}}" ng-model="audioFiles[audio['audiourl']][1]" ng-change="sliderPositionChange(audio['audiourl'])"> 
+                </div>
+                <!--<audio controls preload="auto" controls="false" ng-click="playAudio(audio['audiourl'])">
+                    <source ng-src="{{getTrustedUrl(audio['audiourl'])}}" type="audio/mpeg"/>
                     Your browser does not support the audio element.
                 </audio>
-                <p>{{audio['description']}}</p>
+                <p>{{audio['description']}}</p>-->
                 </div>
             </div>
         </ion-scroll>

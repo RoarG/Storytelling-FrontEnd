@@ -23,7 +23,8 @@
     "org.apache.cordova.statusbar",
     "org.apache.cordova.inappbrowser",
     "com.ionic.keyboard",
-    "net.yoik.cordova.plugins.screenorientation"
+    "net.yoik.cordova.plugins.screenorientation",
+    "org.apache.cordova.media"
   ],
   "cordovaPlatforms": [
     "ios"

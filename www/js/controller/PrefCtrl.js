@@ -6,7 +6,7 @@
 
 angular.module('PrefCtrl', [])
 
-stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLoading, $window, $ionicHistory) {
+stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLoading, $window, $ionicHistory, $cordovaDialogs) {
 
 
 
@@ -68,6 +68,8 @@ stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLo
               	$scope.categories[index].isSelected = true;
      		}
 
+		}, function(response) {
+			$cordovaDialogs.alert("Får ikke svar fra server.");
 		});
 	};
 
@@ -139,8 +141,12 @@ stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLo
 
 			Requests.updateUser(user).then(function(response) {
 				console.log("response status(updateUser) : " + response.data.userId);
+			}, function(response) {
+				$cordovaDialogs.alert("Får ikke svar fra server.");
 			});
 
+		}, function(response) {
+			$cordovaDialogs.alert("Får ikke svar fra server.");
 		});
 		$scope.preferencesSaved = true;
 	};
