@@ -39,11 +39,18 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 					console.log("Vimeo: " + video['videourl']);
 				}
 			}
-		} else if ($scope.story.audioList) {
-			console.log($scope.story.audioList[0]["audiourl"])
+		} else if ($scope.story.audioList[0]) {
 			$scope.mediaType = "audio";
 
+
+		} else {
+			$scope.mediaType = "images";
+		}
+
+		if ($scope.story.audioList[0]) {
+
 			$scope.audioFiles = {};
+
 			for (var i = 0; i < $scope.story.audioList.length; i++) {
 				$scope.audioFiles[$scope.story.audioList[i]["audiourl"]] = [new Media($scope.story.audioList[i]["audiourl"],
 					// success callback
@@ -56,9 +63,6 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 				})
 
 			}
-
-		} else {
-			$scope.mediaType = "images";
 		}
 
 		
@@ -108,6 +112,14 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
     document.addEventListener("touchmove", sv.touchMove, false);
     document.addEventListener("mousemove", sv.mouseMove, false);
   });
+
+	$scope.$on('$ionicView.leave', function() {
+		for (var url in $scope.audioFiles) {
+			if ($scope.audioFiles.hasOwnProperty(url)) {
+				$scope.audioFiles[url][0].pause();
+			}
+		}
+	});
 
 		// Display selected image in modal. 
 		$scope.showImages = function(index) {
