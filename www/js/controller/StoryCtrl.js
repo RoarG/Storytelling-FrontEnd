@@ -41,7 +41,7 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 					console.log("Vimeo : " + (video['videourl'][8] === "p"));
 				}
 			}
-		} else if ($scope.story.audioList[0]) {
+		} else if ($scope.story.audioList) {
 			$scope.mediaType = "audio";
 
 
