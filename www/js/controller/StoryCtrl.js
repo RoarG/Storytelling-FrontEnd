@@ -157,6 +157,7 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 
 		// Play selected video in fullscreen
 		$scope.playVideo = function(index) {
+			console.log("playVideo" , index);
 			$scope.fullscreen = false;
 			$scope.video = document.getElementById("Video" + index);
 			if ($scope.video.webkitEnterFullscreen) {

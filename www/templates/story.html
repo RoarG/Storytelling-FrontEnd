@@ -43,23 +43,38 @@
             </div>
             <div ng-if="mediaType === 'video'">
                 <div class="video-player" ng-repeat="video in story.videoList">
-                    <!--Youtube or vimeo video-->
-                    <iframe style='background: black;' ng-if="video['videourl'].indexOf('.mp4') === -1 && video['videourl'][8] !== 'p' " frameborder="0"></iframe>
+                    <!--Youtube-->
+                    <iframe style='background: black;' ng-if="video['videourl'].indexOf('.mp4') === -1" frameborder="0"></iframe>
 
-                    <iframe id="{{'Video' + $index}}" ng-if="video['videourl'].indexOf('.mp4') === -1 && video['videourl'][8] === 'p' "frameborder="0" ng-src="{{getTrustedUrl(video['videourl'])}}" webkitallowfullscreen mozallowfullscreen allowfullscreen webkit-playsinline="false" ng-click="playVideo($index)">
-                    </iframe>
-                   <!--  <iframe id="{{'Video' + $index}}" ng-if="video['videourl'].indexOf('.mp4') === -1"frameborder="0" ng-src="{{getTrustedUrl(video['videourl'])}}" webkitallowfullscreen mozallowfullscreen allowfullscreen webkit-playsinline="false" ng-click="playVideo($index)">
+                    <!-- Vimeo video -->
+                    <!-- <iframe id="{{'Video' + $index}}" ng-if="video['videourl'].indexOf('.mp4') === -1 && video['videourl'][7] === 'p' "frameborder="0" ng-src="{{getTrustedUrl(video['videourl'])}}" webkitallowfullscreen mozallowfullscreen allowfullscreen webkit-playsinline="false" ng-click="playVideo($index)">
                     </iframe> -->
+
                     <!-- mp4 video -->
                     <video id="{{'Video' + $index}}" controls="true" poster={{video['posterurl']}} ng-if="video['videourl'].indexOf('.mp4') !== -1" ng-src="{{getTrustedUrl(video['videourl'])}}"></video>
 
-                    <div class="play-button" id="play" ng-if="video['videourl'].indexOf('.mp4') === -1 && video['videourl'][8] !== 'p' "  ng-click="openUrl(video['videourl'])">
+                    <!-- OLD CODE -->
+                   <!--  <iframe id="{{'Video' + $index}}" ng-if="video['videourl'].indexOf('.mp4') === -1"frameborder="0" ng-src="{{getTrustedUrl(video['videourl'])}}" webkitallowfullscreen mozallowfullscreen allowfullscreen webkit-playsinline="false" ng-click="playVideo($index)">
+                    </iframe> -->
+
+
+                    <!--Youtube-->
+                    <div class="play-button" id="play" ng-if="video['videourl'].indexOf('.mp4') === -1"  ng-click="openUrl(video['videourl'])">
                         <i class="icon ion-play"></i>
                     </div>
+
+                    <!-- Vimeo video -->
+                   <!--  <div class="play-button" id="play" ng-if="video['videourl'].indexOf('.mp4') !== -1 && video['videourl'][7] === 'p'" ng-click="playVideo($index)">
+                        <i class="icon ion-play"></i>
+                    </div> -->
+
+                    <!-- mp4 video -->
                     <div class="play-button" id="play" ng-if="video['videourl'].indexOf('.mp4') !== -1" ng-click="playVideo($index)">
                         <i class="icon ion-play"></i>
                     </div>
+
                     <p>{{video['description']}}</p>
+
                 </div>
             </div>
             <div  ng-if="mediaType === 'audio'">
