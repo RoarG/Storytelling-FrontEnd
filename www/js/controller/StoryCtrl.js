@@ -35,8 +35,10 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 					console.log("Youtube: " + video['videourl']);
 				} else if (video['videourl'].indexOf("vimeo.com") !== -1) {
 					var r = /(videos|video|channels|\.com)\/([\d]+)/;
-					video['videourl'] = "http://player.vimeo.com/video/" + video['videourl'].match(r)[2];
-					console.log("Vimeo: " + video['videourl']);
+					video['videourl'] = "https://player.vimeo.com/video/" + video['videourl'].match(r)[2];
+					console.log("Vimeo : " + video['videourl']);
+					console.log("Vimeo : " + video['videourl'][8]);
+					console.log("Vimeo : " + (video['videourl'][8] === "p"));
 				}
 			}
 		} else if ($scope.story.audioList) {
