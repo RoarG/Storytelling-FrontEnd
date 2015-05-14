@@ -47,7 +47,7 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 			$scope.mediaType = "images";
 		}
 
-		if ($scope.story.audioList[0]) {
+		if ($scope.story.audioList) {
 
 			$scope.audioFiles = {};
 
