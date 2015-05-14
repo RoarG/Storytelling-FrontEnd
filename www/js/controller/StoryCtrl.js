@@ -31,10 +31,11 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 				var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
 				var match = video['videourl'].match(regExp);
 				if (match && match[2].length == 11) {
-					video['videourl'] = 'https://www.youtube.com/embed/' + match[2] + "?autoplay=0&showinfo=0&controls=1";
+					video['videourl'] = 'https://www.youtube.com/embed/' + match[2] + "?autoplay=1&showinfo=0&controls=1&modestbranding=1&playsinline=1";
+					console.log("Youtube: " + video['videourl']);
 				} else if (video['videourl'].indexOf("vimeo.com") !== -1) {
 					var r = /(videos|video|channels|\.com)\/([\d]+)/;
-					video['videourl'] = "//player.vimeo.com/video/" + video['videourl'].match(r)[2];
+					video['videourl'] = "http://player.vimeo.com/video/" + video['videourl'].match(r)[2];
 					console.log("Vimeo: " + video['videourl']);
 				}
 			}
@@ -202,13 +203,19 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 		
 		//TODO: Forklar!
 		$scope.openUrl = function(url) {
+			console.log("URL : " , url);
 			open(url, '_system');
 		};
 
 		// Open all links in native browser
 		$scope.onclickStoryContent = function (e) {
+			console.log("E : " , e);
+            console.log("Window Event" + window.event);
             e = e ||  window.event;
+            console.log("e : " , e);
             var element = e.target || e.srcElement;
+
+            console.log("element: ", element);
 
             if (element.tagName == 'A' && element.href && element.href.indexOf("#") === -1) {
               console.log(e);
@@ -217,4 +224,9 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
                 return false; // prevent default action and stop event propagation
             }
         };
+
+        $scope.debug = function (e) {
+        	console.log("E: " , e);
+        }
+
 	})

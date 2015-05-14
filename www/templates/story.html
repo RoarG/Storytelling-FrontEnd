@@ -44,10 +44,15 @@
             <div ng-if="mediaType === 'video'">
                 <div class="video-player" ng-repeat="video in story.videoList">
                     <!--Youtube or vimeo video-->
-                    <iframe id="{{'Video' + $index + 'b'}}" ng-if="video['videourl'].indexOf('.mp4') === -1"frameborder="0" ng-src="{{getTrustedUrl(video['videourl'])}}" webkitallowfullscreen mozallowfullscreen allowfullscreen webkit-playsinline="false">
-                    </iframe>
+                    <iframe style='background: black;' ng-if="video['videourl'].indexOf('.mp4') === -1"frameborder="0"></iframe>
+                   <!--  <iframe id="{{'Video' + $index}}" ng-if="video['videourl'].indexOf('.mp4') === -1"frameborder="0" ng-src="{{getTrustedUrl(video['videourl'])}}" webkitallowfullscreen mozallowfullscreen allowfullscreen webkit-playsinline="false" ng-click="playVideo($index)">
+                    </iframe> -->
                     <!-- mp4 video -->
                     <video id="{{'Video' + $index}}" controls="true" poster={{video['posterurl']}} ng-if="video['videourl'].indexOf('.mp4') !== -1" ng-src="{{getTrustedUrl(video['videourl'])}}"></video>
+
+                    <div class="play-button" id="play" ng-if="video['videourl'].indexOf('.mp4') === -1" ng-click="openUrl(video['videourl'])">
+                        <i class="icon ion-play"></i>
+                    </div>
                     <div class="play-button" id="play" ng-if="video['videourl'].indexOf('.mp4') !== -1" ng-click="playVideo($index)">
                         <i class="icon ion-play"></i>
                     </div>
