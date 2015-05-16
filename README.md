@@ -6,18 +6,18 @@
 * NodeJS (https://nodejs.org/download/)
 * Gulp (https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md)
 
-### Android Spesific 
+### Android Specific 
 * Android SDK
 * Keytool (JDK)
 * jarsigner (JDK)
 * zipalign (JDK)
 
-### IOS Spesific 
-* IOS xcode?
+### iOS Specific 
+* iOS xcode?
 
 ##Setup Guide
 
-1. Install NodeJS NodeJS (https://nodejs.org/download/)
+1. Install NodeJS (https://nodejs.org/download/)
 
 2. Install Ionic (http://ionicframework.com/getting-started/) 
 
@@ -33,37 +33,37 @@
 
 ### Platform Dependencies
 
-Android (the first section is nessasary)
+Android (the first section is necessary)
 https://cordova.apache.org/docs/en/3.3.0/guide_platforms_android_index.md.html#Android%20Platform%20Guide
 
 
-IOS
+iOS
 https://cordova.apache.org/docs/en/3.3.0/guide_platforms_ios_index.md.html#iOS%20Platform%20Guide
 
   
 ## Testing 
 
-Use these commands in the root folder of the project.
+Use these commands in the root folder of the project to run the application.
 
 ### Browser 
 
-The app requiers internett access
+The application requires internet access.
 
-* Both platform in one view
+* Both platforms (Android and iOS) in one view
 
  ```ionic serve --lab```
  
-* Singel
+* Single view which can be resized
 
- ```ionic serve ```
+ ```ionic serve```
 
-### Android
+### Android device
 
- ```ionic run ```
+ ```ionic run android```
 
 Read more about ionic testing here: http://ionicframework.com/docs/guide/testing.html
 
-### IOS
+### iOS
 
 
 
@@ -92,13 +92,13 @@ Read more about ionic testing here: http://ionicframework.com/docs/guide/testing
 
   ```zipalign -v 4 HelloWorld-release-unsigned.apk HelloWorld.apk```  
 
-(These stepes are nessasary to update the application after you publised it the first time) 
+(These steps are necessary to update the application after you published it the first time) 
 
-Ps. Save the keystore file generated in step 2 for further patching.
+PS. Save the keystore file generated in step 2 for further patching.
 
-### IOS
+### iOS
   
 
 
 
-Read more about publishing ionic applications her: http://ionicframework.com/docs/guide/publishing.html
+Read more about publishing Ionic applications here: http://ionicframework.com/docs/guide/publishing.html
