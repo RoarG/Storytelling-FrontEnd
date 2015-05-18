@@ -17,9 +17,7 @@ stories.controller('TutorialCtrl', function($scope, $state, $ionicSlideBoxDelega
 
 	//TODO: Forklar
 	$scope.goAppTwo = function () {
-		$state.go('appTwo');
-		
-		console.log("TEST sad")
+		$state.go('appTwo');		
 	}	
 
 	//TODO: FOrklar
@@ -27,4 +25,19 @@ stories.controller('TutorialCtrl', function($scope, $state, $ionicSlideBoxDelega
 		$state.go('appTree');
 		console.log("TEST sadasd ")
 	}	
+
+		//TODO: Forklar
+	$scope.goOnboardTwo = function () {
+		$state.go('onboardTwo');
+	}	
+
+	$scope.goOnboardOne = function () {
+		$state.go('onboardOne');
+	}	
+
+	//TODO: FOrklar
+	$scope.goOnboardTree = function () {
+		$state.go('onboardTree');
+	}	
+
 });

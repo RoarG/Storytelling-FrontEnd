@@ -7,8 +7,9 @@
 
 angular.module('IntroCtrl', [])
 
-stories.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate, $window) {
-	
+stories.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate, $window, $cordovaSplashscreen) {
+
+
 	//TODO: Forklar
 	$scope.startApp = function () {
 	  $state.go('login');
@@ -26,7 +27,10 @@ stories.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate,
 		$state.go('onboardTwo');
 	}	
 
-	//TODO: FOrklar
+	$scope.goOnboardOne = function () {
+		$state.go('onboardOne');
+	}	
+
 	$scope.goOnboardTree = function () {
 		$state.go('onboardTree');
 	}	
@@ -38,26 +42,7 @@ stories.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate,
 		console.log("ELSE $window.localStorage.getItem('didTutorial')" + $window.localStorage.getItem('didTutorial'));
 	}	
 
-	//TODO: Forklar
-	if($window.localStorage.getItem('userId') !== undefined && $window.localStorage.getItem('userId') !== "-1" && $window.localStorage.getItem('userId') !== null) {
-		$scope.recommendedView();
-		console.log("IF $window.localStorage.getItem('userId')" + $window.localStorage.getItem('userId'));
-		console.log("IF $window.localStorage.getItem('didTutorial')" + $window.localStorage.getItem('didTutorial'));
-	} 
 
-	//TODO: Forklar
-	else if ($window.localStorage.getItem('didTutorial') === true && $window.localStorage.getItem('userId') === undefined) {
-		$scope.startApp();
-		console.log("ELSE $window.localStorage.getItem('userId')" + $window.localStorage.getItem('userId'));
-		console.log("ELSE $window.localStorage.getItem('didTutorial')" + $window.localStorage.getItem('didTutorial'));
-	} 
-
-	//TODO: Forklar
-	else {
-		console.log("Need to do login");
-		console.log("NEED $window.localStorage.getItem('userId')" + $window.localStorage.getItem('userId'));
-		console.log("NEES $window.localStorage.getItem('didTutorial')" + $window.localStorage.getItem('didTutorial'));
-	}
 
 })
 

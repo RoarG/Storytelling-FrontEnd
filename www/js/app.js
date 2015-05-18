@@ -22,7 +22,7 @@ var stories = angular.module('stories', [
 ])
 
 
-.run(function($ionicPlatform, $cordovaDialogs, $cordovaNetwork, $rootScope, $cordovaSplashscreen, Requests, $window) {
+.run(function($ionicPlatform, $cordovaDialogs, $cordovaNetwork, $rootScope, $cordovaSplashscreen, Requests, $window, $state) {
 	$ionicPlatform.ready(function() {
 		
 		//Loging start up in DB
@@ -31,10 +31,8 @@ var stories = angular.module('stories', [
 		//TODO: Forklar! FIX
 		//Enable fullsceen for the onboarding and splashscreen
 		//StatusBar.hide();
-		//Showing the SpashScreen for 5 sec.
-		setTimeout(function() {
-			$cordovaSplashscreen.hide()
-		}, 5000)
+
+
 
 		// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 		// for form inputs)
@@ -75,6 +73,33 @@ var stories = angular.module('stories', [
 
 		screen.lockOrientation("portrait");
 		
+
+		$ionicPlatform.ready(function() {
+			console.log("$window.localStorage.getItem('didTutorial')" + $window.localStorage.getItem('didTutorial'));
+			console.log("$window.localStorage.getItem('userId')" + $window.localStorage.getItem('userId'));
+			
+			if (!($window.localStorage.getItem('didTutorial'))) 
+			{
+				console.log("NEED $window.localStorage.getItem('userId')" + $window.localStorage.getItem('didTutorial'));
+				$state.go('onboardOne');
+				$cordovaSplashscreen.hide();
+			}
+					//Logged in 
+			else if ($window.localStorage.getItem('userId') !== "-1" && $window.localStorage.getItem('userId') !== null)
+			{
+				console.log("IF $window.localStorage.getItem('userId')" + $window.localStorage.getItem('userId'));
+				$state.go('app.recommendations');
+				$cordovaSplashscreen.hide();
+			}
+					//Logged out but did tutorial
+			else
+			{
+				console.log("ELSE $window.localStorage.getItem('userId')" + $window.localStorage.getItem('userId'));
+				$state.go('login');
+				$cordovaSplashscreen.hide();
+			}
+
+		});
 	});
 
   // Tells server that the app has been opened
@@ -226,9 +251,8 @@ var stories = angular.module('stories', [
 		}
 	});
 
-
 	// If app is not started before go to onboardOne
 	// already logged in, go to recommendation view, otherwise go to login. 	
-	$urlRouterProvider.otherwise('/onboardOne');
+	/*$urlRouterProvider.otherwise('/onboardOne');*/
   
 });
