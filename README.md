@@ -14,6 +14,7 @@
 
 ### iOS Specific 
 * iOS xcode?
+* TODO add iOS dependencies
 
 ##Setup Guide
 
@@ -64,13 +65,11 @@ The application requires internet access.
 Read more about ionic testing here: http://ionicframework.com/docs/guide/testing.html
 
 ### iOS
-
+TODO how to run on iOS device
 
 
 
 ## Building
-  
-  (BLA BLA BLA)
   
 ### Android
 
@@ -97,7 +96,7 @@ Read more about ionic testing here: http://ionicframework.com/docs/guide/testing
 PS. Save the keystore file generated in step 2 for further patching.
 
 ### iOS
-  
+TODO how to build release on iOS
 
 
 
