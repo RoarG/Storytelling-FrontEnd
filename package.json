@@ -1,7 +1,7 @@
 {
-  "name": "myapp2",
+  "name": "Vettu Hva?",
   "version": "1.0.0",
-  "description": "myapp2: An Ionic project",
+  "description": "Denne applikasjonen ble startet utviklet våren 2015, i et faglig studentprosjekt ved Norges teknisk-naturvitenskapelige universitet.",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^0.7.1",
@@ -24,9 +24,22 @@
     "org.apache.cordova.inappbrowser",
     "com.ionic.keyboard",
     "net.yoik.cordova.plugins.screenorientation",
-    "org.apache.cordova.media"
+    "org.apache.cordova.media",
+    "org.apache.cordova.dialogs",
+    "org.apache.cordova.network-information",
+    "cordova-plugin-splashscreen"
   ],
   "cordovaPlatforms": [
-    "ios"
+    "ios",
+    {
+      "platform": "android",
+      "version": "",
+      "locator": "android"
+    },
+    {
+      "platform": "ios",
+      "version": "",
+      "locator": "ios"
+    }
   ]
 }
