@@ -43,7 +43,7 @@ First run:
 
 ```ionic build android```
 
-* Emulator
+* Emulator (Note that the default Android emulator has many problems and is not recommended to use)
 
  ```ionic emulate android```
 
