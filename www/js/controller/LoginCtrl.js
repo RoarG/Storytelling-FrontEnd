@@ -14,7 +14,7 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	$scope.tempMail = null;
 	$scope.user = {};
 	
-	//TODO: Forklar! eller slett
+	// Validate function for Email with regEx not i use atm. Using the built in AngularJs validator
 	$scope.validateEmail = function(email) 	{
 
 		var reg = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -25,7 +25,7 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 		}
 	} 
 
-    //request backend for the user with Email // //TODO: Forklar!
+    //request backend for the user with Email // 
 	$scope.requestUser = function (email) {
 	    Requests.getUserFromEmail(email).then(function(response) {
 	        $scope.responseData = response.data;
@@ -124,7 +124,7 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	    });
 	}
 
-	//TODO: Forklar!
+	//Updates the user with the curent user model
 	$scope.updateUser = function () {
 	    Requests.updateUser(new User($window.localStorage.getItem('userId'))).then(function (response1) {
 	    }, function(response) {
@@ -132,11 +132,10 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	    });
 	}
 
-	//TODO: Forklar!
+	// Login with the submitet email adress.
 	$scope.doLogin = function(email) {
 	    
 	    $scope.showLoading();
-	    	//TODO: Mail verifisring
 	  	$scope.requestUser(email);			
 	};
 
@@ -148,7 +147,6 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	    $scope.userDontExist(-1);
 	    
 
-			//TODO: Gi beskjed om at det er opprettet en ny brukker / evt spør om det er ønsket til brukeren
 	};
 
 	$scope.clearProfil = function() {

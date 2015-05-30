@@ -3,39 +3,52 @@
   // 	App 1-2-3
   ////////////////////////
 
-//TODO: FOrklar!
+//module to controll the Tutorial and onboarding section of the application
 
 angular.module('TutorialCtrl', [])
 
 stories.controller('TutorialCtrl', function($scope, $state, $ionicSlideBoxDelegate, $window) {
 
 
-	//TODO: Forklar
+	/**
+	* A simple state change to go to the recommendations view
+	*/
 	$scope.recommendedView = function () {
 	  $state.go('app.recommendations');
 	};
 
-	//TODO: Forklar
+	
+	/**
+	* A simple state change to go to the Tutorial page 2 view
+	*/
 	$scope.goAppTwo = function () {
 		$state.go('appTwo');		
 	}	
 
-	//TODO: FOrklar
+	/**
+	* A simple state change to go to the Tutorial page 3 view
+	*/
 	$scope.goAppTree = function () {
 		$state.go('appTree');
-		console.log("TEST sadasd ")
 	}	
-
-		//TODO: Forklar
-	$scope.goOnboardTwo = function () {
-		$state.go('onboardTwo');
-	}	
-
+	
+	/**
+	* A simple state change to go to the Tutorial page 1 view
+	*/
 	$scope.goOnboardOne = function () {
 		$state.go('onboardOne');
 	}	
 
-	//TODO: FOrklar
+	/**
+	* A simple state change to go to the Tutorial page 2 view
+	*/
+	$scope.goOnboardTwo = function () {
+		$state.go('onboardTwo');
+	}	
+
+	/**
+	* A simple state change to go to the Tutorial page 3 view
+	*/
 	$scope.goOnboardTree = function () {
 		$state.go('onboardTree');
 	}	

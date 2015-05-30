@@ -11,13 +11,11 @@ stories.controller('MenuCtrl', function($scope, Requests, User, $state, $window,
 	// Log out user and go to login screen. 
 	$scope.logout = function() {
 
-		//TODO: Trengs denne? SJEKKE HER ROAR!!! 
 		$window.localStorage.clear();
 		
 		$window.localStorage.setItem('userId', "-1");
 		$state.go("login");
 
-		//TODO: add feedback to user
 	}
 
 	// View the bookmark list called listName. 

@@ -85,7 +85,7 @@ stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLo
 		}
 	}
 
-	// Saves the preferences initially chosen by first-time user //TODO: Forklar! CLEAN UP ROAR
+	// Saves the preferences initially chosen by first-time user //TODO: CLEAN UP SOMMER
 	$scope.savePreferences = function() {
 
 		if($scope.isSelectedCat()) 

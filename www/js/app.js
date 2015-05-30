@@ -28,11 +28,6 @@ var stories = angular.module('stories', [
 		// Tells the back-end that the app has been started.
 		Requests.opensApp($window.localStorage.getItem('userId'));
 		
-		//TODO: Forklar! FIX
-		//Enable fullsceen for the onboarding and splashscreen
-		//StatusBar.hide();
-
-
 
 		// Uses ionic keyboard plugin
 		if (window.cordova && window.cordova.plugins.Keyboard) {
