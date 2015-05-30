@@ -2,7 +2,7 @@
 //  Bookmark 
 ////////////////////////
 
-//TODO: Forklar!
+// Controller that handles the bookmarks for a story. 
 
 angular.module('BookmarkCtrl', [])
 
@@ -33,11 +33,9 @@ stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests, $windo
 			}
 		}
 	}, function(response) {
-		console.log(response.status);
 		$cordovaDialogs.alert("Får ikke tak i bokmerker");
  	});
 }, function(response) {
-	console.log(response.status);
 	$cordovaDialogs.alert("Får ikke tak i bokmerker");
 });
 

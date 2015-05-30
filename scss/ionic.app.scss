@@ -209,7 +209,9 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 /*
-    Login view
+//////////////////////
+///		Login view
+//////////////////////
 */
 
 .header-padding {
@@ -269,7 +271,9 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 /*
-    Profil
+//////////////////////
+///		Profile
+//////////////////////
 */
 
 
@@ -302,8 +306,10 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 /*
-	Menu
- */
+//////////////////////
+///		Menu
+//////////////////////
+*/
 .item-divider {
 	padding-top: 30px;
 	background-color: $background-color;
@@ -324,7 +330,9 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 
 /*
-    List view
+//////////////////////
+///		List view
+//////////////////////
 */
 
 .list-horizontal {
@@ -345,7 +353,9 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 
 /*
-	Settings view
+//////////////////////
+///		Settings view
+//////////////////////
 */
 
 .settings-right-adjust {
@@ -365,7 +375,11 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 
-// Bookmarks modal
+/*
+//////////////////////
+///		Bookmarks modal
+//////////////////////
+*/
 .modal .bookmark-content {
 	width: 90%;
 	margin: 5% auto;
@@ -429,6 +443,11 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     	right: 4%;
     }
 
+/*
+//////////////////////
+///		Story view
+//////////////////////
+*/
 
 .story {
 	background-color: $background-color;
@@ -681,8 +700,11 @@ video::-webkit-media-controls {
 }
 
 /*
-   Image slider from http://devdactic.com/images-videos-fullscreen-ionic/
+//////////////////////
+///		Image slider from http://devdactic.com/images-videos-fullscreen-ionic/
+//////////////////////
 */
+
 .image-list-thumb {
     padding: 2px;
     width: auto;
@@ -732,8 +754,10 @@ video::-webkit-media-controls {
     height: 100%;
 }
 
-/* 
-    Star rating 
+/*
+//////////////////////
+///		Rating
+//////////////////////
 */
 
 // Styling for the modal
@@ -807,8 +831,10 @@ video::-webkit-media-controls {
 
 
 /*
-	Preferences
- */
+//////////////////////
+///		Preferences
+//////////////////////
+*/
 
 .categories {
 	margin: 2.6vh 0;
@@ -984,8 +1010,10 @@ video::-webkit-media-controls {
 }
 
 /*
-	Recommendations
- */
+//////////////////////
+///		Recommendations
+//////////////////////
+*/
 .recommendations {
 	background-color: $background-color;
 }
@@ -1191,7 +1219,11 @@ ion-slide .button {
   	margin-left: 90%;
 }
 
-/* Loading */
+/*
+//////////////////////
+///		Loading
+//////////////////////
+*/
 .ion-loading-a {
 	font-size: 2.5em;
 }

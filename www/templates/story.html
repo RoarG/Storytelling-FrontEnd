@@ -36,11 +36,17 @@
         </div>
         <!-- Images, video or sound displayed depending on which button in the menubar is active -->
         <ion-scroll class="media-content" direction="x" delegate-handle="horizontal" zooming="false">
+
+            <!-- Images -->
             <div ng-if="mediaType === 'images'">
                 <div class="story-image-container" ng-repeat="image in story.imageList">
                     <img ng-src={{image["imageurl"]}} ng-click="showImages($index)" alt="" class="image-list-thumb"/>
                 </div>
             </div>
+
+            <!-- Video -->
+            <!-- Youtube and Vimeo videos currently opened in native browser, as the iframe code does not work properly on Android. 
+                Still included so that it may be fixed when continuing the development of the app -->
             <div ng-if="mediaType === 'video'">
                 <div class="video-player" ng-repeat="video in story.videoList">
                     <!--Youtube-->
@@ -58,7 +64,7 @@
                     </iframe> -->
 
 
-                    <!--Youtube-->
+                    <!--Youtube play button-->
                     <div class="play-button" id="play" ng-if="video['videourl'].indexOf('.mp4') === -1"  ng-click="openUrl(video['videourl'])">
                         <i class="icon ion-play"></i>
                     </div>
@@ -68,7 +74,7 @@
                         <i class="icon ion-play"></i>
                     </div> -->
 
-                    <!-- mp4 video -->
+                    <!-- mp4 video play button-->
                     <div class="play-button" id="play" ng-if="video['videourl'].indexOf('.mp4') !== -1" ng-click="playVideo($index)">
                         <i class="icon ion-play"></i>
                     </div>
@@ -77,24 +83,23 @@
 
                 </div>
             </div>
+
+            <!-- Audio -->
             <div  ng-if="mediaType === 'audio'">
                 <div class="audio-container" ng-repeat="audio in story.audioList">
                     <i ng-hide="isAudioPlaying" class="icon ion-play" ng-click="playAudio(audio['audiourl'])"></i>
                     <i ng-show="isAudioPlaying" class="icon ion-pause" ng-click="pauseAudio(audio['audiourl'])"></i>
                      <input type="range" name="podcast-position" min="0" max="{{audioFiles[audio['audiourl']][0].getDuration()}}" ng-model="audioFiles[audio['audiourl']][1]" ng-change="sliderPositionChange(audio['audiourl'])"> 
                 </div>
-                <!--<audio controls preload="auto" controls="false" ng-click="playAudio(audio['audiourl'])">
-                    <source ng-src="{{getTrustedUrl(audio['audiourl'])}}" type="audio/mpeg"/>
-                    Your browser does not support the audio element.
-                </audio>
-                <p>{{audio['description']}}</p>-->
+                <p>{{audio['description']}}</p>
                 </div>
             </div>
         </ion-scroll>
+        <!-- Story text -->
         <div ng-if="story.text" class="story-wrapper card">
             <p class="clear-float" ng-bind-html="story.text" ng-click="onclickStoryContent($event)"></p>
         </div>
-
+            <!-- Rating -->
             <div class="story-footer clear-float">
             <div class="rating" ng-controller="RatingCtrl">
                 <p>Likte du denne historien?</p>
@@ -103,6 +108,7 @@
                 <p ng-show="ratingStatus.valueOf() === 'rated'"><i class="ion-checkmark"></i> Lagret</p>
 
             </div>
+            <!-- Other information about story -->
             <h3 ng-if="story.municipality">Sted</h3>
             <span>{{story.municipality}}</span>
             <h3 ng-if="story.county">Fylke</h3>

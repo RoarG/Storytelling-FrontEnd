@@ -2,37 +2,31 @@
 //	Profile
 ////////////////////////
 
-//TODO: Forklar!
+// Controller for the entering and editing of profile information (age group and gender). 
 
 angular.module('ProfilCtrl', [])
 
 stories.controller('ProfilCtrl', function($scope, Requests, User, $state, $window, $cordovaDialogs) {
 
-	$scope.ageGrp = null;
-	$scope.gender = null;
+	$scope.ageGrp = null; // Integer value indicating age group (1: below 20, 2: 20-45, 3: 46-65, 4: over 66)
+	$scope.gender = null; // 0: female, 1: male
 
-	//TODO: Forklar!
 	$scope.goLogin = function() {
 		$state.go("login");
 		// StatusBar.show();
 	};
 
-	//TODO: Forklar!
 	$scope.setAgeGrp = function(ageGrp) {
 		$scope.ageGrp = ageGrp;
-		console.log('AgeGrp : ' + $scope.ageGrp);
 	};
 
-	//TODO: Forklar!
 	$scope.setGender = function(gender) {
 		$scope.gender = gender;
-		console.log('Gender : ' + $scope.gender);
 	};
 
-	//loads and displays existing profile information when opening the view
+	// Gets existing profile information from back-end when opening the view
 	$scope.loadProfile = function() {
 		Requests.getUserFromId($window.localStorage.getItem('userId')).then(function(response) {
-			console.log("response status(getUserFromId) : " + response.data.status);
 			$scope.user = response.data;
 			gender = parseInt($scope.user.userModel.gender);
 			age_group = parseInt($scope.user.userModel.age_group);
@@ -45,20 +39,16 @@ stories.controller('ProfilCtrl', function($scope, Requests, User, $state, $windo
 
 	};
 
-	//saves the profile information initially set by first-time user 
+	// Saves the profile information initially set by first-time user 
 	$scope.saveProfil = function() {
-		console.log("ageGrp" + $scope.ageGrp);
-		console.log('Gender : ' + $scope.gender);
-
+		// Get user and add the new profile information to it. 
 		Requests.getUserFromId($window.localStorage.getItem('userId')).then(function(response) {
-			console.log("response status(getUserFromId) : " + response.data.status);
-
 			user = new User($window.localStorage.getItem('userId'), response.data.userModel);
 			user.setAgeGroup($scope.ageGrp);
 			user.setGender($scope.gender);
 
 			Requests.updateUser(user).then(function(response) {
-				console.log("response status(updateUser) : " + response.data.status);
+				// If successfully updated user, go to next step: setting preferences. 
 				$state.go("preferences");
 			}, function(response) {
 				$cordovaDialogs.alert("Får ikke svar fra server.");
@@ -70,21 +60,17 @@ stories.controller('ProfilCtrl', function($scope, Requests, User, $state, $windo
 
 	};
 	
-	//saves the new profile information set in the settings -> preferences view
+	// Saves the new profile information set in the settings -> preferences view
 	$scope.updateProfil = function() {
 		$scope.profileSaved = false;
-		console.log("ageGrp" + $scope.ageGrp);
-		console.log('Gender : ' + $scope.gender);
-
+		// Get user and add the new profile information to it. 
 		Requests.getUserFromId($window.localStorage.getItem('userId')).then(function(response) {
-			console.log("response status(getUserFromId) : " + response.data.status);
-
 			user = new User($window.localStorage.getItem('userId'), response.data.userModel);
 			user.setAgeGroup($scope.ageGrp);
 			user.setGender($scope.gender);
 
 			Requests.updateUser(user).then(function(response) {
-				console.log("response status(updateUser) : " + response.data.status);
+				$scope.profileSaved = true;
 			}, function(response) {
 				$cordovaDialogs.alert("Får ikke svar fra server.");
 			});
@@ -92,7 +78,6 @@ stories.controller('ProfilCtrl', function($scope, Requests, User, $state, $windo
 		}, function(response) {
 			$cordovaDialogs.alert("Får ikke svar fra server.");
 		});
-		$scope.profileSaved = true;
 	};
 
 

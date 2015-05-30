@@ -1,6 +1,7 @@
 <div class="modal bookmark" ng-controller="BookmarkCtrl">
     <h2>Legg til bokmerke</h2>
     <div class="button button-clear button-calm" ng-click="newItem()"><i class="icon ion-plus"></i></div>
+        <!-- Bookmark lists: checked off if a story has that bookmark -->
         <div class="list bookmark-content">
         <ion-scroll direction="y">
         <ion-checkbox class="checkbox-calm" ng-repeat="item in collectionList"
@@ -11,13 +12,15 @@
             {{ item.text }}
         </ion-checkbox>
     </ion-scroll>
-        <form class="item" ng-submit="addItem()" ng-show="displayTextField">
-            <label class="item item-input item-floating-label">
-                <i class="icon ion-plus placeholder-icon"></i>
-                <input type="text" ng-model="newItemName" placeholder="Listenavn"> 
-            </label>
-            <button class="button button-calm" type="submit">Legg til</button>
-        </form>
-        <div class="item button button-block button-calm" ng-click="closeModal()">Ferdig</div>
+    <!-- Form to add a new bookmark list -->
+    <form class="item" ng-submit="addItem()" ng-show="displayTextField">
+        <label class="item item-input item-floating-label">
+            <i class="icon ion-plus placeholder-icon"></i>
+            <input type="text" ng-model="newItemName" placeholder="Listenavn"> 
+        </label>
+        <button class="button button-calm" type="submit">Legg til</button>
+    </form>
+    <!-- Done button -->
+    <div class="item button button-block button-calm" ng-click="closeModal()">Ferdig</div>
     </div>
 </div>

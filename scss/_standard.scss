@@ -1,10 +1,12 @@
+/*
+	Styles for items used in multiple views
+
+ */
+
 body {
   font-family: "Cabin", sans-serif;
   color: $font-color;
 }
-
-
-
 
 ion-content, .view, .popover, .list, .item-divider {
 	background-color: $background-color;

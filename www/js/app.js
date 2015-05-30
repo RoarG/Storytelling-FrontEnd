@@ -1,7 +1,7 @@
-// First parameter is the name of the module
-// the 2nd parameter is an array of 'requires'
-//TODO: Forklar! FIX
-// 'starter.controllers' is found in controllers.js Files ending with Ctrl is found in the controlles folder
+// Main file that defines the app. 
+
+// This creates a module for the app called 'stories', and the second parameter is the modules it is dependent on. 
+// Files ending with Ctrl is found in the controller folder
 var stories = angular.module('stories', [
 	'ionic',	
 	'backend.services',
@@ -21,11 +21,11 @@ var stories = angular.module('stories', [
 	'TutorialCtrl'
 ])
 
-
+// This runs when the application is started. 
 .run(function($ionicPlatform, $cordovaDialogs, $cordovaNetwork, $rootScope, $cordovaSplashscreen, Requests, $window, $state) {
 	$ionicPlatform.ready(function() {
 		
-		//Loging start up in DB
+		// Tells the back-end that the app has been started.
 		Requests.opensApp($window.localStorage.getItem('userId'));
 		
 		//TODO: Forklar! FIX
@@ -34,98 +34,79 @@ var stories = angular.module('stories', [
 
 
 
-		// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-		// for form inputs)
+		// Uses ionic keyboard plugin
 		if (window.cordova && window.cordova.plugins.Keyboard) {
+			// Hide the keyboard accessory bar by default (on the top of the keyboard when filling in form inputs)
 			cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
 
-			//Undersøk om denne får ønskelig resultat i IOS
+			// Avoids content being pushed up when focusing on inputs below the keyboard. 
 			cordova.plugins.Keyboard.disableScroll(true);
 		}
-		//TODO: Forklar!
+		// Uses cordova statusbar plugin
 		if (window.StatusBar) {
-			//TODO: Forklar!
-			// org.apache.cordova.statusbar required
-			StatusBar.styleDefault();
+			StatusBar.styleDefault(); // Light background, black text
 			StatusBar.hide();
 		}
 
-		//TODO: Forklar!
+		// Checks for an internet connection. Uses the ngCordova plugin called $cordovaNetwork
 		if (window.Connection) {
+			// Checks if offline when app is started
 			if ($cordovaNetwork.isOffline()) {
 				$cordovaDialogs.alert("Ingen nettilgang", "Enheten din er ikke tilkoblet Internett");
 			}
-			/*if ($cordovaNetwork.isOnline()) {
-				$cordovaDialogs.alert("Nett!", "Hurra!");
-			}*/
 
-			// listen for Online event
-			$rootScope.$on('$cordovaNetwork:online', function(event, networkState) {
-				var onlineState = networkState;
-			});
-
-			// listen for Offline event
+			// Listen for Offline event
 			$rootScope.$on('$cordovaNetwork:offline', function(event, networkState) {
-				var offlineState = networkState;
 				$cordovaDialogs.alert("Ingen nettilgang", "Enheten din er ikke tilkoblet Internett");
 			});
 		}
 
 		screen.lockOrientation("portrait");
 		
-
+		// Decides which view to go to first:
 		$ionicPlatform.ready(function() {
-			console.log("$window.localStorage.getItem('didTutorial')" + $window.localStorage.getItem('didTutorial'));
-			console.log("$window.localStorage.getItem('userId')" + $window.localStorage.getItem('userId'));
-			
+			// If the user has not been through the tutorial, go to tutorial. 
 			if (!($window.localStorage.getItem('didTutorial'))) 
 			{
-				console.log("NEED $window.localStorage.getItem('userId')" + $window.localStorage.getItem('didTutorial'));
 				$state.go('onboardOne');
-				$cordovaSplashscreen.hide();
 			}
-					//Logged in 
+			// If user is logged in, go to recommendation view. 
 			else if ($window.localStorage.getItem('userId') !== "-1" && $window.localStorage.getItem('userId') !== null)
 			{
-				console.log("IF $window.localStorage.getItem('userId')" + $window.localStorage.getItem('userId'));
 				$state.go('app.recommendations');
-				$cordovaSplashscreen.hide();
 			}
-					//Logged out but did tutorial
+			// If logged out but have done tutorial, go to login view. 
 			else
 			{
-				console.log("ELSE $window.localStorage.getItem('userId')" + $window.localStorage.getItem('userId'));
 				$state.go('login');
-				$cordovaSplashscreen.hide();
 			}
-
+			$cordovaSplashscreen.hide();
 		});
 	});
 
-  // Tells server that the app has been opened
+  // Tells back-end that the app has been opened again after having been paused.
   $ionicPlatform.on('resume', function() {
-  	console.log("Resume" + $window.localStorage.getItem('userId'));
     Requests.opensApp($window.localStorage.getItem('userId'));
   });
-  // Tells server that the app has been paused
+  // Tells back-end that the app has been paused
   $ionicPlatform.on('pause', function() {
-  	console.log("Pause" + $window.localStorage.getItem('userId'));
     Requests.closesApp($window.localStorage.getItem('userId'));
   });
 })
 
-//TODO: Forklar!
+// Defines the different states of the app and the templates and controllers that are associated to them. 
 .config(function($stateProvider, $urlRouterProvider, $sceDelegateProvider, $ionicConfigProvider) {
-	$ionicConfigProvider.backButton.text('Tilbake');
+	$ionicConfigProvider.backButton.text('Tilbake'); // Changes the default text of the back button to Norwegian "Tilbake".
 	$stateProvider
 
-		.state('app', {
+	.state('app', {
 		url: "/app",
 		abstract: true,
 		templateUrl: "templates/menu.html",
 		controller: 'MenuCtrl'
 	})
 
+// Tutorial when starting app
 	.state('onboardOne', {
 		url: "/onboardOne",
 		templateUrl: "templates/onboardingOne.html",
@@ -144,6 +125,7 @@ var stories = angular.module('stories', [
 		controller: 'IntroCtrl'
 	})
 
+// Tutorial accessed through settings
 	.state('appOne', {
 		url: "/appOne",
 		templateUrl: "templates/appOne.html",

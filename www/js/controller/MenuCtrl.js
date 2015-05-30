@@ -2,40 +2,35 @@
 //	Menu 
 ////////////////////////
 
-//TODO: Forklar!
+// Controller for handling menu functions
 
 angular.module('MenuCtrl', [])
 
 stories.controller('MenuCtrl', function($scope, Requests, User, $state, $window, $ionicPlatform, $cordovaDialogs) {
 
-		//TODO: Forklar!
+	// Log out user and go to login screen. 
 	$scope.logout = function() {
-		console.log($window.localStorage.getItem('newUser') + "Logout " + $window.localStorage.getItem('userId'));
 
-		//TODO: Trengs denne? SJEKKE HER ROAR!!!
+		//TODO: Trengs denne? SJEKKE HER ROAR!!! 
 		$window.localStorage.clear();
-		console.log("Clear - id: " + $window.localStorage.getItem('userId'));
 		
 		$window.localStorage.setItem('userId', "-1");
-		//$window.localStorage.setItem('newUser', true);
 		$state.go("login");
-
-		console.log("email" + $scope.email);
-		console.log("login" + $window.localStorage.getItem('userId'));
 
 		//TODO: add feedback to user
 	}
 
-	//TODO: Forklar!
+	// View the bookmark list called listName. 
 	$scope.viewList = function(listName) {
 		Requests.setSelectedTag(listName);
 		$state.go("app.listView");
 	};
 
-	//TODO: Forklar! List? bookmark?
+	// Delete list of bookmarks. 
 	$scope.deleteList = function(list) {
 		$ionicPlatform.ready(function() {
 			$cordovaDialogs.confirm('Vil du slette listen "' + list.text + '"?', 'Slett liste', ['OK', 'Avbryt']).then(function(response) {
+				// response == 1 means that the user has replied "OK", so the list is deleted and the bookmark is removed from the story. 
 				if (response === 1) {
 					var index = $scope.collectionList.indexOf(list);
 					$scope.collectionList.splice(index, 1);
@@ -44,16 +39,14 @@ stories.controller('MenuCtrl', function($scope, Requests, User, $state, $window,
 			});
 		});
 	};
-
+	// Go to app tutorial
 	$scope.goAppOne = function () {
-		console.log("TRAFF");
 		$state.go('appOne');
 	}
-	//TODO: Forklar!
+	// Update the bookmark lists in the menu. 
 	$scope.updateMenu = function() {
 		Requests.getAllLists($window.localStorage.getItem('userId')).then(function(response) {
 			$scope.collectionList = response.data;
-			console.log($scope.collectionList);
 		}, function(response) {
 			$cordovaDialogs.alert("Får ikke tak i bokmerker.");
 		});

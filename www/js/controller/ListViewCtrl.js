@@ -2,7 +2,7 @@
 //  ListView 
 ////////////////////////
 
-//TODO: Forklar
+// Controller which handles lists of bookmarks
 
 angular.module('ListViewCtrl', [])
 
@@ -15,16 +15,15 @@ stories.controller('ListViewCtrl', function($scope, Requests, Story, $state, $ro
 
 
 	$scope.tag = Requests.getSelectedTag();
-	// Retrieve stories associated with selected tag
+	// Retrieve stories associated with selected tag, so that they can be displayed
 	Requests.getStoryList($scope.tag, $window.localStorage.getItem('userId')).success(function(data, status) {
 		$scope.storyPreviews = data;
 		$ionicLoading.hide();
 	}).error(function(data, status) {
-		console.log(status);
 		$cordovaDialogs.alert("Får ikke svar fra server.");
 	});
 
-	//remove a story from the listview
+	// Remove a story from the listview
 	$scope.remove = function(story) {
 		var index = $scope.storyPreviews.indexOf(story);
 		$scope.storyPreviews.splice(index, 1);
@@ -32,7 +31,7 @@ stories.controller('ListViewCtrl', function($scope, Requests, Story, $state, $ro
 	};
 
 	
-	//TODO: Forklar!
+	// Opens the selected story. 
  	$scope.open = function(story) {
 		$ionicLoading.show({
 			template: '<h2>Laster inn</h2><div class="icon ion-loading-a"></div>',

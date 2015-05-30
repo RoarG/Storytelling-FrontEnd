@@ -2,7 +2,7 @@
 //  List
 ////////////////////////
 
-//TODO: Forklar!
+// Controller for the browsing of recommended stories. 
 
 angular.module('RecomdCtrl', [])
 
@@ -11,23 +11,26 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 	
 	$scope.storyPreviews = [];
 	$scope.currentSlideIndex = 0;
-	/*Used to know which of the stories in this list of recommendations that have been recommended
-  	Used to avoid storing a story as recommended multiple times for one list of recommendations*/
+
+	/*Used to know which of the stories in this list of recommendations that have been recommended,
+  	and avoid storing a story as recommended multiple times for one list of recommendations*/
 	$scope.recommendArray = [];
+
 	$scope.userId = $window.localStorage.getItem('userId');
-	console.log("user id", $window.localStorage.getItem('userId'))
+
 
 	$scope.$on('$ionicView.enter', function() {
-		$ionicHistory.clearHistory();
-		$ionicSideMenuDelegate.canDragContent(false);
+		// Required to avoid buggy behavior of the slides when coming back to the view. 
+		$ionicHistory.clearHistory(); 
+		// Disable dragging of menu, as it can interfere with swiping of stories. 
+		$ionicSideMenuDelegate.canDragContent(false); 
 	});
 
 	// Get array of recommended stories. 
 	Requests.getRecommendedStories($scope.userId).then(function(response) {
-		console.log("user id inside", $scope.userId , "response data: " , response.data);
 		$scope.storyPreviews = response.data;
-		console.log($scope.storyPreviews);
 
+		// Make sure that no more than 4 categories are displayed on each story. 
 		for(var i = 0; i < $scope.storyPreviews.length; i++) {
 			$scope.storyPreviews[i].categories = $scope.storyPreviews[i].categories.slice(0,4);
 		}
@@ -39,7 +42,7 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 		// Set the first story as the selected one. 
 		Requests.setSelectedStory($scope.storyPreviews[0].id);
 
-		// Update slidebox
+		// Update slidebox: necessary because of the new content. 
 		$ionicSlideBoxDelegate.update();
 
 		$ionicLoading.hide();
@@ -80,12 +83,10 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 	};
 
 	 // Runs when going to next/previous slide
-	 // Set the story in current slide as the current story. 
+	 // Set the story in current slide as recommended, and as the current story. 
 	$scope.slideChanged = function() {
 		$scope.currentSlideIndex = $ionicSlideBoxDelegate.currentIndex();
 		Requests.setSelectedStory($scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id);
-
-	    //TODO: Record swiped_past for the slide we came from?
 	    
 	    //Only want to set a story as recommended one time for each list of recommendations
 	    if($scope.recommendArray.indexOf($scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id) == -1){
@@ -94,33 +95,30 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 	    }
 
 	    // If the user is getting to the end of the array of slides, then get more recommendations. 
-	    // Currently it get more recommendations when there are two slides left, so that the user does not have to wait for it to load. 
+	    // Currently it gets more recommendations when there are three slides left, so that the user does not have to wait for it to load. 
 	    if($ionicSlideBoxDelegate.currentIndex() === $scope.storyPreviews.length-4) {
 	      Requests.getMoreRecommendedStories($scope.userId).success(function(data, status) {
 	        $scope.storyPreviews = $scope.storyPreviews.concat(data);
 	        $timeout(function() {
-	          console.log($scope.storyPreviews);
 	          $ionicSlideBoxDelegate.update();
 	        }, 100);
 	      }).error(function(data, status) {
-	          console.log(status);
 	          $cordovaDialogs.alert("Får ikke tak i flere anbefalinger");
 	      });
 	    }
     };
 
-    // Sets the story to be selected, and goes to story view. 
+    // Sets the story as selected, and goes to story view. 
 	$scope.openStory = function(story) {
 		$ionicLoading.show({
       		template: '<h2>Laster inn historie</h2><div class="icon ion-loading-a"></div>',
     		noBackdrop: false
 	    });
 	    Requests.setSelectedStory(story.id);
-	    console.log(Requests.getSelectedStory());
 		$state.go("app.story");
 	};
 
-	// Opens story by storyId. 
+	// Opens story by storyId. Used by the story links in the recommendation explanation. 
 	$scope.openStoryLink = function(storyId) {
 	    $ionicLoading.show({
 	      template: '<h2>Laster inn historie</h2><div class="icon ion-loading-a"></div>',

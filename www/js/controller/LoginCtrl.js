@@ -31,10 +31,6 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	        $scope.responseData = response.data;
 	        $scope.responseData.status = response.data.status;
 	        $window.localStorage.setItem('responseData', response.data);
-
-	        //For debugging
-	        console.log('Response : ', response.data.status);
-	        console.log('User : ', $scope.responseData.userModel);
 	  
 
 	   		if (response.data.status === "successfull") {
@@ -52,7 +48,6 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 
         //Sets the user from the response 
 	$scope.userExist = function (data) {
-		console.log("userExist called", data.userModel.userId);
 	    $scope.user = new User(data.userModel.userId, data.userModel);
 
 	    //Sets the localStorage.getItem userId and User model
@@ -68,7 +63,6 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	}
 
 	$scope.setLocalUser = function (userid){
-		console.log("setLocalUser called");
 		Requests.getUserFromId(userid).then(function(response){
 			$window.localStorage.setItem('userId', $scope.responseData.userId);
 			$window.localStorage.setItem('userModel', $scope.responseData.userModel) ;
@@ -82,8 +76,6 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	    $scope.user.email = $scope.tempMail
 	    Requests.addUser(email).then(function(response) {
 	        $scope.responseData = response.data;
-	        console.log("email: " + email);
-	        console.log("respons: " + email);
 
 	        //Sets the localStorage.getItem userId 
 	        $scope.user.userId = $scope.responseData.userId;
@@ -92,7 +84,6 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	        //Go to the next view 
 	        //Sets the input as a empty string
 	        $scope.user.email = '';
-	        console.log("userDontExist called : " , response.data.status, ", ID: ", response.data.userId );
 
 	        //User is created on the server sider or not
 	   		if (response.data.status === "sucessfull") 
@@ -111,36 +102,31 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	    });
 	}
 
-	//TODO: Forklar!
+	// Display message because of failed response from server. 
 	$scope.failedResponse = function () {
-	    console.log("Failed Response");
 	    $cordovaDialogs.alert("Får ikke svar fra server.");
 	}
 
-	//TODO: Forklar!
+	// Displays popup that tells the user to use a valid email address. 
 	$scope.showValidatePopup = function () {
 	    $ionicLoading.show({
 	        template: '<h2>Du må bruke en gyldig adresse</h2>',
 	        noBackdrop: true,
 	        duration: 2000
 	    });
-	    console.log("showValidatePopup called");
 	}
 
-	//TODO: Forklar!
+	// Display loading indicator
 	$scope.showLoading = function () {
 	    $ionicLoading.show({
 	        template: '<h2>Kontakter server...<div class="icon ion-loading-a"></div></h2>',
 	        noBackdrop: true,
 	    });
-	    console.log("showLoading called");
 	}
 
 	//TODO: Forklar!
 	$scope.updateUser = function () {
 	    Requests.updateUser(new User($window.localStorage.getItem('userId'))).then(function (response1) {
-	        console.log('Update User called, Response Status: ', response1.data.status);
-	        console.log('Update User called, data: ', response1.data);
 	    }, function(response) {
 	    	$cordovaDialogs.alert("Får ikke svar fra server.");
 	    });

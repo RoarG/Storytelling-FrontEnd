@@ -2,7 +2,7 @@
 //  Story 
 ////////////////////////
 
-//TODO: Forklar!
+// Controller for displaying story content and viewing the associated media content. 
 
 angular.module('StoryCtrl', [])
 
@@ -11,46 +11,39 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 	$scope.storyId = Requests.getSelectedStory();
 	$scope.userId = $window.localStorage.getItem('userId');
 
-	console.log("storyId", $scope.storyId, "userid" , $scope.userId);
-	// Get story data.
-	//TODO: Forklar!
+	// Get the story data so it can be displayed
 	Requests.getStory($scope.storyId, $scope.userId).then(function(response) {
 		$scope.story = new Story(response.data);
-		console.log(response);
-		console.log($scope.story.imageList);
 
-
-
-		//Decide what media format to display first
+		//Decide what media type to display first (images, video or audio), depending on which media types are available. 
 		if ($scope.story.videoList) {
 			$scope.mediaType = "video";
 			// If any of the videos are from youtube or vimeo, the url has to be changed so that it can be embedded in iframe. 
 			for (var i = 0; i < $scope.story.videoList.length; i++) {
 				var video = $scope.story.videoList[i];
-				console.log("Video: " + video['videourl']);
+				// Youtube: 
 				var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
 				var match = video['videourl'].match(regExp);
 				if (match && match[2].length == 11) {
 					video['videourl'] = 'https://www.youtube.com/embed/' + match[2] + "?autoplay=1&showinfo=0&controls=1&modestbranding=1&playsinline=1";
-					console.log("Youtube: " + video['videourl']);
-				} else if (video['videourl'].indexOf("vimeo.com") !== -1) {
+				} 
+				// Vimeo:
+				else if (video['videourl'].indexOf("vimeo.com") !== -1) {
 					var r = /(videos|video|channels|\.com)\/([\d]+)/;
 					video['videourl'] = "https://player.vimeo.com/video/" + video['videourl'].match(r)[2];
-					console.log("Vimeo : " + video['videourl']);
-					console.log("Vimeo : " + video['videourl'][8]);
-					console.log("Vimeo : " + (video['videourl'][8] === "p"));
 				}
 			}
 		} else if ($scope.story.audioList) {
 			$scope.mediaType = "audio";
 
-
 		} else {
 			$scope.mediaType = "images";
 		}
 
+		// Creates audio files from the audio urls using the Cordova plugin Media. 
+		// Adds them to the dictionary audioFiles so that they can be easily played later,
+		// along with the current position so that the playing can easily be resumed. 
 		if ($scope.story.audioList) {
-
 			$scope.audioFiles = {};
 
 			for (var i = 0; i < $scope.story.audioList.length; i++) {
@@ -60,18 +53,13 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 					// error callback
 					function (err) { console.log("playAudio():Audio Error: " + err); }
 				), 0];
-				$scope.audioFiles[$scope.story.audioList[i]["audiourl"]][0].getCurrentPosition(function(position) {
-					console.log("Audio position: " + position);
-				})
 
 			}
 		}
 
-		
-
 	$ionicLoading.hide();
 	}, function(response) {
-		console.log(response);
+		// If story data is not successfully retrieved, go back to recommendation view. 
 		$ionicLoading.hide();
 		$ionicHistory.goBack();
 		$cordovaDialogs.alert("Får ikke åpnet historien");
@@ -116,6 +104,7 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
   });
 
 	$scope.$on('$ionicView.leave', function() {
+		// Pause all audio files when leaving the story view. 
 		for (var url in $scope.audioFiles) {
 			if ($scope.audioFiles.hasOwnProperty(url)) {
 				$scope.audioFiles[url][0].pause();
@@ -123,15 +112,16 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 		}
 	});
 
-		// Display selected image in modal. 
+		// Display selected image in fullscreen in a modal. 
 		$scope.showImages = function(index) {
 			$scope.activeSlide = index;
 			$scope.showModal('templates/image-popover.html');
 		};
 
-		//TODO: Forklar!
+		// Displays the modal defined in templateUrl on top of the current view. 
 		$scope.showModal = function(templateUrl) {
 			$ionicModal.fromTemplateUrl(templateUrl, function(modal) {
+						// Sends story data to the controller of the modal. 
 						$scope.childCtrl = modal;
 						$scope.childCtrl.story = $scope.story;
 			}, 
@@ -150,14 +140,13 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 			$scope.modal.remove();
 		};
 
-		// Necessary for video urls //TODO: Forklar! WHY?
+		// Tells angular that the url is safe. Necessary for video urls. 
 		$scope.getTrustedUrl = function(url) {
 			return $sce.trustAsResourceUrl(url);
 		};
 
 		// Play selected video in fullscreen
 		$scope.playVideo = function(index) {
-			console.log("playVideo" , index);
 			$scope.fullscreen = false;
 			$scope.video = document.getElementById("Video" + index);
 			if ($scope.video.webkitEnterFullscreen) {
@@ -175,6 +164,8 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 			$scope.isAudioPlaying = true;
 			$scope.audioFiles[url][0].play();
 
+			// Continues to ask for the position in the audio file
+			// so that the slider can be moved to the correct position. 
 			interval = $interval(function() {
 	     		$scope.audioFiles[url][0].getCurrentPosition(function(result) {
 	     			if(result != -1) {
@@ -185,55 +176,47 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 	     				$scope.audioFiles[url][1] = -1;
 	     				$interval.cancel(interval);
 	     			}
-
-	     			console.log("Currently: " + result + "/" +  $scope.audioFiles[url][0].getDuration());
 	     		})
 	     		
    			},1000);
 		};
-
+		// Pauses audio and stops checking for new position in audio file. 
 		$scope.pauseAudio = function(url) {
 			$scope.isAudioPlaying = false;
 			$scope.audioFiles[url][0].pause();
 			$interval.cancel(interval);
 		}
 
+		// The user has moved the position in the audio file. Updates it. 
 		$scope.sliderPositionChange = function(url) {
      		var mediaInMilli = $scope.audioFiles[url][1]*1000;
      		$scope.audioFiles[url][0].seekTo(mediaInMilli);
    		};
 
-		//TODO: Forklar!
+		// Listens to event saying that fullscreen has been entered/exited
+		// Unlocks orientation if fullscreen, goes to portrait orientation 
+		// and pauses video if going out of fullscreen. 
 		document.addEventListener('webkitfullscreenchange', function(e) {
 			if ($scope.fullscreen) {
 				$scope.video.pause();
-				console.log("Exit fullscreen");
 				screen.lockOrientation('portrait')
 			} else {
 				$scope.fullscreen = true;
-				console.log("Enter fullscreen");
 				screen.unlockOrientation()
 			}
 		});
 		
-		//TODO: Forklar!
+		// Opens url in native browser. 
 		$scope.openUrl = function(url) {
-			console.log("URL : " , url);
 			open(url, '_system');
 		};
 
-		// Open all links in native browser
+		// Opens link clicked in event in native browser, if what was clicked is a proper link. 
 		$scope.onclickStoryContent = function (e) {
-			console.log("E : " , e);
-            console.log("Window Event" + window.event);
             e = e ||  window.event;
-            console.log("e : " , e);
             var element = e.target || e.srcElement;
 
-            console.log("element: ", element);
-
             if (element.tagName == 'A' && element.href && element.href.indexOf("#") === -1) {
-              console.log(e);
                 open(element.href, "_system", "location=no");
                 
                 return false; // prevent default action and stop event propagation

@@ -2,7 +2,7 @@
 //  Settings 
 ////////////////////////
 
-//TODO: Forklar!
+// Controller that handles displaying and editing settings. 
 
 angular.module('SettingsCtrl', [])
 
@@ -19,7 +19,6 @@ stories.controller('SettingsCtrl', function($scope, Requests, User, $ionicLoadin
 		$scope.userId = $window.localStorage.getItem('userId');
 		Requests.getUserFromId($scope.userId).then(function(response) {
 			$scope.user = response.data;
-			console.log($scope.user);
 		}, function(response) {
 			$cordovaDialogs.alert("Får ikke svar fra server.");
 		});
@@ -39,7 +38,6 @@ stories.controller('SettingsCtrl', function($scope, Requests, User, $ionicLoadin
 
 		else {
 			Requests.getUserFromId($window.localStorage.getItem('userId')).then(function(response) {
-				console.log("response status(getUserFromId) : " + response.data.status);
 
 				user = new User(($window.localStorage.getItem('userId')), response.data.userModel);
 
@@ -48,7 +46,6 @@ stories.controller('SettingsCtrl', function($scope, Requests, User, $ionicLoadin
 				$scope.email = email;			//display the new email in the template
 
 				Requests.updateUser(user).then(function(response) {
-					console.log("response status(updateUser) : " + response.data.status);
 					//if update succeeds, display a confirmation message
 					if (response.data.status === "successfull") {
 						$ionicLoading.show({

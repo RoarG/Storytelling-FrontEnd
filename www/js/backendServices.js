@@ -1,15 +1,13 @@
 
-//TODO: Forklar
+// backendServices stores temporary data and acts as a communication module with the back-end. 
 
 angular.module('backend.services', ['ngSanitize'])
 
 
-//TODO: Forklar
+// Story factory: creates a story object and returns it. 
 stories.factory("Story", function ($sce) {
 
-	 /**
-	 * Constructor, with class name
-	 */
+	 // Constructor
 	 function Story(storyData) {
 
 	 	this.storyId = storyData.storyId;
@@ -24,8 +22,7 @@ stories.factory("Story", function ($sce) {
 		//Returns an array of arrays consisting of 'videourl' and 'posterurl'
 		this.videoList = storyData.videoList;
 
-		// NEEDS <p ng-bind-html="story.text"></p> where <p> {{story.text}} </p> is in story.html
-		// to make html tags from story work
+		// NEEDS <p ng-bind-html="story.text"></p> as it is html and not just text. 
 		this.text = $sce.trustAsHtml(storyData.theStory);
 
 		//EXAMPLE AUDIO-URL: "http://mm01.dimu.no/multimedia/012QsXh9.mp3?mmid=012QsXh9"
@@ -38,12 +35,11 @@ stories.factory("Story", function ($sce) {
 		this.subcategoryList = storyData.subCategoryNames;
 		this.categoryList = storyData.categoryList;
 		this.url = storyData.url;  
-
-		//These four not working now, needs userId as paramater   
+  
 		this.rating = storyData.rating;
 		this.explanation = storyData.explanation;
 		this.falseRecommend = storyData.falseRecommend;
-		this.typeOfRecommendation = storyData.tyepOfRecommendation;
+		this.typeOfRecommendation = storyData.typeOfRecommendation;
 
 		//Returns array of usertags
 		this.userTags = storyData.userTags;
@@ -59,14 +55,15 @@ stories.factory("Story", function ($sce) {
 })
 
 
-//TODO: Forklar
+// User factory: Creates a user object and returns it
 stories.factory('User', function (){
 
 	/*if no userdata is retrieved from the database, use new User(userId). Else see
 	Requests.updateUser*/
 	function User(userId, userData){
 		this.userId = userId;
-		//TODO: Forklar
+		// If userData is retrieved from the database, but email is not defined, 
+		// set email to -1 to indicate that the user has not yet entered an email address.
 		if(userData != null && userData != undefined){
 			if(userData.email == null || userData.email == undefined)
 				this.email = -1;
@@ -84,7 +81,7 @@ stories.factory('User', function (){
 			this.category_preference = null;
 		}
 	};
-	//TODO: Forklar
+	// Getters
 	User.prototype.getUser = function() {
 		var userData;
 		userData.userId = this.userId;
@@ -95,7 +92,7 @@ stories.factory('User', function (){
 		userData.category_preference = this.category_preference;
 		return userData;
 	};
-	//TODO: Forklar
+	// Setters
 	User.prototype.setEmail = function(email){ this.email = email; };
 	User.prototype.setAgeGroup = function(age_group){ this.age_group = age_group; };
 	User.prototype.setGender = function(gender){ this.gender = gender; };
@@ -115,8 +112,8 @@ stories.factory("Requests", function ($http) {
 		headers: {'Content-Type': 'application/json'} // 'Content-Type': application/json???
 	}
 
-	var selectedStory;
-	var selectedTag;
+	var selectedStory; // Currently selected story by user
+	var selectedTag; // Currently selected bookmark list
 
 	return {
 		/**Retrieves single story from digitalt fortalt*/
@@ -152,16 +149,6 @@ stories.factory("Requests", function ($http) {
 			return $http(req);
 		},
 		
-		//TODO: Forklar
-		addTag: function(tagName, userId, storyId){
-			req.data = {
-				type: "addTag",
-				userId: userId,
-				storyId: storyId,
-				tagName: tagName
-			};
-			$http(req);
-		},
 		/** Adds a new user to the database, takes a userinstance as input, can be partially filled (for no email set email = -1) **/
 		addUser: function (userEmail){
 			req.data = {type: "addUser",
@@ -198,7 +185,7 @@ stories.factory("Requests", function ($http) {
 
 		},
 
-		/** Returns a user instance by using the user email address as input **/
+		/** Returns a user instance by using the user id as input **/
 		getUserFromId: function(userId){
 			req.data = {type: "getUserFromId",
 				'userId': userId};
@@ -321,13 +308,14 @@ stories.factory("Requests", function ($http) {
 		},
 
 
-		//TODO: Forklar
+		// Getting/setting the story the user has chosen to view
 		setSelectedStory: function (storyId){
 			selectedStory = storyId;
 		},
 		getSelectedStory: function () {
 			return selectedStory;
 		},
+		// Getting/setting the bookmark list the user has chosen to view
 		setSelectedTag: function (tagName) {
 			selectedTag = tagName;
 		},
