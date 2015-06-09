@@ -853,9 +853,21 @@ video::-webkit-media-controls {
     	}
 
 	    small {
+	    	position: relative;
 	    	display: block;
+	    	color: #777;
+	    	-webkit-transition: color 0.5s, top 0.3s; /* Safari */
+			transition: color 0.5s, top 0.3s;
 	    }
+	    small.category-text-selected {
+	    	color: #111;
+	    	position: relative;
+	    	top: -2px;
+	    }
+	    
 	}
+
+
 
 
 	.category:nth-of-type(1) {
@@ -866,9 +878,9 @@ video::-webkit-media-controls {
 			
 		}
 		.category-circle-selected {
-				background-color: nth($category-colors, 1);
+				background-color: darken(nth($category-colors, 1), 5%);
 				color: darken(nth($category-colors, 1), 50%);
-				border-color: nth($category-colors, 1);
+				border-color: darken(nth($category-colors, 1), 5%);
 			}
 	}
 	.category:nth-of-type(2) {
@@ -878,9 +890,9 @@ video::-webkit-media-controls {
 			border: 1.5px solid lighten(nth($category-colors, 2), 9%);
 		}
 		.category-circle-selected {
-				background-color: nth($category-colors, 2);
+				background-color: darken(nth($category-colors, 2), 5%);
 				color: darken(nth($category-colors, 2), 50%);
-				border-color: nth($category-colors, 2);
+				border-color: darken(nth($category-colors, 2), 5%);
 			}
 	}
 	.category:nth-of-type(3) {
@@ -890,9 +902,9 @@ video::-webkit-media-controls {
 			border: 1.5px solid lighten(nth($category-colors, 3), 9%);
 		}
 		.category-circle-selected {
-				background-color: nth($category-colors, 3);
+				background-color: darken(nth($category-colors, 3), 5%);
 				color: darken(nth($category-colors, 3), 50%);
-				border-color: nth($category-colors, 3);
+				border-color: darken(nth($category-colors, 3), 5%);
 			}
 	}
 	.category:nth-of-type(4) {
@@ -902,9 +914,9 @@ video::-webkit-media-controls {
 			border: 1.5px solid lighten(nth($category-colors, 4), 9%);
 		}
 		.category-circle-selected {
-				background-color: nth($category-colors, 4);
+				background-color: darken(nth($category-colors, 4), 5%);
 				color: darken(nth($category-colors, 4), 50%);
-				border-color: nth($category-colors, 4);
+				border-color: darken(nth($category-colors, 4), 5%);
 			}
 	}
 	.category:nth-of-type(5) {
@@ -914,9 +926,9 @@ video::-webkit-media-controls {
 			border: 1.5px solid lighten(nth($category-colors, 5), 9%);
 		}
 		.category-circle-selected {
-				background-color: nth($category-colors, 5);
+				background-color: darken(nth($category-colors, 5), 5%);
 				color: darken(nth($category-colors, 5), 50%);
-				border-color: nth($category-colors, 5);
+				border-color: darken(nth($category-colors, 5), 5%);
 			}
 	}
 	.category:nth-of-type(6) {
@@ -926,9 +938,9 @@ video::-webkit-media-controls {
 			border: 1.5px solid lighten(nth($category-colors, 6), 9%);
 		}
 		.category-circle-selected {
-				background-color: nth($category-colors, 6);
+				background-color: darken(nth($category-colors, 6), 5%);
 				color: darken(nth($category-colors, 6), 50%);
-				border-color: nth($category-colors, 6);
+				border-color: darken(nth($category-colors, 6), 5%);
 			}
 	}
 	.category:nth-of-type(7) {
@@ -938,9 +950,9 @@ video::-webkit-media-controls {
 			border: 1.5px solid lighten(nth($category-colors, 7), 8%);
 		}
 		.category-circle-selected {
-				background-color: darken(nth($category-colors, 7), 4%);
+				background-color: darken(nth($category-colors, 7), 5%);
 				color: darken(nth($category-colors, 7), 50%);
-				border-color: nth($category-colors, 7);
+				border-color: darken(nth($category-colors, 7), 5%);
 			}
 	}
 	.category:nth-of-type(8) {
@@ -950,21 +962,21 @@ video::-webkit-media-controls {
 			border: 1.5px solid lighten(nth($category-colors, 8), 9%);
 		}
 		.category-circle-selected {
-				background-color: nth($category-colors, 8);
+				background-color: darken(nth($category-colors, 8), 5%);
 				color: darken(nth($category-colors, 8), 50%);
-				border-color: nth($category-colors, 8);
+				border-color: darken(nth($category-colors, 8), 5%);
 			}
 	}
 	.category:nth-of-type(9) {
 		.category-circle {
 			background-color: saturate(#F2E2DF, 40%);
 			color: rgba(0,0,0,0.25);
-			border: 1.5px solid lighten(nth($category-colors, 9), 9%);
+			border: 2px solid lighten(nth($category-colors, 9), 9%);
 		}
 		.category-circle-selected {
-				background-color: nth($category-colors, 9);
+				background-color: darken(nth($category-colors, 9), 5%);
 				color: darken(nth($category-colors, 9), 50%);
-				border-color: nth($category-colors, 9);
+				border-color: darken(nth($category-colors, 9), 5%);
 			}
 	}
 
@@ -986,8 +998,8 @@ video::-webkit-media-controls {
 
 	.category-circle-selected {
 		position: relative;
-		top: -1px;
-		box-shadow: 0px 2px 4px rgba(0,0,0,0.35);
+		top: -3px;
+		box-shadow: 0px 3px 5px rgba(0,0,0,0.45);
 		
 	}
 

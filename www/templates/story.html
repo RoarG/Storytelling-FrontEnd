@@ -102,7 +102,7 @@
             <!-- Rating -->
             <div class="story-footer clear-float">
             <div class="rating" ng-controller="RatingCtrl">
-                <p>Likte du denne historien?</p>
+                <p>Likte du denne fortellingen?</p>
                 <i class="icon ion-android-star star" ng-class="{filled: i <= story.rating}" ng-repeat="i in [1,2,3,4,5]" ng-click="rateFunction(i)"></i>
                 <p ng-show="ratingStatus.valueOf() === 'rating'"> <i class="icon ion-loading-a"></i></p>
                 <p ng-show="ratingStatus.valueOf() === 'rated'"><i class="ion-checkmark"></i> Lagret</p>
