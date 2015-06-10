@@ -286,6 +286,16 @@ stories.factory("Requests", function ($http) {
 			};
 			$http(req);
 		},
+		
+		/*Swiped past story*/
+		swipedPastStory: function(userId, storyId){
+			req.data = {
+				type: "swipedPastStory",
+				userId: userId,
+				storyId: storyId
+			};
+			$http(req);
+		},
 
 		/**Registers in database when user opens app*/
 		opensApp: function(userId){

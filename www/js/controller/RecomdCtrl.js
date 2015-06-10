@@ -53,11 +53,13 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 
 	// Go to next slide in slidebox. 
 	$scope.nextSlide = function() {
+		Requests.swipedPastStory($scope.userId, $scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id);
 		$ionicSlideBoxDelegate.next();
 	};
 
 	// Go to previous slide in slidebox. 
 	$scope.previousSlide = function() {
+		Requests.swipedPastStory($scope.userId, $scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id);
 		$ionicSlideBoxDelegate.previous();
 	};
 
