@@ -76,6 +76,7 @@ stories.controller('RecomdCtrl', function($scope, $animate, Requests, Story, $io
 	// Currently works in browser, but not on Android/iOS. 
 	$scope.rejectStory = function(index) {
 		
+		Requests.rejectStory($scope.userId, $scope.storyPreviews[index].id);
 		$ionicLoading.show({
 	        template: '<h2>Du har fjernet en historie</h2>',
 	        duration: 2000
@@ -84,6 +85,7 @@ stories.controller('RecomdCtrl', function($scope, $animate, Requests, Story, $io
 		// If it is the last slide, go back to previous slide. Otherwise, next slide. 
 		$scope.storyPreviews.splice(index, 1);
 		$ionicSlideBoxDelegate.update();
+
 		
 	/**
 	 * Commented out: created a visual bug. 
