@@ -1,15 +1,15 @@
 <ion-view view-title="Interesser" ng-init="loadPreferences()">
 
-	<ion-content hide-nav-bar="true" has-header="false" hide-nav-bar="true" padding="true" has-tabs="false">
+	<ion-content hide-nav-bar="true" has-header="false" hide-nav-bar="true" has-tabs="false">
 
-		<div class="list list-inset" id="view">
+		<!--<div class="list list-inset" id="view">-->
 			
-		<div class="content-wrapper">
+	<div class="editPreferences">
 
 			<div class="header-padding"></div>
-			<h1 class="viewhead">Interesser</h1>
+			<!--<h1 class="viewhead">Interesser</h1>-->
 			
-			<p class="infoText">Velg de kategoriene du ønsker å lese historier fra</p>
+			<p class="infoText">Velg de kategoriene du ønsker å lese fortellinger fra</p>
 
 			<div  class="categories">
 				<div class="category" ng-repeat="i in [1,2,3,4,5,6,7,8,9]">
@@ -18,16 +18,17 @@
 					ng-class="{'category-circle-selected': categories[i].isSelected}">
 					<i class="icon" ng-class="categories[i].icon"></i>
 				</div>
-				<small>{{categories[i].name}}</small>
+				<small ng-class="{'category-text-selected': categories[i].isSelected}">{{categories[i].name}}</small>
 			</div>
 			<div class="clear-float"></div>
 			</div>
-		</div>
+
 
 		<div class="skipContLogin">
             <button class="button button-calm settings-button-width" ng-click="updatePreferences()">Lagre</button>
-            <p ng-show="preferencesSaved"><i class="ion-checkmark"></i> Lagret</p>
-        </div> 
-	</div>
+            <!--<p ng-show="preferencesSaved"><i class="ion-checkmark"></i> Lagret</p>-->
+    </div> 
+	<!--</div>-->
+</div>
 	</ion-content>
 </ion-view>

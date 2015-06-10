@@ -130,6 +130,11 @@ stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLo
 
 			Requests.updateUser(user).then(function(response) {
 				$scope.preferencesSaved = true;
+				$ionicLoading.show({
+					template: '<h2>Lagret</h2>',
+					noBackdrop: false,
+					duration: 1200
+				});
 			}, function(response) {
 				$cordovaDialogs.alert("Får ikke svar fra server.");
 			});
