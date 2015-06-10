@@ -8,6 +8,7 @@
       Sintef&#xD;
     </author>
   <content src="index.html"/>
+  <!-- Don't block any requests -->
   <access origin="*"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
