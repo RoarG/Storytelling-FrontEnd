@@ -71,6 +71,11 @@ stories.controller('ProfilCtrl', function($scope, Requests, User, $state, $windo
 
 			Requests.updateUser(user).then(function(response) {
 				$scope.profileSaved = true;
+				$ionicLoading.show({
+					template: '<h2>Lagret</h2>',
+					noBackdrop: false,
+					duration: 1200
+				});
 			}, function(response) {
 				$cordovaDialogs.alert("Får ikke svar fra server.");
 			});

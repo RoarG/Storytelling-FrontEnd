@@ -92,6 +92,7 @@ var stories = angular.module('stories', [
 // Defines the different states of the app and the templates and controllers that are associated to them. 
 .config(function($stateProvider, $urlRouterProvider, $sceDelegateProvider, $ionicConfigProvider) {
 	$ionicConfigProvider.backButton.text('Tilbake'); // Changes the default text of the back button to Norwegian "Tilbake".
+	$ionicConfigProvider.backButton.previousTitleText(false);
 	$stateProvider
 
 	.state('app', {
