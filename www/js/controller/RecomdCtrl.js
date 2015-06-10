@@ -7,7 +7,7 @@
 angular.module('RecomdCtrl', [])
 
 
-stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBoxDelegate, $ionicModal, $ionicLoading, $state, $ionicSideMenuDelegate, $timeout, $ionicHistory, $window, $cordovaDialogs) {
+stories.controller('RecomdCtrl', function($scope, $animate, Requests, Story, $ionicSlideBoxDelegate, $ionicModal, $ionicLoading, $state, $ionicSideMenuDelegate, $timeout, $ionicHistory, $window, $cordovaDialogs) {
 	
 	$scope.storyPreviews = [];
 	$scope.currentSlideIndex = 0;
@@ -17,6 +17,15 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 	$scope.recommendArray = [];
 
 	$scope.userId = $window.localStorage.getItem('userId');
+
+
+	//Trying to disable animate on the slidebox element
+	/*console.log('SlideBox: ' + document.getElementById("slideBox"));
+	console.log('SlideBox: ' + $animate.enabled());
+	var element = document.getElementById("slideBox");
+	
+	console.log('SlideBox: ' + $animate.enabled());*/
+	$animate.enabled(false);
 
 
 	$scope.$on('$ionicView.enter', function() {
@@ -64,22 +73,32 @@ stories.controller('RecomdCtrl', function($scope, Requests, Story, $ionicSlideBo
 	// Remove story from slidebox and set story as rejected. 
 	// Currently works in browser, but not on Android/iOS. 
 	$scope.rejectStory = function(index) {
+		
+		$ionicLoading.show({
+	        template: '<h2>Du har fjernet en historie</h2>',
+	        duration: 2000
+	    });
+
 		// If it is the last slide, go back to previous slide. Otherwise, next slide. 
-		if (index == $scope.storyPreviews.length - 1) {
-			$ionicSlideBoxDelegate.previous();
-		} else {
-			$ionicSlideBoxDelegate.next();
-		}
+		$scope.storyPreviews.splice(index, 1);
+		$ionicSlideBoxDelegate.update();
+		
+	/**
+	 * Commented out: created a visual bug. 
+	 */
+		// if (index == $scope.storyPreviews.length - 1) {
+		// 	$ionicSlideBoxDelegate.previous();
+		// } else {
+		// 	$ionicSlideBoxDelegate.next();
+		// }
 		// Wait 500 milliseconds so it slides to another slide before deleting current slide. 
-		$timeout(function() {
-			if (index < $scope.storyPreviews.length - 1) {
-				$ionicSlideBoxDelegate.previous();
-			}
-			$scope.storyPreviews.splice(index, 1);
-			// Necessary to update slides:
-			$ionicSlideBoxDelegate._instances[0].kill();
-			$ionicSlideBoxDelegate.update();
-		}, 500);
+		// $timeout(function() {
+		// 	if (index < $scope.storyPreviews.length - 1) {
+		// 	//$ionicSlideBoxDelegate.slide(index+1);
+		// 	}
+		// 	// Necessary to update slides:
+		// 	// $ionicSlideBoxDelegate._instances[0].kill();
+		// }, 500);
 	};
 
 	 // Runs when going to next/previous slide

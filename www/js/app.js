@@ -56,7 +56,7 @@ var stories = angular.module('stories', [
 			});
 		}
 
-		screen.lockOrientation("portrait");
+		//screen.lockOrientation("portrait");
 		
 		// Decides which view to go to first:
 		$ionicPlatform.ready(function() {
