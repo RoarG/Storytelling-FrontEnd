@@ -108,6 +108,15 @@
                 <p ng-show="ratingStatus.valueOf() === 'rated'"><i class="ion-checkmark"></i> Lagret</p>
 
             </div>
+            <div class="sosialSharing">
+
+                <i ng-class="{'icon ion-social-twitter-outline': twtouched, 'icon ion-social-twitter': !twtouched}" ng-click="twitterShare(story.url)"></i>
+                
+                <i ng-class="{'icon ion-social-facebook-outline': fbtouched, 'icon ion-social-facebook': !fbtouched}" ng-click="fbShare(story.url)"></i>
+                
+                <i class="ion-android-share-alt" ng-click="altShare(story.url)"></i> <!-- TODO: Sett IOS icon for IOS -->
+            </div>
+
             <!-- Other information about story -->
             <h3 ng-if="story.municipality">Sted</h3>
             <span>{{story.municipality}}</span>

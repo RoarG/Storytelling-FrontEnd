@@ -870,6 +870,41 @@ video::-webkit-media-controls {
    }
 }
 
+/*
+//////////////////////
+///		Social Sharing
+//////////////////////
+*/
+
+.sosialSharing {
+	text-align: center;
+}
+
+.ion-social-facebook {
+	font-size: 2.5em;
+	padding: 5%;
+}
+
+.ion-social-facebook-outline {
+	font-size: 2.5em;
+	padding: 5%;
+}
+
+.ion-social-twitter {
+	font-size: 2.5em;
+	padding: 5%;
+}
+
+.ion-social-twitter-outline {
+	font-size: 2.5em;
+	padding: 5%;
+}
+
+.ion-android-share-alt {
+	font-size: 2.5em;
+	padding: 5%;	
+}
+
 
 /*
 //////////////////////
@@ -1235,7 +1270,7 @@ ion-slide .content-wrapper {
 .image-wrapper {
 	width: 100%;
 	overflow: hidden;
-	height: 30vh;
+	height: 200px;
 	margin-bottom: 5px;
 }
 

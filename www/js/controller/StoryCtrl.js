@@ -6,10 +6,13 @@
 
 angular.module('StoryCtrl', [])
 
-stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ionicPopover, Requests, Story, $rootScope, $sce, $ionicLoading, $window, $cordovaInAppBrowser, $timeout, $ionicScrollDelegate, $ionicHistory, $cordovaDialogs, $interval) {
+stories.controller('StoryCtrl', function($scope,  $stateParams, $ionicModal, $ionicPopover, Requests, Story, $rootScope, $sce, $ionicLoading, $window, $cordovaInAppBrowser, $timeout, $ionicScrollDelegate, $ionicHistory, $cordovaDialogs, $interval, $cordovaSocialSharing) {
 
 	$scope.storyId = Requests.getSelectedStory();
 	$scope.userId = $window.localStorage.getItem('userId');
+
+	$scope.twtouched = false;
+	$scope.fbtouched = false;
 
 	// Get the story data so it can be displayed
 	Requests.getStory($scope.storyId, $scope.userId).then(function(response) {
@@ -111,6 +114,77 @@ stories.controller('StoryCtrl', function($scope, $stateParams, $ionicModal, $ion
 			}
 		}
 	});
+
+		$scope.twitterShare = function (message) {
+			$ionicLoading.show({
+        	template: '<h2>Åpner Twitter</h2>'
+    		})
+    		$scope.twtouched = true;
+    		setTimeout(function(){ 
+    			$scope.twtouched = false; }
+    		, 500);
+    		// $scope.twtouched = true;
+    		console.log('Twitter: ' + $scope.twtouched );
+
+			//First check if one can share on twitter
+			$cordovaSocialSharing.canShareVia("twitter").then(function(result) {
+			console.log('Can share: ' + result);
+			$window.plugins.socialsharing.shareViaTwitter('Les denne ' + message +  '\" #VettuHva?\"');
+			},
+	    		function(error) {
+            		alert("Cannot share on Twitter");
+        			});
+	    		$ionicLoading.hide();
+    			// $scope.twtouched = false;
+    			// console.log('Twitter: ' + $scope.twtouched );
+		}
+
+
+	    $scope.fbShare = function (link) {
+	    	//TODO: Canshare via er ikke helt upto date og loading vises ikke raskere om man ikke har null i soma argument
+	    	$ionicLoading.show({
+	        template: '<h2>Åpner Facebook</h2>',
+	        duration: 3000
+	    	})
+	    	$scope.fbtouched = !$scope.fbtouched;
+	    	console.log('Facebook : ' + $scope.fbtouched);
+			$cordovaSocialSharing.shareViaFacebook('Message via Facebook',
+                 null,
+                 link,
+                 console.log('share ok'), // success callback
+                 function(errormsg){alert(errormsg)}) // error callback
+
+			/*$ionicLoading.show({
+	        template: '<h2>Åpner Facebook</h2>',
+	    	});
+			
+			$cordovaSocialSharing.canShareVia("facebook").then(function(result) {
+			console.log('Can share: ' + result);
+			$window.plugins.socialsharing.shareViaFacebook(link);
+	    	},
+	    		function(error) {
+            		alert("Cannot share on Twitter");
+        			});
+	    		$ionicLoading.hide();*/
+		}	    	
+
+  			//TODO: Hvorfor er denne så treg??
+		$scope.altShare = function (message) {
+			$ionicLoading.show({
+	        template: '<h2>Åpner delesenter</h2>',
+	        duration: 2500
+	    	});
+			$cordovaSocialSharing.share("Les denne fortellingen " + message, "Vettu Hva? - fortelling", null, "www.vettuhva.no");
+	    }
+
+
+	
+
+
+
+
+
+
 
 		// Display selected image in fullscreen in a modal. 
 		$scope.showImages = function(index) {
