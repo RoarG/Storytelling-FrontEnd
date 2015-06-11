@@ -74,8 +74,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 .topCont {
 	display: block;
-	height: 51vh;
-	padding-top: 2vh;
+	height: 53%;
+	padding-top: 2%;
 
 	@include mq(medium) {
     	padding-top: 10%;
@@ -85,13 +85,13 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 .bottomCont{
 	/*position: fixed;*/
 	/*display: block;*/
-	height: 50vh;
+	height: 50%;
 	text-align: center;
 	padding-top: 5%;
 	bottom: 3%;
 
 	@include mq(medium) {
-    	padding-top: 8vh;
+    	padding-top: 8%;
     }
 }
 
@@ -140,7 +140,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	text-align: center;
 
 	@include mq(medium) {
-    	margin-bottom: 3vh;
+    	margin-bottom: 3%;
     }
 
 }
@@ -160,7 +160,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 
 .onboardInfoText {
-	padding-top: 0vh;
+	padding-top: 0;
 }
 
 
@@ -243,12 +243,16 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 .login-title {
-	padding-top: 11vh;
-	padding-bottom: 1vh;
+	padding-top: 11%;
+	padding-bottom: 1%;
+
+	@include mq(medium) {
+    		padding-top: 17%;
+    	}
 }
 
 .infoText {
-    margin-bottom: 3vh;
+    margin-bottom: 3%;
     text-align: center;
     font-size: 1em;
     color: $font-color;
@@ -264,6 +268,10 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     padding-right: 4%;
     padding-left: 4%;
     padding-top: 6%;
+
+    @include mq(medium) {
+    		padding-top: 12%;
+    	}
 }
 
 .bottomContLogin {
@@ -272,8 +280,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 
 .pageIndicatorContLogin {
-   padding-top: 3vh;
-   bottom: 1vh;
+   padding-top: 3%;
+   bottom: 1%;
 }
 
 .ion-ios-circle-outline{
@@ -299,7 +307,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     width: 100%;
 
     h2 {
-    	margin-bottom: 3vh;
+    	margin-bottom: 3%;
     }
 }
 
@@ -308,7 +316,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     padding-bottom: 19%;
 
     h2 {
-    	margin-bottom: 3vh;
+    	margin-bottom: 3%;
     }
 }
 
@@ -329,7 +337,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 .edit-profile {
 
-	margin-top: 5vh;
+	margin-top: 5%;
 
 	.infoText {
 		width: 90%;
@@ -425,16 +433,16 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 .modal.bookmark {
 	min-height: 0;
-	max-height: 86vh;
+	max-height: 86%;
 	width: 75%;
 	background-color: $background-color;
 	position: absolute;
-	top: 10vh;
+	top: 10%;
 	left: 12.5%;
     border-radius: 5px;
 
     ion-scroll {
-    	max-height: 38vh;
+    	max-height: 38%;
     }
 
     .rating-content {
@@ -569,9 +577,13 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     font-size: 1.7em;
     background-color: $background-color-dark;
     width: 34px;
-    line-height: 34px;
+    line-height: 32px;
     border-radius: 50%;
     text-align: center;
+
+    i {
+    	vertical-align: -2px;
+    }
 }
 
 .category-circle {
@@ -870,41 +882,6 @@ video::-webkit-media-controls {
    }
 }
 
-/*
-//////////////////////
-///		Social Sharing
-//////////////////////
-*/
-
-.sosialSharing {
-	text-align: center;
-}
-
-.ion-social-facebook {
-	font-size: 2.5em;
-	padding: 5%;
-}
-
-.ion-social-facebook-outline {
-	font-size: 2.5em;
-	padding: 5%;
-}
-
-.ion-social-twitter {
-	font-size: 2.5em;
-	padding: 5%;
-}
-
-.ion-social-twitter-outline {
-	font-size: 2.5em;
-	padding: 5%;
-}
-
-.ion-android-share-alt {
-	font-size: 2.5em;
-	padding: 5%;	
-}
-
 
 /*
 //////////////////////
@@ -913,14 +890,18 @@ video::-webkit-media-controls {
 */
 
 .categories {
-	margin: 1vh 0;
+	margin: 1% 0;
 	
 
 	.category {
 		float: right;
 		text-align: center;
-		margin: 0.8vh 2%;
+		margin: 0.8% 2%;
 	    width: 29%;
+
+	    @include mq(medium) {
+    		margin-bottom: 4%;
+    	}
 
 	    
 
@@ -1055,13 +1036,13 @@ video::-webkit-media-controls {
 
 	.category-circle {
 		
-		width: 13vh;
+		width: 60px;
 		height: 0;
-		padding: 6.5vh 0;
+		padding: 30px 0;
 
 		@include mq(medium) {
-    		width: 12vh;
-    		padding: 6vh;
+    		width: 80px;
+    		padding: 40px;
     	}
 
 		position: relative;
@@ -1099,11 +1080,22 @@ video::-webkit-media-controls {
 }
 
 .editPreferences {
-	margin-top: 5vh;
+	margin-top: 5%;
+
+	.category {
+		@include mq(medium) {
+    		margin-bottom: 16px;
+    	}
+	}
 
 	.category-circle {
-		width: 12vh;
-		padding: 6vh 0;
+		width: 60px;
+		padding: 30px 0;
+
+		@include mq(medium) {
+    		width: 80px;
+    		padding: 40px;
+    	}
 
 		i {
 			font-size: 1.8rem;
@@ -1111,7 +1103,7 @@ video::-webkit-media-controls {
 	}
 
 	button {
-		margin-top: 2vh;
+		margin-top: 2%;
 	}
 }
 
@@ -1192,7 +1184,11 @@ video::-webkit-media-controls {
 	@include mq(medium) {
     	font-size: 1.6em;
     	width: 32px;
-    	line-height: 32px;
+    	line-height: 30px;
+    }
+
+    i {
+    	vertical-align: -2px;
     }
 }
 
@@ -1223,10 +1219,10 @@ ion-slide .card {
 }
 
 ion-slide .recommExplanation {
-	height: 10vh;
+	height: 10;
 	width: 85%;
 	position: absolute;
-	bottom: 6vh;
+	bottom: 6;
 	left: 50%;
 	-webkit-transform: translateX(-50%);
 	transform: translateX(-50%);
@@ -1244,23 +1240,31 @@ ion-slide .recommExplanation {
 ion-slide .cover-image {
 	min-width: 100%;
 	width: 100%;
-	height: auto;
+	//height: auto;
 }
 
 ion-slide div.cover-image {
 	position: absolute;
 	top: 0;
 	background-color: $background-color-dark;
-	height: 30vh;
+	height: 150px;
 	margin: 0;
+
+	@include mq(medium) {
+    	height: 200px;
+    }
 }
 
 ion-slide div.cover-image i {
 	color: $background-color;
 	font-size: 10em;
 	margin: 0 auto;
-	line-height: 30vh;
+	line-height: 150px;
 	opacity: 0.5;
+
+	@include mq(medium) {
+    	line-height: 200px;
+    }
 }
 
 ion-slide .content-wrapper {
@@ -1270,8 +1274,12 @@ ion-slide .content-wrapper {
 .image-wrapper {
 	width: 100%;
 	overflow: hidden;
-	height: 200px;
+	height: 150px;
 	margin-bottom: 5px;
+
+	@include mq(medium) {
+    	height: 200px;
+    }
 }
 
 ion-slide h2 {

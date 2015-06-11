@@ -119,12 +119,12 @@ stories.controller('StoryCtrl', function($scope,  $stateParams, $ionicModal, $io
 			$ionicLoading.show({
         	template: '<h2>Åpner Twitter</h2>'
     		})
+
+    		// Visual indication when pressing the icon
     		$scope.twtouched = true;
     		setTimeout(function(){ 
     			$scope.twtouched = false; }
-    		, 500);
-    		// $scope.twtouched = true;
-    		console.log('Twitter: ' + $scope.twtouched );
+    		, 200);
 
 			//First check if one can share on twitter
 			$cordovaSocialSharing.canShareVia("twitter").then(function(result) {
@@ -139,20 +139,26 @@ stories.controller('StoryCtrl', function($scope,  $stateParams, $ionicModal, $io
     			// console.log('Twitter: ' + $scope.twtouched );
 		}
 
-
 	    $scope.fbShare = function (link) {
 	    	//TODO: Canshare via er ikke helt upto date og loading vises ikke raskere om man ikke har null i soma argument
 	    	$ionicLoading.show({
 	        template: '<h2>Åpner Facebook</h2>',
 	        duration: 3000
 	    	})
-	    	$scope.fbtouched = !$scope.fbtouched;
-	    	console.log('Facebook : ' + $scope.fbtouched);
-			$cordovaSocialSharing.shareViaFacebook('Message via Facebook',
-                 null,
-                 link,
-                 console.log('share ok'), // success callback
-                 function(errormsg){alert(errormsg)}) // error callback
+
+	    	// Visual indication when pressing the icon
+	    	$scope.fbtouched = true;
+    		setTimeout(function(){ 
+    			$scope.fbtouched = false; }
+    		, 200);
+    		//TODO: Sjekke om det kan appendes en melding fra appen
+			$window.plugins.socialsharing.shareViaFacebook(Link);
+
+			// $cordovaSocialSharing.shareViaFacebook('Message via Facebook',
+   //               null,
+   //               link,
+   //               console.log('share ok'), // success callback
+   //               function(errormsg){alert(errormsg)}) // error callback
 
 			/*$ionicLoading.show({
 	        template: '<h2>Åpner Facebook</h2>',
@@ -173,18 +179,16 @@ stories.controller('StoryCtrl', function($scope,  $stateParams, $ionicModal, $io
 			$ionicLoading.show({
 	        template: '<h2>Åpner delesenter</h2>',
 	        duration: 2500
-	    	});
+	    	})
+
+			$scope.alttouched = true;
+    		setTimeout(function(){ 
+    			$scope.alttouched = false; }
+    		, 200);
+
+
 			$cordovaSocialSharing.share("Les denne fortellingen " + message, "Vettu Hva? - fortelling", null, "www.vettuhva.no");
 	    }
-
-
-	
-
-
-
-
-
-
 
 		// Display selected image in fullscreen in a modal. 
 		$scope.showImages = function(index) {
