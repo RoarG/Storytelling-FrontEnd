@@ -752,6 +752,56 @@ video::-webkit-media-controls {
 	} 
 }
 
+
+/*
+//////////////////////
+///	Social Sharing
+//////////////////////
+*/
+
+.sosialSharing {
+	text-align: center;
+	padding: 6%;
+	border-bottom: 2px solid;
+	border-top: 2px solid;
+	
+}
+
+.ion-social-facebook {
+	font-size: 2.8em;
+	padding: 5%;
+}
+
+.ion-social-facebook-outline {
+	font-size: 2.8em;
+	padding: 5%;
+}
+
+.ion-social-twitter {
+	font-size: 2.8em;
+	padding: 5%;
+}
+
+.ion-social-twitter-outline {
+	font-size: 2.8em;
+	padding: 5%;
+}
+
+
+.ion-android-share-alt {
+	font-size: 2.8em;
+	padding: 5%;	
+}
+
+#altshareIcon {
+	font-size: 2.8em;
+	padding: 5%;
+}
+
+/*
+TODO: .ion-loading-a er definers flere ganger
+ */
+
 /*
 //////////////////////
 ///		Image slider from http://devdactic.com/images-videos-fullscreen-ionic/
@@ -854,11 +904,12 @@ video::-webkit-media-controls {
     margin: 5% auto;
     text-align: center;
     color: white;
+    padding-bottom: 2%;
 
 	.star {
 	    color: rgba(255,255,255,0.7);
 	    font-size: 2.5em;
-	    padding: 0.5%;
+	    padding: 0.8%;
 	}
 	.filled {
 	    color: #fd0;
@@ -878,7 +929,16 @@ video::-webkit-media-controls {
 	}
 
 	.ion-loading-a {
-   		font-size: 1.6em;
+   		font-size: 1.8em;
+   }
+
+   .ion-ios-help {
+   		font-size: 1.8em
+   }
+
+   .ion-ios-checkmark {
+   		font-size: 1.8em
+
    }
 }
 

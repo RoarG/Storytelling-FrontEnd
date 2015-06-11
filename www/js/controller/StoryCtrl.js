@@ -151,27 +151,9 @@ stories.controller('StoryCtrl', function($scope,  $stateParams, $ionicModal, $io
     		setTimeout(function(){ 
     			$scope.fbtouched = false; }
     		, 200);
-    		//TODO: Sjekke om det kan appendes en melding fra appen
-			$window.plugins.socialsharing.shareViaFacebook(Link);
-
-			// $cordovaSocialSharing.shareViaFacebook('Message via Facebook',
-   //               null,
-   //               link,
-   //               console.log('share ok'), // success callback
-   //               function(errormsg){alert(errormsg)}) // error callback
-
-			/*$ionicLoading.show({
-	        template: '<h2>Åpner Facebook</h2>',
-	    	});
-			
-			$cordovaSocialSharing.canShareVia("facebook").then(function(result) {
-			console.log('Can share: ' + result);
+    		//TODO: Sjekke om det kan appendes en melding fra appen, se om man kan bruke test før man poster teste uten facebook appen
 			$window.plugins.socialsharing.shareViaFacebook(link);
-	    	},
-	    		function(error) {
-            		alert("Cannot share on Twitter");
-        			});
-	    		$ionicLoading.hide();*/
+
 		}	    	
 
   			//TODO: Hvorfor er denne så treg??
@@ -185,7 +167,6 @@ stories.controller('StoryCtrl', function($scope,  $stateParams, $ionicModal, $io
     		setTimeout(function(){ 
     			$scope.alttouched = false; }
     		, 200);
-
 
 			$cordovaSocialSharing.share("Les denne fortellingen " + message, "Vettu Hva? - fortelling", null, "www.vettuhva.no");
 	    }

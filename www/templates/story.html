@@ -104,17 +104,18 @@
             <div class="rating" ng-controller="RatingCtrl">
                 <p>Likte du denne fortellingen?</p>
                 <i class="icon ion-android-star star" ng-class="{filled: i <= story.rating}" ng-repeat="i in [1,2,3,4,5]" ng-click="rateFunction(i)"></i>
+                <p ng-show="ratingStatus.valueOf() === 'notRated'"> <i class="ion-ios-help"></i></p>
                 <p ng-show="ratingStatus.valueOf() === 'rating'"> <i class="icon ion-loading-a"></i></p>
-                <p ng-show="ratingStatus.valueOf() === 'rated'"><i class="ion-checkmark"></i> Lagret</p>
+                <p ng-show="ratingStatus.valueOf() === 'rated'"> <i class="ion-ios-checkmark"></i></p>
 
             </div>
             <div class="sosialSharing">
 
-                <i ng-class="{'icon ion-social-twitter-outline': twtouched, 'icon ion-social-twitter': !twtouched}" ng-click="twitterShare(story.url)"></i>
+                <i ng-class="{'ion-social-twitter-outline': twtouched, 'ion-social-twitter': !twtouched}" ng-click="twitterShare(story.url)"></i>
                 
-                <i ng-class="{'icon ion-social-facebook-outline': fbtouched, 'icon ion-social-facebook': !fbtouched}" ng-click="fbShare(story.url)"></i>
+                <i ng-class="{'ion-social-facebook-outline': fbtouched, 'ion-social-facebook': !fbtouched}" ng-click="fbShare(story.url)"></i>
                 
-                <i class="ion-android-share-alt" ng-click="altShare(story.url)"></i> <!-- TODO: Sett IOS icon for IOS -->
+                <i id="altshareIcon" ng-class="{'ion-loading-a': altTouched, 'ion-android-share-alt': !alttouched}" ng-click="altShare(story.url)"></i> <!-- TODO: Sett IOS icon for IOS -->
             </div>
 
             <!-- Other information about story -->
