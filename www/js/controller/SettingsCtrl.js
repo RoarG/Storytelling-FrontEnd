@@ -7,7 +7,7 @@
 angular.module('SettingsCtrl', [])
 
 
-stories.controller('SettingsCtrl', function($scope, Requests, User, $ionicLoading, $window, $cordovaDialogs) {
+stories.controller('SettingsCtrl', function($scope, Requests, User, $ionicLoading, $window, $cordovaDialogs, $state) {
 	//retrieve the user email when opening the settings view
 	Requests.getUserFromId($window.localStorage.getItem('userId')).then(function(response) {
 		$scope.user = response.data;
