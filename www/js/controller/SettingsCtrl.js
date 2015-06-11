@@ -14,6 +14,13 @@ stories.controller('SettingsCtrl', function($scope, Requests, User, $ionicLoadin
 		$scope.email = $scope.user.userModel.email;
 	});
 
+	// Log out user and go to login screen. 
+	$scope.logout = function() {
+		$window.localStorage.clear();	
+		$window.localStorage.setItem('userId', "-1");
+		$state.go("login");
+	}
+
 	//test function which retrieves all user information
 	$scope.retrieveUser = function() {
 		$scope.userId = $window.localStorage.getItem('userId');

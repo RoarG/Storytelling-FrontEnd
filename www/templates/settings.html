@@ -12,20 +12,22 @@
 		<i class="icon ion-chevron-right settings-right-adjust"></i>
 	  </ion-item>
 	  
-	  <!--<ion-item>-->
-	  <form ng-submit="saveEmail(email)">
-			<label class="item item-input">
-					<span class="input-label">E-post</span>
-	        <input type="email" name="email" placeholder="email@hotmail.com" ng-model="email">
-	        <!--<button class="button button-calm button-small" ng-click="saveEmail(email)">Lagre</button>-->
-	    </label>
-	  </form>
-	  <!--</ion-item>-->
-	  
 	  <ion-item ng-click="retrieveUser()" href="#/app/editPreferences">
 		<div class="settings-left-adjust">Interesser</div>
 		<i class="icon ion-chevron-right settings-right-adjust"></i>
 	  </ion-item>
+	  
+		<form ng-submit="saveEmail(email)">
+			<label class="item item-input">
+					<span class="input-label">E-post</span>
+	        	<input type="email" name="email" placeholder="email@hotmail.com" ng-model="email">
+	        	<!-- <button class="button button-calm button-small" ng-click="saveEmail(email)">Lagre</button> -->
+	    	</label>
+	  </form>
+	
+	  <ion-item nav-clear menu-close ng-click="logout()">
+          Logg ut
+      </ion-item>
 	  
 	  
 	  <ion-item class="item item-divider">

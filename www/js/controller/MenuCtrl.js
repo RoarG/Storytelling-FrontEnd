@@ -8,15 +8,6 @@ angular.module('MenuCtrl', [])
 
 stories.controller('MenuCtrl', function($scope, Requests, User, $state, $window, $ionicPlatform, $cordovaDialogs) {
 
-	// Log out user and go to login screen. 
-	$scope.logout = function() {
-
-		$window.localStorage.clear();
-		
-		$window.localStorage.setItem('userId', "-1");
-		$state.go("login");
-
-	}
 
 	// View the bookmark list called listName. 
 	$scope.viewList = function(listName) {
