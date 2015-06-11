@@ -1,31 +1,38 @@
 <ion-view view-title="{{tag}}">
-  <ion-content overflow-scroll="true">
+<ion-nav-buttons side="right">
+        <button class="button button" ng-click="sortStories('date')">Dato</button>
+        <button class="button button" ng-click="sortStories('rating')">Rating</button>
+</ion-nav-buttons>
+  <ion-content overflow-scroll="true" class="list-view">
     <!-- make a list to hold stories-->
-    <ion-list class="item-text-wrap" can-swipe="true">
+    <ion-list>
 	  <!-- fill the list with all the stories fetched by the controller-->
-      <ion-item class="item-remove-animate item-thumbnail-left item-icon-right card" ng-repeat="story in storyPreviews" on-swipe-left="remove(story)" type="item-text-wrap" ng-click="open(story)">
+      <ion-item class="item-thumbnail-left item-button-right card" ng-repeat="story in storyPreviews" ng-click="open(story)">
         <!-- add the contents of each list element-->
-		<img class="list-full-size" ng-src="{{story.thumbnail}}">
+
+		<img ng-src="{{story.thumbnail}}">
 		<h2>{{story.title}}</h2>
 		<!-- Truncate the description to a maximum of 100 characters -->
-		<p>{{story.description | limitTo: 100}}{{story.description.length > 100 ? '...' : ''}}</p>
+		<p>{{story.description | limitTo: 70}}{{story.description.length > 100 ? '...' : ''}}</p>
 		<!-- add categories as their own lists on each story -->
-		<ul class="list-horizontal list-cat-display" ng-repeat="category in story.categories" ng-switch on="category">
-			<li class="list-cat-display" ng-switch-when="history"><i class="icon-history"></i>
-			<li class="list-cat-display" ng-switch-when="nature and adventure"><i class="icon-nature"></i>
-			<li class="list-cat-display" ng-switch-when="science and technology"><i class="ion-gear-b"></i>
-			<li class="list-cat-display" ng-switch-when="art and design"><i class="icon-art"></i>
-			<li class="list-cat-display" ng-switch-when="architecture"><i class="icon-architecture"></i>
-			<li class="list-cat-display" ng-switch-when="local traditions and food"><i class="icon-tradition"></i>
-			<li class="list-cat-display" ng-switch-when="music"><i class="ion-music-note"></i>
-			<li class="list-cat-display" ng-switch-when="archeology"><i class="icon-archeology"></i>
-			<li class="list-cat-display" ng-switch-when="literature"><i class="ion-ios-book"></i>
+		<div class="story-categories">
+		<ul class="list-horizontal category-circle" ng-repeat="category in story.categories" ng-switch on="category">
+			<li class="list-cat-display cat-1" ng-switch-when="art and design"><i class="icon-art"></i></li>
+      <li class="list-cat-display cat-2" ng-switch-when="architecture"><i class="icon-architecture"></i></li>
+      <li class="list-cat-display cat-3" ng-switch-when="archeology"><i class="icon-archeology"></i></li>
+      <li class="list-cat-display cat-4" ng-switch-when="history"><i class="icon-history"></i></li>
+      <li class="list-cat-display cat-5" ng-switch-when="local traditions and food"><i class="icon-tradition"></i></li>
+      <li class="list-cat-display cat-6" ng-switch-when="nature and adventure"><i class="icon-nature"></i></li>
+      <li class="list-cat-display cat-7" ng-switch-when="literature"><i class="ion-ios-book"></i></li>
+      <li class="list-cat-display cat-8" ng-switch-when="music"><i class="ion-music-note"></i></li>
+      <li class="list-cat-display cat-9" ng-switch-when="science and technology"><i class="ion-gear-b"></i></li>
 			
 		</ul>
+	</div>
+
+
 		<!-- add the reject button on the side that removes a story -->
-		<ion-option-button class="button-assertive" ng-click="remove(story)">
-			Fjern
-        </ion-option-button>
+		<div class="button button-clear" ng-click="remove(story, $event)"><i class="icon ion-close"></i></div>
       </ion-item>
     </ion-list>
   </ion-content>
