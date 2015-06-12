@@ -1,13 +1,36 @@
 ////////////////////////
-//	Menu 
+//  Menu 
 ////////////////////////
 
 // Controller for handling menu functions
 
 angular.module('MenuCtrl', [])
 
-stories.controller('MenuCtrl', function($scope, Requests, User, $state, $window, $ionicPlatform, $cordovaDialogs) {
+stories.controller('MenuCtrl', function(
+	$window, 
+	$scope, 
+	$state, 
+	$ionicPlatform, 
+	$cordovaDialogs,
+	Requests, 
+	User) {
 
+	$scope.group = false;
+	/*
+	 * if given group is the selected group, deselect it
+	 * else, select the given group
+	 */
+	$scope.toggleGroup = function(group) {
+		if ($scope.isGroupShown(group)) {
+			$scope.shownGroup = null;
+		} else {
+			$scope.shownGroup = group;
+		}
+	};
+	
+	$scope.isGroupShown = function(group) {
+		return $scope.shownGroup === group;
+	};
 
 	// View the bookmark list called listName. 
 	$scope.viewList = function(listName) {
@@ -29,10 +52,10 @@ stories.controller('MenuCtrl', function($scope, Requests, User, $state, $window,
 		});
 	};
 	// Go to app tutorial
-	$scope.goAppOne = function () {
-		$state.go('appOne');
-	}
-	// Update the bookmark lists in the menu. 
+	$scope.goAppOne = function() {
+			$state.go('appOne');
+		}
+		// Update the bookmark lists in the menu. 
 	$scope.updateMenu = function() {
 		Requests.getAllLists($window.localStorage.getItem('userId')).then(function(response) {
 			$scope.collectionList = response.data;

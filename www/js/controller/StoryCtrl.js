@@ -6,7 +6,24 @@
 
 angular.module('StoryCtrl', [])
 
-stories.controller('StoryCtrl', function($scope,  $stateParams, $ionicModal, $ionicPopover, Requests, Story, $rootScope, $sce, $ionicLoading, $window, $cordovaInAppBrowser, $timeout, $ionicScrollDelegate, $ionicHistory, $cordovaDialogs, $interval, $cordovaSocialSharing) {
+stories.controller('StoryCtrl', function(
+	$window,
+	$scope,
+	$stateParams,
+	$ionicModal,
+	$ionicPopover,
+	$sce,
+	$ionicLoading,
+	$cordovaInAppBrowser,
+	$timeout,
+	$ionicScrollDelegate,
+	$ionicHistory,
+	$cordovaDialogs,
+	$interval,
+	$rootScope,
+	$cordovaSocialSharing,
+	Requests,
+	Story) {
 
 	$scope.storyId = Requests.getSelectedStory();
 	$scope.userId = $window.localStorage.getItem('userId');
@@ -29,7 +46,7 @@ stories.controller('StoryCtrl', function($scope,  $stateParams, $ionicModal, $io
 				var match = video['videourl'].match(regExp);
 				if (match && match[2].length == 11) {
 					video['videourl'] = 'https://www.youtube.com/embed/' + match[2] + "?autoplay=1&showinfo=0&controls=1&modestbranding=1&playsinline=1";
-				} 
+				}
 				// Vimeo:
 				else if (video['videourl'].indexOf("vimeo.com") !== -1) {
 					var r = /(videos|video|channels|\.com)\/([\d]+)/;
@@ -52,15 +69,19 @@ stories.controller('StoryCtrl', function($scope,  $stateParams, $ionicModal, $io
 			for (var i = 0; i < $scope.story.audioList.length; i++) {
 				$scope.audioFiles[$scope.story.audioList[i]["audiourl"]] = [new Media($scope.story.audioList[i]["audiourl"],
 					// success callback
-					function () { console.log("playAudio():Audio Success"); },
+					function() {
+						console.log("playAudio():Audio Success");
+					},
 					// error callback
-					function (err) { console.log("playAudio():Audio Error: " + err); }
+					function(err) {
+						console.log("playAudio():Audio Error: " + err);
+					}
 				), 0];
 
 			}
 		}
 
-	$ionicLoading.hide();
+		$ionicLoading.hide();
 	}, function(response) {
 		// If story data is not successfully retrieved, go back to recommendation view. 
 		$ionicLoading.hide();
@@ -72,39 +93,39 @@ stories.controller('StoryCtrl', function($scope,  $stateParams, $ionicModal, $io
 	// Code to enable vertical scrolling when touching the media container.
 	// Allows touch event in media container to propagate to outer container.
 	// http://codepen.io/anon/pen/BoGkA
-	$timeout(function(){
-    //return false; // <--- comment this to "fix" the problem
-    var sv = $ionicScrollDelegate.$getByHandle('horizontal').getScrollView();
-    var container = sv.__container;
-    var originaltouchStart = sv.touchStart;
-    var originalmouseDown = sv.mouseDown;
-    var originaltouchMove = sv.touchMove;
-    var originalmouseMove = sv.mouseMove;
-    container.removeEventListener('touchstart', sv.touchStart);
-    container.removeEventListener('mousedown', sv.mouseDown);
-    document.removeEventListener('touchmove', sv.touchMove);
-    document.removeEventListener('mousemove', sv.mousemove);
-    sv.touchStart = function(e) {
-      e.preventDefault = function(){}
-      originaltouchStart.apply(sv, [e]);
-    }
-    sv.touchMove = function(e) {
-      e.preventDefault = function(){}
-      originaltouchMove.apply(sv, [e]);
-    }
-    sv.mouseDown = function(e) {
-      e.preventDefault = function(){}
-      originalmouseDown.apply(sv, [e]);
-    }
-    sv.mouseMove = function(e) {
-      e.preventDefault = function(){}
-      originalmouseMove.apply(sv, [e]);
-    }
-    container.addEventListener("touchstart", sv.touchStart, false);
-    container.addEventListener("mousedown", sv.mouseDown, false);
-    document.addEventListener("touchmove", sv.touchMove, false);
-    document.addEventListener("mousemove", sv.mouseMove, false);
-  });
+	$timeout(function() {
+		//return false; // <--- comment this to "fix" the problem
+		var sv = $ionicScrollDelegate.$getByHandle('horizontal').getScrollView();
+		var container = sv.__container;
+		var originaltouchStart = sv.touchStart;
+		var originalmouseDown = sv.mouseDown;
+		var originaltouchMove = sv.touchMove;
+		var originalmouseMove = sv.mouseMove;
+		container.removeEventListener('touchstart', sv.touchStart);
+		container.removeEventListener('mousedown', sv.mouseDown);
+		document.removeEventListener('touchmove', sv.touchMove);
+		document.removeEventListener('mousemove', sv.mousemove);
+		sv.touchStart = function(e) {
+			e.preventDefault = function() {}
+			originaltouchStart.apply(sv, [e]);
+		}
+		sv.touchMove = function(e) {
+			e.preventDefault = function() {}
+			originaltouchMove.apply(sv, [e]);
+		}
+		sv.mouseDown = function(e) {
+			e.preventDefault = function() {}
+			originalmouseDown.apply(sv, [e]);
+		}
+		sv.mouseMove = function(e) {
+			e.preventDefault = function() {}
+			originalmouseMove.apply(sv, [e]);
+		}
+		container.addEventListener("touchstart", sv.touchStart, false);
+		container.addEventListener("mousedown", sv.mouseDown, false);
+		document.addEventListener("touchmove", sv.touchMove, false);
+		document.addEventListener("mousemove", sv.mouseMove, false);
+	});
 
 	$scope.$on('$ionicView.leave', function() {
 		// Pause all audio files when leaving the story view. 
@@ -115,175 +136,174 @@ stories.controller('StoryCtrl', function($scope,  $stateParams, $ionicModal, $io
 		}
 	});
 
-		$scope.twitterShare = function (message) {
-			$ionicLoading.show({
-        	template: '<h2>Åpner Twitter</h2>'
-    		})
+	$scope.twitterShare = function(message) {
+		$ionicLoading.show({
+			template: '<h2>Åpner Twitter</h2>'
+		})
 
-    		// Visual indication when pressing the icon
-    		$scope.twtouched = true;
-    		setTimeout(function(){ 
-    			$scope.twtouched = false; }
-    		, 200);
+		// Visual indication when pressing the icon
+		$scope.twtouched = true;
+		setTimeout(function() {
+			$scope.twtouched = false;
+		}, 200);
 
-			//First check if one can share on twitter
-			$cordovaSocialSharing.canShareVia("twitter").then(function(result) {
-			console.log('Can share: ' + result);
-			$window.plugins.socialsharing.shareViaTwitter('Les denne ' + message +  '\" #VettuHva?\"');
+		//First check if one can share on twitter
+		$cordovaSocialSharing.canShareVia("twitter").then(function(result) {
+				console.log('Can share: ' + result);
+				$window.plugins.socialsharing.shareViaTwitter('Les denne ' + message + '\" #VettuHva?\"');
 			},
-	    		function(error) {
-            		alert("Cannot share on Twitter");
-        			});
-	    		$ionicLoading.hide();
-    			// $scope.twtouched = false;
-    			// console.log('Twitter: ' + $scope.twtouched );
-		}
-
-	    $scope.fbShare = function (link) {
-	    	//TODO: Canshare via er ikke helt upto date og loading vises ikke raskere om man ikke har null i soma argument
-	    	$ionicLoading.show({
-	        template: '<h2>Åpner Facebook</h2>',
-	        duration: 3000
-	    	})
-
-	    	// Visual indication when pressing the icon
-	    	$scope.fbtouched = true;
-    		setTimeout(function(){ 
-    			$scope.fbtouched = false; }
-    		, 200);
-    		//TODO: Sjekke om det kan appendes en melding fra appen, se om man kan bruke test før man poster teste uten facebook appen
-			$window.plugins.socialsharing.shareViaFacebook(link);
-
-		}	    	
-
-  			//TODO: Hvorfor er denne så treg??
-		$scope.altShare = function (message) {
-			$ionicLoading.show({
-	        template: '<h2>Åpner delesenter</h2>',
-	        duration: 2500
-	    	})
-
-			$scope.alttouched = true;
-    		setTimeout(function(){ 
-    			$scope.alttouched = false; }
-    		, 200);
-
-			$cordovaSocialSharing.share("Les denne fortellingen " + message, "Vettu Hva? - fortelling", null, "www.vettuhva.no");
-	    }
-
-		// Display selected image in fullscreen in a modal. 
-		$scope.showImages = function(index) {
-			$scope.activeSlide = index;
-			$scope.showModal('templates/image-popover.html');
-		};
-
-		// Displays the modal defined in templateUrl on top of the current view. 
-		$scope.showModal = function(templateUrl) {
-			$ionicModal.fromTemplateUrl(templateUrl, function(modal) {
-						// Sends story data to the controller of the modal. 
-						$scope.childCtrl = modal;
-						$scope.childCtrl.story = $scope.story;
-			}, 
-			{
-				scope: $scope,
-				animation: 'slide-in-up'
-			}).then(function(modal) {
-				$scope.modal = modal;
-				$scope.modal.show();
+			function(error) {
+				alert("Cannot share on Twitter");
 			});
-		};
+		$ionicLoading.hide();
+		// $scope.twtouched = false;
+		// console.log('Twitter: ' + $scope.twtouched );
+	}
 
-		// Close the modal
-		$scope.closeModal = function() {
-			$scope.modal.hide();
-			$scope.modal.remove();
-		};
+	$scope.fbShare = function(link) {
+		//TODO: Canshare via er ikke helt upto date og loading vises ikke raskere om man ikke har null i soma argument
+		$ionicLoading.show({
+			template: '<h2>Åpner Facebook</h2>',
+			duration: 3000
+		})
 
-		// Tells angular that the url is safe. Necessary for video urls. 
-		$scope.getTrustedUrl = function(url) {
-			return $sce.trustAsResourceUrl(url);
-		};
+		// Visual indication when pressing the icon
+		$scope.fbtouched = true;
+		setTimeout(function() {
+			$scope.fbtouched = false;
+		}, 200);
+		//TODO: Sjekke om det kan appendes en melding fra appen, se om man kan bruke test før man poster teste uten facebook appen
+		$window.plugins.socialsharing.shareViaFacebook(link);
 
-		// Play selected video in fullscreen
-		$scope.playVideo = function(index) {
-			$scope.fullscreen = false;
-			$scope.video = document.getElementById("Video" + index);
-			if ($scope.video.webkitEnterFullscreen) {
-				$scope.video.webkitEnterFullscreen();
-			} else if ($scope.video.webkitRequestFullScreen) {
-				$scope.video.webkitRequestFullScreen();
-			} else if ($scope.video.requestFullscreen) {
-				$scope.video.requestFullscreen();
-			}
-			$scope.video.play();
-		};
+	}
 
-		// Play audio
-		$scope.playAudio = function(url) {
-			$scope.isAudioPlaying = true;
-			$scope.audioFiles[url][0].play();
+	//TODO: Hvorfor er denne så treg??
+	$scope.altShare = function(message) {
+		$ionicLoading.show({
+			template: '<h2>Åpner delesenter</h2>',
+			duration: 2500
+		})
 
-			// Continues to ask for the position in the audio file
-			// so that the slider can be moved to the correct position. 
-			interval = $interval(function() {
-	     		$scope.audioFiles[url][0].getCurrentPosition(function(result) {
-	     			if(result != -1) {
-	     				$scope.audioFiles[url][1] = result;
-	     			}
-	     			if(result >= $scope.audioFiles[url][0].getDuration()-1 || result == -1) {
-	     				$scope.isAudioPlaying = false;
-	     				$scope.audioFiles[url][1] = -1;
-	     				$interval.cancel(interval);
-	     			}
-	     		})
-	     		
-   			},1000);
-		};
-		// Pauses audio and stops checking for new position in audio file. 
-		$scope.pauseAudio = function(url) {
-			$scope.isAudioPlaying = false;
-			$scope.audioFiles[url][0].pause();
-			$interval.cancel(interval);
-		}
+		$scope.alttouched = true;
+		setTimeout(function() {
+			$scope.alttouched = false;
+		}, 200);
 
-		// The user has moved the position in the audio file. Updates it. 
-		$scope.sliderPositionChange = function(url) {
-     		var mediaInMilli = $scope.audioFiles[url][1]*1000;
-     		$scope.audioFiles[url][0].seekTo(mediaInMilli);
-   		};
+		$cordovaSocialSharing.share("Les denne fortellingen " + message, "Vettu Hva? - fortelling", null, "www.vettuhva.no");
+	}
 
-		// Listens to event saying that fullscreen has been entered/exited
-		// Unlocks orientation if fullscreen, goes to portrait orientation 
-		// and pauses video if going out of fullscreen. 
-		document.addEventListener('webkitfullscreenchange', function(e) {
-			if ($scope.fullscreen) {
-				$scope.video.pause();
-				screen.lockOrientation('portrait')
-			} else {
-				$scope.fullscreen = true;
-				screen.unlockOrientation()
-			}
+	// Display selected image in fullscreen in a modal. 
+	$scope.showImages = function(index) {
+		$scope.activeSlide = index;
+		$scope.showModal('templates/image-popover.html');
+	};
+
+	// Displays the modal defined in templateUrl on top of the current view. 
+	$scope.showModal = function(templateUrl) {
+		$ionicModal.fromTemplateUrl(templateUrl, function(modal) {
+			// Sends story data to the controller of the modal. 
+			$scope.childCtrl = modal;
+			$scope.childCtrl.story = $scope.story;
+		}, {
+			scope: $scope,
+			animation: 'slide-in-up'
+		}).then(function(modal) {
+			$scope.modal = modal;
+			$scope.modal.show();
 		});
-		
-		// Opens url in native browser. 
-		$scope.openUrl = function(url) {
-			open(url, '_system');
-		};
+	};
 
-		// Opens link clicked in event in native browser, if what was clicked is a proper link. 
-		$scope.onclickStoryContent = function (e) {
-            e = e ||  window.event;
-            var element = e.target || e.srcElement;
+	// Close the modal
+	$scope.closeModal = function() {
+		$scope.modal.hide();
+		$scope.modal.remove();
+	};
 
-            if (element.tagName == 'A' && element.href && element.href.indexOf("#") === -1) {
-                open(element.href, "_system", "location=no");
-                
-                return false; // prevent default action and stop event propagation
-            }
-        };
+	// Tells angular that the url is safe. Necessary for video urls. 
+	$scope.getTrustedUrl = function(url) {
+		return $sce.trustAsResourceUrl(url);
+	};
 
-        $scope.debug = function (e) {
-        	console.log("E: " , e);
-        }
+	// Play selected video in fullscreen
+	$scope.playVideo = function(index) {
+		$scope.fullscreen = false;
+		$scope.video = document.getElementById("Video" + index);
+		if ($scope.video.webkitEnterFullscreen) {
+			$scope.video.webkitEnterFullscreen();
+		} else if ($scope.video.webkitRequestFullScreen) {
+			$scope.video.webkitRequestFullScreen();
+		} else if ($scope.video.requestFullscreen) {
+			$scope.video.requestFullscreen();
+		}
+		$scope.video.play();
+	};
 
-	})
+	// Play audio
+	$scope.playAudio = function(url) {
+		$scope.isAudioPlaying = true;
+		$scope.audioFiles[url][0].play();
+
+		// Continues to ask for the position in the audio file
+		// so that the slider can be moved to the correct position. 
+		interval = $interval(function() {
+			$scope.audioFiles[url][0].getCurrentPosition(function(result) {
+				if (result != -1) {
+					$scope.audioFiles[url][1] = result;
+				}
+				if (result >= $scope.audioFiles[url][0].getDuration() - 1 || result == -1) {
+					$scope.isAudioPlaying = false;
+					$scope.audioFiles[url][1] = -1;
+					$interval.cancel(interval);
+				}
+			})
+
+		}, 1000);
+	};
+	// Pauses audio and stops checking for new position in audio file. 
+	$scope.pauseAudio = function(url) {
+		$scope.isAudioPlaying = false;
+		$scope.audioFiles[url][0].pause();
+		$interval.cancel(interval);
+	}
+
+	// The user has moved the position in the audio file. Updates it. 
+	$scope.sliderPositionChange = function(url) {
+		var mediaInMilli = $scope.audioFiles[url][1] * 1000;
+		$scope.audioFiles[url][0].seekTo(mediaInMilli);
+	};
+
+	// Listens to event saying that fullscreen has been entered/exited
+	// Unlocks orientation if fullscreen, goes to portrait orientation 
+	// and pauses video if going out of fullscreen. 
+	document.addEventListener('webkitfullscreenchange', function(e) {
+		if ($scope.fullscreen) {
+			$scope.video.pause();
+			screen.lockOrientation('portrait')
+		} else {
+			$scope.fullscreen = true;
+			screen.unlockOrientation()
+		}
+	});
+
+	// Opens url in native browser. 
+	$scope.openUrl = function(url) {
+		open(url, '_system');
+	};
+
+	// Opens link clicked in event in native browser, if what was clicked is a proper link. 
+	$scope.onclickStoryContent = function(e) {
+		e = e || window.event;
+		var element = e.target || e.srcElement;
+
+		if (element.tagName == 'A' && element.href && element.href.indexOf("#") === -1) {
+			open(element.href, "_system", "location=no");
+
+			return false; // prevent default action and stop event propagation
+		}
+	};
+
+	$scope.debug = function(e) {
+		console.log("E: ", e);
+	}
+
+})

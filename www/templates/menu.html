@@ -16,22 +16,35 @@
 		</ion-header-bar>
 		<ion-content>
 			<ion-list>
+
+				<!-- Main Section -->
 				<ion-item nav-clear menu-close href="#/app/recommendations">
-					<b>Hjem - Fortellinger</b>
+					<b>HJEM - Fortellinger</b>
 				</ion-item>
 				<ion-item nav-clear menu-close href="#/app/settings">
 					Innstillinger
 				</ion-item>
-				<ion-item class="item item-divider">
+				
+				<!-- Infomation Section -->
+				<ion-list>
+					<ion-item class="item item-divider"
+					ng-click="toggleGroup(group)"
+					ng-class="{active: isGroupShown(group)}">
 					<b>Informasjon</b>
+					<i class="icon" ng-class="isGroupShown(group) ? 'ion-ios-arrow-down' : 'ion-ios-arrow-right'"></i>
 				</ion-item>
-				<ion-item nav-clear menu-close href="#/appOne">
-					<!-- #/app/onboardOne -->
-					App introduksjon
+				
+				<ion-item class="item-accordion" nav-clear menu-close href="#/appOne"
+					ng-show="isGroupShown(group)">
+					App Introduksjon
 				</ion-item>
-				<ion-item nav-clear menu-close href="#/app/about">
-					Om appplikasjonen
+
+				<ion-item class="item-accordion" nav-clear menu-close href="#/app/about"
+					ng-show="isGroupShown(group)">
+					Om Applikasjonen
 				</ion-item>
+				
+				<!-- Bookmarks Section -->
 				<ion-item class="item item-divider">
 					<b>Bokmerker</b>
 				</ion-item>
@@ -42,6 +55,8 @@
 						<i class="icon ion-close"></i>
 					</button>
 				</ion-item>
+
+	  </ion-list>
 			</ion-list>
 		</ion-content>
 	</ion-side-menu>
