@@ -15,6 +15,19 @@ stories.controller('MenuCtrl', function(
 	Requests, 
 	User) {
 
+
+	$scope.goSettings = function () {
+		$state.go('app.settings');
+	};
+
+	$scope.goAppOne = function () {
+		$state.go('app.appOne');
+	};
+
+	$scope.goAbout = function () {
+		$state.go('app.about');
+	};
+
 	$scope.group = false;
 	/*
 	 * if given group is the selected group, deselect it
@@ -51,10 +64,7 @@ stories.controller('MenuCtrl', function(
 			});
 		});
 	};
-	// Go to app tutorial
-	$scope.goAppOne = function() {
-			$state.go('appOne');
-		}
+
 		// Update the bookmark lists in the menu. 
 	$scope.updateMenu = function() {
 		Requests.getAllLists($window.localStorage.getItem('userId')).then(function(response) {

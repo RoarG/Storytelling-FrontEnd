@@ -108,7 +108,7 @@ var stories = angular.module('stories', [
 
 	.state('app', {
 		url: "/app",
-		abstract: true,
+		abstract: false,
 		templateUrl: "templates/menu.html",
 		controller: 'MenuCtrl'
 	})
