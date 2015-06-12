@@ -34,7 +34,7 @@ stories.controller('RecomdCtrl', function($scope, $animate, Requests, Story, $io
 		// Disable dragging of menu, as it can interfere with swiping of stories. 
 		$ionicSideMenuDelegate.canDragContent(false); 
 	});
-
+/*
 	// Get array of recommended stories. 
 	Requests.getRecommendedStories($scope.userId).then(function(response) {
 		$scope.storyPreviews = response.data;
@@ -58,7 +58,39 @@ stories.controller('RecomdCtrl', function($scope, $animate, Requests, Story, $io
 	}, function(response) {
 		$cordovaDialogs.alert("Får ikke tak i historier");
   	});
+*/
 
+	$scope.refreshRecommendations = function() {
+		//$ionicHistory.clearCache();
+		//window.location.reload(true)
+		// Get array of recommended stories. 
+		Requests.getRecommendedStories($scope.userId).then(function(response) {
+			$scope.currentSlideIndex = 0;
+			$scope.storyPreviews = response.data;
+			$scope.recommendArray = [];
+			// Make sure that no more than 4 categories are displayed on each story. 
+			for(var i = 0; i < $scope.storyPreviews.length; i++) {
+				$scope.storyPreviews[i].categories = $scope.storyPreviews[i].categories.slice(0,4);
+			}
+
+			//Set the first story as recommended
+			Requests.recommendedStory($scope.userId, $scope.storyPreviews[0].id);
+			$scope.recommendArray.push($scope.storyPreviews[0].id);
+
+			// Set the first story as the selected one. 
+			Requests.setSelectedStory($scope.storyPreviews[0].id);
+
+			// Update slidebox: necessary because of the new content.
+			$ionicSlideBoxDelegate.slide(0); 
+			$ionicSlideBoxDelegate.update();
+
+			$ionicLoading.hide();
+		}, function(response) {
+			$cordovaDialogs.alert("Får ikke tak i historier");
+	  	});
+
+	  	$ionicSlideBoxDelegate.update();
+	}
 
 	// Go to next slide in slidebox. 
 	$scope.nextSlide = function() {
@@ -85,6 +117,9 @@ stories.controller('RecomdCtrl', function($scope, $animate, Requests, Story, $io
 		// If it is the last slide, go back to previous slide. Otherwise, next slide. 
 		$scope.storyPreviews.splice(index, 1);
 		$ionicSlideBoxDelegate.update();
+		if($scope.currentSlideIndex == $scope.storyPreviews.length) {
+			$ionicSlideBoxDelegate.slide($scope.storyPreviews.length-1);
+		}
 
 		
 	/**
@@ -117,6 +152,7 @@ stories.controller('RecomdCtrl', function($scope, $animate, Requests, Story, $io
 	      $scope.recommendArray.push($scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id);
 	    }
 
+	    /*
 	    // If the user is getting to the end of the array of slides, then get more recommendations. 
 	    // Currently it gets more recommendations when there are three slides left, so that the user does not have to wait for it to load. 
 	    if($ionicSlideBoxDelegate.currentIndex() === $scope.storyPreviews.length-4) {
@@ -128,7 +164,7 @@ stories.controller('RecomdCtrl', function($scope, $animate, Requests, Story, $io
 	      }).error(function(data, status) {
 	          $cordovaDialogs.alert("Får ikke tak i flere anbefalinger");
 	      });
-	    }
+	    }*/
     };
 
     // Sets the story as selected, and goes to story view. 

@@ -22,6 +22,6 @@ stories.controller("RatingCtrl", function($scope, Requests, $window, $ionicHisto
       $cordovaDialogs.alert("Tilbakemeldingen din ble ikke lagret.");
       $scope.ratingStatus = "notRated";
     });
-    $ionicHistory.clearCache();
+    //$ionicHistory.clearCache();
 	};
 })

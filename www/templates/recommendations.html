@@ -1,13 +1,19 @@
 <ion-view class="recommendations" view-title="Vettu hva?">
     <ion-nav-buttons side="right"> 
         <button class="button button-icon ion-ios-bookmarks" ng-click="showModal('templates/bookmark-modal.html')"></button>
+        <button class="button button-icon ion-refresh" ng-click="refreshRecommendations()"></button>
     </ion-nav-buttons>
     <ion-content scroll="false">
-       <ion-slide-box active-slide="activeSlide" id="slideBox" show-pager="false" on-slide-changed="slideChanged($index)">
+        <div class="updateRecom" ng-if="storyPreviews.length == 0">
+            <button class="button button-clear button-calm" ng-click="refreshRecommendations()">Få nye anbefalinger</button>
+        </div>
+
+       <ion-slide-box ng-if="storyPreviews.length > 0" active-slide="activeSlide" id="slideBox" show-pager="false" on-slide-changed="slideChanged($index)">
             <ion-slide ng-repeat="story in storyPreviews">
 
-                <!-- Story card. Only the current, previous and next slides content is loaded, in order to save memory -->
-                <div class="card" ng-if="currentSlideIndex === storyPreviews.indexOf(story) || currentSlideIndex === storyPreviews.indexOf(story)-1 || currentSlideIndex === storyPreviews.indexOf(story)+1" >
+                <!-- Story card. Only the current, previous and next slides content is loaded, in order to save memory-->
+                <!--<div class="card" ng-if="currentSlideIndex === storyPreviews.indexOf(story) || currentSlideIndex === storyPreviews.indexOf(story)-1 || currentSlideIndex === storyPreviews.indexOf(story)+1" >-->
+                <div class="card">
                     <!-- Reject button -->
                     <div class="reject-story-icon" ng-click="rejectStory($index)"><i class="ion-close-round"></i></div>
                     <div>
@@ -55,11 +61,12 @@
                 </div>
                 
                 <!-- Navigation arrows -->
-                <div class="slide-nav slide-nav-left" ng-click="previousSlide()" ng-hide="$index === 0" ng-if="currentSlideIndex === storyPreviews.indexOf(story) || currentSlideIndex === storyPreviews.indexOf(story)-1 || currentSlideIndex === storyPreviews.indexOf(story)+1"><i class="ion-chevron-left"></i></div>
-                <div class="slide-nav slide-nav-right" ng-click="nextSlide()" ng-hide="$index === storyPreviews.length-1" ng-if="currentSlideIndex === storyPreviews.indexOf(story) || currentSlideIndex === storyPreviews.indexOf(story)-1 || currentSlideIndex === storyPreviews.indexOf(story)+1"><i class="ion-chevron-right"></i></div>
+                <div class="slide-nav slide-nav-left" ng-click="previousSlide()" ng-hide="$index === 0 || storyPreviews.length == 0" ><i class="ion-chevron-left"></i></div>
+                <div class="slide-nav slide-nav-right" ng-click="nextSlide() || storyPreviews.length == 0" ng-hide="$index === storyPreviews.length-1" ><i class="ion-chevron-right"></i></div>
 
                 <!-- Explanation of why the story was recommended -->
-                <div class="recommExplanation" ng-if="currentSlideIndex === storyPreviews.indexOf(story) || currentSlideIndex === storyPreviews.indexOf(story)-1 || currentSlideIndex === storyPreviews.indexOf(story)+1">
+                <!--<div class="recommExplanation" ng-if="currentSlideIndex === storyPreviews.indexOf(story) || currentSlideIndex === storyPreviews.indexOf(story)-1 || currentSlideIndex === storyPreviews.indexOf(story)+1">-->
+                <div class="recommExplanation">
                     <p ng-if="story.explanation && story.explanation[0].valueOf() !== '' && story.false_recommend == 0 && story.explanation[0].indexOf('user based') == -1">
                         Denne fortellingen ble anbefalt fordi du leste
                         <span ng-if="story.explanation.length === 1"> fortellingen <a href="#" ng-click="openStoryLink(story.explanation[0].substr(0,7))">{{story.explanation[0].substr(8) | limitTo: 40}}<span ng-if="story.explanation[0].substr(8).length > 40">...</span></a></span>
