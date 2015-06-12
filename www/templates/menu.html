@@ -1,6 +1,6 @@
 <ion-side-menus enable-menu-with-back-views="false">
 	<ion-side-menu-content drag-content="false">
-		<ion-nav-bar class="bar-calm">
+		<ion-nav-bar class="bar-calm" align-title="center">
 			<ion-nav-back-button>
 			</ion-nav-back-button>
 			<ion-nav-buttons side="left">
@@ -32,31 +32,31 @@
 					ng-class="{active: isGroupShown(group)}">
 					<b>Informasjon</b>
 					<i class="icon" ng-class="isGroupShown(group) ? 'ion-ios-arrow-down' : 'ion-ios-arrow-right'"></i>
-				</ion-item>
+					</ion-item>
 				
-				<ion-item class="item-accordion" nav-clear menu-close href="#/appOne"
-					ng-show="isGroupShown(group)">
-					App Introduksjon
-				</ion-item>
+					<ion-item class="item-accordion" nav-clear menu-close href="#/app/appOne"
+						ng-show="isGroupShown(group)">
+						App Introduksjon
+					</ion-item>
 
-				<ion-item class="item-accordion" nav-clear menu-close href="#/app/about"
-					ng-show="isGroupShown(group)">
-					Om Applikasjonen
-				</ion-item>
-				
-				<!-- Bookmarks Section -->
-				<ion-item class="item item-divider">
-					<b>Bokmerker</b>
-				</ion-item>
-				<ion-item class="bookmark-list item-button-right" nav-clear ng-repeat="list in collectionList">
-					<div class="item-content" ng-click="viewList(list.text)" menu-close> {{list.text}}</div>
-					<!-- The delete button is only displayed on user made bookmark lists -->
-					<button ng-hide="list.text.valueOf() === 'Lest' || list.text.valueOf() === 'Les senere' || list.text.valueOf() === 'Historikk'" class="button button-clear" ng-click="deleteList(list)">
-						<i class="icon ion-close"></i>
-					</button>
-				</ion-item>
+					<ion-item class="item-accordion" nav-clear menu-close href="#/app/about"
+						ng-show="isGroupShown(group)">
+						Om Applikasjonen
+					</ion-item>
+					
+					<!-- Bookmarks Section -->
+					<ion-item class="item item-divider">
+						<b>Bokmerker</b>
+					</ion-item>
+					<ion-item class="bookmark-list item-button-right" nav-clear ng-repeat="list in collectionList">
+						<div class="item-content" ng-click="viewList(list.text)" menu-close> {{list.text}}</div>
+						<!-- The delete button is only displayed on user made bookmark lists -->
+						<button ng-hide="list.text.valueOf() === 'Lest' || list.text.valueOf() === 'Les senere' || list.text.valueOf() === 'Historikk'" class="button button-clear" ng-click="deleteList(list)">
+							<i class="icon ion-close"></i>
+						</button>
+					</ion-item>
 
-	  </ion-list>
+	  			</ion-list>
 			</ion-list>
 		</ion-content>
 	</ion-side-menu>

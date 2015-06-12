@@ -22,14 +22,24 @@ var stories = angular.module('stories', [
 ])
 
 // This runs when the application is started. 
-.run(function($ionicPlatform, $cordovaDialogs, $cordovaNetwork, $rootScope, $cordovaSplashscreen, Requests, $window, $state) {
+.run(function(
+	$window, 
+	$ionicPlatform, 
+	$cordovaDialogs, 
+	$cordovaNetwork, 
+	$rootScope, 
+	$cordovaSplashscreen, 
+	$state,
+	Requests) { 
+
+
 	$ionicPlatform.ready(function() {
 		
 		// Tells the back-end that the app has been started.
 		Requests.opensApp($window.localStorage.getItem('userId'));
 		
 
-		// Uses ionic keyboard plugin
+		// Uses ionic k)eyboard plugin
 		if (window.cordova && window.cordova.plugins.Keyboard) {
 			// Hide the keyboard accessory bar by default (on the top of the keyboard when filling in form inputs)
 			cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -56,28 +66,27 @@ var stories = angular.module('stories', [
 			});
 		}
 
-		//screen.lockOrientation("portrait");
-		
+
 		// Decides which view to go to first:
-		$ionicPlatform.ready(function() {
-			// If the user has not been through the tutorial, go to tutorial. 
-			if (!($window.localStorage.getItem('didTutorial'))) 
-			{
-				$state.go('onboardOne');
-			}
-			// If user is logged in, go to recommendation view. 
-			else if ($window.localStorage.getItem('userId') !== "-1" && $window.localStorage.getItem('userId') !== null)
-			{
-				$state.go('app.recommendations');
-			}
-			// If logged out but have done tutorial, go to login view. 
-			else
-			{
-				$state.go('login');
-			}
-			$cordovaSplashscreen.hide();
-		});
+		// If the user has not been through the tutorial, go to tutorial. 
+		if (!($window.localStorage.getItem('didTutorial'))) 
+		{
+			$state.go('onboardOne');
+		}
+		// If user is logged in, go to recommendation view. 
+		else if ($window.localStorage.getItem('userId') !== "-1" && $window.localStorage.getItem('userId') !== null)
+		{
+			$state.go('app.recommendations');
+		}
+		// If logged out but have done tutorial, go to login view. 
+		else
+		{
+			$state.go('login');
+		}
+		$cordovaSplashscreen.hide();
+		
 	});
+
 
   // Tells back-end that the app has been opened again after having been paused.
   $ionicPlatform.on('resume', function() {
@@ -93,7 +102,9 @@ var stories = angular.module('stories', [
 .config(function($stateProvider, $urlRouterProvider, $sceDelegateProvider, $ionicConfigProvider) {
 	$ionicConfigProvider.backButton.text('Tilbake'); // Changes the default text of the back button to Norwegian "Tilbake".
 	$ionicConfigProvider.backButton.previousTitleText(false);
+	$ionicConfigProvider.backButton.icon("ion-ios-arrow-back"); //Sets the icon for to use for back
 	$stateProvider
+
 
 	.state('app', {
 		url: "/app",
@@ -102,7 +113,7 @@ var stories = angular.module('stories', [
 		controller: 'MenuCtrl'
 	})
 
-// Tutorial when starting app
+	// Tutorial when starting app
 	.state('onboardOne', {
 		url: "/onboardOne",
 		templateUrl: "templates/onboardingOne.html",
@@ -119,25 +130,6 @@ var stories = angular.module('stories', [
 		url: "/onboardTree",
 		templateUrl: "templates/onboardingTree.html",
 		controller: 'IntroCtrl'
-	})
-
-// Tutorial accessed through settings
-	.state('appOne', {
-		url: "/appOne",
-		templateUrl: "templates/appOne.html",
-		controller: 'TutorialCtrl'
-	})
-
-	.state('appTwo', {
-		url: "/appTwo",
-		templateUrl: "templates/appTwo.html",
-		controller: 'TutorialCtrl'
-	})
-
-	.state('appTree', {
-		url: "/appTree",
-		templateUrl: "templates/appTree.html",
-		controller: 'TutorialCtrl'
 	})
 
 	.state('login', {
@@ -160,6 +152,38 @@ var stories = angular.module('stories', [
 		templateUrl: "templates/preferences.html",
 		controller: 'PrefCtrl'
 	})
+
+// Tutorial accessed through settings
+	.state('app.appOne', {
+		url: "/appOne",
+		views: {	
+		'menuContent': {
+				templateUrl: "templates/appOne.html",
+				controller: 'TutorialCtrl'
+			}
+		}
+	})
+
+	.state('app.appTwo', {
+		url: "/appTwo",
+		views: {
+			'menuContent': {
+				templateUrl: "templates/appTwo.html",
+				controller: 'TutorialCtrl'
+			}
+		}
+	})
+
+	.state('app.appTree', {
+		url: "/appTree",
+		views: {
+			'menuContent': {
+				templateUrl: "templates/appTree.html",
+				controller: 'TutorialCtrl'
+			}
+		}
+	})
+
 
 	.state('app.settings', {
 		url: "/settings",

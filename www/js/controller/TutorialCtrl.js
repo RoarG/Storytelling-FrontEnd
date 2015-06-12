@@ -22,14 +22,14 @@ stories.controller('TutorialCtrl', function($scope, $state, $ionicSlideBoxDelega
 	* A simple state change to go to the Tutorial page 2 view
 	*/
 	$scope.goAppTwo = function () {
-		$state.go('appTwo');		
+		$state.go('app.appTwo');		
 	}	
 
 	/**
 	* A simple state change to go to the Tutorial page 3 view
 	*/
 	$scope.goAppTree = function () {
-		$state.go('appTree');
+		$state.go('app.appTree');
 	}	
 	
 	/**
