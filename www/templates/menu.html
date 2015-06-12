@@ -51,10 +51,13 @@
 				<ion-item class="item item-divider">
 					<b>Bokmerker</b>
 				</ion-item>
-					<ion-item class="bookmark-list item-button-right" nav-clear ng-repeat="list in collectionList">
+					<ion-item class="bookmark-list item-button-right" nav-clear ng-repeat="list in defaultLists">
+						<div class="item-content" ng-click="viewList(list.text)" menu-close> {{list.text}}</div>
+					</ion-item>
+					<ion-item class="bookmark-list item-button-right" nav-clear ng-repeat="list in userMadeLists">
 						<div class="item-content" ng-click="viewList(list.text)" menu-close> {{list.text}}</div>
 						<!-- The delete button is only displayed on user made bookmark lists -->
-						<button ng-hide="list.text.valueOf() === 'Lest' || list.text.valueOf() === 'Les senere' || list.text.valueOf() === 'Historikk'" class="button button-clear" ng-click="deleteList(list)">
+						<button class="button button-clear" ng-click="deleteList(list)">
 							<i class="icon ion-close"></i>
 						</button>
 					</ion-item>

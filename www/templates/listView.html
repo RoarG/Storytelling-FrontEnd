@@ -4,8 +4,8 @@
 	</ion-nav-buttons>
 	<ion-content overflow-scroll="true" class="list-view">
 		<div class="button-bar">
-			<a class="button button-light" ng-click="sortStories('date')">Dato</a>
-			<a class="button button-light" ng-click="sortStories('rating')">Stjerner</a>
+			<a class="button button-light" ng-click="sortStories('date')"><i ng-if="currentSortProperty == 'date'" class="ion-arrow-down-b"></i><i ng-if="currentSortProperty == 'dateInverse'" class="ion-arrow-up-b"></i> Dato</a>
+			<a class="button button-light" ng-click="sortStories('rating')"><i ng-if="currentSortProperty == 'rating'" class="ion-arrow-down-b"></i><i ng-if="currentSortProperty == 'ratingInverse'" class="ion-arrow-up-b"></i> Stjerner</a>
 		</div>
 		<!-- make a list to hold stories-->
 		<ion-list>

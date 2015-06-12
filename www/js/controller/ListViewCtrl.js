@@ -38,7 +38,8 @@ stories.controller('ListViewCtrl', function($scope, Requests, Story, $state, $ro
 		}
 
 		if($scope.chosenCategory && $scope.chosenCategory != "Kategori") {
-			$scope.filterByCategory($scope.categorynames.indexOf($scope.chosenCategory)-1);
+			console.log($scope.chosenCategory);
+			$scope.filterByCategory($scope.categorynames.indexOf($scope.chosenCategory)+1);
 		}
 
 		if($scope.currentSortProperty) {

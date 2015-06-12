@@ -430,11 +430,11 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 	.category-circle {
 		margin-right: 3%;
-		font-size: 0.8em;
+		font-size: 0.7em;
 
 		li {
-			width: 30px;
-			line-height: 28px;
+			width: 26px;
+			line-height: 26px;
 		}
 	}
 
@@ -1439,6 +1439,10 @@ ion-slide h2 {
 	margin-bottom: 1%;
 	margin-top: 5%;
 	clear: both;
+	@include mq(medium) {
+    	font-size: 1.5em;
+    }
+	
 }
 
 ion-slide p {

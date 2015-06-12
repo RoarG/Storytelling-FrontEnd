@@ -69,6 +69,17 @@ stories.controller('MenuCtrl', function(
 	$scope.updateMenu = function() {
 		Requests.getAllLists($window.localStorage.getItem('userId')).then(function(response) {
 			$scope.collectionList = response.data;
+			$scope.userMadeLists = [];
+			$scope.defaultLists = [];
+			for(var i = 0; i < $scope.collectionList.length; i++) {
+				var tagName = $scope.collectionList[i].text;
+				if(tagName == "Historikk" || tagName == "Lest" || tagName == "Les senere") {
+					$scope.defaultLists.push($scope.collectionList[i]);
+				} else {
+					$scope.userMadeLists.push($scope.collectionList[i]);
+					console.log(tagName);
+				}
+			}
 		}, function(response) {
 			$cordovaDialogs.alert("Får ikke tak i bokmerker.");
 		});
