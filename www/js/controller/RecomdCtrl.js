@@ -8,7 +8,7 @@ angular.module('RecomdCtrl', [])
 
 
 stories.controller('RecomdCtrl', function($scope, $animate, Requests, Story, $ionicSlideBoxDelegate, $ionicModal, $ionicLoading, $state, $ionicSideMenuDelegate, $timeout, $ionicHistory, $window, $cordovaDialogs) {
-	
+
 	$scope.storyPreviews = [];
 	$scope.currentSlideIndex = 0;
 
@@ -33,7 +33,11 @@ stories.controller('RecomdCtrl', function($scope, $animate, Requests, Story, $io
 		$ionicHistory.clearHistory(); 
 		// Disable dragging of menu, as it can interfere with swiping of stories. 
 		$ionicSideMenuDelegate.canDragContent(false); 
+		
+		$scope.refreshRecommendations();
 	});
+
+
 /*
 	// Get array of recommended stories. 
 	Requests.getRecommendedStories($scope.userId).then(function(response) {

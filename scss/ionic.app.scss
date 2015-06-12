@@ -432,13 +432,14 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 		margin-right: 3%;
 		font-size: 0.8em;
 
-	li {
-		width: 30px;
-		line-height: 28px;
+		li {
+			width: 30px;
+			line-height: 28px;
+		}
 	}
 
 	div.button-bar {
-		width: 80%;
+		width: 100%;
 		margin: 0;
 	}
 
@@ -454,10 +455,19 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	    color: #fff;
 	    border-color: $primary-color;
 	}
+
+
+	.star {
+		color: $background-color-dark;
+	}
+
+	.filled {
+		color: #fd0;
+	}
 }
 
 
-}
+
 
 /*
 //////////////////////
