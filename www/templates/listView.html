@@ -30,7 +30,9 @@
 						<li class="list-cat-display cat-8" ng-switch-when="8"><i class="ion-music-note"></i></li>
 						<li class="list-cat-display cat-9" ng-switch-when="9"><i class="ion-gear-b"></i></li>
 					</ul>
-					<section>{{story.insertTime}}</section>
 				</div>
+
+				<div ng-hide="{{tag == 'Historikk' || tag == 'Lest'}}" class="button button-clear" ng-click="remove(story, $event)"><i class="icon ion-close"></i></div>
+</ion-item>
 	</ion-content>
 </ion-view>
