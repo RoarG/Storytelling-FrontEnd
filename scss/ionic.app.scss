@@ -406,7 +406,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 	h2 {
 		margin-top: 7%;
-		width: 110%;
+		width: 120%;
 		word-wrap: break-word;
 		white-space: normal;
 	}
@@ -415,7 +415,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 		word-wrap: break-word;
 		white-space: normal;
-		width: 110%;
+		width: 130%;
 	}
 
 	.button .ion-close {
@@ -425,7 +425,16 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	}
 
 	.thumbnail {
+		width: 80px;
+		height: 80px;
+		overflow: hidden;
 		background-color: $background-color-dark;
+		margin: 12% 0 8% -6%;
+
+		img {
+			min-width: 100%;
+			min-height: 100%;
+		}
 	}
 
 	.category-circle {
@@ -1347,16 +1356,21 @@ ion-slide .card {
 	border-radius: 10px;
 }
 
-.reject-story-icon {
+.reject-story-icon-container {
+	padding: 2%;
 	position: absolute;
-	top: 3%;
-	right: 6%;
+	top: 1%;
+	right: 3%;
+	z-index: 100;
+}
+
+.reject-story-icon {
 	font-size: 1.4em;
 	color: #FFF;
 	background-color: rgba(0,0,0,0.34);
-	padding: 1% 2%;
+	padding: 4px 7px;
 	border-radius: 50%;
-	z-index: 100;
+	
 }
 
 ion-slide .recommExplanation {

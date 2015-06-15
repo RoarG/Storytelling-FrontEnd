@@ -15,7 +15,9 @@
                 <!--<div class="card" ng-if="currentSlideIndex === storyPreviews.indexOf(story) || currentSlideIndex === storyPreviews.indexOf(story)-1 || currentSlideIndex === storyPreviews.indexOf(story)+1" >-->
                 <div class="card">
                     <!-- Reject button -->
-                    <div class="reject-story-icon" ng-click="rejectStory($index)"><i class="ion-close-round"></i></div>
+                    <div class="reject-story-icon-container" ng-click="rejectStory($index)">
+                    <div class="reject-story-icon"><i class="ion-close-round"></i></div>
+                    </div>
                     <div>
                         
                         <div class="image-wrapper" ng-click="openStory(story)">
