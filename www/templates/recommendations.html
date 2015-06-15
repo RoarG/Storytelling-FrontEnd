@@ -1,11 +1,21 @@
-<ion-view class="recommendations" view-title="Vettu hva?">
+<ion-view class="recommendations">
+    <ion-nav-title>
+        <section class="navbar-title">Vettu hva</section>
+        <img class="navbar-logo" src='img/header_logo.png' width='28px'/> 
+        
+    </ion-nav-title>
     <ion-nav-buttons side="right"> 
-        <button class="button button-icon ion-ios-bookmarks" ng-click="showModal('templates/bookmark-modal.html')"></button>
         <button class="button button-icon ion-refresh" ng-click="refreshRecommendations()"></button>
+        <button class="button button-icon ion-ios-bookmarks" ng-click="showModal('templates/bookmark-modal.html')"></button>
+        
     </ion-nav-buttons>
     <ion-content scroll="false">
         <div class="updateRecom" ng-if="storyPreviews.length == 0">
-            <button class="button button-clear button-calm" ng-click="refreshRecommendations()">Få nye anbefalinger</button>
+            <i ng-if="currentlyLoading" class="ion-refreshing"></i>
+            <h2 ng-if="!currentlyLoading" ng-click="refreshRecommendations()">Vettu</h2>
+            <h2 ng-show="!currentlyLoading" ng-click="refreshRecommendations()">hva?</h2>
+            <img  src="img/logo_bubble_without_text.png" ng-click="refreshRecommendations()"/>
+            <button class="button button-assertive" ng-click="refreshRecommendations()">Finn nye fortellinger</button>
         </div>
 
        <ion-slide-box ng-if="storyPreviews.length > 0" active-slide="activeSlide" id="slideBox" show-pager="false" on-slide-changed="slideChanged($index)">

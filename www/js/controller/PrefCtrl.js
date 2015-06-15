@@ -135,7 +135,7 @@ stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLo
 					noBackdrop: false,
 					duration: 1200
 				})
-				$ionicHistory.clearCache();
+				//$ionicHistory.clearCache();
 			}, function(response) {
 				$cordovaDialogs.alert("Får ikke svar fra server.");
 			});

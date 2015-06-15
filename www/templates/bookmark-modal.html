@@ -8,7 +8,14 @@
                       ng-model="item.checked"
                       ng-checked="item.checked"
                       ng-click="toggleTag(item)"
-                      ng-hide="item.text.valueOf() === 'Lest'.valueOf() || item.text.valueOf() === 'Historikk'.valueOf()">
+                      ng-show="item.text == 'Les senere'">
+            {{ item.text }}
+        </ion-checkbox>
+        <ion-checkbox class="checkbox-calm" ng-repeat="item in collectionList"
+                      ng-model="item.checked"
+                      ng-checked="item.checked"
+                      ng-click="toggleTag(item)"
+                      ng-hide="item.text === 'Lest' || item.text === 'Historikk' || item.text === 'Les senere'">
             {{ item.text }}
         </ion-checkbox>
     </ion-scroll>

@@ -29,12 +29,17 @@ stories.controller('RecomdCtrl', function($scope, $animate, Requests, Story, $io
 
 
 	$scope.$on('$ionicView.enter', function() {
+		$ionicLoading.show({
+	        template: '<h2>Laster inn...</h2>',
+	    });
 		// Required to avoid buggy behavior of the slides when coming back to the view. 
 		$ionicHistory.clearHistory(); 
 		// Disable dragging of menu, as it can interfere with swiping of stories. 
 		$ionicSideMenuDelegate.canDragContent(false); 
+
+		$ionicLoading.hide();
 		
-		$scope.refreshRecommendations();
+		//$scope.refreshRecommendations();
 	});
 
 
@@ -65,10 +70,16 @@ stories.controller('RecomdCtrl', function($scope, $animate, Requests, Story, $io
 */
 
 	$scope.refreshRecommendations = function() {
+		$ionicLoading.show({
+	        template: '<h2>Laster inn...</h2>',
+	    });
+		$scope.currentlyLoading = true;
+
 		//$ionicHistory.clearCache();
 		//window.location.reload(true)
 		// Get array of recommended stories. 
 		Requests.getRecommendedStories($scope.userId).then(function(response) {
+			$timeout(function() {
 			$scope.currentSlideIndex = 0;
 			$scope.storyPreviews = response.data;
 			$scope.recommendArray = [];
@@ -88,6 +99,10 @@ stories.controller('RecomdCtrl', function($scope, $animate, Requests, Story, $io
 			$ionicSlideBoxDelegate.slide(0); 
 			$ionicSlideBoxDelegate.update();
 
+			
+			$scope.currentlyLoading = false;
+			}, 1000);
+			
 			$ionicLoading.hide();
 		}, function(response) {
 			$cordovaDialogs.alert("Får ikke tak i historier");

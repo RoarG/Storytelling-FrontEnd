@@ -1256,14 +1256,72 @@ TODO: .ion-loading-a er definers flere ganger
 	background-color: $background-color;
 }
 
+ion-nav-title {
+	
+}
+
+.navbar-title {
+	font-size: 1.1em;
+	font-family: Lobster, cursive;
+	display: inline-block;
+	float: left;
+	margin-right: 4px;
+}
+
+.navbar-logo {
+	display: inline-block;
+	float: left;
+	position: relative;
+	top: 8px;
+	
+}
+
 
 .updateRecom {
-	width: 50%;
-	margin: 50% auto;
+	width: 180px;
+	margin: 80px auto;
 
-	.button-clear {
+	.button {
 		width: 100%;
+		border-radius: 5px;
+		margin-top: 0;
+		background-color: #DE6972;
+		/*background-color: #FE713E;*/
 	}
+
+	img {
+		width: 100%;
+		margin-bottom: -6px;
+	}
+
+	.ion-refreshing {
+		position: absolute;
+		top: 132px;
+		left: 46%;
+		font-size: 3em;
+		color: $primary-color;
+	}
+
+	h2 {
+		position: absolute;
+		font-size: 3.2em;
+		margin: 0;
+		padding: 0;
+		color: black;
+	}
+
+	h2:nth-of-type(1) {
+		width: 90px;
+		top: 100px;
+		left: 37%;
+		
+	}
+
+	h2:nth-of-type(2) {
+		top: 145px;
+		left: 39%;
+	}
+
 }
 
 .recom-story-categories {
