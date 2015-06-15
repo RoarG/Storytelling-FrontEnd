@@ -57,16 +57,48 @@ var stories = angular.module('stories', [
 		if (window.Connection) {
 			// Checks if offline when app is started
 			if ($cordovaNetwork.isOffline()) {
-				$cordovaDialogs.alert("Ingen nettilgang", "Enheten din er ikke tilkoblet Internett");
+				console.log('test');
+				navigator.notification.confirm(
+					"Appliksjonen trenger en internett fobindelse for å virke", 
+					function () {
+						ionic.Platform.exitApp();
+					}, 
+					"Ingen nettilgang", 
+					['Lukk']
+				)
 			}
 
-			// Listen for Offline event
-			$rootScope.$on('$cordovaNetwork:offline', function(event, networkState) {
-				$cordovaDialogs.alert("Ingen nettilgang", "Enheten din er ikke tilkoblet Internett");
-			});
+			else {
+					// Listen for Offline event
+				$rootScope.$on('$cordovaNetwork:online', function(event, networkState) {
+					$scope.networkAccess = true;
+				})
+
+					// Listen for Offline event
+				$rootScope.$on('$cordovaNetwork:offline', function(event, networkState) {
+					$cordovaDialogs.alert(
+						"Ingen nettilgang", 
+						"Enheten din er ikke tilkoblet Internett"
+					);
+
+					$scope.networkAccess = false;
+					
+					navigator.notification.confirm(
+						"Appliksjonen trenger en internett fobindelse for å virke", 
+						function (buttonIndex) {
+							console.log('ButtonIndex: '+ buttonIndex);
+							if (buttonIndex === 1 && $cordovaNetwork.isOnline()) {
+								$state.go($state.current, {}, {reload: true});
+							}
+						}, 
+						"Ingen nettilgang", 
+						['Lukk', 'Prøv igjen']
+					)
+				})
+				
+			}
 		}
-
-
+			// TODO: Denne blocken tom. cordovaSplashscreen.hide() inne i else blocken over i build
 		// Decides which view to go to first:
 		// If the user has not been through the tutorial, go to tutorial. 
 		if (!($window.localStorage.getItem('didTutorial'))) 
