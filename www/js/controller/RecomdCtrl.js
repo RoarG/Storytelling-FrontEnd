@@ -7,7 +7,22 @@
 angular.module('RecomdCtrl', [])
 
 
-stories.controller('RecomdCtrl', function($scope, $animate, Requests, Story, $ionicSlideBoxDelegate, $ionicModal, $ionicLoading, $state, $ionicSideMenuDelegate, $timeout, $ionicHistory, $window, $cordovaDialogs) {
+stories.controller('RecomdCtrl', function(
+	$window,
+	$rootScope,
+	$scope, 
+	$animate, 
+	$ionicSlideBoxDelegate, 
+	$ionicModal, 
+	$ionicLoading, 
+	$state, 
+	$ionicSideMenuDelegate, 
+	$timeout, 
+	$ionicHistory, 
+	$cordovaDialogs,
+	Requests, 
+	Story 
+) {
 
 	$scope.storyPreviews = [];
 	$scope.currentSlideIndex = 0;
@@ -105,8 +120,14 @@ stories.controller('RecomdCtrl', function($scope, $animate, Requests, Story, $io
 			
 			$ionicLoading.hide();
 		}, function(response) {
-			$cordovaDialogs.alert("Får ikke tak i historier");
-	  	});
+				if ($rootScope.networkAccess) {
+					$rootScope.popUp("Server problemer", "Prøv igjen nå eller senere" );
+				}
+				else {
+					$rootScope.popUp("Ingen nettilgang", "Appliksjonen trenger en internett forbindelse for å virke");
+				}
+	  		}
+	  	);
 
 	  	$ionicSlideBoxDelegate.update();
 	}

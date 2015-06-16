@@ -25,6 +25,7 @@ var stories = angular.module('stories', [
 .run(function(
 	$window, 
 	$ionicPlatform, 
+	$ionicPopup,
 	$cordovaDialogs, 
 	$cordovaNetwork, 
 	$rootScope, 
@@ -33,7 +34,33 @@ var stories = angular.module('stories', [
 	Requests) { 
 
 
+
 	$ionicPlatform.ready(function() {
+
+		$rootScope.popUp = function(title, msg) {
+			var confirmPopup = $ionicPopup.confirm({
+			cssClass: 'popUp',
+	     	title: title , 
+	     	template: msg ,
+	     	cancelText: 'Lukk App',
+	     	okText: 'Prøv igjen'
+	   		});
+	   		
+	   		confirmPopup.then(function(res) {
+				console.log('Buttonres: '+ res);
+			    if(res) {
+			    	if ($cordovaNetwork.isOnline()) {
+						$state.go($state.current, {}, {reload: true});
+			    	}
+			    	else {
+			    		$rootScope.popUp("Fortsatt " + title, msg);
+			    	}
+		     	} else {
+		    	   console.log('You are closing the app');
+		    	   ionic.Platform.exitApp();
+		     	}
+		   	}); 
+		}
 		
 		// Tells the back-end that the app has been started.
 		Requests.opensApp($window.localStorage.getItem('userId'));
@@ -57,86 +84,76 @@ var stories = angular.module('stories', [
 		if (window.Connection) {
 			// Checks if offline when app is started
 			if ($cordovaNetwork.isOffline()) {
-				console.log('test');
-				navigator.notification.confirm(
-					"Appliksjonen trenger en internett fobindelse for å virke", 
-					function () {
-						ionic.Platform.exitApp();
-					}, 
-					"Ingen nettilgang", 
-					['Lukk']
-				)
+				console.log('Først If');
+				$rootScope.popUp("Ingen nettilgang", "Appliksjonen trenger en internett fobindelse for å virke");
 			}
 
 			else {
 					// Listen for Offline event
 				$rootScope.$on('$cordovaNetwork:online', function(event, networkState) {
-					$scope.networkAccess = true;
+					$rootScope.networkAccess = true;
+					console.log('Cordova network online');
 				})
 
 					// Listen for Offline event
 				$rootScope.$on('$cordovaNetwork:offline', function(event, networkState) {
-					$cordovaDialogs.alert(
-						"Ingen nettilgang", 
-						"Enheten din er ikke tilkoblet Internett"
-					);
+					console.log('Cordova network offiline');
 
-					$scope.networkAccess = false;
+					$rootScope.popUp("Ingen nettilgang", "Appliksjonen trenger en internett fobindelse for å virke");
+					$rootScope.networkAccess = false;
 					
-					navigator.notification.confirm(
-						"Appliksjonen trenger en internett fobindelse for å virke", 
-						function (buttonIndex) {
-							console.log('ButtonIndex: '+ buttonIndex);
-							if (buttonIndex === 1 && $cordovaNetwork.isOnline()) {
-								$state.go($state.current, {}, {reload: true});
-							}
-						}, 
-						"Ingen nettilgang", 
-						['Lukk', 'Prøv igjen']
-					)
 				})
-				
+				//STATECHECK HERE!!
 			}
+
 		}
-			// TODO: Denne blocken tom. cordovaSplashscreen.hide() inne i else blocken over i build
-		// Decides which view to go to first:
-		// If the user has not been through the tutorial, go to tutorial. 
-		if (!($window.localStorage.getItem('didTutorial'))) 
-		{
-			$state.go('onboardOne');
-		}
-		// If user is logged in, go to recommendation view. 
-		else if ($window.localStorage.getItem('userId') !== "-1" && $window.localStorage.getItem('userId') !== null)
-		{
-			$state.go('app.recommendations');
-		}
-		// If logged out but have done tutorial, go to login view. 
-		else
-		{
-			$state.go('login');
-		}
-		$cordovaSplashscreen.hide();
+
+			// TODO: STATECHECK Denne blocken tom. cordovaSplashscreen.hide() inne i else blocken over i build
+			// Decides which view to go to first:
+			// If the user has not been through the tutorial, go to tutorial. 
+			if (!($window.localStorage.getItem('didTutorial'))) 
+			{
+				$state.go('onboardOne');
+			}
+			// If user is logged in, go to recommendation view. 
+			else if ($window.localStorage.getItem('userId') !== "-1" && $window.localStorage.getItem('userId') !== null)
+			{
+				$state.go('app.recommendations');
+			}
+			// If logged out but have done tutorial, go to login view. 
+			else
+			{
+				$state.go('login');
+			}
 		
+		$cordovaSplashscreen.hide();
+		//STATECHECK HERE!!
+
+	  // Tells back-end that the app has been opened again after having been paused.
+	  $ionicPlatform.on('resume', function() {
+	    Requests.opensApp($window.localStorage.getItem('userId'));
+	  });
+	  // Tells back-end that the app has been paused
+	  $ionicPlatform.on('pause', function() {
+	    Requests.closesApp($window.localStorage.getItem('userId'));
+	  });
+
 	});
-
-
-  // Tells back-end that the app has been opened again after having been paused.
-  $ionicPlatform.on('resume', function() {
-    Requests.opensApp($window.localStorage.getItem('userId'));
-  });
-  // Tells back-end that the app has been paused
-  $ionicPlatform.on('pause', function() {
-    Requests.closesApp($window.localStorage.getItem('userId'));
-  });
 })
 
-// Defines the different states of the app and the templates and controllers that are associated to them. 
-.config(function($stateProvider, $urlRouterProvider, $sceDelegateProvider, $ionicConfigProvider) {
+	// Defines the different states of the app and the templates and controllers that are associated to them. 
+.config(function(
+	$stateProvider, 
+	$urlRouterProvider, 
+	$sceDelegateProvider, 
+	$ionicConfigProvider
+	) {
+
 	$ionicConfigProvider.backButton.text('Tilbake'); // Changes the default text of the back button to Norwegian "Tilbake".
 	$ionicConfigProvider.backButton.previousTitleText(false);
 	$ionicConfigProvider.backButton.icon("ion-ios-arrow-back"); //Sets the icon for to use for back
-	$stateProvider
 
+	$stateProvider
 
 	.state('app', {
 		url: "/app",
@@ -290,3 +307,4 @@ var stories = angular.module('stories', [
 	/*$urlRouterProvider.otherwise('/onboardOne');*/
   
 });
+

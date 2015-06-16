@@ -13,6 +13,21 @@ $energized:                       #ffc900 !default;
 $assertive:                       #ef473a !default;
 $royal:                           #886aea !default;
 $dark:                            #444 !default;
+
+
+// Colors
+$font-color: #583318;
+$small-text-color: desaturate(lighten($font-color, 35%), 30%);
+$link-color: #8fe3ff;
+$primary-color: #249c9c;
+$primary-color-dark: #35647E;
+$primary-color-light: #BFEBEB;
+$contrast-color: #eb6963;
+$contrast-color-dark: #583318;
+$contrast-color-light: #FFBDBA;
+$background-color: #FFF9EE;
+$background-color-dark: #C2B2A7;
+
 */
 
 @import "variables";
@@ -28,6 +43,15 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 .button-calm {
 	border: none;
+}
+
+
+
+.popUp {	
+	.button-positive {
+	background-color: $primary-color;
+	border: none;
+	}
 }
 
 /*

@@ -7,7 +7,8 @@
 angular.module('MenuCtrl', [])
 
 stories.controller('MenuCtrl', function(
-	$window, 
+	$window,
+	$rootScope, 
 	$scope, 
 	$state, 
 	$ionicPlatform, 
@@ -81,7 +82,12 @@ stories.controller('MenuCtrl', function(
 				}
 			}
 		}, function(response) {
-			$cordovaDialogs.alert("Får ikke tak i bokmerker.");
+			if ($rootScope.networkAccess) {
+					$rootScope.popup("Server problemer", "Prøv igjen nå eller senere" );
+				}
+				else {
+					$rootScope.popUp("Ingen nettilgang", "Appliksjonen trenger en internett forbindelse for å virke");
+				}
 		});
 	};
 

@@ -7,7 +7,13 @@
 angular.module('BookmarkCtrl', [])
 
 
-stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests, $window, $cordovaDialogs) {
+stories.controller('BookmarkCtrl', function(
+	$window, 
+	$scope, 
+	$rootScope, 
+	$cordovaDialogs,
+	Requests 
+	) {
 
 	
 	$scope.userId = $window.localStorage.getItem('userId');
@@ -20,24 +26,34 @@ stories.controller('BookmarkCtrl', function($scope, $rootScope, Requests, $windo
 
 	// Gets all the bookmark lists the user has.
 	// Then goes through them and sets "checked" to true/false depending on whether the story has that bookmark. 
-	Requests.getAllLists($scope.userId).then(function(response) {
-		$scope.collectionList = response.data;
-		for (var i = 0; i < $scope.collectionList.length; i++) {
-			for (var j = 0; j < $scope.tags.length; j++) {
-				if ($scope.collectionList[i]["text"].valueOf() === $scope.tags[j]["text"].valueOf()) {
-					$scope.collectionList[i]["checked"] = true;
+		Requests.getAllLists($scope.userId).then(function(response) {
+			$scope.collectionList = response.data;
+			for (var i = 0; i < $scope.collectionList.length; i++) {
+				for (var j = 0; j < $scope.tags.length; j++) {
+					if ($scope.collectionList[i]["text"].valueOf() === $scope.tags[j]["text"].valueOf()) {
+						$scope.collectionList[i]["checked"] = true;
+					}
+				}
+				if ($scope.collectionList[i]["checked"].valueOf() === "".valueOf()) {
+					$scope.collectionList[i]["checked"] = false;
 				}
 			}
-			if ($scope.collectionList[i]["checked"].valueOf() === "".valueOf()) {
-				$scope.collectionList[i]["checked"] = false;
-			}
-		}
+		}, function(response) {
+				if ($rootScope.networkAccess) {
+					$rootScope.popup("Server problemer", "Prøv igjen nå eller senere" );
+				}
+				else {
+					$rootScope.popUp("Ingen nettilgang", "Appliksjonen trenger en internett forbindelse for å virke");
+				}
+	 		});
 	}, function(response) {
-		$cordovaDialogs.alert("Får ikke tak i bokmerker");
- 	});
-}, function(response) {
-	$cordovaDialogs.alert("Får ikke tak i bokmerker");
-});
+			if ($rootScope.networkAccess) {
+					$rootScope.popup("Server problemer", "Prøv igjen nå eller senere" );
+				}
+			else {
+				$rootScope.popUp("Ingen nettilgang", "Appliksjonen trenger en internett forbindelse for å virke");
+			}
+		});
 
 	// Display text field to enter name of new bookmark list
 	$scope.newItem = function() {
