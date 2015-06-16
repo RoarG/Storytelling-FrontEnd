@@ -45,6 +45,30 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	border: none;
 }
 
+
+
+/*
+/////////////////////////
+// 		General Icons
+/////////////////////////
+*/
+
+.ion-alert {
+	font-size: 1.8em;
+	margin-left: 4%;
+}
+
+
+.ion-loading-a {
+	font-size: 1.8em;
+	margin-left: 4%;		
+}
+
+.ion-checkmark-round {
+	font-size: 1.8em;
+	margin-left: 4%;
+}
+
 /*
 /////////////////////////
 // 		PopUp
@@ -1084,8 +1108,9 @@ TODO: .ion-loading-a er definers flere ganger
    }
 
    .ion-loading-a {
-   		font-size: 1.6em;
-   }
+	font-size: 1.8em;
+	margin-left: 4%;		
+}
 }
 
 // Styling for rating below story. 
