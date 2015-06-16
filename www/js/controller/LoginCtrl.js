@@ -55,6 +55,9 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	    $window.localStorage.setItem('userModel', $scope.responseData.userModel) ;
 
 	    $ionicLoading.hide();
+
+	    StatusBar.show();
+	  
 	    //TODO: Set user assosiated with the email ??
 	    $state.go("app.recommendations");
 
@@ -80,6 +83,9 @@ stories.controller('LoginCtrl', function($scope, User, $state, Requests, $ionicL
 	        //Sets the localStorage.getItem userId 
 	        $scope.user.userId = $scope.responseData.userId;
 	        $window.localStorage.setItem('userId', $scope.responseData.userId);
+
+	        //Logs when the first time a user starts the app.
+	        Requests.opensApp($window.localStorage.getItem('userId'));
 
 	        //Go to the next view 
 	        //Sets the input as a empty string

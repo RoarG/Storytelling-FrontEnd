@@ -34,6 +34,8 @@ stories.controller('RecomdCtrl', function(
 	$scope.userId = $window.localStorage.getItem('userId');
 
 
+	StatusBar.show();
+	
 	//Trying to disable animate on the slidebox element
 	/*console.log('SlideBox: ' + document.getElementById("slideBox"));
 	console.log('SlideBox: ' + $animate.enabled());

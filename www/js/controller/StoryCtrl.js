@@ -30,6 +30,9 @@ stories.controller('StoryCtrl', function(
 	$scope.storyId = Requests.getSelectedStory();
 	$scope.userId = $window.localStorage.getItem('userId');
 
+	$scope.devicePlatform = ionic.Platform.isAndroid();
+	console.log('platform ' + $scope.devicePlatform);
+
 	// uiGmapGoogleMapApi is a promise.
     // The "then" callback function provides the google.maps object.
     uiGmapGoogleMapApi.then(function(maps) {
@@ -236,10 +239,8 @@ stories.controller('StoryCtrl', function(
 		})
 
 		$scope.alttouched = true;
-		console.log('alttouched' + $scope.alttouched);
 		setTimeout(function() {
 			$scope.alttouched = false;
-			console.log('alttouched' + $scope.alttouched);
 		}, 200);
 
 		$cordovaSocialSharing.share(message, "Vettu Hva? - Fortelling", null, "\"Vettu hva?\"").then(function(result) {
