@@ -10,6 +10,7 @@ stories.controller('StoryCtrl', function(
 	$window,
 	$scope,
 	$stateParams,
+	$ionicPopup,
 	$ionicModal,
 	$ionicPopover,
 	$sce,
@@ -66,6 +67,20 @@ stories.controller('StoryCtrl', function(
 
 	$scope.twtouched = false;
 	$scope.fbtouched = false;
+	$scope.alttouched = false;
+
+
+	$scope.showAlert = function(title, msg) {
+			var alertPopup = $ionicPopup.alert({
+				cssClass: 'alertPopup',
+				title: title,
+				template: msg
+			});
+			alertPopup.then(function(response) {
+				//Do something when closing the alert box
+				console.log('closing the alert box');
+			});
+	};
 
 	// Get the story data so it can be displayed
 	Requests.getStory($scope.storyId, $scope.userId).then(function(response) {
@@ -122,7 +137,7 @@ stories.controller('StoryCtrl', function(
 		// If story data is not successfully retrieved, go back to recommendation view. 
 		$ionicLoading.hide();
 		$ionicHistory.goBack();
-		$cordovaDialogs.alert("Får ikke åpnet historien");
+		$scope.showAlert('Vettu Hva?', 'Får ikke åpnet fortellingen');
 	});
 
 
@@ -184,23 +199,19 @@ stories.controller('StoryCtrl', function(
 		}, 200);
 
 		//First check if one can share on twitter
-		$cordovaSocialSharing.canShareVia("twitter").then(function(result) {
-				console.log('Can share: ' + result);
-				$window.plugins.socialsharing.shareViaTwitter('Les denne ' + message + '\" #VettuHva?\"');
+		$cordovaSocialSharing.shareViaTwitter("#VettuHva!", null, message).then(function(result) {
+				// $window.plugins.socialsharing.shareViaTwitter('Les denne ' + message + '\" #VettuHva?\"');
 			},
 			function(error) {
-				alert("Cannot share on Twitter");
+				$scope.showAlert('Vettu Hva?', 'Finner ikke Twitter applikasjonen');
 			});
 		$ionicLoading.hide();
-		// $scope.twtouched = false;
-		// console.log('Twitter: ' + $scope.twtouched );
 	}
 
 	$scope.fbShare = function(link) {
 		//TODO: Canshare via er ikke helt upto date og loading vises ikke raskere om man ikke har null i soma argument
 		$ionicLoading.show({
 			template: '<h2>Åpner Facebook</h2>',
-			duration: 3000
 		})
 
 		// Visual indication when pressing the icon
@@ -208,24 +219,36 @@ stories.controller('StoryCtrl', function(
 		setTimeout(function() {
 			$scope.fbtouched = false;
 		}, 200);
-		//TODO: Sjekke om det kan appendes en melding fra appen, se om man kan bruke test før man poster teste uten facebook appen
-		$window.plugins.socialsharing.shareViaFacebook(link);
 
+		$cordovaSocialSharing.shareViaFacebook(null, null, link).then(function(result) {
+		      // Success!
+		}, 	function(err) {
+		      // An error occurred. Show a message to the user
+				$scope.showAlert('Vettu Hva?', 'Finner ikke Facebook applikasjonen');
+		    });
+		$ionicLoading.hide();
 	}
 
 	//TODO: Hvorfor er denne så treg??
 	$scope.altShare = function(message) {
 		$ionicLoading.show({
 			template: '<h2>Åpner delesenter</h2>',
-			duration: 2500
 		})
 
 		$scope.alttouched = true;
+		console.log('alttouched' + $scope.alttouched);
 		setTimeout(function() {
 			$scope.alttouched = false;
+			console.log('alttouched' + $scope.alttouched);
 		}, 200);
 
-		$cordovaSocialSharing.share("Les denne fortellingen " + message, "Vettu Hva? - fortelling", null, "www.vettuhva.no");
+		$cordovaSocialSharing.share(message, "Vettu Hva? - Fortelling", null, "\"Vettu hva?\"").then(function(result) {
+			//Success!
+		}, function(err) {
+			    // An error occurred. Show a message to the user
+				$scope.showAlert('Vettu Hva?', 'Noe gikk galt');
+		    });
+		$ionicLoading.hide();
 	}
 
 	// Display selected image in fullscreen in a modal. 

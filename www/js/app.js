@@ -32,6 +32,7 @@ var stories = angular.module('stories', [
 	$rootScope, 
 	$cordovaSplashscreen, 
 	$state,
+	$ionicLoading,
 	Requests) { 
 
 
@@ -46,6 +47,7 @@ var stories = angular.module('stories', [
 	     	cancelText: 'Lukk App',
 	     	okText: 'Prøv igjen'
 	   		});
+	   		$ionicLoading.hide();
 	   		
 	   		confirmPopup.then(function(res) {
 				console.log('Buttonres: '+ res);
@@ -54,7 +56,7 @@ var stories = angular.module('stories', [
 						$state.go($state.current, {}, {reload: true});
 			    	}
 			    	else {
-			    		$rootScope.popUp("Fortsatt " + title, msg);
+			    		$rootScope.popUp(title, msg);
 			    	}
 		     	} else {
 		    	   console.log('You are closing the app');

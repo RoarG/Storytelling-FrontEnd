@@ -45,13 +45,34 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	border: none;
 }
 
+/*
+/////////////////////////
+// 		PopUp
+/////////////////////////
+*/
 
 
-.popUp {	
+.popUp{	
 	.button-positive {
 	background-color: $primary-color;
 	border: none;
 	}
+	.button.activated {
+	background-color: $contrast-color;
+	border: none;
+	}
+}
+
+.alertPopup{
+	.button-positive {
+	background-color: $primary-color;
+	border: none;
+	}
+	.button.activated {
+	background-color: $contrast-color;
+	border: none;
+	}
+
 }
 
 /*
@@ -1101,7 +1122,7 @@ TODO: .ion-loading-a er definers flere ganger
    		font-size: 1.8em;
    }
 
-   .ion-ios-help {
+   .ion-ios-circle-outline {
    		font-size: 1.8em
    }
 
