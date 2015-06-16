@@ -43,6 +43,9 @@ stories.factory("Story", function ($sce) {
 
 		//Returns array of usertags
 		this.userTags = storyData.userTags;
+		
+		this.latitude = storyData.latitude;
+		this.longitude = storyData.longitude;
 	}
 
 		/** Public method, assigned to prototype */
