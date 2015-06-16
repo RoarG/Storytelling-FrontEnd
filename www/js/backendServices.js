@@ -246,11 +246,22 @@ stories.factory("Requests", function ($http) {
 			$http(req);
 		},
 		
-		/*Get all stories that a user has connected to tagName*/
-		getStoryList: function (tagName, userId){
+		/*Get all stories that a user has connected to tagName
+		* Parameters for sorting:
+			offset: denotes which row is the first row to be returned. 
+					Use 0 to start from the first row, 20 to start from the twenty-first row.
+			order: 'DESC' for largest first, 'ASC' for smallest first.
+			sortby: 'insertion_time' for sorting by date, 'rating' for sorting by rating.
+			category: denotes which category to filter on. 1-9 for a category, 0 for no category selected.
+		*/
+		getStoryList: function (tagName, userId /*,offset, order,sortby,category*/){
 			req.data = {
 				type: "getList",
 				userId: userId,
+				/*offset: offset,
+				order: order,
+				sortby: sortby,
+				category: category,*/
 				tagName: tagName
 			};
 			return $http(req);
