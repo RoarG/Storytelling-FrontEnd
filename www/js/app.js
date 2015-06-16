@@ -7,6 +7,7 @@ var stories = angular.module('stories', [
 	'backend.services',
 	'ngCordova',	
 	'ui.router',
+	'uiGmapgoogle-maps',
 	'IntroCtrl',
 	'LoginCtrl',
 	'ProfilCtrl',

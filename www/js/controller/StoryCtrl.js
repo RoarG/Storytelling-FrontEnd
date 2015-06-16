@@ -22,11 +22,47 @@ stories.controller('StoryCtrl', function(
 	$interval,
 	$rootScope,
 	$cordovaSocialSharing,
+	uiGmapGoogleMapApi,
 	Requests,
 	Story) {
 
 	$scope.storyId = Requests.getSelectedStory();
 	$scope.userId = $window.localStorage.getItem('userId');
+
+	// uiGmapGoogleMapApi is a promise.
+    // The "then" callback function provides the google.maps object.
+    uiGmapGoogleMapApi.then(function(maps) {
+    	$scope.map = {
+    		center: { latitude: 45, longitude: -73 },
+    		zoom: 8,
+    		options: {
+    			disableDefaultUI: true
+    		}
+    		
+    	};
+    	$scope.marker = {
+        id: 0,
+        coords: {
+          latitude: 45,
+          longitude: -73
+        },
+		
+
+      }; 
+       
+      $scope.marker.options = {
+        draggable: false,
+        labelContent: "lat: " + $scope.marker.coords.latitude + '<br/> ' + 'lon: ' + $scope.marker.coords.longitude,
+        labelAnchor: "73 120",
+        labelClass: "marker-labels",
+        title: "Fortelling"
+        /*icon: {
+        	url: "../../img/map_marker.png",
+        	scaledSize: new google.maps.Size(34, 44)
+        }*/
+      };  
+    	console.log($scope.map);
+    });
 
 	$scope.twtouched = false;
 	$scope.fbtouched = false;

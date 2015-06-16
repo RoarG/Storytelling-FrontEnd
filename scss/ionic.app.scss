@@ -425,6 +425,31 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	list-style-type:none;
 }
 
+#filtering-button {
+	color: white;
+	border-color: rgba(255,255,255,0.6);
+	border-radius: 5px;
+}
+
+#filtering-button.activated {
+	background-color: lighten($primary-color, 5%);
+}
+
+#empty-message {
+	width: 70%;
+	margin: 8% auto;
+	text-align: center;
+
+	h3 {
+		font-size: 1.4em;
+	}
+
+	p {
+		text-align: center;
+		width: 100%;
+	}
+}
+
 .list-view {
 
 
@@ -558,6 +583,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
     h2 {
     	margin: 7% 0 0 5%;
+    	font-size: 1.6em;
     }
 
     form.item {
@@ -906,6 +932,41 @@ video::-webkit-media-controls {
 TODO: .ion-loading-a er definers flere ganger
  */
 
+
+/*
+//////////////////////
+/// Google Maps
+//////////////////////
+*/
+
+.map-image img {
+	width: 80%;
+	margin: 0 auto;
+}
+
+.angular-google-map-container {
+	height: 500px;
+	margin: 0 auto;
+}
+
+.map-modal {
+	width: 80%;
+	margin: 16% auto;
+
+	.close-icon {
+		position: absolute;
+		top: 3%;
+		right: 5%;
+		width: 30px;
+		height: 60px;
+		font-size: 2.5em;
+		color: rgba(255,255,255,0.8);
+
+	}
+
+}
+
+
 /*
 //////////////////////
 ///		Image slider from http://devdactic.com/images-videos-fullscreen-ionic/
@@ -977,6 +1038,10 @@ TODO: .ion-loading-a er definers flere ganger
 	left: 12.5%;
     border-radius: 5px;
     text-align: center;
+
+    h2 {
+		font-size: 1.6em;
+	}
 
     .rating-content {
     	margin-top: 10%;

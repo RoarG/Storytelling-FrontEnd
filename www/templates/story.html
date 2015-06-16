@@ -33,6 +33,7 @@
             <a class="button button-light" ng-class="{active: mediaType === 'video'}" ng-show="story.videoList[0]" ng-click="mediaType = 'video'">Video</a>
             <a class="button button-light" ng-class="{active: mediaType === 'audio'}" ng-show="story.audioList[0]" ng-click="mediaType = 'audio'">Lydklipp</a>
             <a class="button button-light" ng-class="{active: mediaType === 'images'}" ng-show="story.imageList[0]" ng-click="mediaType = 'images'">Bilder</a>
+            <a class="button button-light" ng-class="{active: mediaType === 'map'}" ng-click="mediaType = 'map'">Kart</a>
         </div>
         <!-- Images, video or sound displayed depending on which button in the menubar is active -->
         <ion-scroll class="media-content" direction="x" delegate-handle="horizontal" zooming="false">
@@ -93,6 +94,11 @@
                 </div>
                 <p>{{audio['description']}}</p>
                 </div>
+            </div>
+            <div class="map-image" ng-if="mediaType === 'map'" data-tap-disabled="true">
+                
+            <img src="https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=400x200&maptype=roadmap
+&markers=color:red%7Clabel:S%7C40.702147,-74.015794" ng-click="showModal('templates/map.html')"/>
             </div>
         </ion-scroll>
         <!-- Story text -->

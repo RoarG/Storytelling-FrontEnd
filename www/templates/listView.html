@@ -1,12 +1,18 @@
 <ion-view view-title="{{tag}}">
 	<ion-nav-buttons side="right">
-		<button class="button button" ng-click="popover.show($event)"><i class="ion-arrow-down-b"></i> {{chosenCategory}}</button>
+		<button class="button button-outline button-balanced" id="filtering-button" ng-click="popover.show($event)"><i class="ion-arrow-down-b"></i> {{chosenCategory}}</button>
 	</ion-nav-buttons>
 	<ion-content overflow-scroll="true" class="list-view">
 		<div class="button-bar">
 			<a class="button button-light" ng-click="sortStories('date')"><i ng-if="currentSortProperty == 'date'" class="ion-arrow-down-b"></i><i ng-if="currentSortProperty == 'dateInverse'" class="ion-arrow-up-b"></i> Dato</a>
 			<a class="button button-light" ng-click="sortStories('rating')"><i ng-if="currentSortProperty == 'rating'" class="ion-arrow-down-b"></i><i ng-if="currentSortProperty == 'ratingInverse'" class="ion-arrow-up-b"></i> Stjerner</a>
 		</div>
+		
+		<div id="empty-message" ng-if="storyPreviews.length == 0">
+				<h3>Ingen fortellinger</h3>
+				<p>Utforsk flere fortellinger og legg til bokmerker for å se de her.</p>
+		</div>
+
 		<!-- make a list to hold stories-->
 		<ion-list>
 			<!-- fill the list with all the stories fetched by the controller-->
