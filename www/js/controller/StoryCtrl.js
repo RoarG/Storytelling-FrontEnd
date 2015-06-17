@@ -33,6 +33,8 @@ stories.controller('StoryCtrl', function(
 	$scope.devicePlatform = ionic.Platform.isAndroid();
 	console.log('platform ' + $scope.devicePlatform);
 
+	$scope.isAudioPlaying = false;
+
 	// uiGmapGoogleMapApi is a promise.
     // The "then" callback function provides the google.maps object.
     uiGmapGoogleMapApi.then(function(maps) {
@@ -320,14 +322,17 @@ stories.controller('StoryCtrl', function(
 				if (result != -1) {
 					$scope.audioFiles[url][1] = result;
 				}
-				if (result >= $scope.audioFiles[url][0].getDuration() - 1 || result == -1) {
+				var duration = $scope.audioFiles[url][0].getDuration()
+				console.log("Duration: " + duration);
+				console.log("Position: " + result);
+				if ((result > duration - 0.001  && duration != -1) || result == -1) {
 					$scope.isAudioPlaying = false;
 					$scope.audioFiles[url][1] = -1;
 					$interval.cancel(interval);
 				}
 			})
 
-		}, 1000);
+		}, 500);
 	};
 	// Pauses audio and stops checking for new position in audio file. 
 	$scope.pauseAudio = function(url) {

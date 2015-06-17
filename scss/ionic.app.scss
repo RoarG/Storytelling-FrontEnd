@@ -621,7 +621,11 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     border-radius: 5px;
 
     ion-scroll {
-    	max-height: 38%;
+    	max-height: 190px;
+
+    	 @include mq(medium) {
+    		max-height: 240px;
+    	}
     }
 
     .rating-content {

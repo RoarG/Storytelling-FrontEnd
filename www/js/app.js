@@ -37,7 +37,12 @@ var stories = angular.module('stories', [
 
 
 
+
 	$ionicPlatform.ready(function() {
+
+		var isIOS = ionic.Platform.isIOS();
+		var isAndroid = ionic.Platform.isAndroid();
+
 
 		$rootScope.popUp = function(title, msg) {
 			var confirmPopup = $ionicPopup.confirm({
@@ -68,6 +73,10 @@ var stories = angular.module('stories', [
 		// Tells the back-end that the app has been started.
 		Requests.opensApp($window.localStorage.getItem('userId'));
 		
+		// Lock orientation on ios.
+		if(isIOS) {
+			screen.lockOrientation('portrait');
+		}
 
 		// Uses ionic k)eyboard plugin
 		if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -75,7 +84,11 @@ var stories = angular.module('stories', [
 			cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
 
 			// Avoids content being pushed up when focusing on inputs below the keyboard. 
-			cordova.plugins.Keyboard.disableScroll(true);
+			if(isAndroid) {
+				cordova.plugins.Keyboard.disableScroll(true);
+			} else if(isIOS) {
+				cordova.plugins.Keyboard.disableScroll(false);
+			}
 		}
 		// Uses cordova statusbar plugin
 		if (window.StatusBar) {
