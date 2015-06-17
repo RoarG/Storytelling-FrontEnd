@@ -21,12 +21,15 @@
 			<ion-list>
 
 				<!-- Main Section -->
-				<ion-item nav-clear menu-close ui-sref="app.recommendations">
+				<ion-item id="home" nav-clear menu-close ui-sref="app.recommendations">
 					<b>HJEM - Fortellinger</b>
+					</ion-item>
+					<ion-item nav-clear menu-close ng-click="viewList()"> <!-- TODO: Åpne not rated liste -->
+						Varslinger <b id="inboxAmount">{{inbox.amount}} x</b>
 					</ion-item>
 					<ion-item nav-clear menu-close ng-click="goSettings()">
 						Innstillinger
-				</ion-item>
+					</ion-item>
 				
 				<!-- Infomation Section -->
 				<ion-list>

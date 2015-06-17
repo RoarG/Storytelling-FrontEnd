@@ -121,7 +121,6 @@ var stories = angular.module('stories', [
 			// If user is logged in, go to recommendation view. 
 			else if ($window.localStorage.getItem('userId') !== "-1" && $window.localStorage.getItem('userId') !== null)
 			{
-				StatusBar.show();
 				$state.go('app.recommendations');
 			}
 			// If logged out but have done tutorial, go to login view. 

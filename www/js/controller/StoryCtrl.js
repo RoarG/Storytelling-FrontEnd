@@ -201,20 +201,25 @@ stories.controller('StoryCtrl', function(
 			$scope.twtouched = false;
 		}, 200);
 
-		//First check if one can share on twitter
-		$cordovaSocialSharing.shareViaTwitter("#VettuHva!", null, message).then(function(result) {
-				// $window.plugins.socialsharing.shareViaTwitter('Les denne ' + message + '\" #VettuHva?\"');
-			},
-			function(error) {
-				$scope.showAlert('Vettu Hva?', 'Finner ikke Twitter applikasjonen');
-			});
+		if ($scope.devicePlatform) {
+			//First check if one can share on twitter
+			$cordovaSocialSharing.shareViaTwitter("#VettuHva!", null, message)
+			.then(function(result) {
+				//Success!
+			}, 	function(error) {
+					$scope.showAlert('Vettu Hva?', 'Finner ikke Twitter applikasjonen');
+				});
+		}
+			//Else IOS
+		else {
+			$cordovaSocialSharing.shareViaTwitter("#VettuHva!", null, message)
+		}		
 		$ionicLoading.hide();
 	}
 
 	$scope.fbShare = function(link) {
-		//TODO: Canshare via er ikke helt upto date og loading vises ikke raskere om man ikke har null i soma argument
 		$ionicLoading.show({
-			template: '<h2>Åpner Facebook</h2>',
+			template: '<h2>Åpner Facebook</h2>'
 		})
 
 		// Visual indication when pressing the icon
@@ -223,32 +228,37 @@ stories.controller('StoryCtrl', function(
 			$scope.fbtouched = false;
 		}, 200);
 
-		$cordovaSocialSharing.shareViaFacebook(null, null, link).then(function(result) {
+ 			//If Android
+		if ($scope.devicePlatform) {
+			$cordovaSocialSharing.shareViaFacebook(link)
+			.then(function(result) {
 		      // Success!
-		}, 	function(err) {
+			}, 	function(err) {
 		      // An error occurred. Show a message to the user
 				$scope.showAlert('Vettu Hva?', 'Finner ikke Facebook applikasjonen');
-		    });
+		     	});
+		}
+			//Else IOS
+		else {
+			$cordovaSocialSharing.shareViaFacebook(link);
+		}		    
 		$ionicLoading.hide();
 	}
 
 	//TODO: Hvorfor er denne så treg??
 	$scope.altShare = function(message) {
 		$ionicLoading.show({
-			template: '<h2>Åpner delesenter</h2>',
+			template: '<h2>Åpner delesenter</h2>'
 		})
-
+		
+		// Visual indication when pressing the icon
 		$scope.alttouched = true;
 		setTimeout(function() {
 			$scope.alttouched = false;
-		}, 200);
+		}, 200)
 
-		$cordovaSocialSharing.share(message, "Vettu Hva? - Fortelling", null, "\"Vettu hva?\"").then(function(result) {
-			//Success!
-		}, function(err) {
-			    // An error occurred. Show a message to the user
-				$scope.showAlert('Vettu Hva?', 'Noe gikk galt');
-		    });
+		$window.plugins.socialsharing.share(message, "Vettu Hva? - Fortelling");
+	
 		$ionicLoading.hide();
 	}
 
