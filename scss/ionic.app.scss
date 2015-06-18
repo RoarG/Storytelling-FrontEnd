@@ -41,6 +41,14 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 @import "standard";
 
+
+.button-cont {
+	.button.activated {
+		background-color: $contrast-color;
+		border: none;
+	}
+}
+
 .button-calm {
 	border: none;
 }
@@ -156,8 +164,6 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 .bottomCont{
-	/*position: fixed;*/
-	/*display: block;*/
 	height: 50%;
 	text-align: center;
 	padding-top: 4%;
@@ -168,20 +174,23 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     }
 }
 
+
 .bottomCont2 {
-	position: fixed;
+	position: absolute;
 	bottom: 3%;
-	/*TODO: av en rargrunn så passer dette? 90%*/
-	width: 95%;
+	margin: 0 auto;
+	width: 100%;
+	display: block;
 
 	@include mq(medium) {
     	bottom: 6%;
     }
 }
 
+
 .button-cont {
 	padding-top: 5%;
-	width: 100%;
+	width: 90%;
     bottom: 8%;
     /*text-align: center;*/
     display: inline-block;
@@ -193,19 +202,6 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	width: 70%;
     bottom: 8%;
     display: inline-block;
-}
-
-.buttons-cont {
-	/*width: 70%;*/
-    /*bottom: 8%;*/
-    /*display: block;*/
-}
-
-
-	/*Text*/
-
-.onboardText {
-
 }
 
 .onboardHead {
@@ -228,13 +224,12 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 .onboardInfoText{
+    display: inline-block;
 	height: 10%;
+	width: 80%;
+	margin: 0 auto;
 }
 
-
-.onboardInfoText {
-	padding-top: 0;
-}
 
 
 
