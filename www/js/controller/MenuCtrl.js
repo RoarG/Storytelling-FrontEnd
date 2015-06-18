@@ -13,10 +13,11 @@ stories.controller('MenuCtrl', function(
 	$state, 
 	$ionicPlatform, 
 	$cordovaDialogs,
+	$ionicPopup,
 	Requests, 
-	User) {
-
-
+	User
+) {
+	
 	$scope.goSettings = function () {
 		$state.go('app.settings');
 	};
@@ -54,17 +55,26 @@ stories.controller('MenuCtrl', function(
 
 	// Delete list of bookmarks. 
 	$scope.deleteList = function(list) {
-		$ionicPlatform.ready(function() {
-			$cordovaDialogs.confirm('Vil du slette listen "' + list.text + '"?', 'Slett liste', ['OK', 'Avbryt']).then(function(response) {
-				// response == 1 means that the user has replied "OK", so the list is deleted and the bookmark is removed from the story. 
-				if (response === 1) {
-					var index = $scope.collectionList.indexOf(list);
+		var confirmPopup = $ionicPopup.confirm({
+			cssClass: 'popUp',
+	     	title: 'Slett liste' , 
+	     	template: 'Vil du slette listen "' + list.text + '"?', 
+	     	cancelText: 'Avbryt',
+	     	okText: 'OK'
+	   		});
+	   			   		
+	   		confirmPopup.then(function(res) {
+			    if(res) {
+			    	var index = $scope.collectionList.indexOf(list);
 					$scope.collectionList.splice(index, 1);
 					Requests.removeTag($window.localStorage.getItem('userId'), list.text);
-				}
-			});
-		});
-	};
+					//TODO: Håndtere fail for Requests  
+					$scope.updateMenu();
+		     	} else {
+		    	   console.log('Noe gikk galt');
+		     	}
+		   	}); 
+	}
 
 		// Update the bookmark lists in the menu. 
 	$scope.updateMenu = function() {
@@ -78,7 +88,6 @@ stories.controller('MenuCtrl', function(
 					$scope.defaultLists.push($scope.collectionList[i]);
 				} else {
 					$scope.userMadeLists.push($scope.collectionList[i]);
-					console.log(tagName);
 				}
 			}
 		}, function(response) {

@@ -40,7 +40,8 @@
 				</div>
 				<div class="col">
 				<h2>{{story.title}}</h2>
-				<i class="icon ion-android-star star" ng-class="{filled: i <= story.rating}" ng-repeat="i in [1,2,3,4,5]"></i>
+				<p>
+				<i class="icon ion-android-star star" ng-class="{filled: i <= story.rating}" ng-repeat="i in [1,2,3,4,5]"></i></p>
 				<!-- Truncate the description to a maximum of 100 characters -->
 				<p>{{story.description | limitTo: 100}}{{story.description.length > 100 ? '...' : ''}}</p>
 				</div>

@@ -507,13 +507,15 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 		width: 120%;
 		word-wrap: break-word;
 		white-space: normal;
+		padding-left: 10%;
+		
 	}
 
 	p {
-
+		padding-left: 10%;
 		word-wrap: break-word;
 		white-space: normal;
-		width: 130%;
+		width: 140%;
 	}
 
 	.button .ion-close {
@@ -523,11 +525,11 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	}
 
 	.thumbnail {
-		width: 80px;
-		height: 80px;
+		width: 5.1em;
+		height: 4em;
 		overflow: hidden;
 		background-color: $background-color-dark;
-		margin: 12% 0 8% -6%;
+		margin: 8% 0 4% -10%;
 
 		img {
 			min-width: 100%;
@@ -535,13 +537,18 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 		}
 	}
 
+	.story-categories {
+		width: 125%;
+		margin: 8% 0 0 -12%;
+	}
+
 	.category-circle {
 		margin-right: 3%;
-		font-size: 0.7em;
+		font-size: 0.55em;
 
 		li {
-			width: 26px;
-			line-height: 26px;
+			width: 1.6em;
+			line-height: 1.6em;
 		}
 	}
 
