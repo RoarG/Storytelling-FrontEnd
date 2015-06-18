@@ -7,18 +7,18 @@
 angular.module('ListViewCtrl', [])
 
 stories.controller('ListViewCtrl', function(
-	$window, 
-	$scope, 
-	$state, 
-	$rootScope, 
-	$ionicLoading, 
-	$cordovaDialogs, 
-	$animate, 
-	$ionicPlatform, 
-	$ionicPopover, 
+	$window,
+	$scope,
+	$state,
+	$rootScope,
+	$ionicLoading,
+	$cordovaDialogs,
+	$animate,
+	$ionicPlatform,
+	$ionicPopover,
 	$filter,
 	$ionicPopup,
-	Story, 
+	Story,
 	Requests
 ) {
 
@@ -32,87 +32,83 @@ stories.controller('ListViewCtrl', function(
 
 	$scope.$on('$ionicView.enter', function() {
 		// Retrieve stories associated with selected tag, so that they can be displayed
-	Requests.getStoryList($scope.tag, $window.localStorage.getItem('userId')).success(function(data, status) {
-		//Display loading screen
-		$ionicLoading.show({
-			template: '<h2>Laster inn...</h2><div class="icon ion-loading-a"></div>',
-			noBackdrop: false
-		});
-		$scope.storyPreviews = data;
-		$scope.storyPreviewsOriginal = data.slice(0);
-		$ionicLoading.hide();
+		Requests.getStoryList($scope.tag, $window.localStorage.getItem('userId')).success(function(data, status) {
+			//Display loading screen
+			$ionicLoading.show({
+				template: '<h2>Laster inn...</h2><div class="icon ion-loading-a"></div>',
+				noBackdrop: false
+			});
+			$scope.storyPreviews = data;
+			$scope.storyPreviewsOriginal = data.slice(0);
+			$ionicLoading.hide();
 
-		for(var i = 0; i < $scope.storyPreviews.length; i++) {
-			if($scope.storyPreviews[i].rating == null) {
-				$scope.storyPreviews[i].rating = 0;
+			for (var i = 0; i < $scope.storyPreviews.length; i++) {
+				if ($scope.storyPreviews[i].rating == null) {
+					$scope.storyPreviews[i].rating = 0;
+				}
 			}
-		}
 
-		if($scope.chosenCategory && $scope.chosenCategory != "Kategori") {
-			console.log($scope.chosenCategory);
-			$scope.filterByCategory($scope.categorynames.indexOf($scope.chosenCategory)+1);
-		}
+			if ($scope.chosenCategory && $scope.chosenCategory != "Kategori") {
+				console.log($scope.chosenCategory);
+				$scope.filterByCategory($scope.categorynames.indexOf($scope.chosenCategory) + 1);
+			}
 
-		if($scope.currentSortProperty) {
-			if($scope.currentSortProperty.indexOf("Inverse") != -1) {
-				$scope.currentSortProperty = $scope.currentSortProperty.substring(0,$scope.currentSortProperty.length-7);
-				$scope.sortStories($scope.currentSortProperty);
+			if ($scope.currentSortProperty) {
+				if ($scope.currentSortProperty.indexOf("Inverse") != -1) {
+					$scope.currentSortProperty = $scope.currentSortProperty.substring(0, $scope.currentSortProperty.length - 7);
+					$scope.sortStories($scope.currentSortProperty);
+				} else {
+					var tempSortProperty = $scope.currentSortProperty;
+					$scope.currentSortProperty = $scope.currentSortProperty + "Inverse";
+					$scope.sortStories(tempSortProperty);
+				}
 			} else {
-				var tempSortProperty = $scope.currentSortProperty;
-				$scope.currentSortProperty = $scope.currentSortProperty + "Inverse";
-				$scope.sortStories(tempSortProperty);
+				$scope.sortStories("date");
 			}
-		} else {
-			$scope.sortStories("date");
-		}
 
-	}).error(function(data, status) {
-		$cordovaDialogs.alert("Får ikke svar fra server.");
+		}).error(function(data, status) {
+			$cordovaDialogs.alert("Får ikke svar fra server.");
+		});
 	});
-	});
-
-	
-
-	
 
 	$ionicPopover.fromTemplateUrl('templates/categoryFilteringDropdown.html', {
-    	scope: $scope
-  	}).then(function(popover) {
-    	$scope.popover = popover;
-  	});
+		scope: $scope
+	}).then(function(popover) {
+		$scope.popover = popover;
+	});
 
 	// Remove a story from the listview
 	$scope.remove = function(story, event) {
 		$ionicPlatform.ready(function() {
 			var confirmPopup = $ionicPopup.confirm({
-			cssClass: 'popUp',
-	     	title: 'Fjern fortelling' , 
-	     	template: 'Er du sikker på at du vil fjerne denne fortellingen?' , 
-	     	cancelText: 'Avbryt',
-	     	okText: 'OK'
-	   		});
-	   			   		
-	   		confirmPopup.then(function(res) {
-			    if(res) {
+				cssClass: 'popUp',
+				title: 'Fjern fortelling',
+				template: 'Er du sikker på at du vil fjerne denne fortellingen?',
+				cancelText: 'Avbryt',
+				okText: 'OK'
+			});
+
+			confirmPopup.then(function(res) {
+				if (res) {
 					var index = $scope.storyPreviews.indexOf(story);
 					$scope.storyPreviews.splice(index, 1);
 					var originalIndex = $scope.storyPreviewsOriginal.indexOf(story);
-					$scope.storyPreviewsOriginal.splice(originalIndex,1);
+					$scope.storyPreviewsOriginal.splice(originalIndex, 1);
 					Requests.removeTagStory(Requests.getSelectedTag(), $window.localStorage.getItem('userId'), story.id);
-		     	} else {
-		    	   console.log('Noe gikk galt');
-		     	}
-		   	}); 
+				} else {
+					console.log('Noe gikk galt');
+				}
+			});
 			event.preventDefault();
 			event.stopPropagation();
 		});
-		
+
 
 	};
 
-	
+
 	// Opens the selected story. 
- 	$scope.open = function(story) {
+	$scope.open = function(story) {
 		$ionicLoading.show({
 			template: '<h2>Laster inn</h2><div class="icon ion-loading-a"></div>',
 			noBackdrop: false
@@ -124,10 +120,10 @@ stories.controller('ListViewCtrl', function(
 	};
 
 	$scope.sortStories = function(sortProperty) {
-		
-		if(sortProperty == "date") {
 
-			if($scope.currentSortProperty == "date") {
+		if (sortProperty == "date") {
+
+			if ($scope.currentSortProperty == "date") {
 				$scope.storyPreviews = $filter('orderBy')($scope.storyPreviews, "insertTime", false);
 				$scope.currentSortProperty = "dateInverse";
 			} else {
@@ -135,8 +131,8 @@ stories.controller('ListViewCtrl', function(
 				$scope.currentSortProperty = "date";
 			}
 
-		} else if(sortProperty == "rating") {
-			if($scope.currentSortProperty == "rating") {
+		} else if (sortProperty == "rating") {
+			if ($scope.currentSortProperty == "rating") {
 				$scope.storyPreviews = $filter('orderBy')($scope.storyPreviews, "rating", false);
 				$scope.currentSortProperty = "ratingInverse";
 			} else {
@@ -144,26 +140,26 @@ stories.controller('ListViewCtrl', function(
 				console.log("Sorting by ratin!!!!!!!");
 				$scope.currentSortProperty = "rating";
 			}
-			
+
 		}
 		console.log("Sorting stories by: " + $scope.currentSortProperty);
-		
+
 	};
 
 	$scope.filterByCategory = function(category) {
 		$scope.popover.hide();
-		if(category == 0) {
+		if (category == 0) {
 			$scope.storyPreviews = $scope.storyPreviewsOriginal.splice(0);
 			$scope.chosenCategory = "Kategori";
 			return;
 		}
-		$scope.chosenCategory = $scope.categorynames[category-1];
+		$scope.chosenCategory = $scope.categorynames[category - 1];
 
 		$scope.storyPreviews = [];
-		for(var i = 0; i < $scope.storyPreviewsOriginal.length; i++) {
+		for (var i = 0; i < $scope.storyPreviewsOriginal.length; i++) {
 			console.log($scope.storyPreviewsOriginal[i].categories);
 			var storyHasCategory = $scope.storyPreviewsOriginal[i].categories.indexOf(category.toString()) != -1;
-			if(storyHasCategory) {
+			if (storyHasCategory) {
 				$scope.storyPreviews.push($scope.storyPreviewsOriginal[i]);
 			}
 		}
@@ -172,9 +168,9 @@ stories.controller('ListViewCtrl', function(
 
 
 
-  //Cleanup the popover when we're done with it!
-  $scope.$on('$destroy', function() {
-    $scope.popover.remove();
-  });
+	//Cleanup the popover when we're done with it!
+	$scope.$on('$destroy', function() {
+		$scope.popover.remove();
+	});
 
 })
