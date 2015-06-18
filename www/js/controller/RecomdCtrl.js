@@ -87,9 +87,13 @@ stories.controller('RecomdCtrl', function(
 */
 
 	$scope.refreshRecommendations = function() {
-		$ionicLoading.show({
-	        template: '<h2>Laster inn...</h2>',
-	    });
+		if($scope.storyPreviews.length > 0) {
+			$ionicLoading.show({
+	        	template: '<h2>Henter nye anbefalinger</h2>',
+	        	duration: 1000
+	    	});
+		}
+		
 		$scope.currentlyLoading = true;
 
 		//$ionicHistory.clearCache();
@@ -120,7 +124,6 @@ stories.controller('RecomdCtrl', function(
 			$scope.currentlyLoading = false;
 			}, 1000);
 			
-			$ionicLoading.hide();
 		}, function(response) {
 				if ($rootScope.networkAccess) {
 					$rootScope.popUp("Server problemer", "Prøv igjen nå eller senere" );
@@ -149,12 +152,13 @@ stories.controller('RecomdCtrl', function(
 	// Remove story from slidebox and set story as rejected. 
 	// Currently works in browser, but not on Android/iOS. 
 	$scope.rejectStory = function(index) {
+
+		$ionicLoading.show({
+	        template: '<h2>Fortellingen er fjernet fra dine anbefalinger</h2>',
+	        duration: 1800
+	    });
 		
 		Requests.rejectStory($scope.userId, $scope.storyPreviews[index].id);
-		$ionicLoading.show({
-	        template: '<h2>Du har fjernet en historie</h2>',
-	        duration: 2000
-	    });
 
 		// If it is the last slide, go back to previous slide. Otherwise, next slide. 
 		$scope.storyPreviews.splice(index, 1);
