@@ -2,9 +2,9 @@
     		<div class="rating-content">
         	<h2>Likte du denne fortellingen?</h2>
         	<i class="icon ion-android-star star" ng-class="{filled: i <= story.rating}" ng-repeat="i in [1,2,3,4,5]" ng-click="rateFunction(i)"></i>
-        	<p class="calm" ng-show="ratingStatus.valueOf() == 'notRated'.valueOf()"> Gi den stjerner <i class="ion-alert"></i></p>
-        	<p class="calm" ng-show="ratingStatus.valueOf() === 'rating'"> Registrerer... <i class="icon ion-loading-a"></i></p>
-        	<p class="calm" ng-show="ratingStatus.valueOf() === 'rated'">Lagt til i "Lest" <i class="ion-checkmark-round"></i> </p>
+        	<p class="calm" ng-show="!currentlyRating && !story.rating"> Gi den stjerner <i class="ion-alert"></i></p>
+        	<p class="calm" ng-show="currentlyRating"> Registrerer... <i class="icon ion-loading-a"></i></p>
+        	<p class="calm" ng-show="!currentlyRating && story.rating">Lagt til i "Lest" <i class="ion-checkmark-round"></i> </p>
         	<button class="button button-calm button-block" ng-click="closeModal()">Ferdig</button>
       </div>
 </div>
