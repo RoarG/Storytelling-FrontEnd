@@ -95,12 +95,16 @@
                 <p>{{audio['description']}}</p>
                 </div>
             </div>
-            <div class="map-image" ng-if="mediaType === 'map'" data-tap-disabled="true">
+
+            <!-- Map -->
+            <div class="map-image" ng-if="mediaType === 'map'">
                 
-            <img src="https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=400x200&maptype=roadmap
+                <img src="https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=400x200&maptype=roadmap
 &markers=color:red%7Clabel:S%7C40.702147,-74.015794" ng-click="showModal('templates/map.html')"/>
             </div>
         </ion-scroll>
+
+
         <!-- Story text -->
         <div ng-if="story.text" class="story-wrapper card">
             <p class="clear-float" ng-bind-html="story.text" ng-click="onclickStoryContent($event)"></p>
@@ -110,9 +114,9 @@
             <div class="rating" ng-controller="RatingCtrl">
                 <p>Likte du denne fortellingen?</p>
                 <i class="icon ion-android-star star" ng-class="{filled: i <= story.rating}" ng-repeat="i in [1,2,3,4,5]" ng-click="rateFunction(i)"></i>
-                <p ng-show="ratingStatus.valueOf() === 'notRated'"> Venter på vurdering  <i class="ion-alert"></i></p>
-                <p ng-show="ratingStatus.valueOf() === 'rating'">  Registrerer...<i class="icon ion-loading-a"></i></p>
-                <p ng-show="ratingStatus.valueOf() === 'rated'">  Lagt til i "Lest"<i class="ion-checkmark-round"></i></p>
+                <p ng-show="!currentlyRating && !story.rating"> Gi den stjerner  <i class="ion-alert"></i></p>
+                <p ng-show="currentlyRating">  Registrerer...<i class="icon ion-loading-a"></i></p>
+                <p ng-show="!currentlyRating && story.rating">  Lagt til i "Lest"<i class="ion-checkmark-round"></i></p>
 
             </div>
             <div class="sosialSharing">
