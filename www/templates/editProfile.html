@@ -1,42 +1,40 @@
 <ion-view view-title="Profil" ng-init="loadProfile()">
-
-  <ion-content>
-      <div class="edit-profile">
-
-          <div class="header-padding"></div>
-          <!--<h1 class="viewhead">Profil</h1>-->
-
-          <div class="topContProfile">
-              <div class="infoText">Velg aldersgruppe og kjønn for at vi skal kunne gi deg bedre anbefalinger</div>
-              <h2 id="profile-h2">Alder</h2>
-              <div class="button-bar">
-              <!-- Uses the same setup as in story.html ref. copy here -->
-                <a class="button button-light" ng-class="{'active': ageGrp === 1}" ng-click="ageGrp = 1;setAgeGrp(1)">Under 20</a>
-                <a class="button button-light" ng-class="{'active': ageGrp === 2}" ng-click="ageGrp = 2;setAgeGrp(2)">20 - 45</a>
-                <a class="button button-light" ng-class="{'active': ageGrp === 3}" ng-click="ageGrp = 3;setAgeGrp(3)">46 - 65</a>
-                <a class="button button-light" ng-class="{'active': ageGrp === 4}" ng-click="ageGrp = 4;setAgeGrp(4)">Over 66</a>
-              </div>
-          </div>
-
-            <div class="bottomContProfile">
-              
-              <h2 id="profile-h2">Kjønn</h2>
-              <div class="button-bar">              <!-- Uses the same setup as in story.html ref. copy here -->
-                <a class="button button-light" ng-class="{'active': gender === 0}" ng-click="gender = 0;setGender(0)">Kvinne</a>
-                <a class="button button-light" ng-class="{'active': gender === 1}" ng-click="gender = 1;setGender(1)">Mann</a>
-              </div>
-
+    <ion-content scroll="false">
+        <div class="edit-profile">
+            <div class="header-padding"></div>
+            
+            <div class="mainCont">
+                <div class="topContProfile">
+                    <div class="infoText">Velg aldersgruppe og kjønn for at vi skal kunne gi deg bedre anbefalinger</div>
+                    <h2 id="profile-h2">Alder</h2>
+                    <div class="button-bar">
+                        <!-- Uses the same setup as in story.html ref. copy here -->
+                        <a class="button button-light" ng-class="{'active': ageGrp === 1}" ng-click="ageGrp = 1;setAgeGrp(1)">Under 20</a>
+                        <a class="button button-light" ng-class="{'active': ageGrp === 2}" ng-click="ageGrp = 2;setAgeGrp(2)">20 - 45</a>
+                        <a class="button button-light" ng-class="{'active': ageGrp === 3}" ng-click="ageGrp = 3;setAgeGrp(3)">46 - 65</a>
+                        <a class="button button-light" ng-class="{'active': ageGrp === 4}" ng-click="ageGrp = 4;setAgeGrp(4)">Over 66</a>
+                    </div>
+                </div>
+            
+                <div class="bottomContProfile">
+                    <h2 id="profile-h2">Kjønn</h2>
+                    <div class="button-bar">
+                        <!-- Uses the same setup as in story.html ref. copy here -->
+                        <a class="button button-light" ng-class="{'active': gender === 0}" ng-click="gender = 0;setGender(0)">Kvinne</a>
+                        <a class="button button-light" ng-class="{'active': gender === 1}" ng-click="gender = 1;setGender(1)">Mann</a>
+                    </div>
+                </div>
             </div>
-
-            <div class="skipContLogin">
-              <button class="button button-calm settings-button-width" ng-click="updateProfil()">Lagre</button>
-              <!--<p ng-show="profileSaved"><i class="ion-checkmark"></i> Lagret</p>-->
-            </div> 
-
-    </div>
-
-
-
-  </ion-content>
-
+            
+            <div class="bottomCont">
+                <div class="bottomCont2">
+                    <div class="buttons-cont">
+                        <p ng-show="profileSaved"><i class="ion-checkmark"></i> Lagret</p>
+                        <button class="button button-calm settings-button-width" ng-click="updateProfil()">Lagre</button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </ion-content>
 </ion-view>

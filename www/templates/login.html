@@ -1,44 +1,39 @@
 <ion-view view-title="Login">
-<ion-content has-header="false" hide-nav-bar="true" padding="true" has-tabs="false" scroll="false">
-<div class="header-padding"></div>
-<div class="topCont">
-  <h1 class="viewhead login-title">Innlogging</h1>
-  <div class="mainCont">
-    <div class="loginContainer">
-      <div class="infoText">Logg inn med eksisterende eller ny e-postadresse</div>
-      
-      <div class="innerContLogin">
-        <form name="login" ng-submit="doLogin(user.email)">
-          <label class="item item-input" >
-            <input  name="email"
-            type="email"
-            placeholder="E-post"
-            ng-model="user.email"
-            ng-model-option ="{ getterSetter: true }"
-            required/>
-          </label>
-          
-          <button class="button button-block button-calm" type="submit" value="submit">Logg inn</button>
-          <span ng-show="login.email.$error.email">Ikke en gyldig adresse</span>
+    <ion-content has-header="false" hide-nav-bar="true" padding="true" has-tabs="false" scroll="false">
+        <div class="header-padding"></div>
+        
+        <div class="topCont">
+            <h1 class="viewhead login-title">Innlogging</h1>
+            <div class="loginBorder">
+                <div class="loginContainer">
+                    <div class="infoText">Logg inn med eksisterende eller ny e-postadresse</div>
+                    <div class="innerContLogin">
+                        <form name="login" ng-submit="doLogin(user.email)">
+                            <label class="item item-input">
+                                <input name="email" type="email" placeholder="E-post" ng-model="user.email" ng-model-option="{ getterSetter: true }" required/>
+                            </label>
+                            <button class="button button-block button-calm" type="submit" value="submit">Logg inn</button>
+                            <span ng-show="login.email.$error.email">Ikke en gyldig adresse</span>
+                    </div>
+                    </form>
+                </div>
+            </div>
         </div>
-      </form>
-    </div>
-  </div>
-</div>
-<div class="bottomCont">
-  <div class="bottomCont2">
-    <div class="contCont">
-      <div class="infoText">Ved å hoppe over innloggingen vil preferansene dine KUN være koblet til denne enheten</div>
-      <a href="" ng-click="closeLogin()" id="skipLogin">Hopp over dette steget</a>
-      
-      <!-- Place the step x of y circle here -->
-      <div class="pageIndicatorContLogin">
-        <i class="ion-ios-circle-filled"></i>
-        <i class="ion-ios-circle-outline"></i>
-        <i class="ion-ios-circle-outline"></i>
-      </div>
-    </div>
-  </div>
-</div>
-</ion-content>
+
+        <div class="bottomCont">
+            <div class="bottomCont2">
+                <div class="contCont">
+                    <div class="infoText">Ved å hoppe over innloggingen vil preferansene dine KUN være koblet til denne enheten</div>
+                    <a href="" ng-click="closeLogin()" id="skipLogin">Hopp over dette steget</a>
+                    <!-- Place the step x of y circle here -->
+                    <div class="pageIndicatorContLogin">
+                        <i class="ion-ios-circle-filled"></i>
+                        <i class="ion-ios-circle-outline"></i>
+                        <i class="ion-ios-circle-outline"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </ion-content>
 </ion-view>

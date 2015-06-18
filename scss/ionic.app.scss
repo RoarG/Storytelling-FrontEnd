@@ -254,7 +254,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	min-height: 2.5em;
 	line-height: 2.5em;
     width: 	8em;
-    margin-left: 0%;
+    margin-left: 5%;
 
     @include mq(medium) {
     	line-height: 3em;
@@ -365,6 +365,11 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 ///		Profile
 //////////////////////
 */
+
+.mainCont {
+	margin: 0 auto;
+	width: 90%;
+}
 
 
 .topContProfile {
