@@ -6,18 +6,29 @@
 
 angular.module('ListViewCtrl', [])
 
-stories.controller('ListViewCtrl', function($scope, Requests, Story, $state, $rootScope, $ionicLoading, $window, $cordovaDialogs, $animate, $ionicPlatform, $ionicPopover, $filter) {
+stories.controller('ListViewCtrl', function(
+	$window, 
+	$scope, 
+	$state, 
+	$rootScope, 
+	$ionicLoading, 
+	$cordovaDialogs, 
+	$animate, 
+	$ionicPlatform, 
+	$ionicPopover, 
+	$filter,
+	$ionicPopup,
+	Story, 
+	Requests
+) {
+
 	$animate.enabled(true);
 
 	$scope.chosenCategory = "Kategori";
 
 	$scope.tag = Requests.getSelectedTag();
-	
-
 
 	$scope.categorynames = ["Kunst", "Arkitektur", "Arkeologi", "Historie", "Tradisjon", "Natur", "Litteratur", "Musikk", "Teknologi"]
-
-
 
 	$scope.$on('$ionicView.enter', function() {
 		// Retrieve stories associated with selected tag, so that they can be displayed
@@ -73,17 +84,25 @@ stories.controller('ListViewCtrl', function($scope, Requests, Story, $state, $ro
 	// Remove a story from the listview
 	$scope.remove = function(story, event) {
 		$ionicPlatform.ready(function() {
-			$cordovaDialogs.confirm('Er du sikker på at du vil slette denne fortellingen?', 'Slett fortelling', ['OK', 'Avbryt']).then(function(response) {
-				// response == 1 means that the user has replied "OK", so the list is deleted and the bookmark is removed from the story. 
-				if (response === 1) {
+			var confirmPopup = $ionicPopup.confirm({
+			cssClass: 'popUp',
+	     	title: 'Fjern fortelling' , 
+	     	template: 'Er du sikker på at du vil fjerne denne fortellingen?' , 
+	     	cancelText: 'Avbryt',
+	     	okText: 'OK'
+	   		});
+	   			   		
+	   		confirmPopup.then(function(res) {
+			    if(res) {
 					var index = $scope.storyPreviews.indexOf(story);
 					$scope.storyPreviews.splice(index, 1);
 					var originalIndex = $scope.storyPreviewsOriginal.indexOf(story);
 					$scope.storyPreviewsOriginal.splice(originalIndex,1);
 					Requests.removeTagStory(Requests.getSelectedTag(), $window.localStorage.getItem('userId'), story.id);
-				}
-			});
-
+		     	} else {
+		    	   console.log('Noe gikk galt');
+		     	}
+		   	}); 
 			event.preventDefault();
 			event.stopPropagation();
 		});
