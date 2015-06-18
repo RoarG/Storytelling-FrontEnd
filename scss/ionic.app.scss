@@ -582,6 +582,23 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 //////////////////////
 */
 
+#spanMail {
+	width: 18%;
+}
+
+#inputMail {
+	width: 50%;
+	padding-right: 2%;
+}
+
+.iconCont {
+	margin:  auto;
+
+	.ion-loading-a{
+		font-size: 1.8em;
+	}
+}
+
 .settings-right-adjust {
 	float: right;
 }
