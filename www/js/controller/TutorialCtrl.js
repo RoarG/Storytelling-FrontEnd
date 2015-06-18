@@ -7,14 +7,23 @@
 
 angular.module('TutorialCtrl', [])
 
-stories.controller('TutorialCtrl', function($scope, $state, $ionicSlideBoxDelegate, $window) {
+stories.controller('TutorialCtrl', function(
+	$window,
+	$scope, 
+	$state, 
+	$ionicSlideBoxDelegate, 
+	$ionicHistory
+) {
 
 
 	/**
 	* A simple state change to go to the recommendations view
 	*/
 	$scope.recommendedView = function () {
-	  $state.go('app.recommendations');
+		$ionicHistory.nextViewOptions({
+	 		disableBack: true
+			});
+	  	$state.go('app.recommendations');
 	};
 
 	
