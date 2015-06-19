@@ -17,7 +17,8 @@
                 <h2 ng-show="!currentlyLoading">hva?</h2>
                 <!--<img  src="img/logo_bubble_without_text.png" ng-click="refreshRecommendations()"/>-->
             </div>
-            <button class="button button-assertive" ng-click="refreshRecommendations()">Finn nye fortellinger</button>
+            <button ng-if="!currentlyLoading" class="button button-assertive" ng-click="refreshRecommendations()">Finn nye fortellinger</button>
+            <h2 ng-if="currentlyLoading">Finner fortellinger...</h2>
         </div>
 
        <ion-slide-box ng-if="storyPreviews.length > 0" active-slide="activeSlide" id="slideBox" show-pager="false" on-slide-changed="slideChanged($index)">

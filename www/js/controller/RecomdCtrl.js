@@ -87,17 +87,10 @@ stories.controller('RecomdCtrl', function(
 */
 
 	$scope.refreshRecommendations = function() {
-		if($scope.storyPreviews.length > 0) {
-			$ionicLoading.show({
-	        	template: '<h2>Henter nye anbefalinger</h2>',
-	        	duration: 1000
-	    	});
-		}
+		$scope.storyPreviews = [];
 		
 		$scope.currentlyLoading = true;
 
-		//$ionicHistory.clearCache();
-		//window.location.reload(true)
 		// Get array of recommended stories. 
 		Requests.getRecommendedStories($scope.userId).then(function(response) {
 			$timeout(function() {

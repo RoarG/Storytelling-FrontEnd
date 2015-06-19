@@ -21,6 +21,7 @@
 				{{ item.text }}
 			</ion-checkbox>
 		</ion-scroll>
+
 		<!-- Form to add a new bookmark list -->
 		<form class="item" ng-submit="addItem()" ng-show="displayTextField">
 			<label class="item item-input item-floating-label">
@@ -29,6 +30,9 @@
 			</label>
 			<button class="button button-calm" type="submit">Legg til</button>
 		</form>
+		<p ng-show="saveStatus == 'saving'"><i class="ion-loading-a"></i> Lagrer endringer...</p>
+			<p ng-show="saveStatus == 'saved'"><i class="ion-checkmark"></i> Lagret</p>
+			<p ng-show="saveStatus == 'error'">Endringer ikke lagret.</p>
 		<!-- Done button -->
 		<div class="item button button-block button-calm" ng-click="closeModal()">Ferdig</div>
 	</div>

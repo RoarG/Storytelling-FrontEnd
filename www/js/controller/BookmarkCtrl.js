@@ -18,6 +18,8 @@ stories.controller('BookmarkCtrl', function(
 	
 	$scope.userId = $window.localStorage.getItem('userId');
 	$scope.storyId = Requests.getSelectedStory();
+	$scope.saveStatus = "notSaved";
+
 	
 	// Gets all the bookmarks associated with the story.  
 	Requests.getStoryTags($scope.userId, $scope.storyId).then(function(response) {
@@ -62,14 +64,24 @@ stories.controller('BookmarkCtrl', function(
 
 	// Add text entered as a new bookmark list and add the story to it. 
 	$scope.addItem = function() {
+		$scope.saveStatus = "saving";
 		if ($scope.newItemName && !$scope.containsObjectWithProperty($scope.collectionList, "text", $scope.newItemName)) {
 			$scope.collectionList.push({
 				text: $scope.newItemName,
 				checked: true
 			});
 
-			Requests.addNewTag($scope.newItemName, $scope.userId, $scope.storyId);
+			Requests.addNewTag($scope.newItemName, $scope.userId, $scope.storyId)/*.then(function(response) {
+				$scope.tags.push($scope.newItemName);
+				$scope.saveStatus = "saved";
+			}, function(response) {
+				$scope.saveStatus = "error";
+			});*/
 			$scope.tags.push($scope.newItemName);
+			$scope.saveStatus = "saved";
+			
+		} else {
+			$scope.saveStatus = "notSaved";
 		}
 		$scope.newItemName = null;
 		$scope.displayTextField = false;
@@ -87,19 +99,40 @@ stories.controller('BookmarkCtrl', function(
 
 	// Toggles whether a tag is associated with the story. 
 	$scope.toggleTag = function(tag) {
+		$scope.saveStatus = "saving";
 		// If the story already had that tag, remove the tag. 
 		if (!tag.checked) {
 			Requests.removeTagStory(tag.text, $scope.userId, $scope.storyId);
-			for (var i = 0; i < $scope.tags.length; i++) {
-				if ($scope.tags[i].valueOf() == tag.text.valueOf()) {
-					$scope.tags.splice(i, 1);
+			/*.then(function(response) {
+				for (var i = 0; i < $scope.tags.length; i++) {
+					if ($scope.tags[i].valueOf() == tag.text.valueOf()) {
+						$scope.tags.splice(i, 1);
+					}
 				}
-			}
+				$scope.saveStatus = "saved";
+			}, function(response) {
+				$scope.saveStatus = "error";
+			});*/
+			for (var i = 0; i < $scope.tags.length; i++) {
+					if ($scope.tags[i].valueOf() == tag.text.valueOf()) {
+						$scope.tags.splice(i, 1);
+					}
+				}
+				$scope.saveStatus = "saved";
+			
 		// If the story does not already have the tag, add the tag. 
 		} else {
-			Requests.tagStory(tag.text, $scope.userId, $scope.storyId);
+			Requests.tagStory(tag.text, $scope.userId, $scope.storyId);/*.then(function(response) {
+				$scope.tags.push(tag["text"]);
+				$scope.saveStatus = "saved";
+			}, function(response) {
+				$scope.saveStatus = "error";
+			});*/
 			$scope.tags.push(tag["text"]);
+			$scope.saveStatus = "saved";
+			
 		}
+		
 	};
 
 })

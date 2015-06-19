@@ -678,14 +678,23 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     }
 
     .item-floating-label .placeholder-icon {
-    padding-right: 18px;
-    position: absolute;
-    bottom: 9px;
-    left: 17px;
+    	padding-right: 18px;
+    	position: absolute;
+    	bottom: 9px;
+    	left: 17px;
 	}
 	.item-floating-label {
 	    padding-left: 40px;
 	}
+	p {
+		margin-top: 5%;
+		margin-left: 2%;
+		color: $primary-color;
+	}
+	.ion-loading-a {
+		font-size: 1em;
+		margin-right: 5px;
+	} 
 
 
 }
