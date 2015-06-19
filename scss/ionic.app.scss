@@ -580,6 +580,18 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	}
 }
 
+#seeMoreCard {
+	width: 80%;
+	margin: 0%; auto;
+	position: relative;
+	text-align: center;
+	border-radius: 8px;	
+
+	div {
+		padding: 10%;
+	}
+}
+
 
 
 
@@ -1613,6 +1625,7 @@ ion-slide .card {
 	text-align: center;
 	border-radius: 10px;
 }
+
 
 .reject-story-icon-container {
 	padding: 2%;

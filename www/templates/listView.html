@@ -1,55 +1,61 @@
 <ion-view view-title="{{tag}}">
-	<ion-nav-buttons side="right">
-		<button class="button button-outline button-balanced" id="filtering-button" ng-click="popover.show($event)"><i class="ion-arrow-down-b"></i> {{chosenCategory}}</button>
-	</ion-nav-buttons>
-	<ion-content overflow-scroll="true" class="list-view">
-		<div class="button-bar">
-			<a class="button button-light" ng-click="sortStories('date')"><i ng-if="currentSortProperty == 'date'" class="ion-arrow-down-b"></i><i ng-if="currentSortProperty == 'dateInverse'" class="ion-arrow-up-b"></i> Dato</a>
-			<a class="button button-light" ng-click="sortStories('rating')"><i ng-if="currentSortProperty == 'rating'" class="ion-arrow-down-b"></i><i ng-if="currentSortProperty == 'ratingInverse'" class="ion-arrow-up-b"></i> Stjerner</a>
-		</div>
-		
-		<div id="empty-message" ng-if="storyPreviews.length == 0">
-				<h3>Ingen fortellinger</h3>
-				<p>Utforsk flere fortellinger og legg til bokmerker for å se de her.</p>
-		</div>
-
-		<!-- make a list to hold stories-->
-		<ion-list>
-			<!-- fill the list with all the stories fetched by the controller-->
-			<ion-item class="item-button-right card" ng-repeat="story in storyPreviews" ng-click="open(story)">
-				<!-- add the contents of each list element-->
-				<div class="row">
-					<div class="col-33">
-						<div class="thumbnail">
-							<img ng-src="{{story.thumbnail}}">
-						</div>
-						<!-- add categories as their own lists on each story -->
-						<div class="story-categories">
-							<ul class="list-horizontal category-circle" ng-repeat="category in story.categories" ng-switch on="category">
-								<li class="list-cat-display cat-1" ng-switch-when="1"><i class="icon-art"></i></li>
-								<li class="list-cat-display cat-2" ng-switch-when="2"><i class="icon-architecture"></i></li>
-								<li class="list-cat-display cat-3" ng-switch-when="3"><i class="icon-archeology"></i></li>
-								<li class="list-cat-display cat-4" ng-switch-when="4"><i class="icon-history"></i></li>
-								<li class="list-cat-display cat-5" ng-switch-when="5"><i class="icon-tradition"></i></li>
-								<li class="list-cat-display cat-6" ng-switch-when="6"><i class="icon-nature"></i></li>
-								<li class="list-cat-display cat-7" ng-switch-when="7"><i class="ion-ios-book"></i></li>
-								<li class="list-cat-display cat-8" ng-switch-when="8"><i class="ion-music-note"></i></li>
-								<li class="list-cat-display cat-9" ng-switch-when="9"><i class="ion-gear-b"></i></li>
-							</ul>
-						</div>
-				</div>
-				<div class="col">
-				<h2>{{story.title}}</h2>
-				<p>
-				<i class="icon ion-android-star star" ng-class="{filled: i <= story.rating}" ng-repeat="i in [1,2,3,4,5]"></i></p>
-				<!-- Truncate the description to a maximum of 100 characters -->
-				<p>{{story.description | limitTo: 100}}{{story.description.length > 100 ? '...' : ''}}</p>
-				</div>
-			</div>
-
-				
-
-				<div ng-hide="{{tag == 'Historikk' || tag == 'Lest'}}" class="button button-clear" ng-click="remove(story, $event)"><i class="icon ion-close"></i></div>
-</ion-item>
-	</ion-content>
+    <ion-nav-buttons side="right">
+        <button class="button button-outline button-balanced" id="filtering-button" ng-click="popover.show($event)"><i class="ion-arrow-down-b"></i> {{chosenCategory}}</button>
+    </ion-nav-buttons>
+    <ion-content overflow-scroll="true" class="list-view">
+        <div class="button-bar">
+            <a class="button button-light" ng-click="sortStories('insertion_time')">
+                <i ng-if="currentSortOrder == 'DESC' && currentSortBy == 'insertion_time'" class="ion-arrow-down-b"></i>
+                <i ng-if="currentSortOrder == 'ASC'  && currentSortBy == 'insertion_time'" class="ion-arrow-up-b"></i> Dato</a>
+            <a class="button button-light" ng-click="sortStories('rating')">
+                <i ng-if="currentSortOrder == 'DESC'  && currentSortBy == 'rating'" class="ion-arrow-down-b"></i>
+                <i ng-if="currentSortOrder == 'ASC'  && currentSortBy == 'rating'" class="ion-arrow-up-b"></i> Stjerner</a>
+        </div>
+        <div id="empty-message" ng-if="storyPreviews.length == 0">
+            <h3>Ingen fortellinger</h3>
+            <p>Utforsk flere fortellinger og legg til bokmerker for å se de her.</p>
+        </div>
+        <!-- make a list to hold stories-->
+        <ion-list>
+            <!-- fill the list with all the stories fetched by the controller-->
+            <ion-item class="item-button-right card" ng-repeat="story in storyPreviews" ng-click="open(story)">
+                <!-- add the contents of each list element-->
+                <div class="row">
+                    <div class="col-33">
+                        <div class="thumbnail">
+                            <img ng-src="{{story.thumbnail}}">
+                        </div>
+                        <!-- add categories as their own lists on each story -->
+                        <div class="story-categories">
+                            <ul class="list-horizontal category-circle" ng-repeat="category in story.categories" ng-switch on="category">
+                                <li class="list-cat-display cat-1" ng-switch-when="1"><i class="icon-art"></i></li>
+                                <li class="list-cat-display cat-2" ng-switch-when="2"><i class="icon-architecture"></i></li>
+                                <li class="list-cat-display cat-3" ng-switch-when="3"><i class="icon-archeology"></i></li>
+                                <li class="list-cat-display cat-4" ng-switch-when="4"><i class="icon-history"></i></li>
+                                <li class="list-cat-display cat-5" ng-switch-when="5"><i class="icon-tradition"></i></li>
+                                <li class="list-cat-display cat-6" ng-switch-when="6"><i class="icon-nature"></i></li>
+                                <li class="list-cat-display cat-7" ng-switch-when="7"><i class="ion-ios-book"></i></li>
+                                <li class="list-cat-display cat-8" ng-switch-when="8"><i class="ion-music-note"></i></li>
+                                <li class="list-cat-display cat-9" ng-switch-when="9"><i class="ion-gear-b"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h2>{{story.title}}</h2>
+                        <p>
+                            <i class="icon ion-android-star star" ng-class="{filled: i <= story.rating}" ng-repeat="i in [1,2,3,4,5]"></i></p>
+                        <!-- Truncate the description to a maximum of 100 characters -->
+                        <p>{{story.description | limitTo: 100}}{{story.description.length > 100 ? '...' : ''}}</p>
+                    </div>
+                </div>
+                <div ng-hide="{{tag == 'Historikk' || tag == 'Lest'}}" class="button button-clear" ng-click="remove(story, $event)"><i class="icon ion-close"></i></div>
+            </ion-item>
+            <ion-item ng-if="isMore" class="item-button-right card" id="seeMoreCard" ng-click="seeMore()">
+            <div>
+                Se flere 
+                <i ng-if="!gettingMore" class="ion-chevron-down"></i>
+                <i ng-if="gettingMore" class="ion-load-a"></i>
+            </div>
+            </ion-item>
+    </ion-content>
 </ion-view>

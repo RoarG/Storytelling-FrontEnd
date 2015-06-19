@@ -28,48 +28,114 @@ stories.controller('ListViewCtrl', function(
 
 	$scope.tag = Requests.getSelectedTag();
 
-	$scope.categorynames = ["Kunst", "Arkitektur", "Arkeologi", "Historie", "Tradisjon", "Natur", "Litteratur", "Musikk", "Teknologi"]
+	$scope.categorynames = [
+	"Kunst", 
+	"Arkitektur", 
+	"Arkeologi", 
+	"Historie", 
+	"Tradisjon", 
+	"Natur", 
+	"Litteratur", 
+	"Musikk", 
+	"Teknologi"]
 
-	$scope.$on('$ionicView.enter', function() {
-		// Retrieve stories associated with selected tag, so that they can be displayed
-		Requests.getStoryList($scope.tag, $window.localStorage.getItem('userId')).success(function(data, status) {
-			//Display loading screen
-			$ionicLoading.show({
-				template: '<h2>Laster inn...</h2><div class="icon ion-loading-a"></div>',
-				noBackdrop: false
-			});
-			$scope.storyPreviews = data;
-			$scope.storyPreviewsOriginal = data.slice(0);
-			$ionicLoading.hide();
+	//For Requests
+	$scope.currentOffset = 0;
+	$scope.currentSortOrder = 'DESC'; 
+	$scope.currentSortBy = 'insertion_time';
+	$scope.filterByCategory = 0;
 
-			for (var i = 0; i < $scope.storyPreviews.length; i++) {
-				if ($scope.storyPreviews[i].rating == null) {
-					$scope.storyPreviews[i].rating = 0;
+	//For array
+	$scope.isMore = false;
+	$scope.arrayEnd = false;
+
+	//For Icons
+	$scope.gettingMore = false;
+
+	// $scope.$on('$ionicView.enter', function() {
+		/*Get all stories that a user has connected to tagName
+		* Parameters for sorting:
+			offset: denotes which row is the first row to be returned. 
+					Use 0 to start from the first row, 20 to start from the twenty-first row.
+			order: 'DESC' for largest first, 'ASC' for smallest first.
+			sortby: 'insertion_time' for sorting by date, 'rating' for sorting by rating.
+			category: denotes which category to filter on. 1-9 for a category, 0 for no category selected.
+		*/
+	// Retrieve stories associated with selected tag, so that they can be displayed
+	Requests.getStoryList(
+		$scope.tag, 
+		$window.localStorage.getItem('userId'), 
+		$scope.currentOffset, 
+		$scope.currentSortOrder, 
+		$scope.currentSortBy, 
+		$scope.filterByCategory
+		).success(function(data, status) {
+		
+		//Display loading screen
+		$ionicLoading.show({
+			template: '<h2>Laster inn...</h2><div class="icon ion-loading-a"></div>',
+			noBackdrop: false
+		});
+
+		$scope.storyPreviews = data;
+
+		$ionicLoading.hide();
+
+		for (var i = 0; i < $scope.storyPreviews.length; i++) {
+			if ($scope.storyPreviews[i].rating == null) {
+				$scope.storyPreviews[i].rating = 0;
+			}
+		}
+
+		//Sjekk if there is more in the list and cache them
+		$scope.getNext()
+		//TODO: Legg til see more knapp her hvis det er flere som kan bes om.
+
+	}).error(function(data, status) {
+		console.log('respons: ' + data + status);
+		$cordovaDialogs.alert("Får ikke svar fra server.");
+	});
+
+	$scope.getNext = function () {
+		Requests.getStoryList(
+			$scope.tag, 
+			$window.localStorage.getItem('userId'), 
+			$scope.currentOffset += 20, 
+			$scope.currentSortOrder, 
+			$scope.currentSortBy, 
+			$scope.filterByCategory
+			).success(function(data, status) {
+				$scope.storyPreviewsNext = data;
+				if ($scope.storyPreviewsNext.length == 0) {
+					$scope.isMore = false;
+					console.log('next 0  :' + $scope.currentOffset);
 				}
-			}
-
-			if ($scope.chosenCategory && $scope.chosenCategory != "Kategori") {
-				console.log($scope.chosenCategory);
-				$scope.filterByCategory($scope.categorynames.indexOf($scope.chosenCategory) + 1);
-			}
-
-			if ($scope.currentSortProperty) {
-				if ($scope.currentSortProperty.indexOf("Inverse") != -1) {
-					$scope.currentSortProperty = $scope.currentSortProperty.substring(0, $scope.currentSortProperty.length - 7);
-					$scope.sortStories($scope.currentSortProperty);
-				} else {
-					var tempSortProperty = $scope.currentSortProperty;
-					$scope.currentSortProperty = $scope.currentSortProperty + "Inverse";
-					$scope.sortStories(tempSortProperty);
+				else if ($scope.storyPreviewsNext.length < 20) {
+					$scope.arrayEnd = true;
+					$scope.isMore = true;
+					console.log('next < 20  :' + $scope.currentOffset);
 				}
-			} else {
-				$scope.sortStories("date");
-			}
+				else if ($scope.storyPreviewsNext.length = 20) {
+					$scope.isMore = true;
+					console.log('next 20   :' + $scope.currentOffset);
+					//TODO: EVEN MORE 
+				}
 
-		}).error(function(data, status) {
+			}).error(function(data, status) {
+			console.log('respons: ' + data + status);
 			$cordovaDialogs.alert("Får ikke svar fra server.");
 		});
-	});
+	}
+
+	$scope.seeMore = function () {
+		$scope.gettingMore = true;
+		setTimeout(function() {$scope.gettingMore = false
+			$scope.storyPreviews = $scope.storyPreviews.concat($scope.storyPreviewsNext);
+			$scope.getNext();
+			console.log('StoryPreviews ' + $scope.storyPreviews);
+		}, 1000);
+	}
+
 
 	$ionicPopover.fromTemplateUrl('templates/categoryFilteringDropdown.html', {
 		scope: $scope
@@ -106,6 +172,29 @@ stories.controller('ListViewCtrl', function(
 
 	};
 
+	$scope.updateStoryList = function () {
+		Requests.getStoryList(
+			$scope.tag, 
+			$window.localStorage.getItem('userId'), 
+			$scope.currentOffset, 
+			$scope.currentSortOrder, 
+			$scope.currentSortBy, 
+			$scope.filterByCategory
+			).success(function(data, status) {
+				
+				$scope.storyPreviews = data;
+				$scope.getNext()
+
+				for (var i = 0; i < $scope.storyPreviews.length; i++) {
+					if ($scope.storyPreviews[i].rating == null) {
+						$scope.storyPreviews[i].rating = 0;
+					}
+				}
+			}).error(function(data, status) {
+				console.log('respons: ' + data + status);
+				$cordovaDialogs.alert("Får ikke svar fra server.");
+			});		
+	}
 
 	// Opens the selected story. 
 	$scope.open = function(story) {
@@ -120,31 +209,38 @@ stories.controller('ListViewCtrl', function(
 	};
 
 	$scope.sortStories = function(sortProperty) {
+		$scope.currentOffset = 0;
 
-		if (sortProperty == "date") {
+		if (sortProperty == $scope.currentSortBy) {
 
-			if ($scope.currentSortProperty == "date") {
-				$scope.storyPreviews = $filter('orderBy')($scope.storyPreviews, "insertTime", false);
-				$scope.currentSortProperty = "dateInverse";
-			} else {
-				$scope.storyPreviews = $filter('orderBy')($scope.storyPreviews, "insertTime", true);
-				$scope.currentSortProperty = "date";
+			if ($scope.currentSortOrder == 'DESC') {
+				$scope.currentSortOrder = 'ASC';
+				$scope.updateStoryList();
 			}
-
-		} else if (sortProperty == "rating") {
-			if ($scope.currentSortProperty == "rating") {
-				$scope.storyPreviews = $filter('orderBy')($scope.storyPreviews, "rating", false);
-				$scope.currentSortProperty = "ratingInverse";
-			} else {
-				$scope.storyPreviews = $filter('orderBy')($scope.storyPreviews, "rating", true);
-				console.log("Sorting by ratin!!!!!!!");
-				$scope.currentSortProperty = "rating";
+			else {
+				$scope.currentSortOrder = 'DESC';
+				$scope.updateStoryList();
 			}
-
 		}
-		console.log("Sorting stories by: " + $scope.currentSortProperty);
+		else if (sortProperty != $scope.currentSortBy){
+			$scope.currentSortBy = sortProperty;
+			$scope.currentSortOrder = 'DESC';
+			$scope.updateStoryList();
+		}
+		else {
+			
+			if ($scope.currentSortOrder == 'DESC') {
+				$scope.currentSortOrder = 'ASC';
+				$scope.updateStoryList();
+			}
+			else {
+				$scope.currentSortOrder = 'DESC';
+				$scope.updateStoryList();
+			}
+		}
+		console.log("Sorting stories by: " + $scope.currentSortBy +" Sort order: " + $scope.currentSortOrder);
+	}
 
-	};
 
 	$scope.filterByCategory = function(category) {
 		$scope.popover.hide();
