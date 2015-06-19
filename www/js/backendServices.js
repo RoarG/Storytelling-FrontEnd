@@ -114,7 +114,9 @@ stories.factory("Requests", function ($http) {
 		url: 'http://188.113.108.37/requests/controller.php',
 		headers: {'Content-Type': 'application/json'} // 'Content-Type': application/json???
 	}
-
+	
+	var tok = ""; //Add the correct token here
+	
 	var selectedStory; // Currently selected story by user
 	var selectedTag; // Currently selected bookmark list
 
@@ -122,22 +124,25 @@ stories.factory("Requests", function ($http) {
 		/**Retrieves single story from digitalt fortalt*/
 		getStory: function(storyId, userId){
 			req.data = {
+				token: tok,
 				type: "getStory",
 				storyId: storyId,
-				userId: userId };
+				userId: userId};
 			return $http(req);
 		},
 
 		/**Retrieves recommended stories from the database*/
 		getRecommendedStories: function(userId) {
-			req.data = { type: "getStories",
+			req.data = { token: tok,
+						type: "getStories",
 						userId: userId};
 			return $http(req);
 		},
 
 		/*Creates and retrieves recommended stories that are not currently in the recommendation-view*/
 		getMoreRecommendedStories: function(userId){
-			req.data = {type: "getMoreRecommendations",
+			req.data = {token: tok,
+						type: "getMoreRecommendations",
 						userId: userId};
 			return $http(req);
 		},
@@ -145,6 +150,7 @@ stories.factory("Requests", function ($http) {
 		/** Adds user rating to a story */
 		addRating: function(storyId, userId, rating){
 			req.data = {
+				token: tok,
 				type: "rating",
 				storyId: storyId,
 				userId: userId,
@@ -154,7 +160,8 @@ stories.factory("Requests", function ($http) {
 		
 		/** Adds a new user to the database, takes a userinstance as input, can be partially filled (for no email set email = -1) **/
 		addUser: function (userEmail){
-			req.data = {type: "addUser",
+			req.data = {token: tok,
+				type: "addUser",
 				email: userEmail};
 
 			return $http(req); /** Returns status successfull and userId upon success,
@@ -165,7 +172,8 @@ stories.factory("Requests", function ($http) {
 		userData should be User object. Create new user by using: 
 		user = new User(userId, $scope.user) or new User(userId, response.data.userModel), then call updateUser(user)*/
 		updateUser: function (userData){
-			req.data = {type: "updateUser",
+			req.data = {token: tok,
+				type: "updateUser",
 				userId: userData.userId,
 				email: userData.email,
 				age_group: userData.age_group,
@@ -180,7 +188,8 @@ stories.factory("Requests", function ($http) {
 		/** Returns a user instance by using the user email address as input **/
 		//TODO: Implement so that it needs confirmation via email
 		getUserFromEmail: function(email){
-			req.data = {type: "getUserFromEmail",
+			req.data = {token: tok,
+				type: "getUserFromEmail",
 				'email': email};
 			return $http(req); /** returns status successfull and userModel upon success, 
 			e.g {"status":"successfull","userModel":{"userId":"1","email":"1@1.com","age_group":"0","gender":"0","user_of_location":"0","category_preference":["art and design","architecture"]}}
@@ -190,7 +199,8 @@ stories.factory("Requests", function ($http) {
 
 		/** Returns a user instance by using the user id as input **/
 		getUserFromId: function(userId){
-			req.data = {type: "getUserFromId",
+			req.data = {token: tok,
+				type: "getUserFromId",
 				'userId': userId};
 			return $http(req); /** returns status successfull and userModel upon success, 
 			e.g {"status":"successfull","userModel":{"userId":"1","email":"1@1.com","age_group":"0","gender":"0","user_of_location":"0","category_preference":["art and design","architecture"]}}
@@ -200,6 +210,7 @@ stories.factory("Requests", function ($http) {
 		/*Get all lists for a user*/
 		getAllLists: function (userId){
 			req.data = {
+				token: tok,
 				type: "getAllLists",
 				userId: userId
 			};
@@ -209,44 +220,48 @@ stories.factory("Requests", function ($http) {
 		/*Add new tag and connects it to user*/
 		addNewTag: function(tagName, userId, storyId){
 			req.data = {
+				token: tok,
 				type: "addNewTag",
 				userId: userId,
 				tagName: tagName,
 				storyId: storyId
 			};
-			$http(req);
+			return $http(req);
 		},
 		
 		/*Connects an existing tag, user and story*/
 		tagStory: function (tagName, userId, storyId){
 			req.data = {
+				token: tok,
 				type: "tagStory",
 				userId: userId,
 				storyId: storyId,
 				tagName: tagName
 			};
-			$http(req);
+			return $http(req);
 		},
 		
 		/*Remove tag from specific story/remove from list*/
 		removeTagStory: function (tagName, userId, storyId){
 			req.data = {
+				token: tok,
 				type: "removeTagStory",
 				userId: userId,
 				storyId: storyId,
 				tagName: tagName
 			};
-			$http(req);
+			return $http(req);
 		},
 		
 		/*Remove tag altogether from user, that is, remove the whole list*/
 		removeTag: function (userId, tagName){
 			req.data = {
+				token: tok,
 				type: "removeTag",
 				userId: userId,
 				tagName: tagName
 			};
-			$http(req);
+			return $http(req);
 		},
 		
 		/*Get all stories that a user has connected to tagName
@@ -259,6 +274,7 @@ stories.factory("Requests", function ($http) {
 		*/
 		getStoryList: function (tagName, userId /*,offset, order,sortby,category*/){
 			req.data = {
+				token: tok,
 				type: "getList",
 				userId: userId,
 				/*offset: offset,
@@ -273,6 +289,7 @@ stories.factory("Requests", function ($http) {
 		/*Get all tags connected to a story for a user*/
 		getStoryTags: function (userId, storyId){
 			req.data = {
+				token: tok,
 				type: "getStoryTags",
 				userId: userId,
 				storyId: storyId
@@ -284,36 +301,40 @@ stories.factory("Requests", function ($http) {
 		/*Set rejected story state in database*/
 		rejectStory: function(userId, storyId){
 			req.data = {
+				token: tok,
 				type: "rejectStory",
 				userId: userId,
 				storyId: storyId
 			};
-			$http(req);
+			return $http(req);
 		},
 		
 		/*Set story as recommended (happens when user sees story for the first time in the recommendation-view)*/
 		recommendedStory: function(userId, storyId){
 			req.data = {
+				token: tok,
 				type: "recommendedStory",
 				userId: userId,
 				storyId: storyId
 			};
-			$http(req);
+			return $http(req);
 		},
 		
 		/*Swiped past story*/
 		swipedPastStory: function(userId, storyId){
 			req.data = {
+				token: tok,
 				type: "swipedPastStory",
 				userId: userId,
 				storyId: storyId
 			};
-			$http(req);
+			return $http(req);
 		},
 
 		/**Registers in database when user opens app*/
 		opensApp: function(userId){
 			req.data = {
+				token: tok,
 				type: "appUsage",
 				userId: userId,
 				usageType: "Opened"
@@ -324,6 +345,7 @@ stories.factory("Requests", function ($http) {
 		/**Registers in database when user closes app*/
 		closesApp: function(userId){
 			req.data = {
+				token: tok,
 				type: "appUsage",
 				userId: userId,
 				usageType: "Closed"
