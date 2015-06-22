@@ -24,7 +24,6 @@ stories.controller('BookmarkCtrl', function(
 	// Gets all the bookmarks associated with the story.  
 	Requests.getStoryTags($scope.userId, $scope.storyId).then(function(response) {
 		$scope.tags = response.data;
-		console.log($scope.tags);
 
 	// Gets all the bookmark lists the user has.
 	// Then goes through them and sets "checked" to true/false depending on whether the story has that bookmark. 

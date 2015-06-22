@@ -52,7 +52,6 @@ stories.controller('ListViewCtrl', function(
 	//For Icons
 	$scope.gettingMore = false;
 
-	// $scope.$on('$ionicView.enter', function() {
 		/*Get all stories that a user has connected to tagName
 		* Parameters for sorting:
 			offset: denotes which row is the first row to be returned. 
@@ -156,13 +155,16 @@ stories.controller('ListViewCtrl', function(
 
 			confirmPopup.then(function(res) {
 				if (res) {
-					var index = $scope.storyPreviews.indexOf(story);
-					$scope.storyPreviews.splice(index, 1);
-					var originalIndex = $scope.storyPreviewsOriginal.indexOf(story);
-					$scope.storyPreviewsOriginal.splice(originalIndex, 1);
-					Requests.removeTagStory(Requests.getSelectedTag(), $window.localStorage.getItem('userId'), story.id);
+						//Removing Story form backend
+					Requests.removeTagStory(Requests.getSelectedTag(), $window.localStorage.getItem('userId'), story.id)
+					.then(function (response) {
+							//Removing Story from view
+						var index = $scope.storyPreviews.indexOf(story);
+						$scope.storyPreviews.splice(index, 1);
+					});
 				} else {
 					console.log('Noe gikk galt');
+					//TODO: Call the error popup
 				}
 			});
 			event.preventDefault();
@@ -183,7 +185,9 @@ stories.controller('ListViewCtrl', function(
 			).success(function(data, status) {
 				
 				$scope.storyPreviews = data;
-				$scope.getNext()
+				$scope.getNext();
+
+				console.log('$scope.storyPreviews : ' + $scope.storyPreviews);
 
 				for (var i = 0; i < $scope.storyPreviews.length; i++) {
 					if ($scope.storyPreviews[i].rating == null) {
@@ -243,22 +247,27 @@ stories.controller('ListViewCtrl', function(
 
 
 	$scope.filterByCategory = function(category) {
-		$scope.popover.hide();
-		if (category == 0) {
-			$scope.storyPreviews = $scope.storyPreviewsOriginal.splice(0);
-			$scope.chosenCategory = "Kategori";
-			return;
-		}
-		$scope.chosenCategory = $scope.categorynames[category - 1];
+		$scope.filterByCategory = category;
 
-		$scope.storyPreviews = [];
-		for (var i = 0; i < $scope.storyPreviewsOriginal.length; i++) {
-			console.log($scope.storyPreviewsOriginal[i].categories);
-			var storyHasCategory = $scope.storyPreviewsOriginal[i].categories.indexOf(category.toString()) != -1;
-			if (storyHasCategory) {
-				$scope.storyPreviews.push($scope.storyPreviewsOriginal[i]);
-			}
-		}
+		$scope.updateStoryList();
+
+
+		// $scope.popover.hide();
+		// if (category == 0) {
+		// 	$scope.storyPreviews = $scope.storyPreviewsOriginal.splice(0);
+		// 	$scope.chosenCategory = "Kategori";
+		// 	return;
+		// }
+		// $scope.chosenCategory = $scope.categorynames[category - 1];
+
+		// $scope.storyPreviews = [];
+		// for (var i = 0; i < $scope.storyPreviewsOriginal.length; i++) {
+		// 	console.log($scope.storyPreviewsOriginal[i].categories);
+		// 	var storyHasCategory = $scope.storyPreviewsOriginal[i].categories.indexOf(category.toString()) != -1;
+		// 	if (storyHasCategory) {
+		// 		$scope.storyPreviews.push($scope.storyPreviewsOriginal[i]);
+		// 	}
+		// }
 	}
 
 
