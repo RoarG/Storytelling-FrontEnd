@@ -272,15 +272,15 @@ stories.factory("Requests", function ($http) {
 			sortby: 'insertion_time' for sorting by date, 'rating' for sorting by rating.
 			category: denotes which category to filter on. 1-9 for a category, 0 for no category selected.
 		*/
-		getStoryList: function (tagName, userId /*,offset, order,sortby,category*/){
+		getStoryList: function (tagName, userId ,offset, order,sortby,category){
 			req.data = {
 				token: tok,
 				type: "getList",
 				userId: userId,
-				/*offset: offset,
+				offset: offset,
 				order: order,
 				sortby: sortby,
-				category: category,*/
+				category: category,
 				tagName: tagName
 			};
 			return $http(req);
@@ -353,6 +353,26 @@ stories.factory("Requests", function ($http) {
 			return $http(req);
 		},
 
+		/**Gets the number of opened stories not rated.*/
+		getNumberOfNotifications: function(userId){
+			req.data = {
+				token: tok,
+				type: "getNumberOfNotifications",
+				userId: userId
+			};
+			return $http(req);
+		},
+		
+		/**Gets the stories opened but not rated*/
+		getNotifications: function(userId, offset){
+			req.data = {
+				token: tok,
+				type: "getNotifications",
+				userId: userId,
+				offset: offset
+			};
+			return $http(req);
+		},
 
 		// Getting/setting the story the user has chosen to view
 		setSelectedStory: function (storyId){
