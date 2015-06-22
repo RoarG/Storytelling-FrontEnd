@@ -22,7 +22,7 @@ stories.controller('ListViewCtrl', function(
 	Requests
 ) {
 
-	$animate.enabled(true);
+	//$animate.enabled(true);
 
 	$scope.chosenCategory = "Kategori";
 

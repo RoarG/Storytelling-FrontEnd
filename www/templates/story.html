@@ -33,7 +33,7 @@
             <a class="button button-light" ng-class="{active: mediaType === 'video'}" ng-show="story.videoList[0]" ng-click="mediaType = 'video'">Video</a>
             <a class="button button-light" ng-class="{active: mediaType === 'audio'}" ng-show="story.audioList[0]" ng-click="mediaType = 'audio'">Lydklipp</a>
             <a class="button button-light" ng-class="{active: mediaType === 'images'}" ng-show="story.imageList[0]" ng-click="mediaType = 'images'">Bilder</a>
-            <a class="button button-light" ng-class="{active: mediaType === 'map'}" ng-click="mediaType = 'map'">Kart</a>
+            <a class="button button-light" ng-class="{active: mediaType === 'map'}" ng-show="story.latitude && story.longitude" ng-click="mediaType = 'map'">Kart</a>
         </div>
         <!-- Images, video or sound displayed depending on which button in the menubar is active -->
         <ion-scroll class="media-content" direction="x" delegate-handle="horizontal" zooming="false">
@@ -51,7 +51,7 @@
             <div ng-if="mediaType === 'video'">
                 <div class="video-player" ng-repeat="video in story.videoList">
                     <!--Youtube-->
-                    <iframe style='background: black;' ng-if="video['videourl'].indexOf('.mp4') === -1" frameborder="0"></iframe>
+                    <iframe style='background: black;' ng-if="video['videourl'].indexOf('.mp4') === -1 && !isIOS" frameborder="0"></iframe>
 
                     <!-- Vimeo video -->
                     <!-- <iframe id="{{'Video' + $index}}" ng-if="video['videourl'].indexOf('.mp4') === -1 && video['videourl'][7] === 'p' "frameborder="0" ng-src="{{getTrustedUrl(video['videourl'])}}" webkitallowfullscreen mozallowfullscreen allowfullscreen webkit-playsinline="false" ng-click="playVideo($index)">
@@ -61,12 +61,12 @@
                     <video id="{{'Video' + $index}}" controls="true" poster={{video['posterurl']}} ng-if="video['videourl'].indexOf('.mp4') !== -1" ng-src="{{getTrustedUrl(video['videourl'])}}"></video>
 
                     <!-- OLD CODE -->
-                   <!--  <iframe id="{{'Video' + $index}}" ng-if="video['videourl'].indexOf('.mp4') === -1"frameborder="0" ng-src="{{getTrustedUrl(video['videourl'])}}" webkitallowfullscreen mozallowfullscreen allowfullscreen webkit-playsinline="false" ng-click="playVideo($index)">
-                    </iframe> -->
+                   <iframe id="{{'Video' + $index}}" ng-if="video['videourl'].indexOf('.mp4') === -1 && isIOS"frameborder="0" ng-src="{{getTrustedUrl(video['videourl'])}}" webkitallowfullscreen mozallowfullscreen allowfullscreen webkit-playsinline="false" ng-click="playVideo($index)">
+                    </iframe>
 
 
                     <!--Youtube play button-->
-                    <div class="play-button" id="play" ng-if="video['videourl'].indexOf('.mp4') === -1"  ng-click="openUrl(video['videourl'])">
+                    <div class="play-button" id="play" ng-if="video['videourl'].indexOf('.mp4') === -1 && !isIOS"  ng-click="openUrl(video['videourl'])">
                         <i class="icon ion-play"></i>
                     </div>
 
@@ -99,14 +99,15 @@
             <!-- Map -->
             <div class="map-image" ng-if="mediaType === 'map'">
                 
-                <img src="https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=400x200&maptype=roadmap
-&markers=color:red%7Clabel:S%7C40.702147,-74.015794" ng-click="showModal('templates/map.html')"/>
+                <img src={{mapUrl}} ng-click="showModal('templates/map.html')"/>
             </div>
         </ion-scroll>
 
 
         <!-- Story text -->
         <div ng-if="story.text" class="story-wrapper card">
+            <p>{{map.center.latitude}}</p>
+            <p>{{story.latitude}}</p>
             <p class="clear-float" ng-bind-html="story.text" ng-click="onclickStoryContent($event)"></p>
         </div>
             <!-- Rating -->

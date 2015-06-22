@@ -24,6 +24,7 @@ stories.controller('StoryCtrl', function(
 	$rootScope,
 	$cordovaSocialSharing,
 	uiGmapGoogleMapApi,
+	uiGmapIsReady,
 	Requests,
 	Story) {
 
@@ -35,40 +36,8 @@ stories.controller('StoryCtrl', function(
 
 	$scope.isAudioPlaying = false;
 
-	// uiGmapGoogleMapApi is a promise.
-    // The "then" callback function provides the google.maps object.
-    uiGmapGoogleMapApi.then(function(maps) {
-    	$scope.map = {
-    		center: { latitude: 45, longitude: -73 },
-    		zoom: 8,
-    		options: {
-    			disableDefaultUI: true
-    		}
-    		
-    	};
-    	$scope.marker = {
-        id: 0,
-        coords: {
-          latitude: 45,
-          longitude: -73
-        },
-		
+	$scope.isIOS = ionic.Platform.isIOS();
 
-      }; 
-       
-      $scope.marker.options = {
-        draggable: false,
-        labelContent: "lat: " + $scope.marker.coords.latitude + '<br/> ' + 'lon: ' + $scope.marker.coords.longitude,
-        labelAnchor: "73 120",
-        labelClass: "marker-labels",
-        title: "Fortelling"
-        /*icon: {
-        	url: "../../img/map_marker.png",
-        	scaledSize: new google.maps.Size(34, 44)
-        }*/
-      };  
-    	console.log($scope.map);
-    });
 
 	$scope.twtouched = false;
 	$scope.fbtouched = false;
@@ -137,6 +106,7 @@ stories.controller('StoryCtrl', function(
 			}
 		}
 
+		$scope.initializeMap();
 		$ionicLoading.hide();
 	}, function(response) {
 		// If story data is not successfully retrieved, go back to recommendation view. 
@@ -272,6 +242,10 @@ stories.controller('StoryCtrl', function(
 
 	// Displays the modal defined in templateUrl on top of the current view. 
 	$scope.showModal = function(templateUrl) {
+		if(templateUrl == 'templates/map.html') {
+			$scope.initializeMap();
+		}
+
 		$ionicModal.fromTemplateUrl(templateUrl, function(modal) {
 			// Sends story data to the controller of the modal. 
 			$scope.childCtrl = modal;
@@ -289,6 +263,7 @@ stories.controller('StoryCtrl', function(
 	$scope.closeModal = function() {
 		$scope.modal.hide();
 		$scope.modal.remove();
+
 	};
 
 	// Tells angular that the url is safe. Necessary for video urls. 
@@ -381,4 +356,43 @@ stories.controller('StoryCtrl', function(
 		console.log("E: ", e);
 	}
 
+	$scope.initializeMap = function() {
+		console.log("1");
+		// uiGmapGoogleMapApi is a promise.
+	    // The "then" callback function provides the google.maps object.
+	    uiGmapGoogleMapApi.then(function(maps) {
+	    	$scope.map = {
+	    		center: { latitude: $scope.story.latitude, longitude: $scope.story.longitude },
+	    		zoom: 8,
+	    		
+	    	};
+	    	$scope.marker = {
+		        id: 0,
+		        coords: {
+		          latitude: $scope.story.latitude,
+		          longitude: $scope.story.longitude
+		        },
+	      	}; 
+	       
+	      	$scope.marker.options = {
+		        draggable: false,
+		        labelContent: "Fortelling",
+		        labelAnchor: $scope.story.latitude + " " + $scope.story.longitude,
+		        labelClass: "marker-labels",
+		        title: "Fortelling"
+		        /*icon: {
+		        	url: "../../img/map_marker.png",
+		        	scaledSize: new google.maps.Size(34, 44)
+		        }*/
+		      };  
+		      console.log("2");
+		    console.log($scope.map.center.latitude);
+	    });
+	    var viewportWidth = document.documentElement.clientWidth;
+	    console.log("Viewport width: " + document.documentElement.clientWidth);
+	    $scope.mapUrl = "https://maps.googleapis.com/maps/api/staticmap?" + 
+	    	"zoom=8&scale=2&size=" + Math.round(viewportWidth*0.75).valueOf() + "x" + Math.round(viewportWidth*0.55).valueOf() + "&maptype=roadmap" +
+			"&markers=color:red%7C" + $scope.story.latitude + "," + $scope.story.longitude;
+		console.log($scope.mapUrl);
+	}
 })
