@@ -1,72 +1,74 @@
 <ion-side-menus enable-menu-with-back-views="false">
-	<ion-side-menu-content drag-content="false">
-		<ion-nav-bar class="bar-calm" align-title="center">
-			<ion-nav-back-button>
-			</ion-nav-back-button>
-			<ion-nav-buttons side="left">
-				<button ng-click="updateMenu()" class="button button-icon button-clear ion-navicon" menu-toggle="left">
-				</button>
-			</ion-nav-buttons>
-		</ion-nav-bar>
+    <ion-side-menu-content drag-content="false">
+        <ion-nav-bar class="bar-calm" align-title="center">
+            <ion-nav-back-button>
+            </ion-nav-back-button>
+            <ion-nav-buttons side="left">
+                <button ng-click="updateMenu()" class="button button-icon button-clear ion-navicon" menu-toggle="left">
+                </button>
+            </ion-nav-buttons>
+        </ion-nav-bar>
+        <!-- UI-Router -->
+        <ion-nav-view name="menuContent"></ion-nav-view>
+    </ion-side-menu-content>
+    <ion-side-menu side="left">
+        <ion-header-bar class="bar-calm" align-title="center">
+            <p class="title">Meny</p>
+        </ion-header-bar>
+        <ion-content>
+            <ion-list>
 
-		<!-- UI-Router -->
-		<ion-nav-view name="menuContent"></ion-nav-view>
+                <!-- Main Section -->
+                <ion-item id="home" nav-clear menu-close ui-sref="app.recommendations">
+                    <b>HJEM - Fortellinger</b>
+                </ion-item>
+                <ion-item nav-clear menu-close ng-click="viewList()">
+                    <!-- TODO: Åpne not rated liste -->
+                    Varslinger <b id="inboxAmount">{{inbox.amount}} x</b>
+                </ion-item>
+                <ion-item nav-clear menu-close ng-click="goSettings()">
+                    Innstillinger
+                </ion-item>
+                </ion-item>
 
-	</ion-side-menu-content>
-	<ion-side-menu side="left">
-		<ion-header-bar class="bar-calm" align-title="center">
-			<p class="title">Meny</p>
-		</ion-header-bar>
-		<ion-content>
-			<ion-list>
+                <!-- Bookmarks Section -->
+                <ion-item class="item item-divider" ng-click="toggleBookmarksGroup(group)" ng-class="{active: isBookmarksGroupShown(group)}">
+                    <b>Mine Bokmerker</b>
+                    <i class="icon" ng-class="isBookmarksGroupShown(group) ? 'ion-ios-arrow-down' : 'ion-ios-arrow-right'"></i>
+                </ion-item>
+                <ion-item class="bookmark-list item-button-right" nav-clear ng-repeat="list in userMadeLists">
+                    <div class="item-content" ng-click="viewList(list.text)" ng-show="isBookmarksGroupShown(group)" menu-close> {{list.text}}</div>
+                    <!-- The delete button is only displayed on user made bookmark lists -->
+                    <button class="button button-clear" ng-click="deleteList(list)">
+                        <i class="icon ion-close"></i>
+                    </button>
+                </ion-item>
 
-				<!-- Main Section -->
-				<ion-item id="home" nav-clear menu-close ui-sref="app.recommendations">
-					<b>HJEM - Fortellinger</b>
-					</ion-item>
-					<ion-item nav-clear menu-close ng-click="viewList()"> <!-- TODO: Åpne not rated liste -->
-						Varslinger <b id="inboxAmount">{{inbox.amount}} x</b>
-					</ion-item>
-					<ion-item nav-clear menu-close ng-click="goSettings()">
-						Innstillinger
-					</ion-item>
-				
-				<!-- Infomation Section -->
-				<ion-list>
-					<ion-item class="item item-divider"
-					ng-click="toggleGroup(group)"
-					ng-class="{active: isGroupShown(group)}">
-					<b>Informasjon</b>
-					<i class="icon" ng-class="isGroupShown(group) ? 'ion-ios-arrow-down' : 'ion-ios-arrow-right'"></i>
-					</ion-item>
-				
-					<ion-item class="item-accordion" nav-clear menu-close ng-click="goAppOne()"
-						ng-show="isGroupShown(group)">
-						App Introduksjon
-					</ion-item>
+                <!-- Historikk Section -->
+                <ion-item class="item item-divider" ng-click="toggleHistoryGroup(group)" ng-class="{active: isBookmarksGroupShown(group)}">
+                    <b>Historikk</b>
+                    <i class="icon" ng-class="isHistoryGroupShown(group) ? 'ion-ios-arrow-down' : 'ion-ios-arrow-right'"></i>
+                </ion-item>
+                <ion-item class="bookmark-list item-button-right" nav-clear ng-repeat="list in defaultLists">
+                    <div class="item-content" ng-click="viewList(list.text)" ng-show="isHistoryGroupShown(group)" menu-close> {{list.text}}</div>
+                </ion-item>
 
-					<ion-item class="item-accordion" nav-clear menu-close ng-click="goAbout()"
-						ng-show="isGroupShown(group)">
-						Om Applikasjonen
-				</ion-item>
-					
-				<!-- Bookmarks Section -->
-				<ion-item class="item item-divider">
-					<b>Bokmerker</b>
-				</ion-item>
-					<ion-item class="bookmark-list item-button-right" nav-clear ng-repeat="list in defaultLists">
-						<div class="item-content" ng-click="viewList(list.text)" menu-close> {{list.text}}</div>
-					</ion-item>
-					<ion-item class="bookmark-list item-button-right" nav-clear ng-repeat="list in userMadeLists">
-						<div class="item-content" ng-click="viewList(list.text)" menu-close> {{list.text}}</div>
-						<!-- The delete button is only displayed on user made bookmark lists -->
-						<button class="button button-clear" ng-click="deleteList(list)">
-							<i class="icon ion-close"></i>
-						</button>
-					</ion-item>
-	  			</ion-list>
+                <!-- Infomation Section -->
+                <ion-item class="item item-divider" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
+                    <b>Informasjon</b>
+                    <i class="icon" ng-class="isGroupShown(group) ? 'ion-ios-arrow-down' : 'ion-ios-arrow-right'"></i>
+                </ion-item>
+                <ion-item class="item-accordion" nav-clear menu-close ng-click="goAppOne()" ng-show="isGroupShown(group)">
+                    Appen på 1,2,3
+                </ion-item>
+                <ion-item class="item-accordion" nav-clear menu-close ng-click="goAbout()" ng-show="isGroupShown(group)">
+                    Om Applikasjonen
+                </ion-item>
+                <ion-item class="item-accordion" nav-clear menu-close ng-click="goAcknowledgment()" ng-show="isGroupShown(group)">
+                    Takk til
+                </ion-item>
 
-			</ion-list>
-		</ion-content>
-	</ion-side-menu>
+            </ion-list>
+        </ion-content>
+    </ion-side-menu>
 </ion-side-menus>

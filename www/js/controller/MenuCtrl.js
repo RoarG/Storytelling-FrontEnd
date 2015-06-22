@@ -17,6 +17,8 @@ stories.controller('MenuCtrl', function(
 	Requests, 
 	User
 ) {
+
+	$scope.group = false;
 	
 	$scope.goSettings = function () {
 		$state.go('app.settings');
@@ -30,7 +32,12 @@ stories.controller('MenuCtrl', function(
 		$state.go('app.about');
 	};
 
-	$scope.group = false;
+	$scope.goAcknowledgment = function () {
+		$state.go('app.acknowledgment');
+	};
+
+	
+
 	/*
 	 * if given group is the selected group, deselect it
 	 * else, select the given group
@@ -45,6 +52,31 @@ stories.controller('MenuCtrl', function(
 	
 	$scope.isGroupShown = function(group) {
 		return $scope.shownGroup === group;
+	};
+
+
+	$scope.toggleBookmarksGroup = function(group) {
+		if ($scope.isBookmarksGroupShown(group)) {
+			$scope.shownBookmarksGroup = null;
+		} else {
+			$scope.shownBookmarksGroup = group;
+		}
+	};
+	
+	$scope.isBookmarksGroupShown = function(group) {
+		return $scope.shownBookmarksGroup === group;
+	};
+
+	$scope.toggleHistoryGroup = function(group) {
+		if ($scope.isHistoryGroupShown(group)) {
+			$scope.shownHistoryGroup = null;
+		} else {
+			$scope.shownHistoryGroup = group;
+		}
+	};
+	
+	$scope.isHistoryGroupShown = function(group) {
+		return $scope.shownHistoryGroup === group;
 	};
 
 	// View the bookmark list called listName. 
@@ -84,7 +116,7 @@ stories.controller('MenuCtrl', function(
 			$scope.defaultLists = [];
 			for(var i = 0; i < $scope.collectionList.length; i++) {
 				var tagName = $scope.collectionList[i].text;
-				if(tagName == "Historikk" || tagName == "Lest" || tagName == "Les senere") {
+				if(tagName == "Historikk" || tagName == "Lest" /*|| tagName == "Les senere"*/) {
 					$scope.defaultLists.push($scope.collectionList[i]);
 				} else {
 					$scope.userMadeLists.push($scope.collectionList[i]);

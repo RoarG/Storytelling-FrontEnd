@@ -309,6 +309,15 @@ var stories = angular.module('stories', [
 		}
 	})
 
+	.state('app.acknowledgment', {
+		url: "/acknowledgment",
+		views: {
+			'menuContent': {
+				templateUrl: "templates/acknowledgment.html"
+			}
+		}
+	})
+
 	.state('app.about', {
 		url: "/about",
 		views: {
