@@ -1,7 +1,7 @@
 <ion-side-menus enable-menu-with-back-views="false">
     <ion-side-menu-content drag-content="false">
         <ion-nav-bar class="bar-calm" align-title="center">
-            <ion-nav-back-button>
+            <ion-nav-back-button ng-click="myGoBack()">
             </ion-nav-back-button>
             <ion-nav-buttons side="left">
                 <button ng-click="updateMenu()" class="button button-icon button-clear ion-navicon" menu-toggle="left">
@@ -45,7 +45,7 @@
                 </ion-item>
 
                 <!-- Historikk Section -->
-                <ion-item class="item item-divider" ng-click="toggleHistoryGroup(group)" ng-class="{active: isBookmarksGroupShown(group)}">
+                <ion-item class="item item-divider" ng-click="toggleHistoryGroup(group)" ng-class="{active: isHistoryGroupShown(group)}">
                     <b>Historikk</b>
                     <i class="icon" ng-class="isHistoryGroupShown(group) ? 'ion-ios-arrow-down' : 'ion-ios-arrow-right'"></i>
                 </ion-item>

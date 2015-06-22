@@ -112,19 +112,15 @@ stories.controller('ListViewCtrl', function(
 			$scope.storyPreviewsNext = data;
 			if ($scope.storyPreviewsNext.length == 0) {
 				$scope.isMore = false;
-				console.log('next 0  :' + $scope.currentOffset);
 			} else if ($scope.storyPreviewsNext.length < 20) {
 				$scope.arrayEnd = true;
 				$scope.isMore = true;
-				console.log('next < 20  :' + $scope.currentOffset);
 			} else if ($scope.storyPreviewsNext.length = 20) {
 				$scope.isMore = true;
-				console.log('next 20   :' + $scope.currentOffset);
 				//TODO: EVEN MORE 
 			}
 
 		}).error(function(data, status) {
-			console.log('respons: ' + data + status);
 			$cordovaDialogs.alert("Får ikke svar fra server.");
 		});
 	}

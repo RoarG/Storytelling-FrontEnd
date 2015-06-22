@@ -32,8 +32,10 @@ var stories = angular.module('stories', [
 	$rootScope, 
 	$cordovaSplashscreen, 
 	$state,
+	$ionicSideMenuDelegate,
 	$ionicLoading,
-	Requests) { 
+	Requests
+) { 
 
 
 
@@ -69,6 +71,10 @@ var stories = angular.module('stories', [
 		     	}
 		   	}); 
 		}
+
+		$rootScope.toggleMenu = function() {
+	    	$ionicSideMenuDelegate.toggleLeft();
+		};
 		
 		// Tells the back-end that the app has been started.
 		Requests.opensApp($window.localStorage.getItem('userId'));

@@ -14,6 +14,8 @@ stories.controller('MenuCtrl', function(
 	$ionicPlatform, 
 	$cordovaDialogs,
 	$ionicPopup,
+	$ionicHistory,
+	$ionicSideMenuDelegate,
 	Requests, 
 	User
 ) {
@@ -37,7 +39,6 @@ stories.controller('MenuCtrl', function(
 	};
 
 	
-
 	/*
 	 * if given group is the selected group, deselect it
 	 * else, select the given group
@@ -75,6 +76,7 @@ stories.controller('MenuCtrl', function(
 		}
 	};
 	
+
 	$scope.isHistoryGroupShown = function(group) {
 		return $scope.shownHistoryGroup === group;
 	};
@@ -107,6 +109,14 @@ stories.controller('MenuCtrl', function(
 		     	}
 		   	}); 
 	}
+
+
+	$scope.myGoBack = function() {
+			$ionicHistory.goBack();
+			$ionicSideMenuDelegate.toggleLeft()
+		};
+
+	
 
 		// Update the bookmark lists in the menu. 
 	$scope.updateMenu = function() {
