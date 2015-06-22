@@ -1,6 +1,6 @@
 <ion-view view-title="{{tag}}">
     <ion-nav-buttons side="right">
-        <button class="button button-outline button-balanced" id="filtering-button" ng-click="popover.show($event)"><i class="ion-arrow-down-b"></i> {{chosenCategory}}</button>
+        <button class="button button-outline button-balanced" id="filtering-button" ng-click="showModal('templates/categoryFilteringDropdown.html')"><i class="ion-arrow-down-b"></i> {{chosenCategory}}</button>
     </ion-nav-buttons>
     <ion-content overflow-scroll="true" class="list-view">
         <div class="button-bar">

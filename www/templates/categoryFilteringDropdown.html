@@ -1,16 +1,39 @@
-<ion-popover-view>
-    <ion-content>
-      <ion-list>
-      	<ion-item ng-click="filterByCategory(0)">&lt;Ingen kategori&gt;</ion-item>
-			  <ion-item ng-click="filterByCategory(1)">Kunst</ion-item>
-			  <ion-item ng-click="filterByCategory(2)">Arkitektur</ion-item>
-			  <ion-item ng-click="filterByCategory(3)">Arkeologi</ion-item>
-			  <ion-item ng-click="filterByCategory(4)">Historie</ion-item>
-			  <ion-item ng-click="filterByCategory(5)">Tradisjon & Mat</ion-item>
-			  <ion-item ng-click="filterByCategory(6)">Natur</ion-item>
-			  <ion-item ng-click="filterByCategory(7)">Litteratur</ion-item>
-			  <ion-item ng-click="filterByCategory(8)">Musikk</ion-item>
-			  <ion-item ng-click="filterByCategory(9)">Teknologi</ion-item>
-			</ion-list>
-    </ion-content>
-</ion-popover-view>
+<div class="modal cat-modal">
+	<h3>Filtrer fortellinger etter interesse</h3>
+
+		<div class="cat-content">
+      <div class="list" id="filter-category-list">
+      	<ion-scroll direction="y">
+      	<div class="item" ng-click="filterByCategory(0)">&lt;Uten filter&gt;</div>
+
+			  <div class="item item-icon-left" ng-click="filterByCategory(1)">
+					<i class="icon icon-art"></i><span>Kunst</span>
+				</div>
+			  <div class="item item-icon-left" ng-click="filterByCategory(2)">
+					<i class="icon icon-architecture"></i><span>Arkitektur</span>
+			  </div>
+			  <div class="item item-icon-left" ng-click="filterByCategory(3)">
+			  		<i class="icon icon-archeology"></i><span>Arkeologi</span>
+			  </div>
+			  <div class="item item-icon-left" ng-click="filterByCategory(4)">
+			  		<i class="icon icon-history"></i><span>Historie</span>
+			  </div>
+			  <div class="item item-icon-left" ng-click="filterByCategory(5)">
+			  		<i class="icon icon-tradition"></i><span>Tradisjon & Mat</span>
+			  </div>
+			  <div class="item item-icon-left" ng-click="filterByCategory(6)">
+			  		<i class="icon icon-nature"></i><span>Natur</span>
+			  </div>
+			  <div class="item item-icon-left" ng-click="filterByCategory(7)">
+			  		<i class="icon ion-ios-book"></i><span>Litteratur</span>
+			  </div>
+			  <div class="item item-icon-left"ng-click="filterByCategory(8)">
+			  		<i class="icon ion-music-note"></i><span>Musikk</span>
+			  </div>
+			  <div class="item item-icon-left" ng-click="filterByCategory(9)">
+			  		<i class="icon ion-gear-b"></i><span>Teknologi</span>
+			  </div>
+			</ion-scroll>
+			</div>
+		</div>
+</div>

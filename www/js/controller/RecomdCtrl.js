@@ -228,6 +228,9 @@ stories.controller('RecomdCtrl', function(
 
   	// Displays the modal specified in templateUrl. 
 	$scope.showModal = function(templateUrl) {
+		if(templateUrl == "templates/bookmark-modal.html" && $scope.storyPreviews.length == 0) {
+			return;
+		}
 		$ionicModal.fromTemplateUrl(templateUrl, {
 			scope: $scope,
 			animation: 'slide-in-up'

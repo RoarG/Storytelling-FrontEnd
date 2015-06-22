@@ -582,7 +582,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 #seeMoreCard {
 	width: 80%;
-	margin: 0%; auto;
+	margin: 0% auto;
 	position: relative;
 	text-align: center;
 	border-radius: 8px;	
@@ -590,6 +590,93 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	div {
 		padding: 10%;
 	}
+}
+
+.cat-modal {
+	min-height: 0;
+	max-height: 80%;
+	width: 75%;
+	background-color: $background-color;
+	position: absolute;
+	top: 10%;
+	left: 12.5%;
+    border-radius: 5px;
+    padding: 5%;
+
+    cat-content {
+    	min-width: 90%;
+    	width: 90%;
+    	margin: 0% auto;
+    	padding: 5%;
+    }
+
+    ion-scroll {
+    	max-height: 220px;
+
+    	 @include mq(medium) {
+    		max-height: 285px;
+    	}
+    }
+
+    #filter-category-list {
+
+    	.item {
+    		
+
+    		.icon {
+    			background-color: #EEE;
+    			border-radius: 50%;
+    			padding: 0 4px;
+    			height: 42px;
+    			color: rgba(0,0,0,0.6);
+    			font-size: 1.6em;
+
+    			margin-top: 5px
+
+    		}
+
+    		span {
+    			margin-left: 6%;
+    		}
+    	}
+
+    	.item:nth-of-type(2) .icon {
+    		background-color: nth($category-colors,1);
+    		color: darken(nth($category-colors, 1), 55%);
+    	}
+    	.item:nth-of-type(3) .icon {
+    		background-color: nth($category-colors,2);
+    		color: darken(nth($category-colors, 2), 55%);
+    	}
+    	 .item:nth-of-type(4) .icon {
+    		background-color: nth($category-colors,3);
+    		color: darken(nth($category-colors, 3), 55%);
+    	}
+    	.item:nth-of-type(5) .icon {
+    		background-color: nth($category-colors,4);
+    		color: darken(nth($category-colors, 4), 55%);
+    	}
+    	.item:nth-of-type(6) .icon {
+    		background-color: nth($category-colors,5);
+    		color: darken(nth($category-colors, 5), 55%);
+    	}
+    	.item:nth-of-type(7) .icon {
+    		background-color: nth($category-colors,6);
+    		color: darken(nth($category-colors, 6), 55%);
+    	}
+    	.item:nth-of-type(8) .icon {
+    		background-color: nth($category-colors,7);
+    		color: darken(nth($category-colors, 7), 55%);
+    	}
+    	.item:nth-of-type(9) .icon {
+    		background-color: nth($category-colors,8);
+    		color: darken(nth($category-colors, 8), 55%);
+    	}
+    	.item:nth-of-type(10) .icon {
+    		background-color: nth($category-colors,9);
+    		color: darken(nth($category-colors, 9), 55%);
+    	}
+    }
 }
 
 

@@ -15,7 +15,7 @@ stories.controller('ListViewCtrl', function(
 	$cordovaDialogs,
 	$animate,
 	$ionicPlatform,
-	$ionicPopover,
+	$ionicModal,
 	$filter,
 	$ionicPopup,
 	Story,
@@ -24,7 +24,7 @@ stories.controller('ListViewCtrl', function(
 
 	//$animate.enabled(true);
 
-	$scope.chosenCategory = "Kategori";
+	$scope.chosenCategory = "Filter";
 
 	$scope.tag = Requests.getSelectedTag();
 
@@ -136,12 +136,6 @@ stories.controller('ListViewCtrl', function(
 	}
 
 
-	$ionicPopover.fromTemplateUrl('templates/categoryFilteringDropdown.html', {
-		scope: $scope
-	}).then(function(popover) {
-		$scope.popover = popover;
-	});
-
 	// Remove a story from the listview
 	$scope.remove = function(story, event) {
 		$ionicPlatform.ready(function() {
@@ -251,8 +245,9 @@ stories.controller('ListViewCtrl', function(
 
 		$scope.updateStoryList();
 
+		$scope.modal.hide();
 
-		// $scope.popover.hide();
+
 		// if (category == 0) {
 		// 	$scope.storyPreviews = $scope.storyPreviewsOriginal.splice(0);
 		// 	$scope.chosenCategory = "Kategori";
@@ -273,9 +268,15 @@ stories.controller('ListViewCtrl', function(
 
 
 
-	//Cleanup the popover when we're done with it!
-	$scope.$on('$destroy', function() {
-		$scope.popover.remove();
-	});
+	// Displays the modal specified in templateUrl.
+	$scope.showModal = function(templateUrl) {
+		$ionicModal.fromTemplateUrl(templateUrl, {
+			scope: $scope,
+			animation: 'slide-in-up'
+		}).then(function(modal) {
+			$scope.modal = modal;
+			$scope.modal.show();
+		});
+	};
 
 })
