@@ -73,9 +73,23 @@ var stories = angular.module('stories', [
 		   	}); 
 		}
 
+
+		$rootScope.showAlert = function(title, msg) {
+			var alertPopup = $ionicPopup.alert({
+				cssClass: 'alertPopup',
+				title: title,
+				template: msg
+			});
+			alertPopup.then(function(response) {
+				//Do something when closing the alert box
+				console.log('closing the alert box');
+			});
+		};
+
 		$rootScope.toggleMenu = function() {
 	    	$ionicSideMenuDelegate.toggleLeft();
 		};
+
 		
 		// Tells the back-end that the app has been started.
 		Requests.opensApp($window.localStorage.getItem('userId'));

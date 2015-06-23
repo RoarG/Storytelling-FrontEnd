@@ -35,7 +35,6 @@ stories.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate,
 	}	
 
 
-
 })
 
 

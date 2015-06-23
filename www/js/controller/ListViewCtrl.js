@@ -92,8 +92,7 @@ stories.controller('ListViewCtrl', function(
 			//TODO: Legg til see more knapp her hvis det er flere som kan bes om.
 
 	}).error(function(data, status) {
-		console.log('respons: ' + data + status);
-		$cordovaDialogs.alert("Får ikke svar fra server.");
+		$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
 	});
 
 	/**
@@ -121,7 +120,7 @@ stories.controller('ListViewCtrl', function(
 			}
 
 		}).error(function(data, status) {
-			$cordovaDialogs.alert("Får ikke svar fra server.");
+			$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
 		});
 	}
 
@@ -158,10 +157,12 @@ stories.controller('ListViewCtrl', function(
 							//Removing Story from view
 							var index = $scope.storyPreviews.indexOf(story);
 							$scope.storyPreviews.splice(index, 1);
+						}, function(response) {
+							$ionicLoading.hide();
+							$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
 						});
 				} else {
-					console.log('Noe gikk galt');
-					//TODO: Call the error popup
+					console.log('Canceled the deletion');
 				}
 			});
 			event.preventDefault();
@@ -196,8 +197,7 @@ stories.controller('ListViewCtrl', function(
 				}
 			}
 		}).error(function(data, status) {
-			console.log('respons: ' + data + status);
-			$cordovaDialogs.alert("Får ikke svar fra server.");
+			$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
 		});
 	}
 
@@ -207,10 +207,8 @@ stories.controller('ListViewCtrl', function(
 			template: '<h2>Laster inn</h2><div class="icon ion-loading-a"></div>',
 			noBackdrop: false
 		});
-
 		Requests.setSelectedStory(story.id);
 		$state.go("app.story");
-
 	};
 
 	/**

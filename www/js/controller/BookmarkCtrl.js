@@ -8,25 +8,25 @@ angular.module('BookmarkCtrl', [])
 
 
 stories.controller('BookmarkCtrl', function(
-	$window, 
-	$scope, 
-	$rootScope, 
+	$window,
+	$scope,
+	$rootScope,
 	$cordovaDialogs,
-	Requests 
-	) {
+	Requests
+) {
 
-	
+
 	$scope.userId = $window.localStorage.getItem('userId');
 	$scope.storyId = Requests.getSelectedStory();
 	$scope.saveStatus = "notSaved";
 
-	
+
 	// Gets all the bookmarks associated with the story.  
 	Requests.getStoryTags($scope.userId, $scope.storyId).then(function(response) {
 		$scope.tags = response.data;
 
-	// Gets all the bookmark lists the user has.
-	// Then goes through them and sets "checked" to true/false depending on whether the story has that bookmark. 
+		// Gets all the bookmark lists the user has.
+		// Then goes through them and sets "checked" to true/false depending on whether the story has that bookmark. 
 		Requests.getAllLists($scope.userId).then(function(response) {
 			$scope.collectionList = response.data;
 			for (var i = 0; i < $scope.collectionList.length; i++) {
@@ -40,21 +40,19 @@ stories.controller('BookmarkCtrl', function(
 				}
 			}
 		}, function(response) {
-				if ($rootScope.networkAccess) {
-					$rootScope.popup("Server problemer", "Prøv igjen nå eller senere" );
-				}
-				else {
-					$rootScope.popUp("Ingen nettilgang", "Appliksjonen trenger en internett forbindelse for å virke");
-				}
-	 		});
-	}, function(response) {
 			if ($rootScope.networkAccess) {
-					$rootScope.popup("Server problemer", "Prøv igjen nå eller senere" );
-				}
-			else {
+				$rootScope.showAlert("Server problemer", "Prøv igjen nå eller senere");
+			} else {
 				$rootScope.popUp("Ingen nettilgang", "Appliksjonen trenger en internett forbindelse for å virke");
 			}
 		});
+	}, function(response) {
+		if ($rootScope.networkAccess) {
+			$rootScope.showAlert("Server problemer", "Prøv igjen nå eller senere");
+		} else {
+			$rootScope.popUp("Ingen nettilgang", "Appliksjonen trenger en internett forbindelse for å virke");
+		}
+	});
 
 	// Display text field to enter name of new bookmark list
 	$scope.newItem = function() {
@@ -70,15 +68,17 @@ stories.controller('BookmarkCtrl', function(
 				checked: true
 			});
 
-			Requests.addNewTag($scope.newItemName, $scope.userId, $scope.storyId)/*.then(function(response) {
-				$scope.tags.push($scope.newItemName);
-				$scope.saveStatus = "saved";
-			}, function(response) {
-				$scope.saveStatus = "error";
-			});*/
+			Requests.addNewTag($scope.newItemName, $scope.userId, $scope.storyId)
+				.then(function(response) {
+					$scope.tags.push($scope.newItemName);
+					$scope.saveStatus = "saved";
+				}, function(response) {
+					$rootScope.showAlert("Server problemer", "Prøv igjen nå eller senere");
+					$scope.saveStatus = "error";
+				});
 			$scope.tags.push($scope.newItemName);
 			$scope.saveStatus = "saved";
-			
+
 		} else {
 			$scope.saveStatus = "notSaved";
 		}
@@ -88,8 +88,8 @@ stories.controller('BookmarkCtrl', function(
 
 	// Checks whether an array contains an object with a property with a certain value. 
 	$scope.containsObjectWithProperty = function(array, propertyName, property) {
-		for(var i = 0; i < array.length; i++) {
-			if(array[i][propertyName] && array[i][propertyName] === property) {
+		for (var i = 0; i < array.length; i++) {
+			if (array[i][propertyName] && array[i][propertyName] === property) {
 				return true;
 			}
 		}
@@ -101,8 +101,8 @@ stories.controller('BookmarkCtrl', function(
 		$scope.saveStatus = "saving";
 		// If the story already had that tag, remove the tag. 
 		if (!tag.checked) {
-			Requests.removeTagStory(tag.text, $scope.userId, $scope.storyId);
-			/*.then(function(response) {
+			Requests.removeTagStory(tag.text, $scope.userId, $scope.storyId)
+			.then(function(response) {
 				for (var i = 0; i < $scope.tags.length; i++) {
 					if ($scope.tags[i].valueOf() == tag.text.valueOf()) {
 						$scope.tags.splice(i, 1);
@@ -110,28 +110,31 @@ stories.controller('BookmarkCtrl', function(
 				}
 				$scope.saveStatus = "saved";
 			}, function(response) {
+				$rootScope.showAlert("Server problemer", "Prøv igjen nå eller senere");
 				$scope.saveStatus = "error";
-			});*/
+			});
 			for (var i = 0; i < $scope.tags.length; i++) {
-					if ($scope.tags[i].valueOf() == tag.text.valueOf()) {
-						$scope.tags.splice(i, 1);
-					}
+				if ($scope.tags[i].valueOf() == tag.text.valueOf()) {
+					$scope.tags.splice(i, 1);
 				}
-				$scope.saveStatus = "saved";
-			
-		// If the story does not already have the tag, add the tag. 
+			}
+			$scope.saveStatus = "saved";
+
+			// If the story does not already have the tag, add the tag. 
 		} else {
-			Requests.tagStory(tag.text, $scope.userId, $scope.storyId);/*.then(function(response) {
+			Requests.tagStory(tag.text, $scope.userId, $scope.storyId)
+			.then(function(response) {
 				$scope.tags.push(tag["text"]);
 				$scope.saveStatus = "saved";
 			}, function(response) {
+				$rootScope.showAlert("Server problemer", "Prøv igjen nå eller senere");
 				$scope.saveStatus = "error";
-			});*/
+			});
 			$scope.tags.push(tag["text"]);
 			$scope.saveStatus = "saved";
-			
+
 		}
-		
+
 	};
 
 })

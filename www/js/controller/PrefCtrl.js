@@ -6,7 +6,16 @@
 
 angular.module('PrefCtrl', [])
 
-stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLoading, $window, $ionicHistory, $cordovaDialogs) {
+stories.controller('PrefCtrl', function(
+	$window, 
+	$scope, 
+	$state, 
+	$ionicLoading, 
+	$ionicHistory, 
+	$cordovaDialogs,
+	User, 
+	Requests
+) {
 
 
 	// Create a category object for each of the categories.
@@ -68,7 +77,7 @@ stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLo
      		}
 
 		}, function(response) {
-			$cordovaDialogs.alert("Får ikke svar fra server.");
+			$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
 		});
 	};
 
@@ -104,8 +113,12 @@ stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLo
 					$ionicHistory.clearCache()
 					$state.go("app.recommendations");
 					$ionicLoading.hide();
+				}, function(response) {
+					$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
 				});
 
+			}, function(response) {
+				$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
 			});
 		}
 		// No category has been selected. Tell user
@@ -137,11 +150,11 @@ stories.controller('PrefCtrl', function($scope, Requests, User, $state, $ionicLo
 				})
 				//$ionicHistory.clearCache();
 			}, function(response) {
-				$cordovaDialogs.alert("Får ikke svar fra server.");
+				$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
 			});
 
 		}, function(response) {
-			$cordovaDialogs.alert("Får ikke svar fra server.");
+			$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
 		});
 		
 	};

@@ -26,7 +26,8 @@ stories.controller('StoryCtrl', function(
 	uiGmapGoogleMapApi,
 	uiGmapIsReady,
 	Requests,
-	Story) {
+	Story
+) {
 
 	$scope.storyId = Requests.getSelectedStory();
 	$scope.userId = $window.localStorage.getItem('userId');
@@ -56,7 +57,7 @@ stories.controller('StoryCtrl', function(
 			});
 	};
 
-	$scope.stooryGoBack = function() {
+	$scope.storyGoBack = function() {
 		$ionicHistory.goBack();
 	};
 
@@ -116,7 +117,7 @@ stories.controller('StoryCtrl', function(
 		// If story data is not successfully retrieved, go back to recommendation view. 
 		$ionicLoading.hide();
 		$ionicHistory.goBack();
-		$scope.showAlert('Vettu Hva?', 'Får ikke åpnet fortellingen');
+		FrontendService.showAlert('Vettu Hva?', 'Får ikke åpnet fortellingen');
 	});
 
 

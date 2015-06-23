@@ -101,27 +101,31 @@ stories.controller('MenuCtrl', function(
 	     	cancelText: 'Avbryt',
 	     	okText: 'OK'
 	   		});
-	   			   		
+	   	   		
 	   		confirmPopup.then(function(res) {
 			    if(res) {
 			    	var index = $scope.collectionList.indexOf(list);
 					$scope.collectionList.splice(index, 1);
-					Requests.removeTag($window.localStorage.getItem('userId'), list.text);
-					//TODO: Håndtere fail for Requests  
-					$scope.updateMenu();
+					Requests.removeTag($window.localStorage.getItem('userId'), list.text)
+					.then(function(response) {
+						if (response.data.status === "successfull") {
+							$scope.updateMenu();
+						} else if (response.data.status === "failed") {
+							$rootScope.showAlert("Server problemer", "Slettingen ble ikke utført");
+						}
+					}, function(response) {
+						$rootScope.showAlert("Server problemer", "Prøv igjen nå eller senere");
+					});
 		     	} else {
-		    	   console.log('Noe gikk galt');
+					$rootScope.showAlert("Server problemer", "Prøv igjen nå eller senere");
 		     	}
 		   	}); 
 	}
-
 
 	$scope.myGoBack = function() {
 			$ionicHistory.goBack();
 			$ionicSideMenuDelegate.toggleLeft()
 		};
-
-	
 
 		// Update the bookmark lists in the menu. 
 	$scope.updateMenu = function() {
@@ -157,6 +161,5 @@ stories.controller('MenuCtrl', function(
 
 
 	$scope.updateMenu();
-
 
 })
