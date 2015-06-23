@@ -68,17 +68,22 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 
 .ion-loading-a {
-	font-size: 1.8em;
+	font-size: 1.6em;
 	margin-left: 4%;		
 }
 
 .ion-checkmark-round {
-	font-size: 1.8em;
+	font-size: 1.6em;
 	margin-left: 4%;
 }
 
 .ion-load-c {
 	font-size: 1.8em;
+}
+
+.ion-happy {
+	font-size: 1.6em;
+	margin-left: 2%;
 }
 
 /*
@@ -130,7 +135,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 .onboardOne{
     height: 100%;
     position:relative;
-    background:   url("../img/onboardOne.png")no-repeat;
+    background:   url("../img/logo_bubble.png")no-repeat;
     background-size: contain;
     background-position: center;
 }
@@ -138,7 +143,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 .onboardTwo{
     height: 100%;
     position:relative;
-    background:   url("../img/onboard2.png")no-repeat;
+    background:   url("../img/onboardOne.png")no-repeat;
     background-size: contain;
     background-position: center;
 }
@@ -146,7 +151,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 .onboardTree{
     height: 100%;
     position:relative;
-    background:   url("../img/onboard3.png")no-repeat;
+    background:   url("../img/onboard2.png")no-repeat;
     background-size: contain;
     background-position: center;
 }
@@ -800,7 +805,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 .modal.bookmark .button-clear, .rating-modal .button-clear {
     	position: absolute;
-    	top: 3%;
+    	top: 5%;
     	right: 4%;
     }
 
@@ -1224,7 +1229,7 @@ TODO: .ion-loading-a er definers flere ganger
 
 // Styling for the modal
 .rating-modal {
-	min-height: 30%;
+	min-height: 28%;
 	width: 75%;
 	background-color: $background-color;
 	position: absolute;
@@ -1235,6 +1240,7 @@ TODO: .ion-loading-a er definers flere ganger
 
     h2 {
 		font-size: 1.6em;
+		margin-top: 16%;
 	}
 
     .rating-content {
@@ -1251,9 +1257,10 @@ TODO: .ion-loading-a er definers flere ganger
    color: #fd0;
    }
 
-   .button {
-   	width: 80%;
-   	margin: 4% auto;
+   .button-clear {
+		position: absolute;
+		top: 4%;
+		right: 3%;
    }
 
    .ion-loading-a {
@@ -1884,8 +1891,13 @@ ion-slide .button {
 */
 
 .about {
-	width: 90%;
-	margin: 5% auto;
+	width: 95%;
+	margin: 2.5% auto;
+}
+
+.about.card {
+	padding: 5%;
+	border-radius: 8px;
 }
 
 .about-logo-sintef {
@@ -1898,5 +1910,10 @@ ion-slide .button {
 	margin: 0 auto;
 	padding-top: 10%;
 	display: block;
+}
+
+.bullet-list {
+	list-style-type: disc;
+	margin-left: 1.2em;
 }
 

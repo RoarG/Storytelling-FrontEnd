@@ -1,6 +1,6 @@
 <div class="modal bookmark" ng-controller="BookmarkCtrl">
 	<h2>Legg til bokmerke</h2>
-	<div class="button button-clear button-calm" ng-click="newItem()"><i class="icon ion-plus"></i></div>
+	<div class="button button-clear button-calm" ng-click="closeModal()"><i class="icon ion-close"></i></div>
 	<!-- Bookmark lists: checked off if a story has that bookmark -->
 	<div class="list bookmark-content">
 		<ion-scroll direction="y">
@@ -23,7 +23,7 @@
 		</ion-scroll>
 
 		<!-- Form to add a new bookmark list -->
-		<form class="item" ng-submit="addItem()" ng-show="displayTextField">
+		<form class="item" ng-submit="addItem()">
 			<label class="item item-input item-floating-label">
 				<i class="icon ion-plus placeholder-icon"></i>
 				<input type="text" ng-model="newItemName" placeholder="Skrive inn ønsket navn">
@@ -33,7 +33,5 @@
 		<p ng-show="saveStatus == 'saving'"><i class="ion-loading-a"></i> Lagrer endringer...</p>
 			<p ng-show="saveStatus == 'saved'"><i class="ion-checkmark"></i> Lagret</p>
 			<p ng-show="saveStatus == 'error'">Endringer ikke lagret.</p>
-		<!-- Done button -->
-		<div class="item button button-block button-calm" ng-click="closeModal()">Ferdig</div>
 	</div>
 </div>
