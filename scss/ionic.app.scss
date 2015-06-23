@@ -1182,8 +1182,13 @@ TODO: .ion-loading-a er definers flere ganger
 .image-modal {
     width: 100% !important;
     height: 100%;
-    top: 0 !important;
-    left: 0 !important;
+    /*top: 0 !important;
+    left: 0 !important;*/
+
+
+    ion-slide {
+    	position: relative;
+    }
 }
 
 .transparent {
@@ -1193,13 +1198,16 @@ TODO: .ion-loading-a er definers flere ganger
 .fullscreen-image {
     max-width: 100%;
     max-height: 100%;
-    bottom: 0;
-    left: 0;
-    margin: auto;
-    overflow: auto;
-    position: fixed;
-    right: 0;
-    top: 0;
+    /*bottom: 0;
+    left: 0;*/
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    /*right: 0;
+    top: 0;*/
 }
 
 .image-description {
@@ -1209,7 +1217,7 @@ TODO: .ion-loading-a er definers flere ganger
 	font-size: 1.1em;
 	color: white;
 	width: 100%;
-	position: fixed;
+	position: absolute;
 	bottom: 30px;
 	left: 50%;
 	-webkit-transform: translateX(-50%);

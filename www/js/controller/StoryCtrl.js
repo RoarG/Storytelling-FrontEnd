@@ -23,6 +23,7 @@ stories.controller('StoryCtrl', function(
 	$interval,
 	$rootScope,
 	$cordovaSocialSharing,
+	$ionicSlideBoxDelegate,
 	uiGmapGoogleMapApi,
 	uiGmapIsReady,
 	Requests,
@@ -242,6 +243,7 @@ stories.controller('StoryCtrl', function(
 	// Display selected image in fullscreen in a modal. 
 	$scope.showImages = function(index) {
 		$scope.activeSlide = index;
+		$ionicSlideBoxDelegate.update();
 		$scope.showModal('templates/image-popover.html');
 	};
 
