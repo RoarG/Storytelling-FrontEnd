@@ -135,7 +135,7 @@ stories.controller('MenuCtrl', function(
 			$scope.defaultLists = [];
 			for(var i = 0; i < $scope.collectionList.length; i++) {
 				var tagName = $scope.collectionList[i].text;
-				if(tagName == "Historikk" || tagName == "Lest" /*|| tagName == "Les senere"*/) {
+				if(tagName == "Anbefalte fortellinger" || tagName == "Vurderte fortellinger" /*|| tagName == "Les senere"*/) {
 					$scope.defaultLists.push($scope.collectionList[i]);
 				} else {
 					$scope.userMadeLists.push($scope.collectionList[i]);
