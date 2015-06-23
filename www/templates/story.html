@@ -1,4 +1,6 @@
 <ion-view view-title="" class="story" ng-controller="StoryCtrl">
+    <ion-nav-back-button ng-click="storyGoBack()"> 
+    </ion-nav-back-button>
     <ion-nav-buttons side="right"> 
         <button class="button button-icon ion-android-star" ng-click="showModal('templates/rating.html')"></button>
         <button class="button button-icon ion-ios-bookmarks" ng-click="showModal('templates/bookmark-modal.html')"></button>

@@ -56,6 +56,10 @@ stories.controller('StoryCtrl', function(
 			});
 	};
 
+	$scope.stooryGoBack = function() {
+		$ionicHistory.goBack();
+	};
+
 	// Get the story data so it can be displayed
 	Requests.getStory($scope.storyId, $scope.userId).then(function(response) {
 		$scope.story = new Story(response.data);
