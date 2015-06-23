@@ -79,29 +79,12 @@
                 <div class="slide-nav slide-nav-left" ng-click="previousSlide()" ng-hide="$index === 0 || storyPreviews.length == 0" ><i class="ion-chevron-left"></i></div>
                 <div class="slide-nav slide-nav-right" ng-click="nextSlide() || storyPreviews.length == 0" ng-hide="$index === storyPreviews.length-1" ><i class="ion-chevron-right"></i></div>
 
-                <!-- Explanation of why the story was recommended -->
-                <!--<div class="recommExplanation" ng-if="currentSlideIndex === storyPreviews.indexOf(story) || currentSlideIndex === storyPreviews.indexOf(story)-1 || currentSlideIndex === storyPreviews.indexOf(story)+1">-->
+                
                 <div class="recommExplanation">
-                    <p ng-if="story.explanation && story.explanation[0].valueOf() !== '' && story.false_recommend == 0 && story.explanation[0].indexOf('user based') == -1">
-                        Denne fortellingen ble anbefalt fordi du leste
-                        <span ng-if="story.explanation.length === 1"> fortellingen <a href="#" ng-click="openStoryLink(story.explanation[0].substr(0,7))">{{story.explanation[0].substr(8) | limitTo: 40}}<span ng-if="story.explanation[0].substr(8).length > 40">...</span></a></span>
-                        <span ng-if="story.explanation.length == 2"> fortellingene 
-                            <a href="#" ng-click="openStoryLink(story.explanation[0].substr(0,7))">{{story.explanation[0].substr(8) | limitTo: 25}}<span ng-if="story.explanation[0].substr(8).length > 25">...</span></a>
-                            og
-                            <a href="#" ng-click="openStoryLink(story.explanation[1].substr(0,7))">{{story.explanation[1].substr(8) | limitTo: 25}}<span ng-if="story.explanation[1].substr(8).length > 25">...</span></a>
-                        </span>
-                        <span ng-if="story.explanation.length >= 3"> fortellingene 
-                            <a href="#" ng-click="openStoryLink(story.explanation[0].substr(0,7))">{{story.explanation[0].substr(8) | limitTo: 22}}<span ng-if="story.explanation[0].substr(8).length > 22">...</span></a>
-                            ,
-                            <a href="#" ng-click="openStoryLink(story.explanation[1].substr(0,7))">{{story.explanation[1].substr(8) | limitTo: 22}}<span ng-if="story.explanation[1].substr(8).length > 22">...</span></a>
-                            og
-                            <a href="#" ng-click="openStoryLink(story.explanation[2].substr(0,7))">{{story.explanation[2].substr(8) | limitTo: 22}}<span ng-if="story.explanation[2].substr(8).length > 22">...</span></a>
-                        </span>
+                    <p ng-if="story.explanation && story.explanation[0].valueOf() !== '' && story.false_recommend == 0">
+                        {{story.explanationText}} <span ng-repeat="link in story.explanationLinks"> <a href="#" ng-click="openStoryLink(link[0])">{{link[1] | limitTo: 20}}{{link[1].length > 20 ? '...' : ''}}</a>, </span></p>
 
-                            <!--<span ng-repeat="e in story.explanation"><a href="#" ng-click="openStoryLink(e.substr(0,7))">{{e.substr(8) | limitTo: 24}}<span ng-if="e.substr(8).length > 24">...</span></a><span ng-if="story.explanation.indexOf(e) !== story.explanation.length-1">, </span></span>-->
-                    </p>
-                    <p ng-if="story.explanation[0].indexOf('user based') != -1">Denne er anbefalt fordi andre som har samme interesser som deg liker den. </p>
-                    <p ng-if="story.explanation[0].indexOf('item based') != -1">Denne er anbefalt fordi andre som har samme interesser som deg liker den. </p>
+                       
 
                     <!-- False recommendation -->
                     <p ng-if="story.false_recommend == 1">Prøv den her! Denne fortellingen er valgt fordi den er annerledes fra hva du vanligvis leser.</p>

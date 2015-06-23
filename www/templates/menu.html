@@ -20,11 +20,11 @@
 
                 <!-- Main Section -->
                 <ion-item id="home" nav-clear menu-close ui-sref="app.recommendations">
-                    <b>HJEM - Fortellinger</b>
+                    <b>Anbefalte fortellinger</b>
                 </ion-item>
-                <ion-item nav-clear menu-close ng-click="viewList()">
+                <ion-item nav-clear menu-close ng-click="viewNotifications()">
                     <!-- TODO: Åpne not rated liste -->
-                    Varslinger <b id="inboxAmount">{{inbox.amount}} x</b>
+                    Venter på vurdering<span ng-if="notificationsCount" class="badge badge-assertive">{{notificationsCount}}</span>
                 </ion-item>
                 <ion-item nav-clear menu-close ng-click="goSettings()">
                     Innstillinger

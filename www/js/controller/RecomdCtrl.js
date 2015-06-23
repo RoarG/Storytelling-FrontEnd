@@ -86,6 +86,9 @@ stories.controller('RecomdCtrl', function(
   	});
 */
 
+
+
+
 	$scope.refreshRecommendations = function() {
 		$scope.storyPreviews = [];
 		
@@ -113,6 +116,28 @@ stories.controller('RecomdCtrl', function(
 			$ionicSlideBoxDelegate.slide(0); 
 			$ionicSlideBoxDelegate.update();
 
+			// Organize recommendation explanation so that it's easier to display. 
+			for(var i = 0; i < $scope.storyPreviews.length; i++) {
+				var story = $scope.storyPreviews[i];
+				story.explanationText = "Denne fortellingen ble anbefalt fordi "
+                story.explanationLinks = [];
+                if(story.explanation[0].indexOf('user based') != -1 || story.explanation[0].indexOf('item based') != -1) {
+                    story.explanationText += "andre som har samme interesser som deg liker den.";
+                } else {
+                    if(story.explanation.length == 1) {
+                        story.explanationText += "du leste fortellingen ";
+                    } else if(story.explanation.length >= 2) {
+                	   story.explanationText += "du leste fortellingene ";
+                    }
+                    for(var j = 0; j < story.explanation.length && j < 3; j++) {
+                    	if(isNaN(story.explanation[j].charAt(4))) {
+                    		story.explanationLinks.push([story.explanation[j].substr(0,6), story.explanation[j].substr(6)]);
+                    	} else {
+                    		story.explanationLinks.push([story.explanation[j].substr(0,7), story.explanation[j].substr(8)]);
+                    	}
+                    }
+                }
+            }
 			
 			$scope.currentlyLoading = false;
 			}, 1000);
@@ -183,7 +208,8 @@ stories.controller('RecomdCtrl', function(
 	 // Set the story in current slide as recommended, and as the current story. 
 	$scope.slideChanged = function() {
 		$scope.currentSlideIndex = $ionicSlideBoxDelegate.currentIndex();
-		Requests.setSelectedStory($scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id);
+		var story = $scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()];
+		Requests.setSelectedStory(story.id);
 	    
 	    //Only want to set a story as recommended one time for each list of recommendations
 	    if($scope.recommendArray.indexOf($scope.storyPreviews[$ionicSlideBoxDelegate.currentIndex()].id) == -1){

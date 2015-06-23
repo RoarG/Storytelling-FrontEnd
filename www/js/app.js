@@ -19,7 +19,8 @@ var stories = angular.module('stories', [
 	'BookmarkCtrl',
 	'SettingsCtrl',
 	'RatingCtrl',
-	'TutorialCtrl'
+	'TutorialCtrl',
+	'NotificationsCtrl'
 ])
 
 // This runs when the application is started. 
@@ -319,7 +320,8 @@ var stories = angular.module('stories', [
 		url: "/acknowledgment",
 		views: {
 			'menuContent': {
-				templateUrl: "templates/acknowledgment.html"
+				templateUrl: "templates/acknowledgment.html",
+				controller: "MenuCtrl"
 			}
 		}
 	})
@@ -328,7 +330,18 @@ var stories = angular.module('stories', [
 		url: "/about",
 		views: {
 			'menuContent': {
-				templateUrl: "templates/about.html"
+				templateUrl: "templates/about.html",
+				controller: "MenuCtrl"
+			}
+		}
+	})
+
+	.state('app.notificationView', {
+		url: "/notificationView",
+		views: {
+			'menuContent': {
+				templateUrl: "templates/notificationView.html",
+				controller: 'NotificationsCtrl'
 			}
 		}
 	});

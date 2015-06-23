@@ -16,11 +16,16 @@ stories.controller('MenuCtrl', function(
 	$ionicPopup,
 	$ionicHistory,
 	$ionicSideMenuDelegate,
+	$cordovaInAppBrowser,
 	Requests, 
 	User
 ) {
 
 	$scope.group = false;
+	Requests.getNumberOfNotifications($window.localStorage.getItem('userId')).then(function(response)  {
+		$scope.notificationsCount = response.data['numberOfNotifications'];
+		console.log("Number of notifications:" + $scope.notificationsCount);
+	});
 	
 	$scope.goSettings = function () {
 		$state.go('app.settings');
@@ -141,6 +146,15 @@ stories.controller('MenuCtrl', function(
 				}
 		});
 	};
+
+	$scope.viewNotifications = function() {
+		$state.go("app.notificationView");
+	}
+
+	$scope.openUrl = function(url) {
+		open(url, '_system');
+	}
+
 
 	$scope.updateMenu();
 
