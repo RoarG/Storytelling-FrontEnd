@@ -3,10 +3,9 @@
     	<div class="close-icon">
 							<i ng-click="closeModal()" class="icon ion-close"></i>
 			</div>
-        <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+        <ui-gmap-google-map center='map.center' zoom='map.zoom' ng-if="showMap">
               <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id" closeClick="hideMarkerPopup()" onClicked="showMarkerPopup()">
                </ui-gmap-marker> 
-      
             </ui-gmap-google-map>
     </div>
 

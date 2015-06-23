@@ -251,19 +251,30 @@ stories.controller('StoryCtrl', function(
 	$scope.showModal = function(templateUrl) {
 		if(templateUrl == 'templates/map.html') {
 			$scope.initializeMap();
-		}
+			$scope.showMap = false;
+			$scope.showMap = true;
+			$ionicModal.fromTemplateUrl(templateUrl, {
+				scope: $scope,
+				animation: 'slide-in-up'
+			}).then(function(modal) {
+				$scope.modal = modal;
+				$scope.modal.show();
+			});
+		} else {
+			$ionicModal.fromTemplateUrl(templateUrl, function(modal) {
+				// Sends story data to the controller of the modal. 
+				$scope.childCtrl = modal;
+				$scope.childCtrl.story = $scope.story;
+			}, {
+				scope: $scope,
+				animation: 'slide-in-up'
+			}).then(function(modal) {
+				$scope.modal = modal;
+				$scope.modal.show();
+			});
+			}
 
-		$ionicModal.fromTemplateUrl(templateUrl, function(modal) {
-			// Sends story data to the controller of the modal. 
-			$scope.childCtrl = modal;
-			$scope.childCtrl.story = $scope.story;
-		}, {
-			scope: $scope,
-			animation: 'slide-in-up'
-		}).then(function(modal) {
-			$scope.modal = modal;
-			$scope.modal.show();
-		});
+		
 	};
 
 	// Close the modal
@@ -395,6 +406,7 @@ stories.controller('StoryCtrl', function(
 		      console.log("2");
 		    console.log($scope.map.center.latitude);
 	    });
+	    
 	    var viewportWidth = document.documentElement.clientWidth;
 	    console.log("Viewport width: " + document.documentElement.clientWidth);
 	    $scope.mapUrl = "https://maps.googleapis.com/maps/api/staticmap?" + 
