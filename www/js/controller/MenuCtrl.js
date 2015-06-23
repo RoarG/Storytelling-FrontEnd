@@ -123,8 +123,15 @@ stories.controller('MenuCtrl', function(
 	}
 
 	$scope.myGoBack = function() {
-			$ionicHistory.goBack();
-			$ionicSideMenuDelegate.toggleLeft()
+			var cState = $ionicHistory.currentStateName(); 
+			if (cState == 'app.listView' || cState == 'app.settings' || cState == 'app.appOne' || cState == 'app.about' ||cState == 'app.acknowledgment' || cState == 'app.notificationView') {
+				$ionicHistory.goBack();
+				$ionicSideMenuDelegate.toggleLeft()
+			}
+			else if (cState == 'app.story' || cState == 'app.editProfile' || cState == 'app.editPreferences' ) {
+				$ionicHistory.goBack();
+			}
+
 		};
 
 		// Update the bookmark lists in the menu. 

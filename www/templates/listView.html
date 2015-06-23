@@ -2,6 +2,8 @@
     <ion-nav-buttons side="right">
         <button class="button button-outline button-balanced" id="filtering-button" ng-click="showModal('templates/categoryFilteringDropdown.html')"><i class="ion-arrow-down-b"></i> {{chosenCategory}}</button>
     </ion-nav-buttons>
+    <ion-nav-back-button ng-click="myGoBack()">
+            </ion-nav-back-button>
     <ion-content overflow-scroll="true" class="list-view">
         <div class="button-bar">
             <a class="button button-light" ng-click="sortStories('insertion_time')">
@@ -48,7 +50,7 @@
                         <p>{{story.description | limitTo: 100}}{{story.description.length > 100 ? '...' : ''}}</p>
                     </div>
                 </div>
-                <div ng-hide="{{tag == 'Historikk' || tag == 'Lest'}}" class="button button-clear" ng-click="remove(story, $event)"><i class="icon ion-close"></i></div>
+                <div ng-hide="{{tag == 'Vurderte fortellinger' || tag == 'Anbefalte fortellinger'}}" class="button button-clear" ng-click="remove(story, $event)"><i class="icon ion-close"></i></div>
             </ion-item>
             <ion-item ng-if="isMore" class="item-button-right card" id="seeMoreCard" ng-click="seeMore()">
             <div>
