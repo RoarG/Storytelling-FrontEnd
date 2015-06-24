@@ -1,7 +1,10 @@
-# Storytelling-FrontEnd
+# VettuHva-FrontEnd Developer Documentation
 
+TODO
 
-##Dependencies
+##Documentations
+
+## Dependencies
 
 ### Android Specific 
 * Android SDK (See the Requirements and Support section at https://cordova.apache.org/docs/en/3.3.0/guide_platforms_android_index.md.html#Android%20Platform%20Guide)
@@ -33,7 +36,7 @@ To sign apk file:
   ```ionic state restore```
 
   
-## Testing 
+## Testing / Run locally
 
 Use these commands in the root folder of the project to run the application.
 
@@ -134,3 +137,6 @@ https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistrib
 
 How to distribute the app to test users:
 https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/TestingYouriOSApp/TestingYouriOSApp.html#//apple_ref/doc/uid/TP40012582-CH8-SW1
+
+## License
+## References / Thanks
