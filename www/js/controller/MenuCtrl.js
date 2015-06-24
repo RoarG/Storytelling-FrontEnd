@@ -22,10 +22,7 @@ stories.controller('MenuCtrl', function(
 ) {
 
 	$scope.group = false;
-	Requests.getNumberOfNotifications($window.localStorage.getItem('userId')).then(function(response)  {
-		$scope.notificationsCount = response.data['numberOfNotifications'];
-		console.log("Number of notifications:" + $scope.notificationsCount);
-	});
+
 	
 	$scope.goSettings = function () {
 		$state.go('app.settings');
@@ -136,6 +133,14 @@ stories.controller('MenuCtrl', function(
 
 		// Update the bookmark lists in the menu. 
 	$scope.updateMenu = function() {
+		Requests.getNumberOfNotifications($window.localStorage.getItem('userId')).then(function(response) {
+			$scope.notificationsCount = response.data['numberOfNotifications'];
+			if($window.localStorage.getItem('notificationHintDisplayed') == undefined && $scope.notificationsCount > 0) {
+				$scope.displayNotificationHint = true;
+			} else {
+				$scope.displayNotificationHint = false;
+			}
+		});
 		Requests.getAllLists($window.localStorage.getItem('userId')).then(function(response) {
 			$scope.collectionList = response.data;
 			$scope.userMadeLists = [];
@@ -164,6 +169,11 @@ stories.controller('MenuCtrl', function(
 
 	$scope.openUrl = function(url) {
 		open(url, '_system');
+	}
+
+	$scope.closeHint = function() {
+		$window.localStorage.setItem('notificationHintDisplayed', "1");
+		$scope.displayNotificationHint = false;
 	}
 
 

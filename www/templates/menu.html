@@ -16,15 +16,16 @@
             <p class="title">Meny</p>
         </ion-header-bar>
         <ion-content>
+        <div ng-if="displayNotificationHint" class="hintText"><i class="icon ion-close" ng-click="closeHint()"></i><p>Noen historier du har lest mangler vurdering</p></div>
             <ion-list>
 
                 <!-- Main Section -->
                 <ion-item id="home" nav-clear menu-close ui-sref="app.recommendations">
                     <b>Anbefalte fortellinger</b>
                 </ion-item>
-                <ion-item nav-clear menu-close ng-click="viewNotifications()">
+                <ion-item id="itemWithHint"nav-clear menu-close ng-click="viewNotifications()">
                     <!-- TODO: Åpne not rated liste -->
-                    Venter på vurdering<span ng-if="notificationsCount" class="badge badge-assertive">{{notificationsCount}}</span>
+                    <span class="hint">Venter på vurdering</span><span ng-if="notificationsCount" class="badge badge-assertive">{{notificationsCount}}</span>
                 </ion-item>
                 <ion-item nav-clear menu-close ng-click="goSettings()">
                     Innstillinger
