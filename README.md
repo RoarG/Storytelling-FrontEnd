@@ -1,6 +1,5 @@
-# VettuHva-FrontEnd Developer Documentation
+# Storytelling-FrontEnd
 
-TODO
 
 ## Dependencies
 
@@ -9,7 +8,6 @@ TODO
 * Cordova
 * Gulp
 * VettuHva_Backend ?? TODO: 
-
 
 ### Android Specific 
 * Android SDK (See the [Requirements and Support](https://cordova.apache.org/docs/en/3.3.0/guide_platforms_android_index.md.html#Android%20Platform%20Guide) for more information)  
@@ -58,7 +56,7 @@ stories.factory("Requests", function ($http) {
 	var req = {
 		method: 'POST',
 		url: 'http://XXX.XXX.XXX.XXX:XXXXX/requests/controller.php',
-		headers: {'Content-Type': 'application/json'} // 'Content-Type': 	 application/json???
+		headers: {'Content-Type': 'application/json'}
 	}
 	
 	var tok = "XXXXXXXXXXXXXXXX"; //Add the correct token here 
@@ -69,7 +67,7 @@ Change the URL to where the backend is located, and the token (tok) set in backe
 
 
   
-## Testing / Run locally
+## Testing 
 
 Use these commands in the root folder of the project to run the application.
 
@@ -103,7 +101,7 @@ You need to run this to install the emulator: ```npm install -g ios-sim```
 
 ```ionic emulate ios```
 
-<b>Device</b> <i>(requires Apple Developer account)</i>
+<b>Device</b> <i> (requires Apple Developer account)</i>
 
 ```ionic run ios```
 
@@ -173,5 +171,21 @@ https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistrib
 How to distribute the app to test users:
 https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/TestingYouriOSApp/TestingYouriOSApp.html#//apple_ref/doc/uid/TP40012582-CH8-SW1
 
-## License
-## References / Thanks
+## Further Development
+
+### System Setup
+
+![alt tag](https://raw.githubusercontent.com/RoarG/VettuHva-FrontEnd/master/readme/Frontend-backend-com.png)
+
+### Highlevel Architecture
+
+![alt tag](https://raw.githubusercontent.com/RoarG/VettuHva-FrontEnd/master/readme/highlevelarc.png)
+
+
+### UI - Diagram
+
+![alt tag](https://raw.githubusercontent.com/RoarG/VettuHva-FrontEnd/master/readme/UIdiagram.png)
+
+
+
+
