@@ -77,7 +77,7 @@ stories.controller('PrefCtrl', function(
      		}
 
 		}, function(response) {
-			$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
+			$rootScope.showAlert('Serverproblemer', 'Får ikke svar fra server');
 		});
 	};
 
@@ -114,18 +114,18 @@ stories.controller('PrefCtrl', function(
 					$state.go("app.recommendations");
 					$ionicLoading.hide();
 				}, function(response) {
-					$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
+					$rootScope.showAlert('Serverproblemer', 'Får ikke svar fra server');
 				});
 
 			}, function(response) {
-				$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
+				$rootScope.showAlert('Serverproblemer', 'Får ikke svar fra server');
 			});
 		}
 		// No category has been selected. Tell user
 		else 
 		{
 			$ionicLoading.show({
-					template: '<h2>Du må velge minst en kategori</h2>',
+					template: '<h2>Du må velge minst én kategori</h2>',
 					noBackdrop: false,
 					duration: 2000
 				});
@@ -150,11 +150,11 @@ stories.controller('PrefCtrl', function(
 				})
 				//$ionicHistory.clearCache();
 			}, function(response) {
-				$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
+				$rootScope.showAlert('Serverproblemer', 'Får ikke svar fra server');
 			});
 
 		}, function(response) {
-			$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
+			$rootScope.showAlert('Serverproblemer', 'Får ikke svar fra server');
 		});
 		
 	};

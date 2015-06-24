@@ -52,7 +52,7 @@ var stories = angular.module('stories', [
 			cssClass: 'popUp',
 	     	title: title , 
 	     	template: msg ,
-	     	cancelText: 'Lukk App',
+	     	cancelText: 'Lukk app',
 	     	okText: 'Prøv igjen'
 	   		});
 	   		$ionicLoading.hide();
@@ -122,7 +122,7 @@ var stories = angular.module('stories', [
 			// Checks if offline when app is started
 			if ($cordovaNetwork.isOffline()) {
 				console.log('Først If');
-				$rootScope.popUp("Ingen nettilgang", "Appliksjonen trenger en internett fobindelse for å virke");
+				$rootScope.popUp("Ingen nettilgang", "Applikasjonen trenger en internettforbindelse for å virke");
 			}
 
 			else {
@@ -136,7 +136,7 @@ var stories = angular.module('stories', [
 				$rootScope.$on('$cordovaNetwork:offline', function(event, networkState) {
 					console.log('Cordova network offiline');
 
-					$rootScope.popUp("Ingen nettilgang", "Appliksjonen trenger en internett fobindelse for å virke");
+					$rootScope.popUp("Ingen nettilgang", "Applikasjonen trenger en internettforbindelse for å virke");
 					$rootScope.networkAccess = false;
 					
 				})

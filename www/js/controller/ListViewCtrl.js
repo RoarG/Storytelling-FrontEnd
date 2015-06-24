@@ -92,7 +92,7 @@ stories.controller('ListViewCtrl', function(
 			//TODO: Legg til see more knapp her hvis det er flere som kan bes om.
 
 	}).error(function(data, status) {
-		$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
+		$rootScope.showAlert('Serverproblemer', 'Får ikke svar fra server');
 	});
 
 	/**
@@ -120,7 +120,7 @@ stories.controller('ListViewCtrl', function(
 			}
 
 		}).error(function(data, status) {
-			$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
+			$rootScope.showAlert('Serverproblemer', 'Får ikke svar fra server');
 		});
 	}
 
@@ -159,7 +159,7 @@ stories.controller('ListViewCtrl', function(
 							$scope.storyPreviews.splice(index, 1);
 						}, function(response) {
 							$ionicLoading.hide();
-							$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
+							$rootScope.showAlert('Serverproblemer', 'Får ikke svar fra server');
 						});
 				} else {
 					console.log('Canceled the deletion');
@@ -197,7 +197,7 @@ stories.controller('ListViewCtrl', function(
 				}
 			}
 		}).error(function(data, status) {
-			$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
+			$rootScope.showAlert('Serverproblemer', 'Får ikke svar fra server');
 		});
 	}
 

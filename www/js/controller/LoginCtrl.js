@@ -50,7 +50,7 @@ stories.controller('LoginCtrl', function(
 
 		}, function(response) {
 			$ionicLoading.hide();
-			$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
+			$rootScope.showAlert('Serverproblemer', 'Får ikke svar fra server');
 		});
 	}
 
@@ -82,7 +82,7 @@ stories.controller('LoginCtrl', function(
 			$window.localStorage.setItem('userModel', $scope.responseData.userModel);
 		}, function(response) {
 			$ionicLoading.hide();
-			$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
+			$rootScope.showAlert('Serverproblemer', 'Får ikke svar fra server');
 		});
 	}
 
@@ -112,12 +112,12 @@ stories.controller('LoginCtrl', function(
 				$ionicLoading.hide();
 			} else if (response.data.status === "failed") {
 				$ionicLoading.hide();
-				$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
+				$rootScope.showAlert('Serverproblemer', 'Får ikke svar fra server');
 
 			}
 		}, function(response) {
 			$ionicLoading.hide();
-			$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
+			$rootScope.showAlert('Serverproblemer', 'Får ikke svar fra server');
 		});
 	}
 
@@ -142,7 +142,7 @@ stories.controller('LoginCtrl', function(
 	$scope.updateUser = function() {
 		Requests.updateUser(new User($window.localStorage.getItem('userId'))).then(function(response1) {}, function(response) {
 			$ionicLoading.hide();
-			$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
+			$rootScope.showAlert('Serverproblemer', 'Får ikke svar fra server');
 		});
 	}
 

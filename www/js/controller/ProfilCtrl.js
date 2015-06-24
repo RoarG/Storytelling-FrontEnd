@@ -42,7 +42,7 @@ stories.controller('ProfilCtrl', function(
 			$scope.setAgeGrp(age_group);
 
 		}, function(response) {
-			$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');	
+			$rootScope.showAlert('Serverproblemer', 'Får ikke svar fra server');	
 		});
 
 	};
@@ -59,11 +59,11 @@ stories.controller('ProfilCtrl', function(
 				// If successfully updated user, go to next step: setting preferences. 
 				$state.go("preferences");
 			}, function(response) {
-				$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');	
+				$rootScope.showAlert('Serverproblemer', 'Får ikke svar fra server');	
 			});
 
 		}, function(response) {
-			$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');	
+			$rootScope.showAlert('Serverproblemer', 'Får ikke svar fra server');	
 		});
 
 	};
@@ -85,11 +85,11 @@ stories.controller('ProfilCtrl', function(
 					duration: 1200
 				});
 			}, function(response) {
-				$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');	
+				$rootScope.showAlert('Serverproblemer', 'Får ikke svar fra server');	
 			});
 
 		}, function(response) {
-			$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');	
+			$rootScope.showAlert('Serverproblemer', 'Får ikke svar fra server');	
 		});
 	};
 

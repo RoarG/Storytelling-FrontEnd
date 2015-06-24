@@ -41,7 +41,7 @@ stories.controller('SettingsCtrl', function(
 		Requests.getUserFromId($scope.userId).then(function(response) {
 			$scope.user = response.data;
 		}, function(response) {
-			$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
+			$rootScope.showAlert('Serverproblemer', 'Får ikke svar fra server');
 		});
 	};
 
@@ -51,7 +51,7 @@ stories.controller('SettingsCtrl', function(
 		//do not update email if string is erroneous or empty
 		if (!email) {
 			$ionicLoading.show({
-				template: '<h2>Mislykket: E-mail adresse er feilskrevet eller tom</h2>',
+				template: '<h2>Mislykket: E-postadresse er feilskrevet eller tom</h2>',
 				noBackdrop: true,
 				duration: 3000
 			});
@@ -95,11 +95,11 @@ stories.controller('SettingsCtrl', function(
 					}
 
 				}, function(response) {
-					$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
+					$rootScope.showAlert('Serverproblemer', 'Får ikke svar fra server');
 				});
 
 			}, function(response) {
-				$rootScope.showAlert('Server Problemer', 'Får ikke svar fra server');
+				$rootScope.showAlert('Serverproblemer', 'Får ikke svar fra server');
 			});
 		}
 	};
