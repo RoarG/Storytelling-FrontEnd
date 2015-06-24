@@ -1,36 +1,70 @@
 # Storytelling-FrontEnd
 
 
-##Dependencies
+## Dependencies
+
+* NodeJS
+* Ionic
+* Cordova
+* Gulp
+* VettuHva_Backend ?? TODO: 
 
 ### Android Specific 
-* Android SDK (See the Requirements and Support section at https://cordova.apache.org/docs/en/3.3.0/guide_platforms_android_index.md.html#Android%20Platform%20Guide)
+* Android SDK (See the [Requirements and Support](https://cordova.apache.org/docs/en/3.3.0/guide_platforms_android_index.md.html#Android%20Platform%20Guide) for more information)  
 
-To sign apk file:
+##### To sign apk file:
 * Keytool (JDK)
 * jarsigner (JDK)
 * zipalign (JDK)
 
 ### iOS Specific (only possible on Mac OSX)
 * Xcode (install from the App Store)
-	Minimum required version is Xcode 4.5. More on this at https://cordova.apache.org/docs/en/3.3.0/guide_platforms_ios_index.md.html#iOS%20Platform%20Guide
+	Minimum required version is Xcode 4.5. More on this at [Cordova.apache.org](https://cordova.apache.org/docs/en/3.3.0/guide_platforms_ios_index.md.html#iOS%20Platform%20Guide)
 
 
-##Setup Guide
+## Setup Guide
 
-1. Install NodeJS (https://nodejs.org/download/)
+1. Install [NodeJS](https://nodejs.org/download/) 
 
-2. Install Cordova and Ionic (http://ionicframework.com/getting-started/) 
 
-  ```npm install -g cordova ionic```
+2. Install Cordova and [Ionic](http://ionicframework.com/getting-started/) 
+
+  	```npm install -g cordova ionic```
+    
   
-3. Install Gulp (https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md)
+3. Install [Gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md)
 
-  ```npm install -g gulp```
+  	```npm install -g gulp```
+    
   
 3. Restore State (Install dependencies)
 
-  ```ionic state restore```
+  	```ionic state restore```
+    
+
+4. Setup the Backend
+	
+	[VettuHva_Backend](https://github.com/ewolden/vettu-hva) Backend repository
+    
+
+5. Configure the backend service (js/backendServices.js)
+
+
+```javascript
+  /**Handles communication with backend*/
+stories.factory("Requests", function ($http) {
+	var req = {
+		method: 'POST',
+		url: 'http://XXX.XXX.XXX.XXX:XXXXX/requests/controller.php',
+		headers: {'Content-Type': 'application/json'} // 'Content-Type': 	 application/json???
+	}
+	
+	var tok = "XXXXXXXXXXXXXXXX"; //Add the correct token here 
+```
+
+
+Change the URL to where the backend is located, and the token (tok) set in backend
+
 
   
 ## Testing 
@@ -43,15 +77,17 @@ First run:
 
 ```ionic build android```
 
-* Emulator (Note that the default Android emulator has many problems and is not recommended to use)
+<b>Emulator</b> 
 
- ```ionic emulate android```
+<i>(Note that the default Android emulator has many problems and is not recommended to use)</i>
 
-* Device
+```ionic emulate android```
 
- ```ionic run android```
+<b>Device</b>
 
-Read more about ionic testing here: http://ionicframework.com/docs/guide/testing.html
+```ionic run android```
+
+Read more about ionic testing here: [Ionic Framwork](http://ionicframework.com/docs/guide/testing.html)
 
 ### iOS
 
@@ -59,17 +95,17 @@ First run:
 
 ```ionic build ios```
 
-* Emulator
+<b>Emulator</b>
 
 You need to run this to install the emulator: ```npm install -g ios-sim```
 
 ```ionic emulate ios```
 
-* Device (requires Apple Developer account)
+<b>Device</b> <i>(requires Apple Developer account)</i>
 
 ```ionic run ios```
 
-* Ionic View app
+<b>Ionic View app</b>
 
 You can install an app on iOS called Ionic view, and test "Vettu Hva?" through it. 
 Requires an Ionic user. 
@@ -82,18 +118,18 @@ You will then be asked to enter login information.
 
 Then it should be possible to download and run in Ionic View. If it for some reason should not appear, click on the eye icon at the top left and enter the ID from the command line. 
 
-More information about Ionic View: http://blog.ionic.io/view-app-is-alive/
+More information about Ionic View: [Ionic.io](http://blog.ionic.io/view-app-is-alive/)
 
 ### Browser 
 
 The application requires internet access.
 Testing this way is not recommended. The app uses cordova plugins, and these will not work in the browser. 
 
-* Both platforms (Android and iOS) in one view
+<b>Both platforms</b> (Android and iOS) in one view
 
  ```ionic serve --lab```
  
-* Single view which can be resized
+<b>Single view</b> which can be resized
 
  ```ionic serve```
 
@@ -114,17 +150,17 @@ Testing this way is not recommended. The app uses cordova plugins, and these wil
 
   ```jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore HelloWorld-release-unsigned.apk alias_name ``` 
   
-    Where the AKP is located i.e. StoryTelling-Frontend\platforms\android\ant-build
+Where the AKP is located i.e. StoryTelling-Frontend\platforms\android\ant-build
 
 3. Optimize the APK
 
   ```zipalign -v 4 HelloWorld-release-unsigned.apk HelloWorld.apk```  
 
-(These steps are necessary to update the application after you published it the first time) 
+<i>(These steps are necessary to update the application after you published it the first time) </i>
 
 PS. Save the keystore file generated in step 2 for further patching.
 
-Read more about publishing Ionic applications on Android here: http://ionicframework.com/docs/guide/publishing.html
+Read more about publishing Ionic applications on Android here: [Ionic publishing](http://ionicframework.com/docs/guide/publishing.html)
 
 ### iOS
 Apple Developer account required. You can open the .xcodeproj project from the platforms/ios folder. 
