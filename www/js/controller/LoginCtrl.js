@@ -67,7 +67,7 @@ stories.controller('LoginCtrl', function(
 
 		console.log('email: ' + $window.localStorage.getItem('userMail'));
 		//TODO: Fjern comment under
-		//StatusBar.show();
+		StatusBar.show();
 
 		//TODO: Set user assosiated with the email ??
 		$state.go("app.recommendations");

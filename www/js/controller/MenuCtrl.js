@@ -121,6 +121,7 @@ stories.controller('MenuCtrl', function(
 
 	$scope.myGoBack = function() {
 			var cState = $ionicHistory.currentStateName(); 
+			console.log('myGoBack ' + cState);
 			if (cState == 'app.listView' || cState == 'app.settings' || cState == 'app.appOne' || cState == 'app.about' ||cState == 'app.acknowledgment' || cState == 'app.notificationView') {
 				$ionicHistory.goBack();
 				$ionicSideMenuDelegate.toggleLeft()
@@ -128,7 +129,6 @@ stories.controller('MenuCtrl', function(
 			else if (cState == 'app.story' || cState == 'app.editProfile' || cState == 'app.editPreferences' ) {
 				$ionicHistory.goBack();
 			}
-
 		};
 
 		// Update the bookmark lists in the menu. 
@@ -147,7 +147,7 @@ stories.controller('MenuCtrl', function(
 			$scope.defaultLists = [];
 			for(var i = 0; i < $scope.collectionList.length; i++) {
 				var tagName = $scope.collectionList[i].text;
-				if(tagName == "Anbefalte fortellinger" || tagName == "Vurderte fortellinger" /*|| tagName == "Les senere"*/) {
+				if(tagName == "Tidligere anbefalt" || tagName == "Vurderte fortellinger" /*|| tagName == "Les senere"*/) {
 					$scope.defaultLists.push($scope.collectionList[i]);
 				} else {
 					$scope.userMadeLists.push($scope.collectionList[i]);

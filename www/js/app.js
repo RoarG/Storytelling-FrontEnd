@@ -141,27 +141,27 @@ var stories = angular.module('stories', [
 					
 				})
 				//STATECHECK HERE!!
+				// Decides which view to go to first:
+				// If the user has not been through the tutorial, go to tutorial. 
+				if (!($window.localStorage.getItem('didTutorial'))) 
+				{
+					$state.go('onboardOne');
+				}
+				// If user is logged in, go to recommendation view. 
+				else if ($window.localStorage.getItem('userId') !== "-1" && $window.localStorage.getItem('userId') !== null)
+				{
+					$state.go('app.recommendations');
+				}
+				// If logged out but have done tutorial, go to login view. 
+				else
+				{
+					$state.go('login');
+				}
 			}
-
 		}
 
+
 			// TODO: STATECHECK Denne blocken tom. cordovaSplashscreen.hide() inne i else blocken over i build
-			// Decides which view to go to first:
-			// If the user has not been through the tutorial, go to tutorial. 
-			if (!($window.localStorage.getItem('didTutorial'))) 
-			{
-				$state.go('onboardOne');
-			}
-			// If user is logged in, go to recommendation view. 
-			else if ($window.localStorage.getItem('userId') !== "-1" && $window.localStorage.getItem('userId') !== null)
-			{
-				$state.go('app.recommendations');
-			}
-			// If logged out but have done tutorial, go to login view. 
-			else
-			{
-				$state.go('login');
-			}
 		
 		$cordovaSplashscreen.hide();
 		//STATECHECK HERE!!

@@ -17,7 +17,7 @@
 			ng-model="item.checked" 
 			ng-checked="item.checked" 
 			ng-click="toggleTag(item)" 
-			ng-hide="item.text === 'Lest' || item.text === 'Historikk' || item.text === 'Les senere'">
+			ng-hide="item.text == 'Lest' || item.text == 'Tidligere anbefalt' || item.text == 'Les senere' || item.text == 'Vurderte fortellinger'">
 				{{ item.text }}
 			</ion-checkbox>
 		</ion-scroll>

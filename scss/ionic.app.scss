@@ -1946,7 +1946,9 @@ ion-item {
   display: inline;
   overflow-y: visible;
 }
- .hintText {
+
+
+.hintText {
   position: fixed;
   width:190px;
   color: #FFFFFF;
@@ -1975,7 +1977,7 @@ ion-item {
   	top: 0px;
   	right: 12px;
   	line-height: 2em;
-  	padding: 3px; 
+  	padding: 3px;
   }
 }
 

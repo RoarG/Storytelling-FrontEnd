@@ -34,7 +34,6 @@ stories.controller('StoryCtrl', function(
 	$scope.userId = $window.localStorage.getItem('userId');
 
 	$scope.devicePlatform = ionic.Platform.isAndroid();
-	console.log('platform ' + $scope.devicePlatform);
 
 	$scope.isAudioPlaying = false;
 
@@ -118,7 +117,7 @@ stories.controller('StoryCtrl', function(
 		// If story data is not successfully retrieved, go back to recommendation view. 
 		$ionicLoading.hide();
 		$ionicHistory.goBack();
-		FrontendService.showAlert('Vettu Hva?', 'Får ikke åpnet fortellingen');
+		$rootScope.showAlert('Vettu Hva?', 'Får ikke åpnet fortellingen');
 	});
 
 
@@ -316,8 +315,6 @@ stories.controller('StoryCtrl', function(
 					$scope.audioFiles[url][1] = result;
 				}
 				var duration = $scope.audioFiles[url][0].getDuration()
-				console.log("Duration: " + duration);
-				console.log("Position: " + result);
 				if ((result > duration - 0.001  && duration != -1) || result == -1) {
 					$scope.isAudioPlaying = false;
 					$scope.audioFiles[url][1] = -1;
@@ -375,7 +372,6 @@ stories.controller('StoryCtrl', function(
 	}
 
 	$scope.initializeMap = function() {
-		console.log("1");
 		// uiGmapGoogleMapApi is a promise.
 	    // The "then" callback function provides the google.maps object.
 	    uiGmapGoogleMapApi.then(function(maps) {
@@ -403,15 +399,11 @@ stories.controller('StoryCtrl', function(
 		        	scaledSize: new google.maps.Size(34, 44)
 		        }*/
 		      };  
-		      console.log("2");
-		    console.log($scope.map.center.latitude);
 	    });
 	    
 	    var viewportWidth = document.documentElement.clientWidth;
-	    console.log("Viewport width: " + document.documentElement.clientWidth);
 	    $scope.mapUrl = "https://maps.googleapis.com/maps/api/staticmap?" + 
 	    	"zoom=8&scale=2&size=" + Math.round(viewportWidth*0.75).valueOf() + "x" + Math.round(viewportWidth*0.55).valueOf() + "&maptype=roadmap" +
 			"&markers=color:red%7C" + $scope.story.latitude + "," + $scope.story.longitude;
-		console.log($scope.mapUrl);
 	}
 })

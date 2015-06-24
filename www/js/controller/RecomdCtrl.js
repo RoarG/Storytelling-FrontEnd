@@ -34,7 +34,7 @@ stories.controller('RecomdCtrl', function(
 	$scope.userId = $window.localStorage.getItem('userId');
 
 	//TODO: Fjern Comment Under
-	//StatusBar.show();
+	StatusBar.show();
 	
 	//Trying to disable animate on the slidebox element
 	/*console.log('SlideBox: ' + document.getElementById("slideBox"));
@@ -238,7 +238,6 @@ stories.controller('RecomdCtrl', function(
       		template: '<h2>Laster inn fortelling</h2><div class="icon ion-loading-a"></div>',
     		noBackdrop: false
 	    });
-	    console.log('test');
 	    Requests.setSelectedStory(story.id);
 		$state.go("app.story");
 	};

@@ -19,6 +19,7 @@ stories.controller('SettingsCtrl', function(
 ) {
 
 	$scope.savingMailStatus = null;
+	$scope.email = $window.localStorage.getItem('userMail');
 
 	// Setting scope variable at opening, this is used when login out and in with a other account
 	$scope.$on('$ionicView.enter', function() {

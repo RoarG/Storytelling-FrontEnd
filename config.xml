@@ -4,7 +4,7 @@
   <description>&#xD;
         Denne applikasjonen ble startet utviklet våren 2015, i et faglig studentprosjekt ved Norges teknisk-naturvitenskapelige universitet.&#xD;
     </description>
-  <author email="vettuhva@sintef.no" href="http://sintef.no/">&#xD;
+  <author email="sintefsit@gmail.com" href="http://sit.sintef9013.com">&#xD;
       Sintef&#xD;
     </author>
   <content src="index.html"/>
@@ -15,7 +15,7 @@
   <preference name="DisallowOverscroll" value="true"/>
   <preference name="BackupWebStorage" value="none"/>
   <preference name="SplashScreen" value="screen"/>
-  <preference name="SplashScreenDelay" value="3000"/>
+  <preference name="SplashScreenDelay" value="30000"/>
   <preference name="Orientation" value="portrait"/>
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
