@@ -96,8 +96,8 @@ stories.controller('MenuCtrl', function(
 	$scope.deleteList = function(list) {
 		var confirmPopup = $ionicPopup.confirm({
 			cssClass: 'popUp',
-	     	title: 'Slett liste' , 
-	     	template: 'Vil du slette listen "' + list.text + '"?', 
+	     	title: 'Slett' , 
+	     	template: 'Vil du slette bokmerke "' + list.text + '"?', 
 	     	cancelText: 'Avbryt',
 	     	okText: 'OK'
 	   		});
