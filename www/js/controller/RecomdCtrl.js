@@ -144,10 +144,10 @@ stories.controller('RecomdCtrl', function(
 			
 		}, function(response) {
 				if ($rootScope.networkAccess) {
-					$rootScope.popUp("Server problemer", "Prøv igjen nå eller senere" );
+					$rootScope.popUp("Serverproblemer", "Prøv igjen nå eller senere" );
 				}
 				else {
-					$rootScope.popUp("Ingen nettilgang", "Appliksjonen trenger en internett forbindelse for å virke");
+					$rootScope.popUp("Ingen nettilgang", "Applikasjonen trenger en internettforbindelse for å virke");
 				}
 	  		}
 	  	);
@@ -235,7 +235,7 @@ stories.controller('RecomdCtrl', function(
     // Sets the story as selected, and goes to story view. 
 	$scope.openStory = function(story) {
 		$ionicLoading.show({
-      		template: '<h2>Laster inn historie</h2><div class="icon ion-loading-a"></div>',
+      		template: '<h2>Laster inn fortelling</h2><div class="icon ion-loading-a"></div>',
     		noBackdrop: false
 	    });
 	    console.log('test');
@@ -246,7 +246,7 @@ stories.controller('RecomdCtrl', function(
 	// Opens story by storyId. Used by the story links in the recommendation explanation. 
 	$scope.openStoryLink = function(storyId) {
 	    $ionicLoading.show({
-	      template: '<h2>Laster inn historie</h2><div class="icon ion-loading-a"></div>',
+	      template: '<h2>Laster inn fortelling</h2><div class="icon ion-loading-a"></div>',
 	      noBackdrop: false
 	    });
 	    Requests.setSelectedStory(storyId);

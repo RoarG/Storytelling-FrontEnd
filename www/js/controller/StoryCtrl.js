@@ -185,7 +185,7 @@ stories.controller('StoryCtrl', function(
 			.then(function(result) {
 				//Success!
 			}, 	function(error) {
-					$scope.showAlert('Vettu Hva?', 'Finner ikke Twitter applikasjonen');
+					$scope.showAlert('Vettu Hva?', 'Finner ikke Twitter-applikasjonen');
 				});
 		}
 			//Else IOS
@@ -213,7 +213,7 @@ stories.controller('StoryCtrl', function(
 		      // Success!
 			}, 	function(err) {
 		      // An error occurred. Show a message to the user
-				$scope.showAlert('Vettu Hva?', 'Finner ikke Facebook applikasjonen');
+				$scope.showAlert('Vettu Hva?', 'Finner ikke Facebook-applikasjonen');
 		     	});
 		}
 			//Else IOS

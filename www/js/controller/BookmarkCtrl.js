@@ -41,16 +41,16 @@ stories.controller('BookmarkCtrl', function(
 			}
 		}, function(response) {
 			if ($rootScope.networkAccess) {
-				$rootScope.showAlert("Server problemer", "Prøv igjen nå eller senere");
+				$rootScope.showAlert("Serverproblemer", "Prøv igjen nå eller senere");
 			} else {
-				$rootScope.popUp("Ingen nettilgang", "Appliksjonen trenger en internett forbindelse for å virke");
+				$rootScope.popUp("Ingen nettilgang", "Applikasjonen trenger en internettforbindelse for å virke");
 			}
 		});
 	}, function(response) {
 		if ($rootScope.networkAccess) {
-			$rootScope.showAlert("Server problemer", "Prøv igjen nå eller senere");
+			$rootScope.showAlert("Serverproblemer", "Prøv igjen nå eller senere");
 		} else {
-			$rootScope.popUp("Ingen nettilgang", "Appliksjonen trenger en internett forbindelse for å virke");
+			$rootScope.popUp("Ingen nettilgang", "Applikasjonen trenger en internettforbindelse for å virke");
 		}
 	});
 
@@ -73,7 +73,7 @@ stories.controller('BookmarkCtrl', function(
 					$scope.tags.push($scope.newItemName);
 					$scope.saveStatus = "saved";
 				}, function(response) {
-					$rootScope.showAlert("Server problemer", "Prøv igjen nå eller senere");
+					$rootScope.showAlert("Serverproblemer", "Prøv igjen nå eller senere");
 					$scope.saveStatus = "error";
 				});
 			$scope.tags.push($scope.newItemName);
@@ -110,7 +110,7 @@ stories.controller('BookmarkCtrl', function(
 				}
 				$scope.saveStatus = "saved";
 			}, function(response) {
-				$rootScope.showAlert("Server problemer", "Prøv igjen nå eller senere");
+				$rootScope.showAlert("Serverproblemer", "Prøv igjen nå eller senere");
 				$scope.saveStatus = "error";
 			});
 			for (var i = 0; i < $scope.tags.length; i++) {
@@ -127,7 +127,7 @@ stories.controller('BookmarkCtrl', function(
 				$scope.tags.push(tag["text"]);
 				$scope.saveStatus = "saved";
 			}, function(response) {
-				$rootScope.showAlert("Server problemer", "Prøv igjen nå eller senere");
+				$rootScope.showAlert("Serverproblemer", "Prøv igjen nå eller senere");
 				$scope.saveStatus = "error";
 			});
 			$scope.tags.push(tag["text"]);

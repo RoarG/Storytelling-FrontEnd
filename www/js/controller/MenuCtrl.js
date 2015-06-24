@@ -111,13 +111,13 @@ stories.controller('MenuCtrl', function(
 						if (response.data.status === "successfull") {
 							$scope.updateMenu();
 						} else if (response.data.status === "failed") {
-							$rootScope.showAlert("Server problemer", "Slettingen ble ikke utført");
+							$rootScope.showAlert("Serverproblemer", "Slettingen ble ikke utført");
 						}
 					}, function(response) {
-						$rootScope.showAlert("Server problemer", "Prøv igjen nå eller senere");
+						$rootScope.showAlert("Serverproblemer", "Prøv igjen nå eller senere");
 					});
 		     	} else {
-					$rootScope.showAlert("Server problemer", "Prøv igjen nå eller senere");
+					$rootScope.showAlert("Serverproblemer", "Prøv igjen nå eller senere");
 		     	}
 		   	}); 
 	}
@@ -150,10 +150,10 @@ stories.controller('MenuCtrl', function(
 			}
 		}, function(response) {
 			if ($rootScope.networkAccess) {
-					$rootScope.popup("Server problemer", "Prøv igjen nå eller senere" );
+					$rootScope.popup("Serverproblemer", "Prøv igjen nå eller senere" );
 				}
 				else {
-					$rootScope.popUp("Ingen nettilgang", "Appliksjonen trenger en internett forbindelse for å virke");
+					$rootScope.popUp("Ingen nettilgang", "Applikasjonen trenger en internettforbindelse for å virke");
 				}
 		});
 	};
