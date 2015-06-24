@@ -1,4 +1,8 @@
-# Storytelling-FrontEnd
+# VettuHva-FrontEnd
+
+"Vettu Hva?" was developed in the spring of 2015. The idea for "Vettu Hva?" was proposed by SINTEF, and was further developed in cooperation with a group of students as part of a customer-driven project at Norwegian University of Science and Technology (NTNU). Students have implemented the application under the guidance of SINTEF.
+
+Application is made in the context of EU / FP7 IST research TAG CLOUD. The aim of the project is to generate increased interest in cultural heritage through a personalized cultural experience.
 
 
 ## Dependencies
@@ -7,15 +11,17 @@
 * Ionic
 * Cordova
 * Gulp
-* VettuHva_Backend ?? TODO: 
+* [VettuHva_Backend](https://github.com/ewolden/vettu-hva)
 
 ### Android Specific 
 * Android SDK (See the [Requirements and Support](https://cordova.apache.org/docs/en/3.3.0/guide_platforms_android_index.md.html#Android%20Platform%20Guide) for more information)  
 
-##### To sign apk file:
+##### To sign apk file: 
 * Keytool (JDK)
 * jarsigner (JDK)
 * zipalign (JDK)
+
+<i>(Not needed for browser testing)</i>
 
 ### iOS Specific (only possible on Mac OSX)
 * Xcode (install from the App Store)
