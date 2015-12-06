@@ -1,12 +1,13 @@
-// Main file that defines the app. 
+// Main file that defines the app.
 
-// This creates a module for the app called 'stories', and the second parameter is the modules it is dependent on. 
+// This creates a module for the app called 'stories', and the second parameter is the modules it is dependent on.
 // Files ending with Ctrl is found in the controller folder
 var stories = angular.module('stories', [
-	'ionic',	
+	'ionic',
 	'backend.services',
-	'ngCordova',	
+	'ngCordova',
 	'ui.router',
+	'ngIOS9UIWebViewPatch',
 	'uiGmapgoogle-maps',
 	'IntroCtrl',
 	'LoginCtrl',
@@ -23,20 +24,20 @@ var stories = angular.module('stories', [
 	'NotificationsCtrl'
 ])
 
-// This runs when the application is started. 
+// This runs when the application is started.
 .run(function(
-	$window, 
-	$ionicPlatform, 
+	$window,
+	$ionicPlatform,
 	$ionicPopup,
-	$cordovaDialogs, 
-	$cordovaNetwork, 
-	$rootScope, 
-	$cordovaSplashscreen, 
+	$cordovaDialogs,
+	$cordovaNetwork,
+	$rootScope,
+	$cordovaSplashscreen,
 	$state,
 	$ionicSideMenuDelegate,
 	$ionicLoading,
 	Requests
-) { 
+) {
 
 
 
@@ -50,13 +51,13 @@ var stories = angular.module('stories', [
 		$rootScope.popUp = function(title, msg) {
 			var confirmPopup = $ionicPopup.confirm({
 			cssClass: 'popUp',
-	     	title: title , 
+	     	title: title ,
 	     	template: msg ,
 	     	cancelText: 'Lukk app',
 	     	okText: 'Prøv igjen'
 	   		});
 	   		$ionicLoading.hide();
-	   		
+
 	   		confirmPopup.then(function(res) {
 				console.log('Buttonres: '+ res);
 			    if(res) {
@@ -70,7 +71,7 @@ var stories = angular.module('stories', [
 		    	   console.log('You are closing the app');
 		    	   ionic.Platform.exitApp();
 		     	}
-		   	}); 
+		   	});
 		}
 
 
@@ -90,10 +91,10 @@ var stories = angular.module('stories', [
 	    	$ionicSideMenuDelegate.toggleLeft();
 		};
 
-		
+
 		// Tells the back-end that the app has been started.
 		Requests.opensApp($window.localStorage.getItem('userId'));
-		
+
 		// Lock orientation on ios.
 		if(isIOS) {
 			screen.lockOrientation('portrait');
@@ -104,7 +105,7 @@ var stories = angular.module('stories', [
 			// Hide the keyboard accessory bar by default (on the top of the keyboard when filling in form inputs)
 			cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
 
-			// Avoids content being pushed up when focusing on inputs below the keyboard. 
+			// Avoids content being pushed up when focusing on inputs below the keyboard.
 			if(isAndroid) {
 				cordova.plugins.Keyboard.disableScroll(true);
 			} else if(isIOS) {
@@ -138,21 +139,21 @@ var stories = angular.module('stories', [
 
 					$rootScope.popUp("Ingen nettilgang", "Applikasjonen trenger en internettforbindelse for å virke");
 					$rootScope.networkAccess = false;
-					
+
 				})
 				//STATECHECK HERE!!
 				// Decides which view to go to first:
-				// If the user has not been through the tutorial, go to tutorial. 
-				if (!($window.localStorage.getItem('didTutorial'))) 
+				// If the user has not been through the tutorial, go to tutorial.
+				if (!($window.localStorage.getItem('didTutorial')))
 				{
 					$state.go('onboardOne');
 				}
-				// If user is logged in, go to recommendation view. 
+				// If user is logged in, go to recommendation view.
 				else if ($window.localStorage.getItem('userId') !== "-1" && $window.localStorage.getItem('userId') !== null)
 				{
 					$state.go('app.recommendations');
 				}
-				// If logged out but have done tutorial, go to login view. 
+				// If logged out but have done tutorial, go to login view.
 				else
 				{
 					$state.go('login');
@@ -162,7 +163,7 @@ var stories = angular.module('stories', [
 
 
 			// TODO: STATECHECK Denne blocken tom. cordovaSplashscreen.hide() inne i else blocken over i build
-		
+
 		$cordovaSplashscreen.hide();
 		//STATECHECK HERE!!
 
@@ -178,11 +179,11 @@ var stories = angular.module('stories', [
 	});
 })
 
-	// Defines the different states of the app and the templates and controllers that are associated to them. 
+	// Defines the different states of the app and the templates and controllers that are associated to them.
 .config(function(
-	$stateProvider, 
-	$urlRouterProvider, 
-	$sceDelegateProvider, 
+	$stateProvider,
+	$urlRouterProvider,
+	$sceDelegateProvider,
 	$ionicConfigProvider
 	) {
 
@@ -242,7 +243,7 @@ var stories = angular.module('stories', [
 // Tutorial accessed through settings
 	.state('app.appOne', {
 		url: "/appOne",
-		views: {	
+		views: {
 		'menuContent': {
 				templateUrl: "templates/appOne.html",
 				controller: 'TutorialCtrl'
@@ -361,8 +362,7 @@ var stories = angular.module('stories', [
 	});
 
 	// If app is not started before go to onboardOne
-	// already logged in, go to recommendation view, otherwise go to login. 	
+	// already logged in, go to recommendation view, otherwise go to login.
 	/*$urlRouterProvider.otherwise('/onboardOne');*/
-  
-});
 
+});
