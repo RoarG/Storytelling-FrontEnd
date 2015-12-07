@@ -27,10 +27,11 @@
     "org.apache.cordova.media",
     "org.apache.cordova.dialogs",
     "org.apache.cordova.network-information",
-    "cordova-plugin-splashscreen"
+    "cordova-plugin-splashscreen",
+    "cordova-plugin-x-socialsharing"
   ],
   "cordovaPlatforms": [
-    "ios",
-    "android"
+    "android",
+    "ios"
   ]
 }
