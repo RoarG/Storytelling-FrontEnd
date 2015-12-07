@@ -1,8 +1,8 @@
 ////////////////////////
-//  Settings 
+//  Settings
 ////////////////////////
 
-// Controller that handles displaying and editing settings. 
+// Controller that handles displaying and editing settings.
 
 angular.module('SettingsCtrl', [])
 
@@ -28,7 +28,7 @@ stories.controller('SettingsCtrl', function(
 		$scope.user = $window.localStorage.getItem('userModel');
 	})
 
-	// Log out user and go to login screen. 
+	// Log out user and go to login screen.
 	$scope.logout = function() {
 		$window.localStorage.clear();
 		$ionicHistory.clearCache();
@@ -67,6 +67,7 @@ stories.controller('SettingsCtrl', function(
 				oldEmail = user.email; //store the old email in case new email is incorrect
 				user.setEmail(email); //set user's email to the new email
 				$scope.email = email; //display the new email in the template
+				$window.localStorage.setItem('userMail', email);
 
 				Requests.updateUser(user).then(function(response) {
 					//if update succeeds, display a confirmation message

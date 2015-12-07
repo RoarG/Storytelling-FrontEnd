@@ -3,17 +3,17 @@
   "version": "1.0.0",
   "description": "Denne applikasjonen ble startet utviklet våren 2015, i et faglig studentprosjekt ved Norges teknisk-naturvitenskapelige universitet.",
   "dependencies": {
-    "gulp": "^3.5.6",
-    "gulp-sass": "^0.7.1",
-    "gulp-concat": "^2.2.0",
-    "gulp-minify-css": "^0.3.0",
+    "gulp": "^3.9.0",
+    "gulp-sass": "^2.1.0",
+    "gulp-concat": "^2.5.2",
+    "gulp-minify-css": "^0.3.13",
     "gulp-rename": "^1.2.0"
   },
   "devDependencies": {
-    "bower": "^1.3.3",
-    "gulp-util": "^2.2.14",
-    "jasmine-core": "^2.3.0",
-    "karma": "^0.12.36",
+    "bower": "^1.3.12",
+    "gulp-util": "^2.2.20",
+    "jasmine-core": "^2.2.0",
+    "karma": "^0.12.31",
     "karma-chrome-launcher": "^0.1.8",
     "karma-jasmine": "^0.3.5",
     "karma-phantomjs-launcher": "^0.1.4",
@@ -31,11 +31,6 @@
   ],
   "cordovaPlatforms": [
     "ios",
-    {
-      "platform": "ios",
-      "version": "",
-      "locator": "ios"
-    },
     "android"
   ]
 }
